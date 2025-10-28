@@ -12,6 +12,10 @@
       args)))
 
 
+(fn require-and-call [mod f opts]
+ `(fn [] ((. (require ,mod) ,f) ,(or opts {}))))
+
+
 (fn config [...]
   (fn set-require [opts]
     (icollect [_ req (pairs opts)]
@@ -58,5 +62,6 @@
 
 
 {: tb 
+ : require-and-call
  : config}
 

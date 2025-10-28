@@ -1,8 +1,5 @@
-(import-macros {: tb} :macros)
+(import-macros {: tb : require-and-call} :macros)
 
-
-(macro require-and-call [mod f]
-  `(fn [] ((. (require ,mod) ,f))))
 
 (tb "telescope.nvim"
     {:for_cat "general.telescope"
