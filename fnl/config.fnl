@@ -3,7 +3,7 @@
 
 (let [numbertoggle (vim.api.nvim_create_augroup "numbertoggle" {})
       screen-width (vim.api.nvim_win_get_width 0)
-      statuscolumn "  %l%r%s%C"
+      statuscolumn "  %l%s%C"
       statuscolumn-wide (.. (string.rep " " (/ (- screen-width 100) 3)) statuscolumn)]
   (config
     {requires [:plugins]

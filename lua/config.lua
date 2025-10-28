@@ -1,7 +1,7 @@
 -- [nfnl] fnl/config.fnl
 local numbertoggle = vim.api.nvim_create_augroup("numbertoggle", {})
 local screen_width = vim.api.nvim_win_get_width(0)
-local statuscolumn = "  %l%r%s%C"
+local statuscolumn = "  %l%s%C"
 local statuscolumn_wide = (string.rep(" ", ((screen_width - 100) / 3)) .. statuscolumn)
 do local _ = {require("plugins")} end
 vim.opt["fillchars"] = {eob = " "}
