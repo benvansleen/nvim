@@ -6,7 +6,10 @@
 
   programs = {
     beautysh.enable = true;
-    fnlfmt.enable = true;
+    fnlfmt = {
+      enable = true;
+      includes = [ "[^config].fnl" ];
+    };
     jsonfmt.enable = true;
     nixfmt.enable = false; # currently failing
     statix.enable = true;

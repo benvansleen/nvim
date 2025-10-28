@@ -16,7 +16,7 @@
       :event :DeferredUIEnter
       :keys [(tb " gs" (require-and-call :gitsigns :stage_hunk)
                  {:mode [:n] :desc "[G]it: [S]tage hunk"})
-             (tb " gr" (require-and-call :gitsigns :reset_hunk)
+             (tb " gR" (require-and-call :gitsigns :reset_hunk)
                  {:mode [:n] :desc "[G]it: [R]eset hunk"})
              (tb " gp" (require-and-call :gitsigns :preview_hunk_inline)
                  {:mode [:n] :desc "[G]it: [P]review hunk"})]
