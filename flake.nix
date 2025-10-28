@@ -1,9 +1,20 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,7 +44,9 @@
   };
 
   # see :help nixCats.flake.outputs
-  outputs = { self, nixpkgs, ... }@inputs: let
+  outputs = { self, nixpkgs, pre-commit-hooks, treefmt-nix, ... }@inputs: let
+    treefmtEval = pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+
     inherit (inputs.nixCats) utils;
     luaPath = ./.;
     # this is flake-utils eachSystem
@@ -76,7 +89,7 @@
     # and
     # :help nixCats.flake.outputs.categoryDefinitions.scheme
     categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
-      # to define and use a new category, simply add a new list to a set here, 
+      # to define and use a new category, simply add a new list to a set here,
       # and later, you will include categoryname = true; in the set you
       # provide when you build the package using this builder function.
       # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
@@ -291,7 +304,7 @@
       # vim.g.python3_host_prog
       # or run from nvim terminal via :!<packagename>-python3
       python3.libraries = {
-        test = (_:[]);
+        test = _:[];
       };
       # populates $LUA_PATH and $LUA_CPATH
       extraLuaPackages = {
@@ -372,7 +385,7 @@
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
           # go = true; # <- disabled but you could enable it with override or module on install
 
-          # this does not have an associated category of plugins, 
+          # this does not have an associated category of plugins,
           # but lua can still check for it
           lspDebugMode = false;
           # you could also pass something else:
@@ -443,10 +456,31 @@
           # pkgs.fennel-ls
         ];
         inputsFrom = [ defaultPackage ];
-        shellHook = ''
-        '';
+        buildInputs = [
+          self.checks.${system}.pre-commit-check.enabledPackages
+        ];
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
       };
     };
+
+    formatter = (treefmtEval pkgs).config.build.wrapper;
+    checks = {
+      pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+        src = ./.;
+        hooks = {
+          check-added-large-files.enable = true;
+          check-merge-conflicts.enable = true;
+          detect-private-keys.enable = true;
+          end-of-file-fixer.enable = true;
+          ripsecrets.enable = true;
+          trim-trailing-whitespace.enable = true;
+          treefmt = {
+            enable = true;
+            packageOverrides.treefmt = self.outputs.formatter.${pkgs.system};
+          };
+      };
+    };
+  };
 
   }) // (let
     # we also export a nixos module to allow reconfiguration from configuration.nix

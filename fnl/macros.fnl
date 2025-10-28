@@ -5,18 +5,18 @@
   (let [to-merge (when (table? (. args (length args)))
                    (table.remove args))]
     (if to-merge
-      (do
-        (each [key value (pairs to-merge)]
-          (tset args key value))
-        args)
-      args)))
-
+        (do
+          (each [key value (pairs to-merge)]
+            (tset args key value))
+          args)
+        args)))
 
 (fn require-and-call [mod f opts]
   (if opts
-   `(fn [] ((. (require ,mod) ,f) ,opts))
-   `(fn [] ((. (require ,mod) ,f)))))
-
+      `(fn []
+         ((. (require ,mod) ,f) ,opts))
+      `(fn []
+         ((. (require ,mod) ,f)))))
 
 (fn config [...]
   (fn set-require [opts]
@@ -26,6 +26,7 @@
   (fn set-options [opts]
     (icollect [k v (pairs opts)]
       `(tset vim.opt ,(tostring k) ,v)))
+
   (fn set-global [opts]
     (icollect [k v (pairs opts)]
       `(tset vim.g ,(tostring k) ,v)))
@@ -39,31 +40,15 @@
       `(vim.api.nvim_create_autocmd ,events ,cfg)))
 
   `(do
-     ,(unpack
-        (icollect [k v (pairs ...)]
-          (case [(tostring k) v]
-            [:requires reqs]
-            (set-require reqs)
+     ,(unpack (icollect [k v (pairs ...)]
+                (case [(tostring k) v]
+                  [:requires reqs] (set-require reqs)
+                  [:opt opts] (set-options opts)
+                  [:g opts] (set-global opts)
+                  [:nmap mappings] (set-mappings :n mappings)
+                  [:imap mappings] (set-mappings :i mappings)
+                  [:vmap mappings] (set-mappings :v mappings)
+                  [:autocmd cmds] (set-autocmds cmds)
+                  _ (error (.. "Unknown config form: " (view k))))))))
 
-            [:opt opts]
-            (set-options opts)
-            [:g opts]
-            (set-global opts)
-
-            [:nmap mappings]
-            (set-mappings "n" mappings) 
-            [:imap mappings]
-            (set-mappings "i" mappings) 
-            [:vmap mappings]
-            (set-mappings "v" mappings) 
-
-            [:autocmd cmds]
-            (set-autocmds cmds)
-
-            _ (error (.. "Unknown config form: " (view k))))))))
-
-
-{: tb 
- : require-and-call
- : config}
-
+{: tb : require-and-call : config}
