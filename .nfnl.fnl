@@ -1,1 +1,1 @@
-{}
+{:ignore-patterns [:flsproject.lua]}
