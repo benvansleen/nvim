@@ -229,6 +229,9 @@
             vim-rhubarb
             nvim-surround
           ];
+          tmux = with pkgs.vimPlugins; [
+            Navigator-nvim
+          ];
           extra = with pkgs.vimPlugins; [
             smear-cursor-nvim
             fidget-nvim

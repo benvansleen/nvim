@@ -3,5 +3,6 @@
     [{:import :plugins.appearance}
      {:import :plugins.git}
      {:import :plugins.lisp}
-     {:import :plugins.telescope}]))
+     {:import :plugins.telescope}
+     {:import :plugins.tmux}]))
 
