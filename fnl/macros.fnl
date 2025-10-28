@@ -13,7 +13,9 @@
 
 
 (fn require-and-call [mod f opts]
- `(fn [] ((. (require ,mod) ,f) ,(or opts {}))))
+  (if opts
+   `(fn [] ((. (require ,mod) ,f) ,opts))
+   `(fn [] ((. (require ,mod) ,f)))))
 
 
 (fn config [...]

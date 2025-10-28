@@ -11,12 +11,16 @@ do
       o.fg = colors.bg0
     else
     end
+    if ((g == "GreenSign") or (g == "RedSign") or (g == "BlueSign")) then
+      o.bg = colors.bg0
+    else
+    end
     return o
   end
   theme.setup({italics = true, contrast = contrast, comments = {italics = true}, background = {transparent = false}, customize = _1_})
 end
-local function _3_(_)
+local function _4_(_)
   local smear = require("smear_cursor")
   return smear.setup({smear_between_buffers = true, smear_between_neighbor_lines = true, scroll_buffer_space = true, smear_insert_mode = true})
 end
-return {"smear-cursor.nvim", after = _3_, event = "DeferredUIEnter"}
+return {"smear-cursor.nvim", after = _4_, event = "DeferredUIEnter"}

@@ -13,34 +13,34 @@ local function _1_(_)
   return telescope.load_extension("cmdline")
 end
 local function _3_()
-  return require("telescope.builtin").find_files({})
+  return require("telescope.builtin").find_files()
 end
 local function _4_()
-  return require("telescope.builtin").oldfiles({})
+  return require("telescope.builtin").oldfiles()
 end
 local function _5_()
-  return require("telescope.builtin").buffers({})
+  return require("telescope.builtin").buffers()
 end
 local function _6_()
-  return require("telescope.builtin").current_buffer_fuzzy_find({})
+  return require("telescope.builtin").current_buffer_fuzzy_find()
 end
 local function _7_()
-  return require("telescope.builtin").diagnostics({})
+  return require("telescope.builtin").diagnostics()
 end
 local function _8_()
-  return require("telescope.builtin").resume({})
+  return require("telescope.builtin").resume()
 end
 local function _9_()
-  return require("telescope.builtin").keymaps({})
+  return require("telescope.builtin").keymaps()
 end
 local function _10_()
-  return require("telescope.builtin").help_tags({})
+  return require("telescope.builtin").help_tags()
 end
 local function _11_()
-  return require("telescope.builtin").builtin({})
+  return require("telescope.builtin").builtin()
 end
 local function _12_()
-  return require("telescope.builtin").lsp_references({})
+  return require("telescope.builtin").lsp_references()
 end
 local function _13_(name)
   vim.cmd.packadd(name)

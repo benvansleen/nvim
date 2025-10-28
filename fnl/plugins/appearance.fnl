@@ -13,6 +13,7 @@
      :comments {:italics true}
      :background {:transparent false}
      :customize (fn [g o]
+
                  (when (or (= g "TelescopeBorder")
                            (= g "TelescopeNormal")
                            (= g "TelescopePromptNormal")
@@ -23,6 +24,12 @@
                    (set o.link nil)
                    (set o.bg colors.bg0)
                    (set o.fg colors.bg0))
+
+                 (when (or (= g "GreenSign")
+                           (= g "RedSign")
+                           (= g "BlueSign"))
+                   (set o.bg colors.bg0))
+
                  o)}))
 
 (tb "smear-cursor.nvim"
