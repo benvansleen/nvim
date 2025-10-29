@@ -1,8 +1,6 @@
-(let [nixCatsUtils (require :nixCatsUtils)]
-  (nixCatsUtils.setup {:non_nix_value true}))
+(import-macros {: setup} :macros)
 
-(require :myLuaConf.non_nix_download)
-(require :myLuaConf)
+(setup :nixCatsUtils {:non_nix_value true})
 
+(require :non_nix_download)
 (require :config)
-

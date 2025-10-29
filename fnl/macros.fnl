@@ -18,6 +18,10 @@
       `(fn []
          ((. (require ,mod) ,f)))))
 
+(fn setup [req opts]
+  `(let [p# (require ,req)]
+     (p#.setup ,opts)))
+
 (fn config [...]
   (fn set-require [opts]
     (icollect [_ req (pairs opts)]
@@ -51,4 +55,4 @@
                   [:autocmd cmds] (set-autocmds cmds)
                   _ (error (.. "Unknown config form: " (view k))))))))
 
-{: tb : require-and-call : config}
+{: tb : require-and-call : setup : config}

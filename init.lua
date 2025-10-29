@@ -1,8 +1,7 @@
 -- [nfnl] init.fnl
 do
-  local nixCatsUtils = require("nixCatsUtils")
-  nixCatsUtils.setup({non_nix_value = true})
+    local p_4_auto = require("nixCatsUtils")
+    p_4_auto.setup({ non_nix_value = true })
 end
-require("myLuaConf.non_nix_download")
-require("myLuaConf")
+require("non_nix_download")
 return require("config")
