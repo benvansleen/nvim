@@ -177,7 +177,7 @@ do
     end
 end
 if nixCats("debug") then
-    require("myLuaConf.debug")
+    require("debug")
 else
 end
 if nixCats("lint") then

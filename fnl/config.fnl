@@ -114,7 +114,7 @@
                      :callback (fn [] (when vim.wo.nu (set vim.wo.relativenumber false)))}}}))
 
 (when (nixCats :debug)
-  (require :myLuaConf.debug))
+  (require :debug))
 
 (when (nixCats :lint)
   (require :lint))
