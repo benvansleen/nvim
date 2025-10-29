@@ -20,8 +20,7 @@
               netrw_liststyle 0
               netrw_banner 0}
 
-           requires [:myLuaConf.plugins
-                     :lsp
+           requires [:lsp
                      :plugins]
 
             opt {autoindent true
