@@ -1,13 +1,12 @@
 (import-macros {: config} :macros)
 
-
 (let [lze (require :lze)
       lzUtils (require :nixCatsUtils.lzUtils)
       lzextras (require :lzextras)]
   (lze.register_handlers lzUtils.for_cat)
   (lze.register_handlers lzextras.lsp))
 
-
+;; fnlfmt: skip
 (let [numbertoggle-g (vim.api.nvim_create_augroup :numbertoggle {})
       highlight-g (vim.api.nvim_create_augroup :highlight {})
       screen-width (vim.api.nvim_win_get_width 0)
@@ -25,8 +24,10 @@
                      :myLuaConf.LSPs
                      :plugins]
 
-            opt {breakindent true
+            opt {autoindent true
+                 breakindent true
                  clipboard "unnamedplus"
+                 expandtab true
                  fillchars {:eob " "}
                  hlsearch true
                  inccommand "split"
@@ -40,12 +41,16 @@
                  relativenumber false
                  ruler false
                  scrolloff 10
+                 shiftround true
+                 shiftwidth 4
                  showcmd false
                  showmode false
                  signcolumn :yes
                  smartcase true
+                 softtabstop -1
                  statuscolumn statuscolumn
                  statusline "%{repeat('─',winwidth('.'))}"
+                 tabstop 4
                  termguicolors true
                  timeoutlen 300
                  updatetime 250
@@ -116,4 +121,4 @@
   (require :myLuaConf.lint))
 
 (when (nixCats :format)
-  (require :myLuaConf.format))
+  (require :format))

@@ -8,7 +8,7 @@
     beautysh.enable = true;
     fnlfmt = {
       enable = true;
-      includes = [ "[^config].fnl" ];
+      includes = [ "*.fnl" ];
     };
     jsonfmt.enable = true;
     nixfmt.enable = false; # currently failing
