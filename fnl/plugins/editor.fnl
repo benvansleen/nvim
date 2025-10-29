@@ -3,7 +3,7 @@
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :DeferredUIEnter
                     :after (setup- :Comment)})
- (tb :direnv-nvim
+ (tb :direnv.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
       :after (setup- :direnv

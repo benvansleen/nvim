@@ -38,11 +38,15 @@ require("nixCatsUtils.catPacker").setup({
     { "nvim-treesitter/nvim-treesitter-textobjects", opt = true },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
 
+    { "jvgrootveld/telescope-zoxide", opt = true },
     { "jonarrien/telescope-cmdline.nvim", opt = true },
     { "nvim-telescope/telescope-file-browser.nvim", opt = true },
     { "nvim-telescope/telescope-fzf-native.nvim", build = ":!which make && make", opt = true },
     { "nvim-telescope/telescope-ui-select.nvim", opt = true },
     { "nvim-telescope/telescope.nvim", opt = true },
+
+    { "akinsho/toggleterm.nvim", opt = true },
+    { "NotAShelf/direnv.nvim", opt = true },
 
     -- lsp
     { "williamboman/mason.nvim", opt = true },

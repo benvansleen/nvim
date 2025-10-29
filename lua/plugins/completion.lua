@@ -1,19 +1,41 @@
 -- [nfnl] fnl/plugins/completion.fnl
-local function _1_()
+local function has_words_before()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    if col == 0 then
+        return false
+    else
+        local line = vim.api.nvim_get_current_line()
+        return (string.match(string.sub(line, col, col), "%s") == nil)
+    end
+end
+local function _2_()
     local p_4_auto = require("blink.cmp")
-    local function _2_(ctx)
+    local function _3_(cmp)
+        if has_words_before() then
+            return (cmp.show() or cmp.insert_next())
+        else
+            return nil
+        end
+    end
+    local function _5_(cmp)
+        return cmp.accept({ index = 1 })
+    end
+    local function _6_(ctx)
         local menu = require("colorful-menu")
         return menu.blink_components_text(ctx)
     end
-    local function _3_(ctx)
+    local function _7_(ctx)
         local menu = require("colorful-menu")
         return menu.blink_components_highlight(ctx)
     end
     return p_4_auto.setup({
         keymap = {
-            preset = "enter",
-            ["<Tab>"] = { "select_next", "fallback" },
-            ["<S-Tab>"] = { "select_prev", "fallback" },
+            preset = "none",
+            ["<Tab>"] = { _3_, "fallback" },
+            ["<S-Tab>"] = { "insert_prev" },
+            ["<M-;>"] = {
+                _5_,
+            },
         },
         appearance = { nerd_font_variant = "normal" },
         completion = {
@@ -26,28 +48,29 @@ local function _1_()
                 show_without_menu = true,
             },
             keyword = { range = "prefix" },
+            list = { selection = { preselect = false }, cycle = { from_top = false } },
             menu = {
                 enabled = true,
-                auto_show = true,
                 auto_show_delay_ms = 50,
                 max_height = 3,
                 draw = {
                     columns = { { "kind_icon" }, { "label", gap = 1 } },
-                    components = { label = { text = _2_, highlight = _3_ } },
+                    components = { label = { text = _6_, highlight = _7_ } },
                 },
+                auto_show = false,
             },
         },
         sources = { default = { "lsp", "path", "buffer" } },
         fuzzy = { implementation = "prefer_rust" },
-        cmdline = { keymap = { preset = "inherit" }, completion = { menu = { auto_show = true } } },
+        cmdline = { completion = { menu = { auto_show = false } } },
     })
 end
-local function _4_()
+local function _8_()
     local p_4_auto = require("colorful-menu")
     return p_4_auto.setup({})
 end
 return {
-    { "blink.cmp", after = _1_, event = "DeferredUIEnter", for_cat = "general.blink" },
+    { "blink.cmp", after = _2_, event = "DeferredUIEnter", for_cat = "general.blink" },
     { "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } },
-    { "colorful-menu.nvim", after = _4_, for_cat = "general.blink", on_plugin = { "blink.cmp" } },
+    { "colorful-menu.nvim", after = _8_, for_cat = "general.blink", on_plugin = { "blink.cmp" } },
 }

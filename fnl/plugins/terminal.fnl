@@ -3,7 +3,7 @@
 [(tb :toggleterm.nvim
      {:for_cat :general.extra
       :after (setup- :toggleterm
-                     {:open_mapping :<leader>tt
+                     {:open_mapping :<M-t>
                       :direction :vertical
                       :persist_size true
                       :size (fn [term]

@@ -55,7 +55,7 @@ local function _8_()
 end
 return {
     { "comment.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "direnv-nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "direnv.nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
     { "fidget.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" },
     { "indent-blankline.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
