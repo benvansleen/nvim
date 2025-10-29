@@ -170,7 +170,6 @@
                 plenary-nvim
               ];
               extra = [
-                oil-nvim
                 nvim-web-devicons
               ];
             };
