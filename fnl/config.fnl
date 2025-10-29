@@ -21,7 +21,7 @@
               netrw_banner 0}
 
            requires [:myLuaConf.plugins
-                     :myLuaConf.LSPs
+                     :lsp
                      :plugins]
 
             opt {autoindent true

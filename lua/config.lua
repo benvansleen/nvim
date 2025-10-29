@@ -22,7 +22,7 @@ do
         local _ = { nil, nil, nil, nil, nil }
     end
     do
-        local _ = { require("myLuaConf.plugins"), require("myLuaConf.LSPs"), require("plugins") }
+        local _ = { require("myLuaConf.plugins"), require("lsp"), require("plugins") }
     end
     vim.opt["autoindent"] = true
     vim.opt["breakindent"] = true
