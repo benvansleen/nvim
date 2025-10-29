@@ -154,6 +154,14 @@
               inherit (pkgs) nix-doc lua-language-server nixd;
               # and each will be its own sub category
             };
+
+            python = with pkgs; [
+              basedpyright
+            ];
+
+            typescript = with pkgs; [
+              typescript-language-server
+            ];
           };
 
           # This is for plugins that will load at startup without using packadd:
@@ -395,6 +403,8 @@
               fnl = true;
               format = true;
               neonixdev = true;
+              typescript = true;
+              python = true;
 
               # enabling this category will enable the go category,
               # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.

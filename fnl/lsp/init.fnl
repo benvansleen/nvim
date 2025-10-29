@@ -36,7 +36,8 @@
                            (vim.lsp.enable plugin.name))
                     :before (fn [_]
                               (vim.lsp.config "*"
-                                              {:on_attach (require :lsp.on_attach)}))})
+                                              {:on_attach (require :lsp.on_attach)
+                                               :root_markers [:.git]}))})
                (tb :mason.nvim
                    {:enabled (not cats.isNixCats)
                     :on_plugin [:nvim-lspconfig]
@@ -65,7 +66,8 @@
                                                          :disable [:missing-fields]}
                                            :telemetry {:enabled false}}}}})
                (tb :fennel_ls
-                   {:for_cat :fnl :lsp {:filetypes [:fennel] :settings {}}})
+                   {:enabled (or (nixCats :fnl) false)
+                    :lsp {:filetypes [:fennel] :settings {}}})
                (tb :rnix {:enabled (not cats.isNixCats)
                           :lsp {:filetypes [:nix]}})
                (tb :nil_ls
@@ -80,6 +82,14 @@
                                                       :home-manager {:expr (nixCats.extra :nixdExtras.home_manager_options)}}
                                             :formatting {:command [:nixfmt]}
                                             :diagnostic {:suppress [:sema-escaping-with]}}}}})
-               (tb :tsserver {:enabled true
-                              :ft [:typescript :typescriptreact]
-                              :settings {}})])))
+               (tb :basedpyright
+                   {:enabled (or (nixCats :python) false)
+                    :lsp {:filetypes [:python]
+                          ; :cmd [:basedpyright-langserver :--stdio]
+                          :settings {}}})
+               (tb :ts_ls {:enabled (or (nixCats :typescript) false)
+                           :lsp {:filetypes [:javascript
+                                             :javascriptreact
+                                             :typescript
+                                             :typescriptreact]
+                                 :settings {}}})])))

@@ -34,7 +34,7 @@ local function _2_(name)
 end
 lze.h.lsp.set_ft_fallback(_2_)
 local function _8_(_)
-    return vim.lsp.config("*", { on_attach = require("lsp.on_attach") })
+    return vim.lsp.config("*", { on_attach = require("lsp.on_attach"), root_markers = { ".git" } })
 end
 local function _9_(plugin)
     vim.lsp.config(plugin.name, (plugin.lsp or {}))
@@ -70,7 +70,7 @@ return lze.load({
             },
         },
     },
-    { "fennel_ls", for_cat = "fnl", lsp = { filetypes = { "fennel" }, settings = {} } },
+    { "fennel_ls", enabled = (nixCats("fnl") or false), lsp = { filetypes = { "fennel" }, settings = {} } },
     { "rnix", enabled = not cats.isNixCats, lsp = { filetypes = { "nix" } } },
     { "nil_ls", enabled = not cats.isNixCats, lsp = { filetypes = { "nix" } } },
     {
@@ -91,5 +91,10 @@ return lze.load({
             },
         },
     },
-    { "tsserver", enabled = true, ft = { "typescript", "typescriptreact" }, settings = {} },
+    { "basedpyright", enabled = (nixCats("python") or false), lsp = { filetypes = { "python" }, settings = {} } },
+    {
+        "ts_ls",
+        enabled = (nixCats("typescript") or false),
+        lsp = { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }, settings = {} },
+    },
 })

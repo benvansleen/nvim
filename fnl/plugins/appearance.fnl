@@ -36,6 +36,10 @@
                                            :group :Label
                                            :action "Telescope find_files"
                                            :key :f}
+                                          {:desc :Git
+                                           :group "@property"
+                                           :action :Neogit
+                                           :key :g}
                                           {:desc :Dotfiles
                                            :group :Number
                                            :action "Telescope find_files cwd=~/.config"
