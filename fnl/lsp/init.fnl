@@ -79,4 +79,7 @@
                                             :options {:nixos {:expr (nixCats.extra :nixdExtras.nixos_options)}
                                                       :home-manager {:expr (nixCats.extra :nixdExtras.home_manager_options)}}
                                             :formatting {:command [:nixfmt]}
-                                            :diagnostic {:suppress [:sema-escaping-with]}}}}})])))
+                                            :diagnostic {:suppress [:sema-escaping-with]}}}}})
+               (tb :tsserver {:enabled true
+                              :ft [:typescript :typescriptreact]
+                              :settings {}})])))

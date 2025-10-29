@@ -91,4 +91,5 @@ return lze.load({
             },
         },
     },
+    { "tsserver", enabled = true, ft = { "typescript", "typescriptreact" }, settings = {} },
 })
