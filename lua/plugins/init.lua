@@ -3,6 +3,7 @@ local lze = require("lze")
 return lze.load({
 	{ import = "plugins.appearance" },
 	{ import = "plugins.completion" },
+	{ import = "plugins.editor" },
 	{ import = "plugins.git" },
 	{ import = "plugins.lisp" },
 	{ import = "plugins.oil" },
