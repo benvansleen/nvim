@@ -1,8 +1,8 @@
 -- [nfnl] fnl/config.fnl
 do
     local lze = require("lze")
-    local lzUtils = require("nixCatsUtils.lzUtils")
     local lzextras = require("lzextras")
+    local lzUtils = require("nixCatsUtils.lzUtils")
     lze.register_handlers(lzUtils.for_cat)
     lze.register_handlers(lzextras.lsp)
 end

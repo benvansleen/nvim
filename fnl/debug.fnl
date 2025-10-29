@@ -1,7 +1,6 @@
-(import-macros {: tb} :macros)
+(import-macros {: tb : setup : with-require} :macros)
 
-(let [lze (require :lze)
-      cats (require :nixCatsUtils)]
+(with-require [lze :lze cats :nixCatsUtils]
   (lze.load [(tb :nvim-dap
                  {:for_cat {:cat :debug :default false}
                   :keys [(tb :<F5> {:desc "Debug: Start/Continue"})
@@ -22,8 +21,7 @@
                               (vim.cmd.packadd :nvim-dap-virtual-text)
                               (vim.cmd.packadd :mason-nvim-dap.nvim)))
                   :after (fn [_]
-                           (let [dap (require :dap)
-                                 dapui (require :dapui)]
+                           (with-require [dap :dap dapui :dapui]
                              (vim.keymap.set :n :<F5> dap.continue
                                              {:desc "Debug: Start/Continue"})
                              (vim.keymap.set :n :<F1> dap.step_into
@@ -59,29 +57,29 @@
                                                               :run_last "▶▶"
                                                               :terminate "⏹"
                                                               :disconnect "⏏"}}}))
-                           (let [vt (require :nvim-dap-virtual-text)]
-                             (vt.setup {:enabled true
-                                        :enabled_commands true
-                                        :highlight_changed_variables true
-                                        :highlight_new_as_changed false
-                                        :show_stop_reason true
-                                        :commented false
-                                        :only_first_definition true
-                                        :all_references false
-                                        :clear_on_continue false
-                                        :display_callback (fn [variable
-                                                               _buf
-                                                               _stackframe
-                                                               _node
-                                                               options]
-                                                            (if (= options.virt_text_pos
-                                                                   :inline)
-                                                                (.. " = "
-                                                                    variable.value)
-                                                                (.. variable.name
-                                                                    " = "
-                                                                    variable.value)))
-                                        :virt_text_pos (if (= (vim.fn.has :nvim-0.10)
-                                                              1)
-                                                           :inline
-                                                           :eol)})))})]))
+                           (setup :nvim-dap-virtual-text
+                                  {:enabled true
+                                   :enabled_commands true
+                                   :highlight_changed_variables true
+                                   :highlight_new_as_changed false
+                                   :show_stop_reason true
+                                   :commented false
+                                   :only_first_definition true
+                                   :all_references false
+                                   :clear_on_continue false
+                                   :display_callback (fn [variable
+                                                          _buf
+                                                          _stackframe
+                                                          _node
+                                                          options]
+                                                       (if (= options.virt_text_pos
+                                                              :inline)
+                                                           (.. " = "
+                                                               variable.value)
+                                                           (.. variable.name
+                                                               " = "
+                                                               variable.value)))
+                                   :virt_text_pos (if (= (vim.fn.has :nvim-0.10)
+                                                         1)
+                                                      :inline
+                                                      :eol)}))})]))

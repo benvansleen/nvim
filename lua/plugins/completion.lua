@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/completion.fnl
-local function _1_(_)
-    local blink = require("blink.cmp")
+local function _1_()
+    local p_4_auto = require("blink.cmp")
     local function _2_(ctx)
         local menu = require("colorful-menu")
         return menu.blink_components_text(ctx)
@@ -9,7 +9,7 @@ local function _1_(_)
         local menu = require("colorful-menu")
         return menu.blink_components_highlight(ctx)
     end
-    return blink.setup({
+    return p_4_auto.setup({
         keymap = {
             preset = "enter",
             ["<Tab>"] = { "select_next", "fallback" },
@@ -42,9 +42,9 @@ local function _1_(_)
         cmdline = { keymap = { preset = "inherit" }, completion = { menu = { auto_show = true } } },
     })
 end
-local function _4_(_)
-    local menu = require("colorful-menu")
-    return menu.setup({})
+local function _4_()
+    local p_4_auto = require("colorful-menu")
+    return p_4_auto.setup({})
 end
 return {
     { "blink.cmp", after = _1_, event = "DeferredUIEnter", for_cat = "general.blink" },

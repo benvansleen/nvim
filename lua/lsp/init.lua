@@ -46,9 +46,9 @@ local function _10_(name)
     require("mason").setup()
     return require("mason-lspconfig").setup({ automatic_installation = false })
 end
-local function _11_(_)
-    local lazydev = require("lazydev")
-    return lazydev.setup({ library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") } })
+local function _11_()
+    local p_4_auto = require("lazydev")
+    return p_4_auto.setup({ library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") } })
 end
 return lze.load({
     { "nvim-lspconfig", before = _8_, for_cat = "general.always", lsp = _9_, on_require = { "lspconfig" } },

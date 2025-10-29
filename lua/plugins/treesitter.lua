@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/treesitter.fnl
-local function _1_(_)
-    local ts = require("nvim-treesitter.configs")
-    return ts.setup({
+local function _1_()
+    local p_4_auto = require("nvim-treesitter.configs")
+    return p_4_auto.setup({
         highlight = { enable = true },
         indent = { enable = false },
         incremental_selection = { enable = true, keymaps = {} },

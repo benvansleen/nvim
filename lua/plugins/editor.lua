@@ -1,25 +1,25 @@
 -- [nfnl] fnl/plugins/editor.fnl
-local function _1_(_)
-    local comment_ = require("Comment")
-    return comment_.setup()
+local function _1_()
+    local p_5_auto = require("Comment")
+    return p_5_auto.setup()
 end
-local function _2_(_)
-    local fidget = require("fidget")
-    return fidget.setup()
+local function _2_()
+    local p_5_auto = require("fidget")
+    return p_5_auto.setup()
 end
-local function _3_(_)
-    local ibl = require("ibl")
-    return ibl.setup({ exclude = { filetypes = { "fennel" } } })
+local function _3_()
+    local p_4_auto = require("ibl")
+    return p_4_auto.setup({ exclude = { filetypes = { "fennel" } } })
 end
-local function _4_(_)
+local function _4_()
     local leap = require("leap")
     leap.opts.safe_labels = ""
     leap.opts.preview = false
     return vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
 end
-local function _5_(_)
-    local nvim_surround = require("nvim-surround")
-    return nvim_surround.setup()
+local function _5_()
+    local p_5_auto = require("nvim-surround")
+    return p_5_auto.setup()
 end
 local function _6_(_)
     vim.g.startuptime_event_width = 0
@@ -27,7 +27,7 @@ local function _6_(_)
     vim.g.startuptime_exe_path = nixCats.packageBinPath
     return nil
 end
-local function _7_(_)
+local function _7_()
     local which_key = require("which-key")
     which_key.setup({})
     return which_key.add({

@@ -1,4 +1,4 @@
-(import-macros {: tb : require-and-call} :macros)
+(import-macros {: tb : setup- : require-and-call} :macros)
 
 (tb :Navigator.nvim
     {:for_cat :general.tmux
@@ -11,6 +11,4 @@
                 {:mode [:n :t] :desc "Navigate left"})
             (tb :<A-l> (require-and-call :Navigator :right)
                 {:mode [:n :t] :desc "Navigate right"})]
-     :after (fn []
-              (let [navigator (require :Navigator)]
-                (navigator.setup {:auto_save nil :disable_on_zoom true})))})
+     :after (setup- :Navigator {:auto_save nil :disable_on_zoom true})})

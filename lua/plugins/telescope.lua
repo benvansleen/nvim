@@ -46,33 +46,36 @@ local function _3_()
     return require("telescope.builtin").find_files()
 end
 local function _4_()
-    return require("telescope.builtin").oldfiles()
+    return require("telescope.builtin").live_grep()
 end
 local function _5_()
-    return require("telescope.builtin").buffers()
+    return require("telescope.builtin").oldfiles()
 end
 local function _6_()
-    return require("telescope.builtin").current_buffer_fuzzy_find()
+    return require("telescope.builtin").buffers()
 end
 local function _7_()
-    return require("telescope.builtin").diagnostics()
+    return require("telescope.builtin").current_buffer_fuzzy_find()
 end
 local function _8_()
-    return require("telescope.builtin").resume()
+    return require("telescope.builtin").diagnostics()
 end
 local function _9_()
-    return require("telescope.builtin").keymaps()
+    return require("telescope.builtin").resume()
 end
 local function _10_()
-    return require("telescope.builtin").help_tags()
+    return require("telescope.builtin").keymaps()
 end
 local function _11_()
-    return require("telescope.builtin").builtin()
+    return require("telescope.builtin").help_tags()
 end
 local function _12_()
+    return require("telescope.builtin").builtin()
+end
+local function _13_()
     return require("telescope.builtin").lsp_references()
 end
-local function _13_(name)
+local function _14_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("telescope-fzf-native.nvim")
     vim.cmd.packadd("telescope-ui-select.nvim")
@@ -93,17 +96,18 @@ return {
             mode = { "n" },
         },
         { "<leader>pf", _3_, desc = "Find [P]roject [F]ile", mode = { "n" } },
-        { "<leader>fh", _4_, desc = "[F]ind in file [H]istory", mode = { "n" } },
-        { "<leader>fb", _5_, desc = "[F]ind [B]uffer", mode = { "n" } },
-        { "<leader>fl", _6_, desc = "[F]ind [L]ine", mode = { "n" } },
-        { "<leader>fd", _7_, desc = "[F]ind [D]iagnostic", mode = { "n" } },
-        { "<leader>fr", _8_, desc = "[F]ind [R]resume", mode = { "n" } },
-        { "<leader>fk", _9_, desc = "[F]ind [K]eymap", mode = { "n" } },
-        { "<leader>fH", _10_, desc = "[F]ind [H]elp", mode = { "n" } },
+        { "<leader>pw", _4_, desc = "Find [P]roject [W]ord", mode = { "n" } },
+        { "<leader>fh", _5_, desc = "[F]ind in file [H]istory", mode = { "n" } },
+        { "<leader>fb", _6_, desc = "[F]ind [B]uffer", mode = { "n" } },
+        { "<leader>fl", _7_, desc = "[F]ind [L]ine", mode = { "n" } },
+        { "<leader>fd", _8_, desc = "[F]ind [D]iagnostic", mode = { "n" } },
+        { "<leader>fr", _9_, desc = "[F]ind [R]resume", mode = { "n" } },
+        { "<leader>fk", _10_, desc = "[F]ind [K]eymap", mode = { "n" } },
+        { "<leader>fH", _11_, desc = "[F]ind [H]elp", mode = { "n" } },
         { "<leader>fm", "<cmd>Telescope notify<CR>", desc = "[F]ind [M]essage", mode = { "n" } },
-        { "<leader>ft", _11_, desc = "[F]ind [T]elescope", mode = { "n" } },
-        { "<leader>gr", _12_, desc = "[G]o to [R]eferences", mode = { "n" } },
+        { "<leader>ft", _12_, desc = "[F]ind [T]elescope", mode = { "n" } },
+        { "<leader>gr", _13_, desc = "[G]o to [R]eferences", mode = { "n" } },
     },
-    load = _13_,
+    load = _14_,
     on_require = { "telescope" },
 }

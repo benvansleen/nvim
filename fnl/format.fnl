@@ -1,6 +1,6 @@
-(import-macros {: tb : config} :macros)
+(import-macros {: tb : config : with-require} :macros)
 
-(let [lze (require :lze)]
+(with-require [lze :lze]
   (lze.load [(tb :conform.nvim
                  {:for_cat :format
                   :event :DeferredUIEnter

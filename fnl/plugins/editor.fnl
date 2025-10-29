@@ -1,34 +1,25 @@
-(import-macros {: tb : require-and-call} :macros)
+(import-macros {: tb : setup- : require-and-call : with-require-} :macros)
 
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :DeferredUIEnter
-                    :after (fn [_]
-                             (let [comment- (require :Comment)]
-                               (comment-.setup)))})
+                    :after (setup- :Comment)})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
-                   :after (fn [_]
-                            (let [fidget (require :fidget)]
-                              (fidget.setup)))})
+                   :after (setup- :fidget)})
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (fn [_]
-               (let [ibl (require :ibl)]
-                 (ibl.setup {:exclude {:filetypes [:fennel]}})))})
+      :after (setup- :ibl {:exclude {:filetypes [:fennel]}})})
  (tb :leap.nvim
      {:for_cat :general.always
       :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]
-      :after (fn [_]
-               (let [leap (require :leap)]
-                 (set leap.opts.safe_labels "")
-                 (set leap.opts.preview false)
-                 (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment})))})
+      :after (with-require- [leap :leap]
+               (set leap.opts.safe_labels "")
+               (set leap.opts.preview false)
+               (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
  (tb :nvim-surround {:for_cat :general.always
                      :event :DeferredUIEnter
-                     :after (fn [_]
-                              (let [nvim-surround (require :nvim-surround)]
-                                (nvim-surround.setup)))})
+                     :after (setup- :nvim-surround)})
  (tb :undotree {:for_cat :general.extra
                 :cmd [:UndotreeToggle
                       :UndotreeHide
@@ -47,23 +38,21 @@
  (tb :which-key.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (fn [_]
-               (let [which-key (require :which-key)]
-                 (which-key.setup {})
-                 (which-key.add [(tb :<leader><leader>
-                                     {:group "buffer commands"})
-                                 (tb :<leader><leader>_ {:hidden true})
-                                 (tb :<leader>c {:group "[c]ode"})
-                                 (tb :<leader>c_ {:hidden true})
-                                 (tb :<leader>d {:group "[d]ocument"})
-                                 (tb :<leader>d_ {:hidden true})
-                                 (tb :<leader>f {:group "[f]ind"})
-                                 (tb :<leader>f_ {:hidden true})
-                                 (tb :<leader>g {:group "[g]it"})
-                                 (tb :<leader>g_ {:hidden true})
-                                 (tb :<leader>r {:group "[r]ename"})
-                                 (tb :<leader>r_ {:hidden true})
-                                 (tb :<leader>t {:group "[t]oggle"})
-                                 (tb :<leader>t_ {:hidden true})
-                                 (tb :<leader>w {:group "[w]orkspace"})
-                                 (tb :<leader>w_ {:hidden true})])))})]
+      :after (with-require- [which-key :which-key]
+               (which-key.setup {})
+               (which-key.add [(tb :<leader><leader> {:group "buffer commands"})
+                               (tb :<leader><leader>_ {:hidden true})
+                               (tb :<leader>c {:group "[c]ode"})
+                               (tb :<leader>c_ {:hidden true})
+                               (tb :<leader>d {:group "[d]ocument"})
+                               (tb :<leader>d_ {:hidden true})
+                               (tb :<leader>f {:group "[f]ind"})
+                               (tb :<leader>f_ {:hidden true})
+                               (tb :<leader>g {:group "[g]it"})
+                               (tb :<leader>g_ {:hidden true})
+                               (tb :<leader>r {:group "[r]ename"})
+                               (tb :<leader>r_ {:hidden true})
+                               (tb :<leader>t {:group "[t]oggle"})
+                               (tb :<leader>t_ {:hidden true})
+                               (tb :<leader>w {:group "[w]orkspace"})
+                               (tb :<leader>w_ {:hidden true})]))})]

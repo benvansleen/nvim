@@ -1,8 +1,6 @@
-(import-macros {: config} :macros)
+(import-macros {: config : with-require} :macros)
 
-(let [lze (require :lze)
-      lzUtils (require :nixCatsUtils.lzUtils)
-      lzextras (require :lzextras)]
+(with-require [lze :lze lzextras :lzextras lzUtils :nixCatsUtils.lzUtils]
   (lze.register_handlers lzUtils.for_cat)
   (lze.register_handlers lzextras.lsp))
 

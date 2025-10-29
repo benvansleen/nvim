@@ -5,9 +5,9 @@ do
         local _ = { nil }
     end
 end
-local function _1_(_)
-    local oil = require("oil")
-    return oil.setup({
+local function _1_()
+    local p_4_auto = require("oil")
+    return p_4_auto.setup({
         default_file_explorer = true,
         view_options = { show_hidden = true },
         columns = { "icon", "permissions", "size" },

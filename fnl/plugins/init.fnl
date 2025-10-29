@@ -1,4 +1,6 @@
-(let [lze (require :lze)]
+(import-macros {: with-require} :macros)
+
+(with-require [lze :lze]
   (lze.load [{:import :plugins.appearance}
              {:import :plugins.completion}
              {:import :plugins.editor}

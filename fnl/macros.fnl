@@ -11,6 +11,21 @@
           args)
         args)))
 
+(fn with-require [bindings & body]
+  (let [pairings []]
+    (for [i 1 (length bindings) 2]
+      (let [sym (. bindings i)
+            mod (. bindings (+ i 1))]
+        (table.insert pairings sym)
+        (table.insert pairings `(require ,mod))))
+    `(let ,pairings
+       (do
+         ,(unpack body)))))
+
+(fn with-require- [...]
+  (let [form (with-require ...)]
+    `(fn [] ,form)))
+
 (fn require-and-call [mod f opts]
   (if opts
       `(fn []
@@ -19,8 +34,15 @@
          ((. (require ,mod) ,f)))))
 
 (fn setup [req opts]
-  `(let [p# (require ,req)]
-     (p#.setup ,opts)))
+  (if opts
+      `(let [p# (require ,req)]
+         (p#.setup ,opts))
+      `(let [p# (require ,req)]
+         (p#.setup))))
+
+(fn setup- [...]
+  (let [setup-form (setup ...)]
+    `(fn [] ,setup-form)))
 
 (fn config [...]
   (fn set-require [opts]
@@ -55,4 +77,10 @@
                   [:autocmd cmds] (set-autocmds cmds)
                   _ (error (.. "Unknown config form: " (view k))))))))
 
-{: tb : require-and-call : setup : config}
+{: tb
+ : with-require
+ : with-require-
+ : require-and-call
+ : setup
+ : setup-
+ : config}

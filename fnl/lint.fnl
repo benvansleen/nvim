@@ -1,6 +1,6 @@
-(import-macros {: tb : config} :macros)
+(import-macros {: tb : config : with-require} :macros)
 
-(let [lze (require :lze)]
+(with-require [lze :lze]
   (lze.load [(tb :nvim-lint
                  {:for_cat :lint
                   :event :FileType

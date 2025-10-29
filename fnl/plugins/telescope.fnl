@@ -11,6 +11,8 @@
                 {:mode [:n] :desc "[F]ind [F]ile"})
             (tb :<leader>pf (require-and-call :telescope.builtin :find_files)
                 {:mode [:n] :desc "Find [P]roject [F]ile"})
+            (tb :<leader>pw (require-and-call :telescope.builtin :live_grep)
+                {:mode [:n] :desc "Find [P]roject [W]ord"})
             (tb :<leader>fh (require-and-call :telescope.builtin :oldfiles)
                 {:mode [:n] :desc "[F]ind in file [H]istory"})
             (tb :<leader>fb (require-and-call :telescope.builtin :buffers)
