@@ -12,16 +12,22 @@ local function _3_(_)
 	return ibl.setup({ exclude = { filetypes = { "fennel" } } })
 end
 local function _4_(_)
+	local leap = require("leap")
+	leap.opts.safe_labels = ""
+	leap.opts.preview = false
+	return vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+end
+local function _5_(_)
 	local nvim_surround = require("nvim-surround")
 	return nvim_surround.setup()
 end
-local function _5_(_)
+local function _6_(_)
 	vim.g.startuptime_event_width = 0
 	vim.g.startuptime_tries = 10
 	vim.g.startuptime_exe_path = nixCats.packageBinPath
 	return nil
 end
-local function _6_(_)
+local function _7_(_)
 	local which_key = require("which-key")
 	which_key.setup({})
 	return which_key.add({
@@ -47,13 +53,19 @@ return {
 	{ "comment.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" },
 	{ "fidget.nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
 	{ "indent-blankline.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" },
-	{ "nvim-surround", after = _4_, event = "DeferredUIEnter", for_cat = "general.always" },
+	{
+		"leap.nvim",
+		after = _4_,
+		for_cat = "general.always",
+		keys = { { "s", "<Plug>(leap)", desc = "Leap!", mode = { "n", "x", "o" } } },
+	},
+	{ "nvim-surround", after = _5_, event = "DeferredUIEnter", for_cat = "general.always" },
 	{
 		"undotree",
 		cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
 		for_cat = "general.extra",
 		keys = { { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree", mode = { "n" } } },
 	},
-	{ "vim-startuptime", before = _5_, cmd = { "StartupTime" }, for_cat = "general.extra" },
-	{ "which-key.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "general.extra" },
+	{ "vim-startuptime", before = _6_, cmd = { "StartupTime" }, for_cat = "general.extra" },
+	{ "which-key.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "general.extra" },
 }

@@ -9,11 +9,11 @@
                 "<cmd>Telescope cmdline<CR>"
                 {:mode ["n"]
                  :desc "Execute extended command"})
-            (tb "<leader>ff" 
+            (tb "<leader>ff"
                 "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>"
                 {:mode ["n"]
                  :desc "[F]ind [F]ile"})
-            (tb "<leader>pf" 
+            (tb "<leader>pf"
                 (require-and-call :telescope.builtin "find_files")
                 {:mode ["n"]
                  :desc "Find [P]roject [F]ile"})
@@ -57,24 +57,24 @@
                 (require-and-call :telescope.builtin "lsp_references")
                 {:mode ["n"]
                  :desc "[G]o to [R]eferences"})]
-            
-     :load (fn [name] 
+
+     :load (fn [name]
              (vim.cmd.packadd name)
              (vim.cmd.packadd "telescope-fzf-native.nvim")
              (vim.cmd.packadd "telescope-ui-select.nvim")
              (vim.cmd.packadd "telescope-file-browser.nvim")
              (vim.cmd.packadd "telescope-cmdline"))
-             
+
      :after (fn [_]
               (let [telescope (require :telescope)]
-                (telescope.setup 
+                (telescope.setup
                   {:defaults {:border true
                               :layout_config {:horizontal {:prompt_position "top"
                                                            :width {:padding 0}
                                                            :height {:padding 0}
                                                            :preview_width 0.5}
                                               :vertical {:prompt_position "top"
-                                                         :width {:padding 0}
+                                                         :width {:padding 0.02}
                                                          :height {:padding 0}
                                                          :preview_height 0.6}}
                               :layout_strategy "vertical"
@@ -84,7 +84,7 @@
                               :results_title false
                               :selection_caret " "
                               :sorting_strategy "ascending"}
-                   :extensions 
+                   :extensions
                    {:ui-select [((. (require :telescope.themes) "get_cursor"))]
 
                     :cmdline {:picker ((. (require :telescope.themes) "get_ivy")
@@ -96,5 +96,3 @@
                 (telescope.load_extension "fzf")
                 (telescope.load_extension "file_browser")
                 (telescope.load_extension "cmdline")))})
-
-

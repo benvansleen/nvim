@@ -18,6 +18,16 @@
       :after (fn [_]
               (let [ibl (require :ibl)]
                (ibl.setup {:exclude {:filetypes [:fennel]}})))})
+ (tb "leap.nvim"
+     {:for_cat "general.always"
+      :keys [(tb "s" "<Plug>(leap)"
+              {:mode ["n" "x" "o"]
+               :desc "Leap!"})]
+      :after (fn [_]
+              (let [leap (require :leap)]
+               (set leap.opts.safe_labels "")
+               (set leap.opts.preview false)
+               (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment})))})
  (tb "nvim-surround"
      {:for_cat "general.always"
       :event :DeferredUIEnter

@@ -1,5 +1,6 @@
 (import-macros {: config} :macros)
 
+
 (let [lze (require :lze)
       lzUtils (require :nixCatsUtils.lzUtils)
       lzextras (require :lzextras)]
@@ -23,6 +24,7 @@
            requires [:myLuaConf.plugins
                      :myLuaConf.LSPs
                      :plugins]
+
             opt {breakindent true
                  clipboard "unnamedplus"
                  fillchars {:eob " "}
