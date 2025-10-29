@@ -9,7 +9,7 @@
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (setup- :ibl {:exclude {:filetypes [:fennel]}})})
+      :after (setup- :ibl {:exclude {:filetypes [:dashboard :fennel]}})})
  (tb :leap.nvim
      {:for_cat :general.always
       :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]

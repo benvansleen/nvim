@@ -38,6 +38,22 @@ do
     })
 end
 local function _4_()
+    local p_4_auto = require("dashboard")
+    return p_4_auto.setup({
+        theme = "hyper",
+        change_to_root_vcs = true,
+        config = {
+            footer = {},
+            packages = { enable = false },
+            shortcut = {
+                { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
+                { desc = "Dotfiles", group = "Number", action = "Telescope find_files cwd=~/.config", key = "d" },
+            },
+            week_header = { enable = true },
+        },
+    })
+end
+local function _5_()
     local p_4_auto = require("smear_cursor")
     return p_4_auto.setup({
         smear_between_buffers = true,
@@ -46,4 +62,7 @@ local function _4_()
         smear_insert_mode = true,
     })
 end
-return { "smear-cursor.nvim", after = _4_, event = "DeferredUIEnter" }
+return {
+    { "dashboard-nvim", after = _4_, event = "VimEnter", for_cat = "general.extra" },
+    { "smear-cursor.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" },
+}

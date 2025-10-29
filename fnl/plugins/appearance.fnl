@@ -24,10 +24,28 @@
                                     (set o.bg colors.bg0))
                                   o)}))
 
-(tb :smear-cursor.nvim
-    {:event :DeferredUIEnter
-     :after (setup- :smear_cursor
-                    {:smear_between_buffers true
-                     :smear_between_neighbor_lines true
-                     :scroll_buffer_space true
-                     :smear_insert_mode true})})
+[(tb :dashboard-nvim
+     {:for_cat :general.extra
+      :event :VimEnter
+      :after (setup- :dashboard
+                     {:theme :hyper
+                      :change_to_root_vcs true
+                      :config {:footer {}
+                               :packages {:enable false}
+                               :shortcut [{:desc :Files
+                                           :group :Label
+                                           :action "Telescope find_files"
+                                           :key :f}
+                                          {:desc :Dotfiles
+                                           :group :Number
+                                           :action "Telescope find_files cwd=~/.config"
+                                           :key :d}]
+                               :week_header {:enable true}}})})
+ (tb :smear-cursor.nvim
+     {:for_cat :general.extra
+      :event :DeferredUIEnter
+      :after (setup- :smear_cursor
+                     {:smear_between_buffers true
+                      :smear_between_neighbor_lines true
+                      :scroll_buffer_space true
+                      :smear_insert_mode true})})]

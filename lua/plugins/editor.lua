@@ -9,7 +9,7 @@ local function _2_()
 end
 local function _3_()
     local p_4_auto = require("ibl")
-    return p_4_auto.setup({ exclude = { filetypes = { "fennel" } } })
+    return p_4_auto.setup({ exclude = { filetypes = { "dashboard", "fennel" } } })
 end
 local function _4_()
     local leap = require("leap")

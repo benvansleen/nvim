@@ -261,6 +261,8 @@
               extra = with pkgs.vimPlugins; [
                 fidget-nvim
                 indent-blankline-nvim
+                dashboard-nvim
+                oil-nvim
                 smear-cursor-nvim
                 undotree
                 vim-startuptime

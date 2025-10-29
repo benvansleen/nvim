@@ -33,7 +33,7 @@ local function _1_()
     })
 end
 return {
-    "oil",
+    "oil.nvim",
     after = _1_,
     cmd = { "Oil" },
     for_cat = "general.extra",
