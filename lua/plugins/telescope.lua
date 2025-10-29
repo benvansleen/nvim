@@ -50,7 +50,8 @@ local function _1_()
     telescope.load_extension("ui-select")
     telescope.load_extension("fzf")
     telescope.load_extension("file_browser")
-    return telescope.load_extension("cmdline")
+    telescope.load_extension("cmdline")
+    return telescope.load_extension("zoxide")
 end
 local function _4_()
     return require("telescope.builtin").find_files()
@@ -90,7 +91,8 @@ local function _15_(name)
     vim.cmd.packadd("telescope-fzf-native.nvim")
     vim.cmd.packadd("telescope-ui-select.nvim")
     vim.cmd.packadd("telescope-file-browser.nvim")
-    return vim.cmd.packadd("telescope-cmdline")
+    vim.cmd.packadd("telescope-cmdline")
+    return vim.cmd.packadd("telescope-zoxide")
 end
 return {
     "telescope.nvim",
@@ -116,6 +118,7 @@ return {
         { "<leader>fH", _12_, desc = "[F]ind [H]elp", mode = { "n" } },
         { "<leader>fm", "<cmd>Telescope notify<CR>", desc = "[F]ind [M]essage", mode = { "n" } },
         { "<leader>ft", _13_, desc = "[F]ind [T]elescope", mode = { "n" } },
+        { "<leader>fc", "<cmd>Telescope zoxide list<CR>", desc = "[F]ind [C]hange [D]irectory", mode = { "n" } },
         { "<leader>gr", _14_, desc = "[G]o to [R]eferences", mode = { "n" } },
     },
     load = _15_,

@@ -84,9 +84,7 @@
                                             :diagnostic {:suppress [:sema-escaping-with]}}}}})
                (tb :basedpyright
                    {:enabled (or (nixCats :python) false)
-                    :lsp {:filetypes [:python]
-                          ; :cmd [:basedpyright-langserver :--stdio]
-                          :settings {}}})
+                    :lsp {:filetypes [:python] :settings {:python {}}}})
                (tb :ts_ls {:enabled (or (nixCats :typescript) false)
                            :lsp {:filetypes [:javascript
                                              :javascriptreact

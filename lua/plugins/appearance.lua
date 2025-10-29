@@ -48,6 +48,7 @@ local function _4_()
             shortcut = {
                 { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
                 { desc = "Git", group = "@property", action = "Neogit", key = "g" },
+                { desc = "Change Directory", group = "@constant", action = "Telescope zoxide list", key = "c" },
                 { desc = "Dotfiles", group = "Number", action = "Telescope find_files cwd=~/.config", key = "d" },
             },
             week_header = { enable = true },

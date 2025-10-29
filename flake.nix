@@ -22,6 +22,10 @@
       url = "github:jonarrien/telescope-cmdline.nvim";
       flake = false;
     };
+    "plugins-direnv-nvim" = {
+      url = "github:NotAShelf/direnv.nvim";
+      flake = false;
+    };
 
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
@@ -253,6 +257,7 @@
                 telescope-fzf-native-nvim
                 telescope-nvim
                 telescope-ui-select-nvim
+                telescope-zoxide
               ];
               always = with pkgs.vimPlugins; [
                 comment-nvim
@@ -270,7 +275,9 @@
                 indent-blankline-nvim
                 dashboard-nvim
                 oil-nvim
+                pkgs.neovimPlugins.direnv-nvim
                 smear-cursor-nvim
+                toggleterm-nvim
                 undotree
                 vim-startuptime
                 which-key-nvim

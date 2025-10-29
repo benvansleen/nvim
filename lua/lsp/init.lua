@@ -91,7 +91,13 @@ return lze.load({
             },
         },
     },
-    { "basedpyright", enabled = (nixCats("python") or false), lsp = { filetypes = { "python" }, settings = {} } },
+    {
+        "basedpyright",
+        enabled = (nixCats("python") or false),
+        lsp = { filetypes = { "python" }, settings = {
+            python = {},
+        } },
+    },
     {
         "ts_ls",
         enabled = (nixCats("typescript") or false),

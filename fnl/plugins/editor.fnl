@@ -3,6 +3,12 @@
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :DeferredUIEnter
                     :after (setup- :Comment)})
+ (tb :direnv-nvim
+     {:for_cat :general.extra
+      :event :DeferredUIEnter
+      :after (setup- :direnv
+                     {:autoload_direnv true
+                      :notifications {:silent_autoload true}})})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after (setup- :fidget)})

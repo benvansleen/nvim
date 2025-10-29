@@ -8,6 +8,7 @@ return lze.load({
     { import = "plugins.lisp" },
     { import = "plugins.oil" },
     { import = "plugins.telescope" },
+    { import = "plugins.terminal" },
     { import = "plugins.treesitter" },
     { import = "plugins.tmux" },
 })

@@ -40,6 +40,10 @@
                                            :group "@property"
                                            :action :Neogit
                                            :key :g}
+                                          {:desc "Change Directory"
+                                           :group "@constant"
+                                           :action "Telescope zoxide list"
+                                           :key :c}
                                           {:desc :Dotfiles
                                            :group :Number
                                            :action "Telescope find_files cwd=~/.config"

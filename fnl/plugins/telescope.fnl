@@ -32,6 +32,8 @@
                 {:mode [:n] :desc "[F]ind [M]essage"})
             (tb :<leader>ft (require-and-call :telescope.builtin :builtin)
                 {:mode [:n] :desc "[F]ind [T]elescope"})
+            (tb :<leader>fc "<cmd>Telescope zoxide list<CR>"
+                {:mode [:n] :desc "[F]ind [C]hange [D]irectory"})
             (tb :<leader>gr
                 (require-and-call :telescope.builtin :lsp_references)
                 {:mode [:n] :desc "[G]o to [R]eferences"})]
@@ -40,7 +42,8 @@
              (vim.cmd.packadd :telescope-fzf-native.nvim)
              (vim.cmd.packadd :telescope-ui-select.nvim)
              (vim.cmd.packadd :telescope-file-browser.nvim)
-             (vim.cmd.packadd :telescope-cmdline))
+             (vim.cmd.packadd :telescope-cmdline)
+             (vim.cmd.packadd :telescope-zoxide))
      :after (with-require- [telescope :telescope]
               (telescope.setup {:defaults {:border true
                                            :layout_config {:horizontal {:prompt_position :top
@@ -72,4 +75,5 @@
               (telescope.load_extension :ui-select)
               (telescope.load_extension :fzf)
               (telescope.load_extension :file_browser)
-              (telescope.load_extension :cmdline))})
+              (telescope.load_extension :cmdline)
+              (telescope.load_extension :zoxide))})
