@@ -28,6 +28,15 @@ local function _2_()
         local menu = require("colorful-menu")
         return menu.blink_components_highlight(ctx)
     end
+    local _8_
+    do
+        local cats = require("nixCatsUtils")
+        if cats.isNixCats then
+            _8_ = "prefer_rust"
+        else
+            _8_ = "lua"
+        end
+    end
     return p_4_auto.setup({
         keymap = {
             preset = "none",
@@ -61,16 +70,16 @@ local function _2_()
             },
         },
         sources = { default = { "lsp", "path", "buffer" } },
-        fuzzy = { implementation = "prefer_rust" },
+        fuzzy = { implementation = _8_ },
         cmdline = { completion = { menu = { auto_show = false } } },
     })
 end
-local function _8_()
+local function _10_()
     local p_4_auto = require("colorful-menu")
     return p_4_auto.setup({})
 end
 return {
     { "blink.cmp", after = _2_, event = "DeferredUIEnter", for_cat = "general.blink" },
     { "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } },
-    { "colorful-menu.nvim", after = _8_, for_cat = "general.blink", on_plugin = { "blink.cmp" } },
+    { "colorful-menu.nvim", after = _10_, for_cat = "general.blink", on_plugin = { "blink.cmp" } },
 }

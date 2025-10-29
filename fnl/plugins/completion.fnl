@@ -43,7 +43,11 @@
                                                                                                   :colorful-menu]
                                                                                      (menu.blink_components_highlight ctx)))}}}}}
                       :sources {:default [:lsp :path :buffer]}
-                      :fuzzy {:implementation :prefer_rust}
+                      :fuzzy {:implementation (with-require [cats
+                                                             :nixCatsUtils]
+                                                (if cats.isNixCats
+                                                    :prefer_rust
+                                                    :lua))}
                       :cmdline {:completion {:menu {:auto_show false}}}})})
  (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})
  (tb :colorful-menu.nvim

@@ -1,9 +1,9 @@
 -- [nfnl] fnl/format.fnl
 local lze = require("lze")
-local function _1_(_)
-    local conform = require("conform")
-    return conform.setup({
-        format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+local function _1_()
+    local p_4_auto = require("conform")
+    return p_4_auto.setup({
+        format_on_save = { timeout_ms = 500, lsp_fallback = "fallback" },
         formatters_by_ft = { fennel = { "fnlfmt" }, lua = { "stylua" } },
     })
 end
