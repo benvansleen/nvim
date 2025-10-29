@@ -129,14 +129,7 @@
             # but you can choose which ones you want
             # per nvim package you export
             debug = with pkgs; {
-              go = [ delve ];
             };
-            go = with pkgs; [
-              gopls
-              gotools
-              go-tools
-              gccgo
-            ];
 
             fnl = with pkgs; [
               fennel-ls
@@ -169,16 +162,12 @@
               nvim-nio
             ];
             general = with pkgs.vimPlugins; {
-              # you can make subcategories!!!
-              # (always isnt a special name, just the one I chose for this subcategory)
               always = [
                 nfnl
-
                 lze
                 lzextras
                 vim-repeat
                 plenary-nvim
-                (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
               ];
               extra = [
                 oil-nvim
@@ -194,8 +183,6 @@
                 # Theme switcher without creating a new category
                 "gruvbox-material" = gruvbox-material-nvim;
                 "onedark" = onedark-nvim;
-                "catppuccin" = catppuccin-nvim;
-                "catppuccin-mocha" = catppuccin-nvim;
                 "tokyonight" = tokyonight-nvim;
                 "tokyonight-day" = tokyonight-nvim;
               });
@@ -237,7 +224,6 @@
             ];
             general = {
               blink = with pkgs.vimPlugins; [
-                luasnip
                 cmp-cmdline
                 blink-cmp
                 blink-compat
@@ -258,32 +244,27 @@
                 pkgs.neovimPlugins.telescope-cmdline
                 telescope-file-browser-nvim
                 telescope-fzf-native-nvim
-                telescope-ui-select-nvim
                 telescope-nvim
+                telescope-ui-select-nvim
               ];
               always = with pkgs.vimPlugins; [
-                nvim-lspconfig
-                lualine-nvim
+                comment-nvim
                 gitsigns-nvim
-                neogit
-                nvim-surround
                 leap-nvim
+                neogit
+                nvim-lspconfig
+                nvim-surround
               ];
               tmux = with pkgs.vimPlugins; [
                 Navigator-nvim
               ];
               extra = with pkgs.vimPlugins; [
-                smear-cursor-nvim
                 fidget-nvim
-                # lualine-lsp-progress
-                which-key-nvim
-                comment-nvim
-                undotree
                 indent-blankline-nvim
+                smear-cursor-nvim
+                undotree
                 vim-startuptime
-                # If it was included in your flake inputs as plugins-hlargs,
-                # this would be how to add that plugin in your config.
-                # pkgs.neovimPlugins.hlargs
+                which-key-nvim
               ];
             };
           };
@@ -301,26 +282,26 @@
           # this section is for environmentVariables that should be available
           # at RUN TIME for plugins. Will be available to path within neovim terminal
           environmentVariables = {
-            test = {
-              default = {
-                CATTESTVARDEFAULT = "It worked!";
-              };
-              subtest1 = {
-                CATTESTVAR = "It worked!";
-              };
-              subtest2 = {
-                CATTESTVAR3 = "It didn't work!";
-              };
-            };
+            # test = {
+            #   default = {
+            #     CATTESTVARDEFAULT = "It worked!";
+            #   };
+            #   subtest1 = {
+            #     CATTESTVAR = "It worked!";
+            #   };
+            #   subtest2 = {
+            #     CATTESTVAR3 = "It didn't work!";
+            #   };
+            # };
           };
 
           # If you know what these are, you can provide custom ones by category here.
           # If you dont, check this link out:
           # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
           extraWrapperArgs = {
-            test = [
-              ''--set CATTESTVAR2 "It worked again!"''
-            ];
+            # test = [
+            #   ''--set CATTESTVAR2 "It worked again!"''
+            # ];
           };
 
           # lists of the functions you would have passed to
@@ -332,7 +313,7 @@
           # vim.g.python3_host_prog
           # or run from nvim terminal via :!<packagename>-python3
           python3.libraries = {
-            test = _: [ ];
+            # test = _: [ ];
           };
           # populates $LUA_PATH and $LUA_CPATH
           extraLuaPackages = {
@@ -346,24 +327,24 @@
           # The categories argument of this function is the FINAL value.
           # You may use it in any of the other sets.
           extraCats = {
-            test = [
-              [
-                "test"
-                "default"
-              ]
-            ];
-            debug = [
-              [
-                "debug"
-                "default"
-              ]
-            ];
-            go = [
-              [
-                "debug"
-                "go"
-              ] # yes it has to be a list of lists
-            ];
+            # test = [
+            #   [
+            #     "test"
+            #     "default"
+            #   ]
+            # ];
+            # debug = [
+            #   [
+            #     "debug"
+            #     "default"
+            #   ]
+            # ];
+            # go = [
+            #   [
+            #     "debug"
+            #     "go"
+            #   ] # yes it has to be a list of lists
+            # ];
           };
         };
 
@@ -413,9 +394,6 @@
               fnl = true;
               format = true;
               neonixdev = true;
-              test = {
-                subtest1 = true;
-              };
 
               # enabling this category will enable the go category,
               # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
