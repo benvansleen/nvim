@@ -118,7 +118,7 @@
   (require :myLuaConf.debug))
 
 (when (nixCats :lint)
-  (require :myLuaConf.lint))
+  (require :lint))
 
 (when (nixCats :format)
   (require :format))

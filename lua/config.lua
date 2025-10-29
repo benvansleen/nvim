@@ -181,7 +181,7 @@ if nixCats("debug") then
 else
 end
 if nixCats("lint") then
-    require("myLuaConf.lint")
+    require("lint")
 else
 end
 if nixCats("format") then
