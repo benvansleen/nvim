@@ -30,7 +30,9 @@
                                                                                             (let [menu (require :colorful-menu)]
                                                                                               (menu.blink_components_highlight ctx)))}}}}}
                                :sources {:default [:lsp :path :buffer]}
-                               :fuzzy {:implementation :prefer_rust_with_warning}})))})
+                               :fuzzy {:implementation :prefer_rust_with_warning}
+                               :cmdline {:keymap {:preset :inherit}
+                                         :completion {:menu {:auto_show true}}}})))})
  (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})
  (tb :colorful-menu.nvim
      {:for_cat :general.blink

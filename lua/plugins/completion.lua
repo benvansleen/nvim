@@ -39,6 +39,7 @@ local function _1_(_)
         },
         sources = { default = { "lsp", "path", "buffer" } },
         fuzzy = { implementation = "prefer_rust_with_warning" },
+        cmdline = { keymap = { preset = "inherit" }, completion = { menu = { auto_show = true } } },
     })
 end
 local function _4_(_)
