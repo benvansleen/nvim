@@ -13,4 +13,4 @@ local function _1_()
     end
     return p_4_auto.setup({ open_mapping = "<M-t>", direction = "vertical", persist_size = true, size = _2_ })
 end
-return { { "toggleterm.nvim", after = _1_, for_cat = "general.extra" } }
+return { { "toggleterm.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" } }

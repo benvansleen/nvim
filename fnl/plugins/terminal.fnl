@@ -2,6 +2,7 @@
 
 [(tb :toggleterm.nvim
      {:for_cat :general.extra
+      :event :DeferredUIEnter
       :after (setup- :toggleterm
                      {:open_mapping :<M-t>
                       :direction :vertical
