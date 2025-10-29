@@ -28,11 +28,18 @@ require("nixCatsUtils.catPacker").setup({
     { "nvim-tree/nvim-web-devicons" },
     { "nvim-lua/plenary.nvim" },
     { "tpope/vim-repeat" },
-    { "rcarriga/nvim-notify" },
+    { "f4z3r/gruvbox-material.nvim" },
+
+    { "gpanders/nvim-parinfer", opt = true },
+    { "numToStr/Navigator.nvim", opt = true },
+    { "sphamba/smear-cursor.nvim", opt = true },
+    { "nvimdev/dashboard-nvim", opt = true },
 
     { "nvim-treesitter/nvim-treesitter-textobjects", opt = true },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
 
+    { "jonarrien/telescope-cmdline.nvim", opt = true },
+    { "nvim-telescope/telescope-file-browser.nvim", opt = true },
     { "nvim-telescope/telescope-fzf-native.nvim", build = ":!which make && make", opt = true },
     { "nvim-telescope/telescope-ui-select.nvim", opt = true },
     { "nvim-telescope/telescope.nvim", opt = true },
@@ -77,11 +84,6 @@ require("nixCatsUtils.catPacker").setup({
     { "lukas-reineke/indent-blankline.nvim", opt = true },
     { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
     { "kylechui/nvim-surround", opt = true },
-    {
-        "iamcco/markdown-preview.nvim",
-        build = ":call mkdp#util#install()",
-        opt = true,
-    },
 
     -- all the rest of the setup will be done using the normal setup functions later,
     -- thus working regardless of what method loads the plugins.

@@ -26,10 +26,11 @@
                                                                                              :colorful-menu]
                                                                                 (menu.blink_components_text ctx)))
                                                                       :highlight (fn [ctx]
-                                                                                   (let [menu (require :colorful-menu)]
+                                                                                   (with-require [menu
+                                                                                                  :colorful-menu]
                                                                                      (menu.blink_components_highlight ctx)))}}}}}
                       :sources {:default [:lsp :path :buffer]}
-                      :fuzzy {:implementation :prefer_rust_with_warning}
+                      :fuzzy {:implementation :prefer_rust}
                       :cmdline {:keymap {:preset :inherit}
                                 :completion {:menu {:auto_show true}}}})})
  (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})

@@ -1,4 +1,4 @@
-(import-macros {: tb : require-and-call} :macros)
+(import-macros {: tb : require-and-call : with-require : with-require-} :macros)
 
 (tb :telescope.nvim
     {:for_cat :general.telescope
@@ -41,31 +41,35 @@
              (vim.cmd.packadd :telescope-ui-select.nvim)
              (vim.cmd.packadd :telescope-file-browser.nvim)
              (vim.cmd.packadd :telescope-cmdline))
-     :after (fn [_]
-              (let [telescope (require :telescope)]
-                (telescope.setup {:defaults {:border true
-                                             :layout_config {:horizontal {:prompt_position :top
-                                                                          :width {:padding 0}
-                                                                          :height {:padding 0}
-                                                                          :preview_width 0.5}
-                                                             :vertical {:prompt_position :top
-                                                                        :width {:padding 0.02}
+     :after (with-require- [telescope :telescope]
+              (telescope.setup {:defaults {:border true
+                                           :layout_config {:horizontal {:prompt_position :top
+                                                                        :width {:padding 0}
                                                                         :height {:padding 0}
-                                                                        :preview_height 0.6}}
-                                             :layout_strategy :vertical
-                                             :path_display [:filename_first]
-                                             :prompt_prefix " "
-                                             :prompt_title false
-                                             :results_title false
-                                             :selection_caret " "
-                                             :sorting_strategy :ascending}
-                                  :extensions {:ui-select [((. (require :telescope.themes)
-                                                               :get_cursor))]
-                                               :cmdline {:picker ((. (require :telescope.themes)
-                                                                     :get_ivy) {:layout_config {:height 0.3}})}
-                                               :file_browser (let [fb telescope.extensions.file_browser.actions]
-                                                               {:mappings {:i {:<left> fb.backspace}}})}})
-                (telescope.load_extension :ui-select)
-                (telescope.load_extension :fzf)
-                (telescope.load_extension :file_browser)
-                (telescope.load_extension :cmdline)))})
+                                                                        :preview_width 0.5}
+                                                           :vertical {:prompt_position :top
+                                                                      :width {:padding 0.02}
+                                                                      :height {:padding 0}
+                                                                      :preview_height 0.6}}
+                                           :layout_strategy :vertical
+                                           :path_display [:filename_first]
+                                           :prompt_prefix " "
+                                           :prompt_title false
+                                           :results_title false
+                                           :selection_caret " "
+                                           :sorting_strategy :ascending}
+                                :extensions {:ui-select [(with-require [themes
+                                                                        :telescope.themes]
+                                                           (themes.get_cursor))]
+                                             :cmdline {:picker ((. (require :telescope.themes)
+                                                                   :get_ivy) {:layout_config {:height 0.3}})}
+                                             :file_browser (let [fb telescope.extensions.file_browser.actions]
+                                                             {:mappings {:i {:<left> fb.backspace}}})
+                                             :fzf {:fuzzy true
+                                                   :override_generic_sorter true
+                                                   :override_file_sorter true
+                                                   :case_mode :smart_case}}})
+              (telescope.load_extension :ui-select)
+              (telescope.load_extension :fzf)
+              (telescope.load_extension :file_browser)
+              (telescope.load_extension :cmdline))})

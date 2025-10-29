@@ -2,7 +2,7 @@
 
 (with-require [lze :lze]
   (lze.load [(tb :nvim-lint
-                 {:for_cat :lint
+                 {:for_cat {:cat :lint :default false}
                   :event :FileType
                   :after (fn [_]
                            (let [lint (require :lint)]
