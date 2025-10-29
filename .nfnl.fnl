@@ -1,1 +1,1 @@
-{:ignore-patterns [:flsproject.lua]}
+{:ignore-patterns [:flsproject.fnl]}
