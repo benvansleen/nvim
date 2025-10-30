@@ -79,7 +79,7 @@ local function _10_()
     return p_4_auto.setup({})
 end
 return {
-    { "blink.cmp", after = _2_, event = "DeferredUIEnter", for_cat = "general.blink" },
+    { "blink.cmp", after = _2_, event = "InsertEnter", for_cat = "general.blink" },
     { "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } },
     { "colorful-menu.nvim", after = _10_, for_cat = "general.blink", on_plugin = { "blink.cmp" } },
 }

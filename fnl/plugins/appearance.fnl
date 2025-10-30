@@ -60,7 +60,7 @@
                                :week_header {:enable false}}})})
  (tb :smear-cursor.nvim
      {:for_cat :general.extra
-      :event :DeferredUIEnter
+      :event :CursorMoved
       :after (setup- :smear_cursor
                      {:smear_between_buffers true
                       :smear_between_neighbor_lines true

@@ -25,6 +25,7 @@
       :after (setup- :ibl {:exclude {:filetypes [:dashboard :fennel]}})})
  (tb :leap.nvim
      {:for_cat :general.always
+      :event :CursorMoved
       :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]
       :after (with-require- [leap :leap]
                (set leap.opts.safe_labels "")
@@ -39,7 +40,7 @@
                       :disable_in_macro true
                       :enable_check_bracket_line true})})
  (tb :nvim-surround {:for_cat :general.always
-                     :event :DeferredUIEnter
+                     :event :CursorMoved
                      :after (setup- :nvim-surround)})
  (tb :undotree {:for_cat :general.extra
                 :cmd [:UndotreeToggle
@@ -60,7 +61,7 @@
      {:for_cat :general.extra
       :event :DeferredUIEnter
       :after (with-require- [which-key :which-key]
-               (which-key.setup {})
+               (which-key.setup {:preset :helix :delay 500})
                (which-key.add [(tb :<leader><leader> {:group "buffer commands"})
                                (tb :<leader><leader>_ {:hidden true})
                                (tb :<leader>c {:group "[c]ode"})

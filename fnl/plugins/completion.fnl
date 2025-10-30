@@ -9,7 +9,7 @@
 
 [(tb :blink.cmp
      {:for_cat :general.blink
-      :event :DeferredUIEnter
+      :event :InsertEnter
       :after (setup- :blink.cmp
                      {:keymap {:preset :none
                                :<Tab> [(fn [cmp]

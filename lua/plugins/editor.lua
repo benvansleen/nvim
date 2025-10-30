@@ -48,7 +48,7 @@ local function _9_(_)
 end
 local function _10_()
     local which_key = require("which-key")
-    which_key.setup({})
+    which_key.setup({ preset = "helix", delay = 500 })
     return which_key.add({
         { "<leader><leader>", group = "buffer commands" },
         { "<leader><leader>_", hidden = true },
@@ -69,19 +69,20 @@ local function _10_()
     })
 end
 return {
-    { "comment.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "direnv.nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "comment.nvim", after = _1_, event = "CursorMoved", for_cat = "general.extra" },
+    { "direnv-nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
     { "fidget.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "foldtext.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "foldtext-nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.extra" },
     { "indent-blankline.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
         "leap.nvim",
         after = _6_,
+        event = "CursorMoved",
         for_cat = "general.always",
         keys = { { "s", "<Plug>(leap)", desc = "Leap!", mode = { "n", "x", "o" } } },
     },
     { "nvim-autopairs", after = _7_, event = "InsertEnter", for_cat = "general.always" },
-    { "nvim-surround", after = _8_, event = "DeferredUIEnter", for_cat = "general.always" },
+    { "nvim-surround", after = _8_, event = "CursorMoved", for_cat = "general.always" },
     {
         "undotree",
         cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },

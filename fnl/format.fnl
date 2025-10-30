@@ -3,7 +3,7 @@
 (with-require [lze :lze]
   (lze.load [(tb :conform.nvim
                  {:for_cat :format
-                  :event :DeferredUIEnter
+                  :event :BufWritePre
                   :keys [(tb :<leader>FF {:desc "[F]ormat [F]ile"})]
                   :after (setup- :conform
                                  {:format_on_save {:timeout_ms 1000

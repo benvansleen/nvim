@@ -79,5 +79,5 @@ local function _6_()
 end
 return {
     { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
-    { "smear-cursor.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
 }
