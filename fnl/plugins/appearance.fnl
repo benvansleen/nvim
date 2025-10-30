@@ -22,6 +22,8 @@
                                   (when (or (= g :GreenSign) (= g :RedSign)
                                             (= g :BlueSign))
                                     (set o.bg colors.bg0))
+                                  (when (or (= g :Folded) (= g :FoldColumn))
+                                    (set o.bg colors.bg0))
                                   o)}))
 
 [(tb :dashboard-nvim

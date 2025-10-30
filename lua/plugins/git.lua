@@ -2,14 +2,29 @@
 local function _1_()
     local p_4_auto = require("neogit")
     return p_4_auto.setup({
+        auto_refresh = true,
+        filewatcher = { enabled = true, interval = 1000 },
         disable_hint = true,
+        graph_style = "unicode",
+        process_spinner = true,
         mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
+        integrations = { telescope = true, diffview = true },
     })
 end
 local function _2_()
     return require("neogit").open({ cwd = "%:p:h", kind = "auto" })
 end
 local function _3_()
+    local p_4_auto = require("diffview")
+    return p_4_auto.setup({
+        enhanced_diff_hl = true,
+        use_icons = true,
+        show_help_hints = true,
+        watch_index = true,
+        diff_binaries = false,
+    })
+end
+local function _4_()
     local p_4_auto = require("gitsigns")
     return p_4_auto.setup({
         signs = {
@@ -55,13 +70,13 @@ local function _3_()
         },
     })
 end
-local function _4_()
+local function _5_()
     return require("gitsigns").stage_hunk()
 end
-local function _5_()
+local function _6_()
     return require("gitsigns").reset_hunk()
 end
-local function _6_()
+local function _7_()
     return require("gitsigns").preview_hunk_inline()
 end
 return {
@@ -69,18 +84,19 @@ return {
         "neogit",
         after = _1_,
         cmd = { "Neogit" },
-        for_cat = "general.always",
-        keys = { { "  g", _2_, desc = "Open Neogit", mode = { "n" } } },
+        for_cat = "general.git",
+        keys = { { "<leader><leader>g", _2_, desc = "Open Neogit", mode = { "n" } } },
     },
+    { "diffview.nvim", after = _3_, cmd = { "DiffviewOpen", "DiffviewFileHistory" }, for_cat = "general.git" },
     {
         "gitsigns.nvim",
-        after = _3_,
+        after = _4_,
         event = "DeferredUIEnter",
-        for_cat = "general.always",
+        for_cat = "general.git",
         keys = {
-            { " gs", _4_, desc = "[G]it: [S]tage hunk", mode = { "n" } },
-            { " gR", _5_, desc = "[G]it: [R]eset hunk", mode = { "n" } },
-            { " gp", _6_, desc = "[G]it: [P]review hunk", mode = { "n" } },
+            { " gs", _5_, desc = "[G]it: [S]tage hunk", mode = { "n" } },
+            { " gR", _6_, desc = "[G]it: [R]eset hunk", mode = { "n" } },
+            { " gp", _7_, desc = "[G]it: [P]review hunk", mode = { "n" } },
         },
     },
 }

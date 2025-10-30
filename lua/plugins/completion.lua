@@ -61,7 +61,7 @@ local function _2_()
             menu = {
                 enabled = true,
                 auto_show_delay_ms = 50,
-                max_height = 3,
+                max_height = 7,
                 draw = {
                     columns = { { "kind_icon" }, { "label", gap = 1 } },
                     components = { label = { text = _6_, highlight = _7_ } },

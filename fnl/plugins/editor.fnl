@@ -12,6 +12,9 @@
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after (setup- :fidget)})
+ (tb :foldtext-nvim {:for_cat :general.extra
+                     :event :DeferredUIEnter
+                     :after (setup- :foldtext)})
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
@@ -23,6 +26,14 @@
                (set leap.opts.safe_labels "")
                (set leap.opts.preview false)
                (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
+ (tb :nvim-autopairs
+     {:for_cat :general.always
+      :event :InsertEnter
+      :after (setup- :nvim-autopairs
+                     {:check_ts true
+                      :disable_filetype [:TelescopePrompt]
+                      :disable_in_macro true
+                      :enable_check_bracket_line true})})
  (tb :nvim-surround {:for_cat :general.always
                      :event :DeferredUIEnter
                      :after (setup- :nvim-surround)})

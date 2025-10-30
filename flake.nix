@@ -18,13 +18,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    "plugins-telescope-cmdline" = {
-      url = "github:jonarrien/telescope-cmdline.nvim";
-      flake = false;
-    };
     "plugins-direnv-nvim" = {
       url = "github:NotAShelf/direnv.nvim";
       flake = false;
+    };
+    "plugins-foldtext-nvim" = {
+        url = "github:OXY2DEV/foldtext.nvim";
+        flake = false;
+    };
+    "plugins-telescope-cmdline" = {
+        url = "github:jonarrien/telescope-cmdline.nvim";
+        flake = false;
     };
 
     # see :help nixCats.flake.inputs
@@ -261,11 +265,15 @@
               ];
               always = with pkgs.vimPlugins; [
                 comment-nvim
-                gitsigns-nvim
                 leap-nvim
-                neogit
+                nvim-autopairs
                 nvim-lspconfig
                 nvim-surround
+              ];
+              git = with pkgs.vimPlugins; [
+                diffview-nvim
+                gitsigns-nvim
+                neogit
               ];
               tmux = with pkgs.vimPlugins; [
                 Navigator-nvim
@@ -276,6 +284,7 @@
                 dashboard-nvim
                 oil-nvim
                 pkgs.neovimPlugins.direnv-nvim
+                pkgs.neovimPlugins.foldtext-nvim
                 smear-cursor-nvim
                 toggleterm-nvim
                 undotree

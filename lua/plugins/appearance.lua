@@ -27,6 +27,10 @@ do
             o.bg = colors.bg0
         else
         end
+        if (g == "Folded") or (g == "FoldColumn") then
+            o.bg = colors.bg0
+        else
+        end
         return o
     end
     p_4_auto.setup({
@@ -37,7 +41,7 @@ do
         customize = _1_,
     })
 end
-local function _4_()
+local function _5_()
     local p_4_auto = require("dashboard")
     return p_4_auto.setup({
         theme = "hyper",
@@ -55,7 +59,7 @@ local function _4_()
         },
     })
 end
-local function _5_()
+local function _6_()
     local p_4_auto = require("smear_cursor")
     return p_4_auto.setup({
         smear_between_buffers = true,
@@ -65,6 +69,6 @@ local function _5_()
     })
 end
 return {
-    { "dashboard-nvim", after = _4_, event = "VimEnter", for_cat = "general.extra" },
-    { "smear-cursor.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
+    { "smear-cursor.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "general.extra" },
 }

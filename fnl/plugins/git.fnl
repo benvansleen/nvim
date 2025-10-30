@@ -1,17 +1,30 @@
 (import-macros {: tb : setup- : require-and-call} :macros)
 
 [(tb :neogit
-     {:for_cat :general.always
+     {:for_cat :general.git
       :cmd [:Neogit]
-      :keys [(tb "  g"
+      :keys [(tb :<leader><leader>g
                  (require-and-call :neogit :open {:cwd "%:p:h" :kind :auto})
                  {:mode [:n] :desc "Open Neogit"})]
       :after (setup- :neogit
-                     {:disable_hint true
+                     {:auto_refresh true
+                      :filewatcher {:enabled true :interval 1000}
+                      :disable_hint true
+                      :graph_style :unicode
+                      :process_spinner true
                       :mappings {:status {:gr :RefreshBuffer}
-                                 :popup {:p :PushPopup :F :PullPopup}}})})
+                                 :popup {:p :PushPopup :F :PullPopup}}
+                      :integrations {:telescope true :diffview true}})})
+ (tb :diffview.nvim {:for_cat :general.git
+                     :cmd [:DiffviewOpen :DiffviewFileHistory]
+                     :after (setup- :diffview
+                                    {:diff_binaries false
+                                     :enhanced_diff_hl true
+                                     :use_icons true
+                                     :show_help_hints true
+                                     :watch_index true})})
  (tb :gitsigns.nvim
-     {:for_cat :general.always
+     {:for_cat :general.git
       :event :DeferredUIEnter
       :keys [(tb " gs" (require-and-call :gitsigns :stage_hunk)
                  {:mode [:n] :desc "[G]it: [S]tage hunk"})

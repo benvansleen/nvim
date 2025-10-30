@@ -31,7 +31,7 @@
                                    :menu {:enabled true
                                           :auto_show false
                                           :auto_show_delay_ms 50
-                                          :max_height 3
+                                          :max_height 7
                                           :draw {:columns [(tb :kind_icon)
                                                            (tb :label {:gap 1})]
                                                  :components {:label {:text (fn [ctx]
