@@ -91,7 +91,7 @@ local function _15_(name)
     vim.cmd.packadd("telescope-fzf-native.nvim")
     vim.cmd.packadd("telescope-ui-select.nvim")
     vim.cmd.packadd("telescope-file-browser.nvim")
-    vim.cmd.packadd("telescope-cmdline.nvim")
+    vim.cmd.packadd("telescope-cmdline-nvim")
     return vim.cmd.packadd("telescope-zoxide")
 end
 return {

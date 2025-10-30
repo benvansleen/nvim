@@ -30,6 +30,7 @@ require("nixCatsUtils.catPacker").setup({
     { "tpope/vim-repeat" },
     { "f4z3r/gruvbox-material.nvim" },
 
+    { "ggandor/leap.nvim", opt = true },
     { "gpanders/nvim-parinfer", opt = true },
     { "numToStr/Navigator.nvim", opt = true },
     { "sphamba/smear-cursor.nvim", opt = true },
@@ -39,16 +40,16 @@ require("nixCatsUtils.catPacker").setup({
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
 
     { "jvgrootveld/telescope-zoxide", opt = true },
-    { "jonarrien/telescope-cmdline.nvim", opt = true },
+    { "jonarrien/telescope-cmdline.nvim", opt = true, as = "telescope-cmdline-nvim" },
     { "nvim-telescope/telescope-file-browser.nvim", opt = true },
     { "nvim-telescope/telescope-fzf-native.nvim", build = ":!which make && make", opt = true },
     { "nvim-telescope/telescope-ui-select.nvim", opt = true },
     { "nvim-telescope/telescope.nvim", opt = true },
 
     { "akinsho/toggleterm.nvim", opt = true },
-    { "NotAShelf/direnv.nvim", opt = true },
+    { "NotAShelf/direnv.nvim", opt = true, as = "direnv-nvim" },
 
-    { "OXY2DEV/foldtext.nvim", opt = true },
+    { "OXY2DEV/foldtext.nvim", opt = true, as = "foldtext-nvim" },
     { "windwp/nvim-autopairs", opt = true },
 
     -- lsp

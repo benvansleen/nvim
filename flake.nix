@@ -26,7 +26,7 @@
         url = "github:OXY2DEV/foldtext.nvim";
         flake = false;
     };
-    "plugins-telescope-cmdline" = {
+    "plugins-telescope-cmdline-nvim" = {
         url = "github:jonarrien/telescope-cmdline.nvim";
         flake = false;
     };
@@ -256,7 +256,7 @@
                 # ))
               ];
               telescope = with pkgs.vimPlugins; [
-                pkgs.neovimPlugins.telescope-cmdline
+                pkgs.neovimPlugins.telescope-cmdline-nvim
                 telescope-file-browser-nvim
                 telescope-fzf-native-nvim
                 telescope-nvim

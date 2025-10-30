@@ -159,7 +159,7 @@
         "type": "github"
       }
     },
-    "plugins-telescope-cmdline": {
+    "plugins-telescope-cmdline-nvim": {
       "flake": false,
       "locked": {
         "lastModified": 1757874925,
@@ -204,7 +204,7 @@
         "nixpkgs": "nixpkgs",
         "plugins-direnv-nvim": "plugins-direnv-nvim",
         "plugins-foldtext-nvim": "plugins-foldtext-nvim",
-        "plugins-telescope-cmdline": "plugins-telescope-cmdline",
+        "plugins-telescope-cmdline-nvim": "plugins-telescope-cmdline-nvim",
         "pre-commit-hooks": "pre-commit-hooks",
         "treefmt-nix": "treefmt-nix"
       }
