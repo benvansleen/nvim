@@ -12,7 +12,6 @@ do
     local screen_width = vim.api.nvim_win_get_width(0)
     local statuscolumn = "  %l%s%C"
     local statuscolumn_wide = (string.rep(" ", ((screen_width - 100) / 3)) .. statuscolumn)
-    vim.diagnostic.config({ virtual_lines = true })
     vim.g["mapleader"] = " "
     vim.g["maplocalleader"] = " "
     vim.g["netrw_liststyle"] = 0

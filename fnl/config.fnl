@@ -11,7 +11,6 @@
       statuscolumn "  %l%s%C"
       statuscolumn-wide (.. (string.rep " " (/ (- screen-width 100) 3))
                             statuscolumn)]
-  (vim.diagnostic.config {:virtual_lines true})
   (config {g {mapleader " "
               maplocalleader " "
               my_center_buffer false

@@ -1,4 +1,17 @@
 -- [nfnl] fnl/lsp/init.fnl
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "\239\129\151",
+            [vim.diagnostic.severity.WARN] = "\239\129\170 ",
+            [vim.diagnostic.severity.INFO] = "\239\129\154 ",
+            [vim.diagnostic.severity.HINT] = "\239\129\154 ",
+        },
+        linehl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg" },
+        numhl = { [vim.diagnostic.severity.WARN] = "WarningMsg" },
+    },
+    virtual_lines = false,
+})
 local cats = require("nixCatsUtils")
 local lze = require("lze")
 local old_ft_fallback = lze.h.lsp.get_ft_fallback()

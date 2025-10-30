@@ -1,5 +1,13 @@
 (import-macros {: tb : setup : setup- : with-require} :macros)
 
+(vim.diagnostic.config {:virtual_lines false
+                        :signs {:text {vim.diagnostic.severity.ERROR ""
+                                       vim.diagnostic.severity.WARN " "
+                                       vim.diagnostic.severity.INFO " "
+                                       vim.diagnostic.severity.HINT " "}
+                                :linehl {vim.diagnostic.severity.ERROR :ErrorMsg}
+                                :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
+
 (with-require [cats :nixCatsUtils lze :lze]
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
     (when (and cats.isNixCats (nixCats :lspDebugMode))
