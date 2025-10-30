@@ -48,6 +48,9 @@ require("nixCatsUtils.catPacker").setup({
     { "akinsho/toggleterm.nvim", opt = true },
     { "NotAShelf/direnv.nvim", opt = true },
 
+    { "OXY2DEV/foldtext.nvim", opt = true },
+    { "windwp/nvim-autopairs", opt = true },
+
     -- lsp
     { "williamboman/mason.nvim", opt = true },
     { "williamboman/mason-lspconfig.nvim", opt = true },
@@ -60,8 +63,6 @@ require("nixCatsUtils.catPacker").setup({
     { "folke/lazydev.nvim", opt = true },
 
     -- completion
-    { "L3MON4D3/LuaSnip", opt = true, as = "luasnip" },
-    { "hrsh7th/cmp-cmdline", opt = true },
     { "Saghen/blink.cmp", opt = true },
     { "Saghen/blink.compat", opt = true },
     { "xzbdmw/colorful-menu.nvim", opt = true },
@@ -77,18 +78,15 @@ require("nixCatsUtils.catPacker").setup({
     { "jay-babu/mason-nvim-dap.nvim", opt = true },
     { "mfussenegger/nvim-dap", opt = true },
 
-    -- { 'm-demare/hlargs.nvim', },
     { "mbbill/undotree", opt = true },
-    { "tpope/vim-fugitive", opt = true },
-    { "tpope/vim-rhubarb", opt = true },
-    { "tpope/vim-sleuth", opt = true },
     { "folke/which-key.nvim", opt = true },
     { "lewis6991/gitsigns.nvim", opt = true },
     { "NeogitOrg/neogit", opt = true },
-    { "nvim-lualine/lualine.nvim", opt = true },
     { "lukas-reineke/indent-blankline.nvim", opt = true },
     { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
     { "kylechui/nvim-surround", opt = true },
+
+    { "dstein64/vim-startuptime", opt = true },
 
     -- all the rest of the setup will be done using the normal setup functions later,
     -- thus working regardless of what method loads the plugins.

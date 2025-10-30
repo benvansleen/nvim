@@ -13,7 +13,7 @@
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after (setup- :fidget)})
- (tb :foldtext-nvim
+ (tb :foldtext.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
       :after (with-require- [foldtext :foldtext]
