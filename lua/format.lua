@@ -20,4 +20,4 @@ local function _2_()
     local conform = require("conform")
     return conform.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
-return { vim.keymap.set("n", "<leader>FF", _2_) }
+return { vim.keymap.set("n", "<leader>FF", _2_, { noremap = true }) }

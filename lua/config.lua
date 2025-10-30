@@ -107,21 +107,24 @@ do
     end
     do
         local _ = {
-            vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>"),
-            vim.keymap.set("n", "<C-j>", "<C-d>zz"),
-            vim.keymap.set("n", "<C-k>", "<C-u>zz"),
-            vim.keymap.set("n", "<leader>tn", _1_),
-            vim.keymap.set("n", "<leader>tc", _2_),
-            vim.keymap.set("n", "<leader>te", _3_),
-            vim.keymap.set("n", "<leader>wtf", _4_),
-            vim.keymap.set("n", "<leader>q", _5_),
+            vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
+            vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
+            vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
+            vim.keymap.set("n", "<leader>tn", _1_, { noremap = true }),
+            vim.keymap.set("n", "<leader>tc", _2_, { noremap = true }),
+            vim.keymap.set("n", "<leader>te", _3_, { noremap = true }),
+            vim.keymap.set("n", "<leader>wtf", _4_, { noremap = true }),
+            vim.keymap.set("n", "<leader>q", _5_, { noremap = true }),
         }
     end
     do
-        local _ = { vim.keymap.set("i", "jj", "<ESC>") }
+        local _ = { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) }
     end
     do
-        local _ = { vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv"), vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv") }
+        local _ = {
+            vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true }),
+            vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { noremap = true }),
+        }
     end
     local function _6_()
         return vim.highlight.on_yank()
@@ -189,7 +192,10 @@ else
 end
 local cats = require("nixCatsUtils")
 if not cats.isNixCats then
-    return { vim.keymap.set("n", "<up>", "<C-u>"), vim.keymap.set("n", "<down>", "<C-d>") }
+    return {
+        vim.keymap.set("n", "<up>", "<C-u>", { noremap = true }),
+        vim.keymap.set("n", "<down>", "<C-d>", { noremap = true }),
+    }
 else
     return nil
 end

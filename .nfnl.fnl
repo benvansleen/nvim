@@ -1,1 +1,1 @@
-{:ignore-patterns [:flsproject.fnl]}
+{:source-file-patterns [:init.fnl :fnl/**/*.fnl]}
