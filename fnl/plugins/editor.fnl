@@ -1,4 +1,5 @@
-(import-macros {: tb : setup- : require-and-call : with-require-} :macros)
+(import-macros {: config : tb : setup- : require-and-call : with-require-}
+               :macros)
 
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :DeferredUIEnter
@@ -12,9 +13,12 @@
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after (setup- :fidget)})
- (tb :foldtext-nvim {:for_cat :general.extra
-                     :event :DeferredUIEnter
-                     :after (setup- :foldtext)})
+ (tb :foldtext-nvim
+     {:for_cat :general.extra
+      :event :DeferredUIEnter
+      :after (with-require- [foldtext :foldtext]
+               (foldtext.setup)
+               (config {opt {fillchars {:eob " " :fold " "}}}))})
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter

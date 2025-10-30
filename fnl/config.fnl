@@ -20,37 +20,37 @@
            requires [:lsp
                      :plugins]
 
-            opt {autoindent true
-                 breakindent true
-                 clipboard "unnamedplus"
-                 expandtab true
-                 fillchars {:eob " "}
-                 hlsearch true
-                 inccommand "split"
-                 laststatus 0
-                 list true
-                 listchars {:tab "» "
-                            :trail "·"
-                            :nbsp "␣"}
-                 mouse "a"
-                 number false
-                 relativenumber false
-                 ruler false
-                 scrolloff 10
-                 shiftround true
-                 shiftwidth 4
-                 showcmd false
-                 showmode false
-                 signcolumn :yes
-                 smartcase true
-                 softtabstop -1
-                 statuscolumn statuscolumn
-                 statusline "%{repeat('─',winwidth('.'))}"
-                 tabstop 4
-                 termguicolors true
-                 timeoutlen 300
-                 updatetime 250
-                 undofile true}
+           opt {autoindent true
+                breakindent true
+                clipboard "unnamedplus"
+                expandtab true
+                fillchars {:eob " "}
+                hlsearch true
+                inccommand "split"
+                laststatus 0
+                list true
+                listchars {:tab "» "
+                           :trail "·"
+                           :nbsp "␣"}
+                mouse "a"
+                number false
+                relativenumber false
+                ruler false
+                scrolloff 10
+                shiftround true
+                shiftwidth 4
+                showcmd false
+                showmode false
+                signcolumn :yes
+                smartcase true
+                softtabstop -1
+                statuscolumn statuscolumn
+                statusline "%{repeat('─',winwidth('.'))}"
+                tabstop 4
+                termguicolors true
+                timeoutlen 300
+                updatetime 250
+                undofile true}
 
            nmap {:<Esc> "<cmd>nohlsearch<CR>"
                  :<C-j> "<C-d>zz"

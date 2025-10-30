@@ -12,8 +12,10 @@ local function _3_()
     return p_5_auto.setup()
 end
 local function _4_()
-    local p_5_auto = require("foldtext")
-    return p_5_auto.setup()
+    local foldtext = require("foldtext")
+    foldtext.setup()
+    vim.opt["fillchars"] = { eob = " ", fold = " " }
+    return { nil }
 end
 local function _5_()
     local p_4_auto = require("ibl")
