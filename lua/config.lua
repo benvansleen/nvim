@@ -184,7 +184,12 @@ if nixCats("lint") then
 else
 end
 if nixCats("format") then
-    return require("format")
+    require("format")
+else
+end
+local cats = require("nixCatsUtils")
+if not cats.isNixCats then
+    return { vim.keymap.set("n", "<up>", "<C-u>"), vim.keymap.set("n", "<down>", "<C-d>") }
 else
     return nil
 end

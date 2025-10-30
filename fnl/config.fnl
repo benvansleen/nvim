@@ -118,3 +118,7 @@
 
 (when (nixCats :format)
   (require :format))
+
+(with-require [cats :nixCatsUtils]
+  (when (not cats.isNixCats)
+    (config {nmap {:<up> :<C-u> :<down> :<C-d>}})))
