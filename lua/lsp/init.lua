@@ -1,16 +1,16 @@
 -- [nfnl] fnl/lsp/init.fnl
 vim.diagnostic.config({
+    virtual_lines = { current_line = true },
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = "\239\129\151",
-            [vim.diagnostic.severity.WARN] = "\239\129\170 ",
-            [vim.diagnostic.severity.INFO] = "\239\129\154 ",
-            [vim.diagnostic.severity.HINT] = "\239\129\154 ",
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = "",
         },
         linehl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg" },
         numhl = { [vim.diagnostic.severity.WARN] = "WarningMsg" },
     },
-    virtual_lines = false,
 })
 local cats = require("nixCatsUtils")
 local lze = require("lze")
