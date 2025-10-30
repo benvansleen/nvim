@@ -2,11 +2,21 @@
 local function _1_()
     local p_4_auto = require("nvim-treesitter.configs")
     return p_4_auto.setup({
-        highlight = { enable = true },
+        highlight = { enable = true, additional_vim_regex_highlighting = false },
         indent = { enable = false },
-        incremental_selection = { enable = true, keymaps = {} },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "gnn",
+                node_incremental = "grn",
+                scope_incremental = "grc",
+                node_decremental = "grm",
+            },
+        },
         textobjects = {
             select = {
+                enable = true,
+                disable = { "fennel" },
                 lookahead = true,
                 keymaps = {
                     aa = "@parameter.outer",
@@ -16,7 +26,6 @@ local function _1_()
                     ac = "@class.outer",
                     ic = "@class.inner",
                 },
-                enable = false,
             },
             move = {
                 enable = true,
@@ -36,6 +45,10 @@ local function _1_()
 end
 local function _2_(name)
     vim.cmd.packadd(name)
-    return vim.cmd.packadd("nvim-treesitter-textobjects")
+    vim.cmd.packadd("nvim-treesitter-textobjects")
+    vim.wo.foldlevel = 10
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    return nil
 end
 return { "nvim-treesitter", after = _1_, event = "DeferredUIEnter", for_cat = "general.treesitter", load = _2_ }

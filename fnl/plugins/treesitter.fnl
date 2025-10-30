@@ -5,12 +5,21 @@
      :event :DeferredUIEnter
      :load (fn [name]
              (vim.cmd.packadd name)
-             (vim.cmd.packadd :nvim-treesitter-textobjects))
+             (vim.cmd.packadd :nvim-treesitter-textobjects)
+             (set vim.wo.foldlevel 10)
+             (set vim.wo.foldmethod :expr)
+             (set vim.wo.foldexpr "v:lua.vim.treesitter.foldexpr()"))
      :after (setup- :nvim-treesitter.configs
-                    {:highlight {:enable true}
+                    {:highlight {:enable true
+                                 :additional_vim_regex_highlighting false}
                      :indent {:enable false}
-                     :incremental_selection {:enable true :keymaps {}}
-                     :textobjects {:select {:enable false
+                     :incremental_selection {:enable true
+                                             :keymaps {:init_selection :gnn
+                                                       :node_incremental :grn
+                                                       :scope_incremental :grc
+                                                       :node_decremental :grm}}
+                     :textobjects {:select {:enable true
+                                            :disable [:fennel]
                                             :lookahead true
                                             :keymaps {:aa "@parameter.outer"
                                                       :ia "@parameter.inner"
