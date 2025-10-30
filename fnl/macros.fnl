@@ -78,10 +78,19 @@
                   [:autocmd cmds] (set-autocmds cmds)
                   _ (error (.. "Unknown config form: " (view k))))))))
 
+(fn load-plugins [& plugins]
+  (let [imports (icollect [_ plugin (ipairs plugins)]
+                  {:import (.. :plugins "." plugin)})]
+    `(do
+       (import-macros {: with-require} :macros)
+       (with-require [lze# :lze]
+         (lze#.load ,imports)))))
+
 {: tb
  : with-require
  : with-require-
  : require-and-call
  : setup
  : setup-
- : config}
+ : config
+ : load-plugins}

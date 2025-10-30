@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/init.fnl
-local lze = require("lze")
-return lze.load({
+local lze_17_auto = require("lze")
+return lze_17_auto.load({
     { import = "plugins.appearance" },
     { import = "plugins.completion" },
     { import = "plugins.editor" },
@@ -9,6 +9,6 @@ return lze.load({
     { import = "plugins.oil" },
     { import = "plugins.telescope" },
     { import = "plugins.terminal" },
-    { import = "plugins.treesitter" },
     { import = "plugins.tmux" },
+    { import = "plugins.treesitter" },
 })
