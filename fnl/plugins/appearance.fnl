@@ -32,7 +32,14 @@
       :after (setup- :dashboard
                      {:theme :hyper
                       :change_to_root_vcs true
-                      :config {:footer {}
+                      :config {:header ["                                  __                 "
+                                        "  ___     ___    ___   __  __ /\\_\\    ___ ___   "
+                                        " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ "
+                                        "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\"
+                                        "  \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
+                                        "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
+                                        ""]
+                               :footer {}
                                :packages {:enable false}
                                :shortcut [{:desc :Files
                                            :group :Label
@@ -50,7 +57,7 @@
                                            :group :Number
                                            :action "Telescope find_files cwd=~/.config"
                                            :key :d}]
-                               :week_header {:enable true}}})})
+                               :week_header {:enable false}}})})
  (tb :smear-cursor.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter

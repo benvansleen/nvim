@@ -47,6 +47,15 @@ local function _5_()
         theme = "hyper",
         change_to_root_vcs = true,
         config = {
+            header = {
+                "                                  __                 ",
+                "  ___     ___    ___   __  __ /\\_\\    ___ ___   ",
+                " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ ",
+                "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\",
+                "  \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\",
+                "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/",
+                "",
+            },
             footer = {},
             packages = { enable = false },
             shortcut = {
@@ -55,7 +64,7 @@ local function _5_()
                 { desc = "Change Directory", group = "@constant", action = "Telescope zoxide list", key = "c" },
                 { desc = "Dotfiles", group = "Number", action = "Telescope find_files cwd=~/.config", key = "d" },
             },
-            week_header = { enable = true },
+            week_header = { enable = false },
         },
     })
 end
