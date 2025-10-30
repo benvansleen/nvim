@@ -4,6 +4,7 @@
   (fn map [mode keys func desc]
     (vim.keymap.set mode keys func
                     {:buffer bufnr
+                     :noremap true
                      :desc (if desc
                                (.. "LSP: " desc)
                                "")}))

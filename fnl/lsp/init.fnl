@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : with-require} :macros)
+(import-macros {: tb : setup : setup- : with-require} :macros)
 
 (with-require [cats :nixCatsUtils lze :lze]
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
@@ -44,8 +44,9 @@
                     :load (fn [name]
                             (vim.cmd.packadd name)
                             (vim.cmd.packadd :mason-lspconfig.nvim)
-                            ((. (require :mason) :setup))
-                            ((. (require :mason-lspconfig) :setup) {:automatic_installation false}))})
+                            (setup :mason)
+                            (setup :mason-lspconfig
+                                   {:automatic_installation false}))})
                (tb :lazydev.nvim
                    {:for_cat :neonixdev
                     :cmd [:LazyDev]
@@ -84,10 +85,14 @@
                                             :diagnostic {:suppress [:sema-escaping-with]}}}}})
                (tb :basedpyright
                    {:enabled (or (nixCats :python) false)
-                    :lsp {:filetypes [:python] :settings {:python {}}}})
-               (tb :ts_ls {:enabled (or (nixCats :typescript) false)
-                           :lsp {:filetypes [:javascript
-                                             :javascriptreact
-                                             :typescript
-                                             :typescriptreact]
-                                 :settings {}}})])))
+                    :lsp {:filetypes [:python]
+                          :settings {:python {}}
+                          :on_attach (require :lsp.on_attach)}})
+               (tb :ts_ls
+                   {:enabled (or (nixCats :typescript) false)
+                    :lsp {:filetypes [:javascript
+                                      :javascriptreact
+                                      :typescript
+                                      :typescriptreact]
+                          :settings {}
+                          :on_attach (require :lsp.on_attach)}})])))

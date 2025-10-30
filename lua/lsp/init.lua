@@ -43,8 +43,12 @@ end
 local function _10_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("mason-lspconfig.nvim")
-    require("mason").setup()
-    return require("mason-lspconfig").setup({ automatic_installation = false })
+    do
+        local p_5_auto = require("mason")
+        p_5_auto.setup()
+    end
+    local p_4_auto = require("mason-lspconfig")
+    return p_4_auto.setup({ automatic_installation = false })
 end
 local function _11_()
     local p_4_auto = require("lazydev")
@@ -94,13 +98,15 @@ return lze.load({
     {
         "basedpyright",
         enabled = (nixCats("python") or false),
-        lsp = { filetypes = { "python" }, settings = {
-            python = {},
-        } },
+        lsp = { filetypes = { "python" }, settings = { python = {} }, on_attach = require("lsp.on_attach") },
     },
     {
         "ts_ls",
         enabled = (nixCats("typescript") or false),
-        lsp = { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }, settings = {} },
+        lsp = {
+            filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+            settings = {},
+            on_attach = require("lsp.on_attach"),
+        },
     },
 })

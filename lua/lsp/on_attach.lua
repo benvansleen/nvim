@@ -7,7 +7,7 @@ local function _1_(_, bufnr)
         else
             _2_ = ""
         end
-        return vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = _2_ })
+        return vim.keymap.set(mode, keys, func, { buffer = bufnr, noremap = true, desc = _2_ })
     end
     local function nmap(...)
         return map("n", ...)
