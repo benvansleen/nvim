@@ -1,0 +1,54 @@
+-- [nfnl] fnl/center-buffer.fnl
+local function get_buf_fts(win)
+    return vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype")
+end
+local function real_window_3f(win)
+    local cfg = vim.api.nvim_win_get_config(win)
+    local ft = get_buf_fts(win)
+    return (
+        not cfg.external
+        and (ft ~= "")
+        and (ft ~= "fidget")
+        and (ft ~= "smear-cursor")
+        and (ft ~= "wk")
+        and (ft ~= "TelescopePrompt")
+        and (ft ~= "TelescopeResults")
+        and (ft ~= "TelescopeResults")
+    )
+end
+local function count_windows()
+    local windows = vim.tbl_filter(real_window_3f, vim.api.nvim_tabpage_list_wins(0))
+    if vim.g._debug_my_center_buffer then
+        print(vim.inspect(vim.tbl_map(get_buf_fts, windows)))
+    else
+    end
+    return #windows
+end
+local screen_width = vim.api.nvim_win_get_width(0)
+local statuscolumn = "  %l%s%C"
+local statuscolumn_wide = (string.rep(" ", ((screen_width - 100) / 3)) .. statuscolumn)
+local function center_buffer()
+    local winwidth = vim.api.nvim_win_get_width(0)
+    if vim.g.my_center_buffer and (count_windows() == 1) and (winwidth > (screen_width / 3)) then
+        vim.wo.statuscolumn = statuscolumn_wide
+        return nil
+    else
+        vim.wo.statuscolumn = statuscolumn
+        return nil
+    end
+end
+vim.g["my_center_buffer"] = true
+local function _3_()
+    vim.g.my_center_buffer = not vim.g.my_center_buffer
+    return nil
+end
+return {
+    { nil },
+    { vim.keymap.set("n", "<leader>tc", _3_, { noremap = true }) },
+    {
+        vim.api.nvim_create_autocmd(
+            { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
+            { callback = center_buffer }
+        ),
+    },
+}

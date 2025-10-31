@@ -18,14 +18,12 @@ vim.schedule(_1_)
 do
     local numbertoggle_g = vim.api.nvim_create_augroup("numbertoggle", {})
     local highlight_g = vim.api.nvim_create_augroup("highlight", {})
-    local screen_width = vim.api.nvim_win_get_width(0)
-    local statuscolumn = "  %l%s%C"
-    local statuscolumn_wide = (string.rep(" ", ((screen_width - 100) / 3)) .. statuscolumn)
     vim.g["mapleader"] = " "
     vim.g["maplocalleader"] = " "
+    vim.g["my_center_buffer"] = true
     vim.g["netrw_liststyle"] = 0
     vim.g["netrw_banner"] = 0
-    vim.g["my_center_buffer"] = false
+    vim.g["_debug_my_center_buffer"] = false
     vim.opt["autoindent"] = true
     vim.opt["breakindent"] = true
     vim.opt["expandtab"] = true
@@ -44,7 +42,7 @@ do
     vim.opt["softtabstop"] = -1
     vim.opt["splitbelow"] = true
     vim.opt["splitright"] = true
-    vim.opt["statuscolumn"] = statuscolumn
+    vim.opt["statuscolumn"] = "  %l%s%C"
     vim.opt["statusline"] = "%{repeat('\226\148\128',winwidth('.'))}"
     vim.opt["tabstop"] = 4
     vim.opt["termguicolors"] = true
@@ -83,16 +81,6 @@ do
         return vim.highlight.on_yank()
     end
     local function _9_()
-        local winwidth = vim.api.nvim_win_get_width(0)
-        if vim.g.my_center_buffer and (winwidth > (screen_width / 3)) then
-            vim.wo.statuscolumn = statuscolumn_wide
-            return nil
-        else
-            vim.wo.statuscolumn = statuscolumn
-            return nil
-        end
-    end
-    local function _11_()
         if vim.wo.nu and ("i" ~= vim.api.nvim_get_mode().mode) then
             vim.wo.relativenumber = true
             return nil
@@ -100,7 +88,7 @@ do
             return nil
         end
     end
-    local function _13_()
+    local function _11_()
         if vim.wo.nu then
             vim.wo.relativenumber = false
             return nil
@@ -110,7 +98,7 @@ do
     end
     do
         local _ = {
-            { nil, nil, nil, nil, nil },
+            { nil, nil, nil, nil, nil, nil },
             { require("lsp"), require("plugins") },
             {
                 nil,
@@ -168,20 +156,20 @@ do
                 }),
                 vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _8_ }),
                 vim.api.nvim_create_autocmd(
-                    { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
-                    { callback = _9_ }
-                ),
-                vim.api.nvim_create_autocmd(
                     { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-                    { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
+                    { pattern = "*", group = numbertoggle_g, callback = _9_, nested = false, once = false }
                 ),
                 vim.api.nvim_create_autocmd(
                     { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
-                    { pattern = "*", group = numbertoggle_g, callback = _13_, nested = false, once = false }
+                    { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
                 ),
             },
         }
     end
+end
+if nixCats("center-buffer") then
+    require("center-buffer")
+else
 end
 if nixCats("debug") then
     require("debug")

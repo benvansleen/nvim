@@ -11,15 +11,12 @@
 
 ;; fnlfmt: skip
 (let [numbertoggle-g (vim.api.nvim_create_augroup :numbertoggle {})
-      highlight-g (vim.api.nvim_create_augroup :highlight {})
-      screen-width (vim.api.nvim_win_get_width 0)
-      statuscolumn "  %l%s%C"
-      statuscolumn-wide (.. (string.rep " " (/ (- screen-width 100) 3))
-                            statuscolumn)]
+      highlight-g (vim.api.nvim_create_augroup :highlight {})]
   (config
     (g {mapleader " "
         maplocalleader " "
-        my_center_buffer false
+        my_center_buffer true
+        _debug_my_center_buffer false
         netrw_liststyle 0
         netrw_banner 0})
 
@@ -50,7 +47,7 @@
           softtabstop -1
           splitbelow true
           splitright true
-          statuscolumn statuscolumn
+          statuscolumn "  %l%s%C"
           statusline "%{repeat('─',winwidth('.'))}"
           tabstop 4
           termguicolors true
@@ -78,7 +75,6 @@
                                    vim.inspect
                                    print))})
 
-
     (imap {:jj :<ESC>})
 
     (vmap {:J ":m '>+1<CR>gv=gv"
@@ -93,16 +89,6 @@
               {:group highlight-g
                :pattern "*"
                :callback (fn [] (vim.highlight.on_yank))}
-
-              [:BufEnter :BufWinEnter :BufWinLeave :WinEnter :WinLeave :WinResized :VimResized]
-              {:callback (fn []
-                            (let [winwidth (vim.api.nvim_win_get_width 0)]
-                              (if (and vim.g.my_center_buffer
-                                       (> winwidth
-                                          (/ screen-width
-                                             3)))
-                                  (set vim.wo.statuscolumn statuscolumn-wide)
-                                  (set vim.wo.statuscolumn statuscolumn))))}
 
               [:BufEnter :FocusGained :InsertLeave :CmdlineLeave :WinEnter]
               {:pattern "*"
@@ -120,6 +106,9 @@
                :once false
                :nested false
                :callback (fn [] (when vim.wo.nu (set vim.wo.relativenumber false)))}})))
+
+(when (nixCats :center-buffer)
+  (require :center-buffer))
 
 (when (nixCats :debug)
   (require :debug))

@@ -415,6 +415,7 @@
             # enable the categories you want from categoryDefinitions
             categories = {
               markdown = true;
+              center-buffer = true;
               general = true;
               lint = false;
               lisp = true;
