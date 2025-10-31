@@ -416,6 +416,7 @@
             categories = {
               markdown = true;
               center-buffer = true;
+              number-toggle = true;
               general = true;
               lint = false;
               lisp = true;

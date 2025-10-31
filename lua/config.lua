@@ -16,7 +16,6 @@ local function _1_()
 end
 vim.schedule(_1_)
 do
-    local numbertoggle_g = vim.api.nvim_create_augroup("numbertoggle", {})
     local highlight_g = vim.api.nvim_create_augroup("highlight", {})
     vim.g["mapleader"] = " "
     vim.g["maplocalleader"] = " "
@@ -55,46 +54,24 @@ do
     vim.opt["showcmd"] = false
     vim.opt["showmode"] = false
     local function _2_()
-        local cur = vim.wo.nu
-        vim.wo.number = not cur
-        vim.wo.relativenumber = not cur
-        return nil
-    end
-    local function _3_()
         vim.g.my_center_buffer = not vim.g.my_center_buffer
         return nil
     end
-    local function _4_()
+    local function _3_()
         local vt = vim.diagnostic.config().virtual_lines
         return vim.diagnostic.config({ virtual_lines = not vt })
     end
-    local function _5_()
+    local function _4_()
         return print(vim.api.nvim_buf_get_name(0))
     end
-    local function _6_()
+    local function _5_()
         return vim.api.nvim_buf_delete(0, {})
     end
-    local function _7_()
+    local function _6_()
         return print(vim.inspect(vim.treesitter.get_captures_at_cursor(0)))
     end
-    local function _8_()
+    local function _7_()
         return vim.highlight.on_yank()
-    end
-    local function _9_()
-        if vim.wo.nu and ("i" ~= vim.api.nvim_get_mode().mode) then
-            vim.wo.relativenumber = true
-            return nil
-        else
-            return nil
-        end
-    end
-    local function _11_()
-        if vim.wo.nu then
-            vim.wo.relativenumber = false
-            return nil
-        else
-            return nil
-        end
     end
     do
         local _ = {
@@ -136,12 +113,11 @@ do
                 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
                 vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
                 vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
-                vim.keymap.set("n", "<leader>tn", _2_, { noremap = true }),
-                vim.keymap.set("n", "<leader>tc", _3_, { noremap = true }),
-                vim.keymap.set("n", "<leader>te", _4_, { noremap = true }),
-                vim.keymap.set("n", "<leader>wtf", _5_, { noremap = true }),
-                vim.keymap.set("n", "<leader>q", _6_, { noremap = true }),
-                vim.keymap.set("n", "<leader>huc", _7_, { noremap = true }),
+                vim.keymap.set("n", "<leader>tc", _2_, { noremap = true }),
+                vim.keymap.set("n", "<leader>te", _3_, { noremap = true }),
+                vim.keymap.set("n", "<leader>wtf", _4_, { noremap = true }),
+                vim.keymap.set("n", "<leader>q", _5_, { noremap = true }),
+                vim.keymap.set("n", "<leader>huc", _6_, { noremap = true }),
             },
             { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) },
             {
@@ -154,21 +130,17 @@ do
                     pattern = "*",
                     command = 'silent! normal! g`"zv',
                 }),
-                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _8_ }),
-                vim.api.nvim_create_autocmd(
-                    { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-                    { pattern = "*", group = numbertoggle_g, callback = _9_, nested = false, once = false }
-                ),
-                vim.api.nvim_create_autocmd(
-                    { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
-                    { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
-                ),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _7_ }),
             },
         }
     end
 end
 if nixCats("center-buffer") then
     require("center-buffer")
+else
+end
+if nixCats("number-toggle") then
+    require("number-toggle")
 else
 end
 if nixCats("debug") then
@@ -183,8 +155,8 @@ if nixCats("format") then
     require("format")
 else
 end
-local cats = require("nixCatsUtils")
-if not cats.isNixCats then
+local nixCatsUtils = require("nixCatsUtils")
+if not nixCatsUtils.isNixCats then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { noremap = true }),
