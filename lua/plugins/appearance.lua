@@ -7,7 +7,7 @@ do
         local colors0 = require("gruvbox-material.colors")
         colors = colors0.get(vim.o.background, contrast)
     end
-    local p_5_auto = require(theme_name)
+    local p_6_auto = require(theme_name)
     local function _1_(g, o)
         if
             (g == "TelescopeBorder")
@@ -33,7 +33,7 @@ do
         end
         return o
     end
-    p_5_auto.setup({
+    p_6_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },
@@ -42,8 +42,8 @@ do
     })
 end
 local function _5_()
-    local p_5_auto = require("dashboard")
-    return p_5_auto.setup({
+    local dashboard = require("dashboard")
+    dashboard.setup({
         theme = "hyper",
         change_to_root_vcs = true,
         config = {
@@ -67,10 +67,15 @@ local function _5_()
             week_header = { enable = false },
         },
     })
+    vim.api.nvim_set_hl(0, "DashboardHeader", { link = "Blue" })
+    vim.api.nvim_set_hl(0, "DashboardFiles", { link = "@comment" })
+    vim.api.nvim_set_hl(0, "DashboardProjectTitle", { link = "Purple" })
+    vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
+    return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
 end
 local function _6_()
-    local p_5_auto = require("smear_cursor")
-    return p_5_auto.setup({
+    local p_6_auto = require("smear_cursor")
+    return p_6_auto.setup({
         smear_between_buffers = true,
         smear_between_neighbor_lines = true,
         scroll_buffer_space = true,
@@ -78,8 +83,8 @@ local function _6_()
     })
 end
 local function _7_()
-    local p_5_auto = require("helpview")
-    return p_5_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
+    local p_6_auto = require("helpview")
+    return p_6_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
 end
 local function _8_()
     local focus = require("focus")

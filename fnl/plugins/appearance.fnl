@@ -35,35 +35,40 @@
 [(tb :dashboard-nvim
      {:for_cat :general.extra
       :event :VimEnter
-      :after (setup- :dashboard
-                     {:theme :hyper
-                      :change_to_root_vcs true
-                      :config {:header ["                                 __                 "
-                                        "  ___     ___    ___   __  __ /\\_\\    ___ ___   "
-                                        " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ "
-                                        "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\"
-                                        " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
-                                        "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
-                                        ""]
-                               :footer {}
-                               :packages {:enable false}
-                               :shortcut [{:desc :Files
-                                           :group :Label
-                                           :action "Telescope find_files"
-                                           :key :f}
-                                          {:desc :Git
-                                           :group "@property"
-                                           :action :Neogit
-                                           :key :g}
-                                          {:desc "Change Directory"
-                                           :group "@constant"
-                                           :action "Telescope zoxide list"
-                                           :key :c}
-                                          {:desc :Dotfiles
-                                           :group :Number
-                                           :action "Telescope find_files cwd=~/.config"
-                                           :key :d}]
-                               :week_header {:enable false}}})})
+      :after (with-require- {: dashboard}
+               (dashboard.setup {:theme :hyper
+                                 :change_to_root_vcs true
+                                 :config {:header ["                                 __                 "
+                                                   "  ___     ___    ___   __  __ /\\_\\    ___ ___   "
+                                                   " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ "
+                                                   "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\"
+                                                   " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
+                                                   "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
+                                                   ""]
+                                          :footer {}
+                                          :packages {:enable false}
+                                          :shortcut [{:desc :Files
+                                                      :group :Label
+                                                      :action "Telescope find_files"
+                                                      :key :f}
+                                                     {:desc :Git
+                                                      :group "@property"
+                                                      :action :Neogit
+                                                      :key :g}
+                                                     {:desc "Change Directory"
+                                                      :group "@constant"
+                                                      :action "Telescope zoxide list"
+                                                      :key :c}
+                                                     {:desc :Dotfiles
+                                                      :group :Number
+                                                      :action "Telescope find_files cwd=~/.config"
+                                                      :key :d}]
+                                          :week_header {:enable false}}})
+               (vim.api.nvim_set_hl 0 :DashboardHeader {:link :Blue})
+               (vim.api.nvim_set_hl 0 :DashboardFiles {:link "@comment"})
+               (vim.api.nvim_set_hl 0 :DashboardProjectTitle {:link :Purple})
+               (vim.api.nvim_set_hl 0 :DashboardMruTitle {:link :Red})
+               (vim.api.nvim_set_hl 0 :DashboardShortCut {:link :Green}))})
  (tb :smear-cursor.nvim
      {:for_cat :general.extra
       :event :CursorMoved

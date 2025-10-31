@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/tmux.fnl
 local function _1_()
-    local p_5_auto = require("Navigator")
-    return p_5_auto.setup({ auto_save = nil, disable_on_zoom = true })
+    local p_6_auto = require("Navigator")
+    return p_6_auto.setup({ auto_save = nil, disable_on_zoom = true })
 end
 local function _2_()
     local nav = require("Navigator")

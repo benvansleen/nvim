@@ -77,9 +77,12 @@ do
         return vim.api.nvim_buf_delete(0, {})
     end
     local function _7_()
-        return vim.highlight.on_yank()
+        return print(vim.inspect(vim.treesitter.get_captures_at_cursor(0)))
     end
     local function _8_()
+        return vim.highlight.on_yank()
+    end
+    local function _9_()
         local winwidth = vim.api.nvim_win_get_width(0)
         if vim.g.my_center_buffer and (winwidth > (screen_width / 3)) then
             vim.wo.statuscolumn = statuscolumn_wide
@@ -89,7 +92,7 @@ do
             return nil
         end
     end
-    local function _10_()
+    local function _11_()
         if vim.wo.nu and ("i" ~= vim.api.nvim_get_mode().mode) then
             vim.wo.relativenumber = true
             return nil
@@ -97,7 +100,7 @@ do
             return nil
         end
     end
-    local function _12_()
+    local function _13_()
         if vim.wo.nu then
             vim.wo.relativenumber = false
             return nil
@@ -150,6 +153,7 @@ do
                 vim.keymap.set("n", "<leader>te", _4_, { noremap = true }),
                 vim.keymap.set("n", "<leader>wtf", _5_, { noremap = true }),
                 vim.keymap.set("n", "<leader>q", _6_, { noremap = true }),
+                vim.keymap.set("n", "<leader>huc", _7_, { noremap = true }),
             },
             { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) },
             {
@@ -162,18 +166,18 @@ do
                     pattern = "*",
                     command = 'silent! normal! g`"zv',
                 }),
-                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _7_ }),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _8_ }),
                 vim.api.nvim_create_autocmd(
                     { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
-                    { callback = _8_ }
+                    { callback = _9_ }
                 ),
                 vim.api.nvim_create_autocmd(
                     { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-                    { pattern = "*", group = numbertoggle_g, callback = _10_, nested = false, once = false }
+                    { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
                 ),
                 vim.api.nvim_create_autocmd(
                     { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
-                    { pattern = "*", group = numbertoggle_g, callback = _12_, nested = false, once = false }
+                    { pattern = "*", group = numbertoggle_g, callback = _13_, nested = false, once = false }
                 ),
             },
         }

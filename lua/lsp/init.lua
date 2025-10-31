@@ -57,15 +57,15 @@ local function _10_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("mason-lspconfig.nvim")
     do
-        local p_6_auto = require("mason")
-        p_6_auto.setup()
+        local p_7_auto = require("mason")
+        p_7_auto.setup()
     end
-    local p_5_auto = require("mason-lspconfig")
-    return p_5_auto.setup({ automatic_installation = false })
+    local p_6_auto = require("mason-lspconfig")
+    return p_6_auto.setup({ automatic_installation = false })
 end
 local function _11_()
-    local p_5_auto = require("lazydev")
-    return p_5_auto.setup({ library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") } })
+    local p_6_auto = require("lazydev")
+    return p_6_auto.setup({ library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") } })
 end
 return lze.load({
     { "nvim-lspconfig", before = _8_, for_cat = "general.always", lsp = _9_, on_require = { "lspconfig" } },

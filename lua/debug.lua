@@ -35,7 +35,7 @@ local function _1_(_)
             },
         })
     end
-    local p_5_auto = require("nvim-dap-virtual-text")
+    local p_6_auto = require("nvim-dap-virtual-text")
     local function _3_(variable, _buf, _stackframe, _node, options)
         if options.virt_text_pos == "inline" then
             return (" = " .. variable.value)
@@ -49,7 +49,7 @@ local function _1_(_)
     else
         _5_ = "eol"
     end
-    return p_5_auto.setup({
+    return p_6_auto.setup({
         enabled = true,
         enabled_commands = true,
         highlight_changed_variables = true,

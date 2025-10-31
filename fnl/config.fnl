@@ -72,7 +72,12 @@
                         (let [vt (. (vim.diagnostic.config) :virtual_lines)]
                          (vim.diagnostic.config {:virtual_lines (not vt)})))
            :<leader>wtf (fn [] (print (vim.api.nvim_buf_get_name 0)))
-           :<leader>q (fn [] (vim.api.nvim_buf_delete 0 {}))})
+           :<leader>q (fn [] (vim.api.nvim_buf_delete 0 {}))
+           :<leader>huc (fn [] (-> 0
+                                   vim.treesitter.get_captures_at_cursor
+                                   vim.inspect
+                                   print))})
+
 
     (imap {:jj :<ESC>})
 

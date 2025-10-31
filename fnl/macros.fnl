@@ -12,6 +12,11 @@
           args)
         args)))
 
+(fn when-let [[sym expr] & body]
+  `(let [,sym ,expr]
+     (when ,sym
+       ,(unpack body))))
+
 (fn with-require [bindings & body]
   (let [pairings (accumulate [l [] sym mod (pairs bindings)]
                    (do
@@ -86,6 +91,7 @@
          (lze#.load ,imports)))))
 
 {: tb
+ : when-let
  : with-require
  : with-require-
  : require-and-call
