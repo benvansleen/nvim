@@ -48,6 +48,8 @@
           signcolumn :yes
           smartcase true
           softtabstop -1
+          splitbelow true
+          splitright true
           statuscolumn statuscolumn
           statusline "%{repeat('─',winwidth('.'))}"
           tabstop 4

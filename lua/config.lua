@@ -42,6 +42,8 @@ do
     vim.opt["signcolumn"] = "yes"
     vim.opt["smartcase"] = true
     vim.opt["softtabstop"] = -1
+    vim.opt["splitbelow"] = true
+    vim.opt["splitright"] = true
     vim.opt["statuscolumn"] = statuscolumn
     vim.opt["statusline"] = "%{repeat('\226\148\128',winwidth('.'))}"
     vim.opt["tabstop"] = 4
@@ -108,6 +110,8 @@ do
             { nil, nil, nil, nil, nil },
             { require("lsp"), require("plugins") },
             {
+                nil,
+                nil,
                 nil,
                 nil,
                 nil,
