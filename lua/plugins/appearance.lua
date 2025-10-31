@@ -88,7 +88,7 @@ local function _8_()
         commands = true,
         autoresize = { enable = true },
         split = { bufnew = false, tmux = false },
-        ui = { winhighlight = true, cursorline = false, signcolumn = false },
+        ui = { cursorline = false, signcolumn = false, winhighlight = false },
     })
     local ignore_filetypes = { "TelescopePrompt", "TelescopeResults" }
     local ignore_buftypes = { "prompt", "popup" }

@@ -88,7 +88,7 @@
                              :split {:tmux false :bufnew false}
                              :ui {:cursorline false
                                   :signcolumn false
-                                  :winhighlight true}})
+                                  :winhighlight false}})
                (let [ignore-filetypes [:TelescopePrompt :TelescopeResults]
                      ;:toggleterm
                      ignore-buftypes [:prompt :popup]
