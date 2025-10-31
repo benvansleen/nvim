@@ -63,8 +63,10 @@
                                            :sorting_strategy :ascending}
                                 :extensions {:ui-select [(with-require {themes :telescope.themes}
                                                            (themes.get_cursor))]
-                                             :cmdline {:picker ((. (require :telescope.themes)
-                                                                   :get_ivy) {:layout_config {:height 0.3}})}
+                                             :cmdline {:picker (with-require {themes :telescope.themes}
+                                                                 (themes.get_ivy {:layout_config {:height 0.3}}))
+                                                       :mappings {:run_input :<M-CR>}
+                                                       :output_pane {:enabled true}}
                                              :file_browser (let [fb telescope.extensions.file_browser.actions]
                                                              {:mappings {:i {:<left> fb.backspace}}})
                                              :fzf {:fuzzy true
