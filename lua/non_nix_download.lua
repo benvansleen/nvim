@@ -30,6 +30,8 @@ require("nixCatsUtils.catPacker").setup({
     { "tpope/vim-repeat" },
     { "f4z3r/gruvbox-material.nvim" },
 
+    { "OXY2DEV/helpview.nvim" },
+
     { "ggandor/leap.nvim", opt = true },
     { "gpanders/nvim-parinfer", opt = true },
     { "numToStr/Navigator.nvim", opt = true },

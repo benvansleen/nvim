@@ -187,6 +187,7 @@
               ];
               extra = [
                 nvim-web-devicons
+                helpview-nvim
               ];
             };
             # You can retreive information from the

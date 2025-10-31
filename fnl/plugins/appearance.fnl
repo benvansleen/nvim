@@ -72,6 +72,11 @@
                       :smear_between_neighbor_lines true
                       :scroll_buffer_space true
                       :smear_insert_mode true})})
+ (tb :helpview.nvim
+     {:for_cat :general.extra
+      :after (setup- :helpview
+                     {:preview {:enable true
+                                :splitview_winopts {:split :right}}})})
  (tb :focus.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter

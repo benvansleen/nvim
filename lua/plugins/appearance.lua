@@ -78,6 +78,10 @@ local function _6_()
     })
 end
 local function _7_()
+    local p_5_auto = require("helpview")
+    return p_5_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
+end
+local function _8_()
     local focus = require("focus")
     focus.setup({
         enable = true,
@@ -89,11 +93,11 @@ local function _7_()
     local ignore_filetypes = { "TelescopePrompt", "TelescopeResults" }
     local ignore_buftypes = { "prompt", "popup" }
     local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-    local function _8_(_)
+    local function _9_(_)
         vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
         return nil
     end
-    local function _9_(_)
+    local function _10_(_)
         vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
         return nil
     end
@@ -101,26 +105,27 @@ local function _7_()
         {
             vim.api.nvim_create_autocmd(
                 "WinEnter",
-                { desc = "Disable focus autoresize for BufType", callback = _8_, group = augroup }
+                { desc = "Disable focus autoresize for BufType", callback = _9_, group = augroup }
             ),
             vim.api.nvim_create_autocmd(
                 "FileType",
-                { desc = "Disable focus autoresize for FileType", callback = _9_, group = augroup }
+                { desc = "Disable focus autoresize for FileType", callback = _10_, group = augroup }
             ),
         },
     }
 end
-local function _10_()
+local function _11_()
     return require("focus").split_nicely()
 end
 return {
     { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
     { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
+    { "helpview.nvim", after = _7_, for_cat = "general.extra" },
     {
         "focus.nvim",
-        after = _7_,
+        after = _8_,
         event = "DeferredUIEnter",
         for_cat = "general.extra",
-        keys = { { "<leader>s", _10_ } },
+        keys = { { "<leader>s", _11_ } },
     },
 }
