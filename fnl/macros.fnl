@@ -15,9 +15,7 @@
 (fn with-require [bindings & body]
   (let [pairings (accumulate [l [] sym mod (pairs bindings)]
                    (do
-                     (if (= :string (type sym))
-                         (table.insert l mod)
-                         (table.insert l sym))
+                     (table.insert l (if (= :string (type sym)) mod sym))
                      (table.insert l `(require ,(tostring mod)))
                      l))]
     `(let ,pairings
