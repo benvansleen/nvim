@@ -35,16 +35,13 @@
                                           :draw {:columns [(tb :kind_icon)
                                                            (tb :label {:gap 1})]
                                                  :components {:label {:text (fn [ctx]
-                                                                              (with-require [menu
-                                                                                             :colorful-menu]
+                                                                              (with-require {menu :colorful-menu}
                                                                                 (menu.blink_components_text ctx)))
                                                                       :highlight (fn [ctx]
-                                                                                   (with-require [menu
-                                                                                                  :colorful-menu]
+                                                                                   (with-require {menu :colorful-menu}
                                                                                      (menu.blink_components_highlight ctx)))}}}}}
                       :sources {:default [:lsp :path :buffer]}
-                      :fuzzy {:implementation (with-require [cats
-                                                             :nixCatsUtils]
+                      :fuzzy {:implementation (with-require {cats :nixCatsUtils}
                                                 (if cats.isNixCats
                                                     :prefer_rust
                                                     :lua))}

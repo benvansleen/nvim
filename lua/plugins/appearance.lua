@@ -7,7 +7,7 @@ do
         local colors0 = require("gruvbox-material.colors")
         colors = colors0.get(vim.o.background, contrast)
     end
-    local p_4_auto = require(theme_name)
+    local p_5_auto = require(theme_name)
     local function _1_(g, o)
         if
             (g == "TelescopeBorder")
@@ -33,7 +33,7 @@ do
         end
         return o
     end
-    p_4_auto.setup({
+    p_5_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },
@@ -42,8 +42,8 @@ do
     })
 end
 local function _5_()
-    local p_4_auto = require("dashboard")
-    return p_4_auto.setup({
+    local p_5_auto = require("dashboard")
+    return p_5_auto.setup({
         theme = "hyper",
         change_to_root_vcs = true,
         config = {
@@ -69,8 +69,8 @@ local function _5_()
     })
 end
 local function _6_()
-    local p_4_auto = require("smear_cursor")
-    return p_4_auto.setup({
+    local p_5_auto = require("smear_cursor")
+    return p_5_auto.setup({
         smear_between_buffers = true,
         smear_between_neighbor_lines = true,
         scroll_buffer_space = true,

@@ -44,7 +44,7 @@
              (vim.cmd.packadd :telescope-file-browser.nvim)
              (vim.cmd.packadd :telescope-cmdline-nvim)
              (vim.cmd.packadd :telescope-zoxide))
-     :after (with-require- [telescope :telescope]
+     :after (with-require- {: telescope}
               (telescope.setup {:defaults {:border true
                                            :layout_config {:horizontal {:prompt_position :top
                                                                         :width {:padding 0}
@@ -61,8 +61,7 @@
                                            :results_title false
                                            :selection_caret " "
                                            :sorting_strategy :ascending}
-                                :extensions {:ui-select [(with-require [themes
-                                                                        :telescope.themes]
+                                :extensions {:ui-select [(with-require {themes :telescope.themes}
                                                            (themes.get_cursor))]
                                              :cmdline {:picker ((. (require :telescope.themes)
                                                                    :get_ivy) {:layout_config {:height 0.3}})}

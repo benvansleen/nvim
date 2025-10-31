@@ -1,6 +1,6 @@
 (import-macros {: tb : setup : with-require} :macros)
 
-(with-require [lze :lze cats :nixCatsUtils]
+(with-require {: lze cats :nixCatsUtils}
   (lze.load [(tb :nvim-dap
                  {:for_cat {:cat :debug :default false}
                   :keys [(tb :<F5> {:desc "Debug: Start/Continue"})
@@ -21,7 +21,7 @@
                               (vim.cmd.packadd :nvim-dap-virtual-text)
                               (vim.cmd.packadd :mason-nvim-dap.nvim)))
                   :after (fn [_]
-                           (with-require [dap :dap dapui :dapui]
+                           (with-require {: dap : dapui}
                              (vim.keymap.set :n :<F5> dap.continue
                                              {:desc "Debug: Start/Continue"})
                              (vim.keymap.set :n :<F1> dap.step_into

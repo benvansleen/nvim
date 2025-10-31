@@ -12,7 +12,7 @@
                                 :linehl {vim.diagnostic.severity.ERROR :ErrorMsg}
                                 :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
 
-(with-require [cats :nixCatsUtils lze :lze]
+(with-require {cats :nixCatsUtils : lze}
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
     (when (and cats.isNixCats (nixCats :lspDebugMode))
       (vim.lsp.set_log_level :debug))

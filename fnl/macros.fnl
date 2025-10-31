@@ -13,12 +13,13 @@
         args)))
 
 (fn with-require [bindings & body]
-  (let [pairings []]
-    (for [i 1 (length bindings) 2]
-      (let [sym (. bindings i)
-            mod (. bindings (+ i 1))]
-        (table.insert pairings sym)
-        (table.insert pairings `(require ,mod))))
+  (let [pairings (accumulate [l [] sym mod (pairs bindings)]
+                   (do
+                     (if (= :string (type sym))
+                         (table.insert l mod)
+                         (table.insert l sym))
+                     (table.insert l `(require ,(tostring mod)))
+                     l))]
     `(let ,pairings
        (do
          ,(unpack body)))))
@@ -83,7 +84,7 @@
                   {:import (.. :plugins "." plugin)})]
     `(do
        (import-macros {: with-require} :macros)
-       (with-require [lze# :lze]
+       (with-require {lze# :lze}
          (lze#.load ,imports)))))
 
 {: tb

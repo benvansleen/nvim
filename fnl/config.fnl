@@ -1,6 +1,6 @@
 (import-macros {: config : with-require} :macros)
 
-(with-require [lze :lze lzextras :lzextras lzUtils :nixCatsUtils.lzUtils]
+(with-require {: lze : lzextras lzUtils :nixCatsUtils.lzUtils}
   (lze.register_handlers lzUtils.for_cat)
   (lze.register_handlers lzextras.lsp))
 
@@ -119,6 +119,6 @@
 (when (nixCats :format)
   (require :format))
 
-(with-require [cats :nixCatsUtils]
+(with-require {cats :nixCatsUtils}
   (when (not cats.isNixCats)
     (config (nmap {:<up> :<C-u> :<down> :<C-d>}))))

@@ -32,11 +32,11 @@ function M.setup(v)
                 vim.notify("Installing plugins... If prompted, hit Enter to continue.")
             end
             paq(packages)
-            local pkg_count = #require("paq").query("to_install")
-            if pkg_count > 0 then
-                vim.notify(string.format("There are %d packages to install", pkg_count))
-                paq.install()
-            end
+            -- local pkg_count = #require("paq").query("to_install")
+            -- if pkg_count > 0 then
+            --     vim.notify(string.format("There are %d packages to install", pkg_count))
+            --     paq.install()
+            -- end
         end
         bootstrap_paq(vim.list_extend({ "savq/paq-nvim" }, v))
     end

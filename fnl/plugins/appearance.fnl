@@ -2,7 +2,7 @@
 
 (let [theme-name :gruvbox-material
       contrast :medium
-      colors (with-require [colors :gruvbox-material.colors]
+      colors (with-require {colors :gruvbox-material.colors}
                (colors.get vim.o.background contrast))]
   (setup theme-name {:italics true
                      : contrast

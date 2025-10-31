@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/git.fnl
 local function _1_()
-    local p_4_auto = require("neogit")
-    return p_4_auto.setup({
+    local p_5_auto = require("neogit")
+    return p_5_auto.setup({
         auto_refresh = true,
         filewatcher = { enabled = true, interval = 1000 },
         disable_hint = true,
@@ -15,8 +15,8 @@ local function _2_()
     return require("neogit").open({ cwd = "%:p:h", kind = "auto" })
 end
 local function _3_()
-    local p_4_auto = require("diffview")
-    return p_4_auto.setup({
+    local p_5_auto = require("diffview")
+    return p_5_auto.setup({
         enhanced_diff_hl = true,
         use_icons = true,
         show_help_hints = true,
@@ -25,8 +25,8 @@ local function _3_()
     })
 end
 local function _4_()
-    local p_4_auto = require("gitsigns")
-    return p_4_auto.setup({
+    local p_5_auto = require("gitsigns")
+    return p_5_auto.setup({
         signs = {
             add = {
                 text = "\226\148\131",

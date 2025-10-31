@@ -16,7 +16,7 @@
  (tb :foldtext-nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (with-require- [foldtext :foldtext]
+      :after (with-require- {: foldtext}
                (foldtext.setup)
                (config (opt {fillchars {:eob " " :fold " "}})))})
  (tb :indent-blankline.nvim
@@ -27,7 +27,7 @@
      {:for_cat :general.always
       :event :CursorMoved
       :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]
-      :after (with-require- [leap :leap]
+      :after (with-require- {: leap}
                (set leap.opts.safe_labels "")
                (set leap.opts.preview false)
                (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
@@ -60,7 +60,7 @@
  (tb :which-key.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (with-require- [which-key :which-key]
+      :after (with-require- {: which-key}
                (which-key.setup {:preset :helix :delay 500})
                (which-key.add [(tb :<leader><leader> {:group "buffer commands"})
                                (tb :<leader><leader>_ {:hidden true})
