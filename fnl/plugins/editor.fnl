@@ -18,7 +18,7 @@
       :event :DeferredUIEnter
       :after (with-require- [foldtext :foldtext]
                (foldtext.setup)
-               (config {opt {fillchars {:eob " " :fold " "}}}))})
+               (config (opt {fillchars {:eob " " :fold " "}})))})
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter

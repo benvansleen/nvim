@@ -1,9 +1,7 @@
 -- [nfnl] fnl/plugins/oil.fnl
+vim.g["loaded_netrwPlugin"] = 1
 do
-    vim.g["loaded_netrwPlugin"] = 1
-    do
-        local _ = { nil }
-    end
+    local _ = { { nil } }
 end
 local function _1_()
     local p_4_auto = require("oil")

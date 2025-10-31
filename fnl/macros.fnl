@@ -45,7 +45,7 @@
   (let [setup-form (setup ...)]
     `(fn [] ,setup-form)))
 
-(fn config [...]
+(fn config [& body]
   (fn set-require [opts]
     (icollect [_ req (pairs opts)]
       `(require ,req)))
@@ -54,7 +54,7 @@
     (icollect [k v (pairs opts)]
       `(tset vim.opt ,(tostring k) ,v)))
 
-  (fn set-global [opts]
+  (fn set-global [opts] ; (print (view opts))
     (icollect [k v (pairs opts)]
       `(tset vim.g ,(tostring k) ,v)))
 
@@ -66,17 +66,17 @@
     (icollect [events cfg (pairs cmds)]
       `(vim.api.nvim_create_autocmd ,events ,cfg)))
 
-  `(do
-     ,(unpack (icollect [k v (pairs ...)]
-                (case [(tostring k) v]
-                  [:requires reqs] (set-require reqs)
-                  [:opt opts] (set-options opts)
-                  [:g opts] (set-global opts)
-                  [:nmap mappings] (set-mappings :n mappings)
-                  [:imap mappings] (set-mappings :i mappings)
-                  [:vmap mappings] (set-mappings :v mappings)
-                  [:autocmd cmds] (set-autocmds cmds)
-                  _ (error (.. "Unknown config form: " (view k))))))))
+  (icollect [_ form (ipairs body)]
+    (let [[kw body] form]
+      (case [(tostring kw)]
+        [:requires] (set-require body)
+        [:opt] (set-options body)
+        [:g] (set-global body)
+        [:nmap] (set-mappings :n body)
+        [:imap] (set-mappings :i body)
+        [:vmap] (set-mappings :v body)
+        [:autocmd] (set-autocmds body)
+        _ (error (.. "Unknown config form: " (view kw)))))))
 
 (fn load-plugins [& plugins]
   (let [imports (icollect [_ plugin (ipairs plugins)]

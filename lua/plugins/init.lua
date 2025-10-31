@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/init.fnl
-local lze_17_auto = require("lze")
-return lze_17_auto.load({
+local lze_16_auto = require("lze")
+return lze_16_auto.load({
     { import = "plugins.appearance" },
     { import = "plugins.completion" },
     { import = "plugins.editor" },

@@ -11,13 +11,14 @@ lze.load({
     {
         "conform.nvim",
         after = _1_,
-        event = "DeferredUIEnter",
+        event = "BufWritePre",
         for_cat = "format",
         keys = { { "<leader>FF", desc = "[F]ormat [F]ile" } },
+        on_require = "conform",
     },
 })
 local function _2_()
     local conform = require("conform")
     return conform.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
-return { vim.keymap.set("n", "<leader>FF", _2_, { noremap = true }) }
+return { { vim.keymap.set("n", "<leader>FF", _2_, { noremap = true }) } }

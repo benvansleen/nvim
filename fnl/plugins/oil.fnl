@@ -1,6 +1,6 @@
 (import-macros {: tb : setup- : require-and-call : config} :macros)
 
-(config {g {loaded_netrwPlugin 1}})
+(config (g {loaded_netrwPlugin 1}))
 
 (tb :oil.nvim
     {:for_cat :general.extra

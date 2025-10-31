@@ -17,12 +17,6 @@ do
     vim.g["netrw_liststyle"] = 0
     vim.g["netrw_banner"] = 0
     vim.g["my_center_buffer"] = false
-    do
-        local _ = { nil, nil, nil, nil, nil }
-    end
-    do
-        local _ = { require("lsp"), require("plugins") }
-    end
     vim.opt["autoindent"] = true
     vim.opt["breakindent"] = true
     vim.opt["clipboard"] = "unnamedplus"
@@ -52,39 +46,6 @@ do
     vim.opt["ruler"] = false
     vim.opt["showcmd"] = false
     vim.opt["showmode"] = false
-    do
-        local _ = {
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-        }
-    end
     local function _1_()
         local cur = vim.wo.nu
         vim.wo.number = not cur
@@ -104,27 +65,6 @@ do
     end
     local function _5_()
         return vim.api.nvim_buf_delete(0, {})
-    end
-    do
-        local _ = {
-            vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
-            vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
-            vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
-            vim.keymap.set("n", "<leader>tn", _1_, { noremap = true }),
-            vim.keymap.set("n", "<leader>tc", _2_, { noremap = true }),
-            vim.keymap.set("n", "<leader>te", _3_, { noremap = true }),
-            vim.keymap.set("n", "<leader>wtf", _4_, { noremap = true }),
-            vim.keymap.set("n", "<leader>q", _5_, { noremap = true }),
-        }
-    end
-    do
-        local _ = { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) }
-    end
-    do
-        local _ = {
-            vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true }),
-            vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { noremap = true }),
-        }
     end
     local function _6_()
         return vim.highlight.on_yank()
@@ -157,24 +97,74 @@ do
     end
     do
         local _ = {
-            vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-                desc = "return cursor to where it was last time file was closed",
-                pattern = "*",
-                command = 'silent! normal! g`"zv',
-            }),
-            vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _6_ }),
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
-                { callback = _7_ }
-            ),
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-                { pattern = "*", group = numbertoggle_g, callback = _9_, nested = false, once = false }
-            ),
-            vim.api.nvim_create_autocmd(
-                { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
-                { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
-            ),
+            { nil, nil, nil, nil, nil },
+            { require("lsp"), require("plugins") },
+            {
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+            },
+            {
+                vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
+                vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
+                vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
+                vim.keymap.set("n", "<leader>tn", _1_, { noremap = true }),
+                vim.keymap.set("n", "<leader>tc", _2_, { noremap = true }),
+                vim.keymap.set("n", "<leader>te", _3_, { noremap = true }),
+                vim.keymap.set("n", "<leader>wtf", _4_, { noremap = true }),
+                vim.keymap.set("n", "<leader>q", _5_, { noremap = true }),
+            },
+            { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) },
+            {
+                vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true }),
+                vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { noremap = true }),
+            },
+            {
+                vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+                    desc = "return cursor to where it was last time file was closed",
+                    pattern = "*",
+                    command = 'silent! normal! g`"zv',
+                }),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _6_ }),
+                vim.api.nvim_create_autocmd(
+                    { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
+                    { callback = _7_ }
+                ),
+                vim.api.nvim_create_autocmd(
+                    { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
+                    { pattern = "*", group = numbertoggle_g, callback = _9_, nested = false, once = false }
+                ),
+                vim.api.nvim_create_autocmd(
+                    { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
+                    { pattern = "*", group = numbertoggle_g, callback = _11_, nested = false, once = false }
+                ),
+            },
         }
     end
 end
@@ -193,8 +183,10 @@ end
 local cats = require("nixCatsUtils")
 if not cats.isNixCats then
     return {
-        vim.keymap.set("n", "<up>", "<C-u>", { noremap = true }),
-        vim.keymap.set("n", "<down>", "<C-d>", { noremap = true }),
+        {
+            vim.keymap.set("n", "<up>", "<C-u>", { noremap = true }),
+            vim.keymap.set("n", "<down>", "<C-d>", { noremap = true }),
+        },
     }
 else
     return nil
