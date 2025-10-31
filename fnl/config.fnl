@@ -4,18 +4,15 @@
   (lze.register_handlers lzUtils.for_cat)
   (lze.register_handlers lzextras.lsp))
 
-;; https://github.com/LazyVim/LazyVim/discussions/4112
-(config (opt {clipboard ""}))
-(vim.schedule (fn []
-                (config (opt {clipboard :unnamedplus}))))
-
+;; fnlfmt: skip
 (let [highlight-g (vim.api.nvim_create_augroup :highlight {})]
   (config (g {mapleader " "
               maplocalleader " "
               my_center_buffer true
               _debug_my_center_buffer false
               netrw_liststyle 0
-              netrw_banner 0}) (requires [:lsp :plugins])
+              netrw_banner 0})
+          (requires [:clipboard :lsp :plugins])
           (opt {autoindent true
                 breakindent true
                 expandtab true

@@ -6,15 +6,6 @@ do
     lze.register_handlers(lzUtils.for_cat)
     lze.register_handlers(lzextras.lsp)
 end
-vim.opt["clipboard"] = ""
-do
-    local _ = { { nil } }
-end
-local function _1_()
-    vim.opt["clipboard"] = "unnamedplus"
-    return { { nil } }
-end
-vim.schedule(_1_)
 do
     local highlight_g = vim.api.nvim_create_augroup("highlight", {})
     vim.g["mapleader"] = " "
@@ -53,30 +44,30 @@ do
     vim.opt["ruler"] = false
     vim.opt["showcmd"] = false
     vim.opt["showmode"] = false
-    local function _2_()
+    local function _1_()
         vim.g.my_center_buffer = not vim.g.my_center_buffer
         return nil
     end
-    local function _3_()
+    local function _2_()
         local vt = vim.diagnostic.config().virtual_lines
         return vim.diagnostic.config({ virtual_lines = not vt })
     end
-    local function _4_()
+    local function _3_()
         return print(vim.api.nvim_buf_get_name(0))
     end
-    local function _5_()
+    local function _4_()
         return vim.api.nvim_buf_delete(0, {})
     end
-    local function _6_()
+    local function _5_()
         return print(vim.inspect(vim.treesitter.get_captures_at_cursor(0)))
     end
-    local function _7_()
+    local function _6_()
         return vim.highlight.on_yank()
     end
     do
         local _ = {
             { nil, nil, nil, nil, nil, nil },
-            { require("lsp"), require("plugins") },
+            { require("clipboard"), require("lsp"), require("plugins") },
             {
                 nil,
                 nil,
@@ -113,11 +104,11 @@ do
                 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
                 vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
                 vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
-                vim.keymap.set("n", "<leader>tc", _2_, { noremap = true }),
-                vim.keymap.set("n", "<leader>te", _3_, { noremap = true }),
-                vim.keymap.set("n", "<leader>wtf", _4_, { noremap = true }),
-                vim.keymap.set("n", "<leader>q", _5_, { noremap = true }),
-                vim.keymap.set("n", "<leader>huc", _6_, { noremap = true }),
+                vim.keymap.set("n", "<leader>tc", _1_, { noremap = true }),
+                vim.keymap.set("n", "<leader>te", _2_, { noremap = true }),
+                vim.keymap.set("n", "<leader>wtf", _3_, { noremap = true }),
+                vim.keymap.set("n", "<leader>q", _4_, { noremap = true }),
+                vim.keymap.set("n", "<leader>huc", _5_, { noremap = true }),
             },
             { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) },
             {
@@ -130,7 +121,7 @@ do
                     pattern = "*",
                     command = 'silent! normal! g`"zv',
                 }),
-                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _7_ }),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _6_ }),
             },
         }
     end
