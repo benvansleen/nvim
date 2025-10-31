@@ -4,6 +4,11 @@
   (lze.register_handlers lzUtils.for_cat)
   (lze.register_handlers lzextras.lsp))
 
+;; https://github.com/LazyVim/LazyVim/discussions/4112
+(config (opt {clipboard ""}))
+(vim.schedule (fn []
+                (config (opt {clipboard :unnamedplus}))))
+
 ;; fnlfmt: skip
 (let [numbertoggle-g (vim.api.nvim_create_augroup :numbertoggle {})
       highlight-g (vim.api.nvim_create_augroup :highlight {})
@@ -22,7 +27,6 @@
 
     (opt {autoindent true
           breakindent true
-          clipboard "unnamedplus"
           expandtab true
           fillchars {:eob " "}
           hlsearch true
