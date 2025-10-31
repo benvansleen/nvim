@@ -280,6 +280,7 @@
               ];
               extra = with pkgs.vimPlugins; [
                 fidget-nvim
+                focus-nvim
                 indent-blankline-nvim
                 dashboard-nvim
                 oil-nvim

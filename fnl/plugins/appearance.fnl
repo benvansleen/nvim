@@ -1,4 +1,10 @@
-(import-macros {: tb : setup : setup- : with-require} :macros)
+(import-macros {: config
+                : tb
+                : setup
+                : setup-
+                : require-and-call
+                : with-require
+                : with-require-} :macros)
 
 (let [theme-name :gruvbox-material
       contrast :medium
@@ -65,4 +71,33 @@
                      {:smear_between_buffers true
                       :smear_between_neighbor_lines true
                       :scroll_buffer_space true
-                      :smear_insert_mode true})})]
+                      :smear_insert_mode true})})
+ (tb :focus.nvim
+     {:for_cat :general.extra
+      :event :DeferredUIEnter
+      :keys [(tb :<leader>s (require-and-call :focus :split_nicely))]
+      :after (with-require- {: focus}
+               (focus.setup {:enable true
+                             :commands true
+                             :autoresize {:enable true}
+                             :split {:tmux false :bufnew false}
+                             :ui {:cursorline false
+                                  :signcolumn false
+                                  :winhighlight true}})
+               (let [ignore-filetypes [:TelescopePrompt :TelescopeResults]
+                     ;:toggleterm
+                     ignore-buftypes [:prompt :popup]
+                     augroup (vim.api.nvim_create_augroup :FocusDisable
+                                                          {:clear true})]
+                 (config (autocmd {:WinEnter {:desc "Disable focus autoresize for BufType"
+                                              :callback (fn [_]
+                                                          (set vim.w.focus_disable
+                                                               (vim.tbl_contains ignore-buftypes
+                                                                                 vim.bo.buftype)))
+                                              :group augroup}
+                                   :FileType {:desc "Disable focus autoresize for FileType"
+                                              :callback (fn [_]
+                                                          (set vim.b.focus_disable
+                                                               (vim.tbl_contains ignore-filetypes
+                                                                                 vim.bo.filetype)))
+                                              :group augroup}}))))})]

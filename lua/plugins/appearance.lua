@@ -77,7 +77,50 @@ local function _6_()
         smear_insert_mode = true,
     })
 end
+local function _7_()
+    local focus = require("focus")
+    focus.setup({
+        enable = true,
+        commands = true,
+        autoresize = { enable = true },
+        split = { bufnew = false, tmux = false },
+        ui = { winhighlight = true, cursorline = false, signcolumn = false },
+    })
+    local ignore_filetypes = { "TelescopePrompt", "TelescopeResults" }
+    local ignore_buftypes = { "prompt", "popup" }
+    local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
+    local function _8_(_)
+        vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
+        return nil
+    end
+    local function _9_(_)
+        vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
+        return nil
+    end
+    return {
+        {
+            vim.api.nvim_create_autocmd(
+                "WinEnter",
+                { desc = "Disable focus autoresize for BufType", callback = _8_, group = augroup }
+            ),
+            vim.api.nvim_create_autocmd(
+                "FileType",
+                { desc = "Disable focus autoresize for FileType", callback = _9_, group = augroup }
+            ),
+        },
+    }
+end
+local function _10_()
+    return require("focus").split_nicely()
+end
 return {
     { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
     { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
+    {
+        "focus.nvim",
+        after = _7_,
+        event = "DeferredUIEnter",
+        for_cat = "general.extra",
+        keys = { { "<leader>s", _10_ } },
+    },
 }

@@ -34,6 +34,7 @@ require("nixCatsUtils.catPacker").setup({
     { "gpanders/nvim-parinfer", opt = true },
     { "numToStr/Navigator.nvim", opt = true },
     { "sphamba/smear-cursor.nvim", opt = true },
+    { "nvim-focus/focus.nvim", opt = true },
     { "nvimdev/dashboard-nvim", opt = true },
 
     { "nvim-treesitter/nvim-treesitter-textobjects", opt = true },
