@@ -60,6 +60,7 @@ local function _5_()
             packages = { enable = false },
             shortcut = {
                 { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
+                { desc = "Find Word", group = "Warning", action = "Telescope live_grep", key = "w" },
                 { desc = "Git", group = "@property", action = "Neogit", key = "g" },
                 { desc = "Change Directory", group = "@constant", action = "Telescope zoxide list", key = "c" },
                 { desc = "Dotfiles", group = "Number", action = "Telescope find_files cwd=~/.config", key = "d" },

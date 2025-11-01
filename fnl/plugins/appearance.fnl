@@ -51,6 +51,10 @@
                                                       :group :Label
                                                       :action "Telescope find_files"
                                                       :key :f}
+                                                     {:desc "Find Word"
+                                                      :group :Warning
+                                                      :action "Telescope live_grep"
+                                                      :key :w}
                                                      {:desc :Git
                                                       :group "@property"
                                                       :action :Neogit

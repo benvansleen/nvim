@@ -7,7 +7,7 @@
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)
         ft (get-buf-ft win)]
-    (and (not cfg.external) (not= ft "") (not= ft :fidget)
+    (and (not cfg.external) (not= ft "") (not= ft :dashboard) (not= ft :fidget)
          (not= ft :smear-cursor) (not= ft :wk) (not= ft :TelescopePrompt)
          (not= ft :TelescopeResults) (not= ft :TelescopeResults))))
 
@@ -28,7 +28,7 @@
           (set vim.wo.statuscolumn statuscolumn-wide)
           (set vim.wo.statuscolumn statuscolumn))))
 
-  (config (g {my_center_buffer true} _debug_my_center_buffer false)
+  (config (g {my_center_buffer true _debug_my_center_buffer false})
           (nmap {:<leader>tc (fn []
                                (set vim.g.my_center_buffer
                                     (not vim.g.my_center_buffer)))})

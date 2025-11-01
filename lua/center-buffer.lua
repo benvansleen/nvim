@@ -8,6 +8,7 @@ local function real_window_3f(win)
     return (
         not cfg.external
         and (ft ~= "")
+        and (ft ~= "dashboard")
         and (ft ~= "fidget")
         and (ft ~= "smear-cursor")
         and (ft ~= "wk")
@@ -38,12 +39,13 @@ local function center_buffer()
     end
 end
 vim.g["my_center_buffer"] = true
+vim.g["_debug_my_center_buffer"] = false
 local function _3_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
     return nil
 end
 return {
-    { nil },
+    { nil, nil },
     { vim.keymap.set("n", "<leader>tc", _3_, { noremap = true }) },
     {
         vim.api.nvim_create_autocmd(
