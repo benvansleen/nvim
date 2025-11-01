@@ -7,7 +7,7 @@ do
         local colors0 = require("gruvbox-material.colors")
         colors = colors0.get(vim.o.background, contrast)
     end
-    local p_6_auto = require(theme_name)
+    local p_7_auto = require(theme_name)
     local function _1_(g, o)
         if
             (g == "TelescopeBorder")
@@ -33,7 +33,7 @@ do
         end
         return o
     end
-    p_6_auto.setup({
+    p_7_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },
@@ -75,8 +75,8 @@ local function _5_()
     return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
 end
 local function _6_()
-    local p_6_auto = require("smear_cursor")
-    return p_6_auto.setup({
+    local p_7_auto = require("smear_cursor")
+    return p_7_auto.setup({
         smear_between_buffers = true,
         smear_between_neighbor_lines = true,
         scroll_buffer_space = true,
@@ -84,8 +84,8 @@ local function _6_()
     })
 end
 local function _7_()
-    local p_6_auto = require("helpview")
-    return p_6_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
+    local p_7_auto = require("helpview")
+    return p_7_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
 end
 local function _8_()
     local focus = require("focus")
@@ -126,7 +126,7 @@ end
 return {
     { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
     { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
-    { "helpview.nvim", after = _7_, for_cat = "general.extra" },
+    { "helpview.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
         "focus.nvim",
         after = _8_,

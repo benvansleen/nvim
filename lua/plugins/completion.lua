@@ -9,7 +9,7 @@ local function has_words_before()
     end
 end
 local function _2_()
-    local p_6_auto = require("blink.cmp")
+    local p_7_auto = require("blink.cmp")
     local function _3_(cmp)
         if has_words_before() then
             return (cmp.show() or cmp.insert_next())
@@ -37,7 +37,7 @@ local function _2_()
             _8_ = "lua"
         end
     end
-    return p_6_auto.setup({
+    return p_7_auto.setup({
         keymap = {
             preset = "none",
             ["<Tab>"] = { _3_, "fallback" },
@@ -76,8 +76,8 @@ local function _2_()
     })
 end
 local function _10_()
-    local p_6_auto = require("colorful-menu")
-    return p_6_auto.setup({})
+    local p_7_auto = require("colorful-menu")
+    return p_7_auto.setup({})
 end
 return {
     { "blink.cmp", after = _2_, event = "InsertEnter", for_cat = "general.blink" },

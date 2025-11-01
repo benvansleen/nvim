@@ -17,4 +17,6 @@
     (.. (table.concat fragments ", ") stacked-functions)))
 
 (tb :symbol-usage.nvim
-    {:for_cat :lsp :after (setup- :symbol-usage {: text_format})})
+    {:for_cat :lsp
+     :event :LspAttach
+     :after (setup- :symbol-usage {: text_format})})

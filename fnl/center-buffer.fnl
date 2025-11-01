@@ -12,7 +12,8 @@
                     :smear-cursor
                     ; :toggleterm
                     :TelescopePrompt
-                    :TelescopeResults])
+                    :TelescopeResults
+                    :wk])
 
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)

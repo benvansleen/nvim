@@ -12,7 +12,7 @@
               _debug_my_center_buffer false
               netrw_liststyle 0
               netrw_banner 0})
-          (requires [:clipboard :lsp :plugins])
+          (requires [:clipboard :lsp :lib :plugins])
           (opt {autoindent true
                 breakindent true
                 expandtab true

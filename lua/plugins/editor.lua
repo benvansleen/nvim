@@ -1,15 +1,15 @@
 -- [nfnl] fnl/plugins/editor.fnl
 local function _1_()
-    local p_7_auto = require("Comment")
-    return p_7_auto.setup()
+    local p_8_auto = require("Comment")
+    return p_8_auto.setup()
 end
 local function _2_()
-    local p_6_auto = require("direnv")
-    return p_6_auto.setup({ autoload_direnv = true, notifications = { silent_autoload = true } })
+    local p_7_auto = require("direnv")
+    return p_7_auto.setup({ autoload_direnv = true, notifications = { silent_autoload = true } })
 end
 local function _3_()
-    local p_7_auto = require("fidget")
-    return p_7_auto.setup()
+    local p_8_auto = require("fidget")
+    return p_8_auto.setup()
 end
 local function _4_()
     local foldtext = require("foldtext")
@@ -18,8 +18,8 @@ local function _4_()
     return { { nil } }
 end
 local function _5_()
-    local p_6_auto = require("ibl")
-    return p_6_auto.setup({ exclude = { filetypes = { "dashboard", "fennel" } } })
+    local p_7_auto = require("ibl")
+    return p_7_auto.setup({ exclude = { filetypes = { "dashboard", "fennel" } } })
 end
 local function _6_()
     local leap = require("leap")
@@ -28,8 +28,8 @@ local function _6_()
     return vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
 end
 local function _7_()
-    local p_6_auto = require("nvim-autopairs")
-    return p_6_auto.setup({
+    local p_7_auto = require("nvim-autopairs")
+    return p_7_auto.setup({
         check_ts = true,
         disable_filetype = { "TelescopePrompt" },
         disable_in_macro = true,
@@ -37,8 +37,8 @@ local function _7_()
     })
 end
 local function _8_()
-    local p_7_auto = require("nvim-surround")
-    return p_7_auto.setup()
+    local p_8_auto = require("nvim-surround")
+    return p_8_auto.setup()
 end
 local function _9_(_)
     vim.g.startuptime_event_width = 0

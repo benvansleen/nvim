@@ -11,6 +11,7 @@ local disabled_ft = {
     "smear-cursor",
     "TelescopePrompt",
     "TelescopeResults",
+    "wk",
 }
 local function real_window_3f(win)
     local cfg = vim.api.nvim_win_get_config(win)

@@ -19,7 +19,7 @@ local function text_format(symbol)
     return (table.concat(fragments, ", ") .. stacked_functions)
 end
 local function _4_()
-    local p_6_auto = require("symbol-usage")
-    return p_6_auto.setup({ text_format = text_format })
+    local p_7_auto = require("symbol-usage")
+    return p_7_auto.setup({ text_format = text_format })
 end
-return { "symbol-usage.nvim", after = _4_, for_cat = "lsp" }
+return { "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" }

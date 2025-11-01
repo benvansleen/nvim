@@ -31,6 +31,12 @@
   (let [form (with-require ...)]
     `(fn [] ,form)))
 
+(fn with-preserve-position [[window cursor] & body]
+  `(let [,window (vim.api.nvim_get_current_win)
+         ,cursor (vim.api.nvim_win_get_cursor ,window)]
+     ,(unpack body)
+     (vim.api.nvim_win_set_cursor ,window ,cursor)))
+
 (fn require-and-call [mod f opts]
   (if opts
       `(fn []
@@ -94,6 +100,7 @@
  : when-let
  : with-require
  : with-require-
+ : with-preserve-position
  : require-and-call
  : setup
  : setup-

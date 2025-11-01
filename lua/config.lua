@@ -65,7 +65,7 @@ do
     do
         local _ = {
             { nil, nil, nil, nil, nil, nil },
-            { require("clipboard"), require("lsp"), require("plugins") },
+            { require("clipboard"), require("lsp"), require("lib"), require("plugins") },
             {
                 nil,
                 nil,
