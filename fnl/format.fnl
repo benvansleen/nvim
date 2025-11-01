@@ -9,8 +9,8 @@
                   :after (setup- :conform
                                  {:format_on_save {:timeout_ms 1000
                                                    :lsp_fallback :fallback}
-                                  :formatters_by_ft {:fennel [:fnlfmt]
-                                                     :lua [:stylua]}})})])
+                                  :formatters_by_ft {:fennel (tb :fnlfmt)
+                                                     :lua (tb :stylua)}})})])
   (config (nmap {:<leader>FF (with-require- {: conform}
                                (conform.format {:lsp_fallback true
                                                 :async false
