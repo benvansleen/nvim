@@ -10,7 +10,7 @@
                     :fidget
                     :markdown
                     :smear-cursor
-                    :toggleterm
+                    ; :toggleterm
                     :TelescopePrompt
                     :TelescopeResults])
 
@@ -24,7 +24,10 @@
   (let [windows (vim.tbl_filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
     (when vim.g._debug_my_center_buffer
       (print (vim.inspect (vim.tbl_map get-buf-ft windows))))
-    (length windows)))
+    (let [len (length windows)]
+      (if (and (= len 1) (= :toggleterm (get-buf-ft (. windows 1))))
+          0
+          len))))
 
 (let [screen-width (vim.api.nvim_win_get_width 0)
       statuscolumn "  %l%s%C"

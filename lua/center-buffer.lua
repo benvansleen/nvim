@@ -9,7 +9,6 @@ local disabled_ft = {
     "fidget",
     "markdown",
     "smear-cursor",
-    "toggleterm",
     "TelescopePrompt",
     "TelescopeResults",
 }
@@ -24,7 +23,12 @@ local function count_windows()
         print(vim.inspect(vim.tbl_map(get_buf_ft, windows)))
     else
     end
-    return #windows
+    local len = #windows
+    if (len == 1) and ("toggleterm" == get_buf_ft(windows[1])) then
+        return 0
+    else
+        return len
+    end
 end
 local screen_width = vim.api.nvim_win_get_width(0)
 local statuscolumn = "  %l%s%C"
@@ -41,13 +45,13 @@ local function center_buffer()
 end
 vim.g["my_center_buffer"] = true
 vim.g["_debug_my_center_buffer"] = false
-local function _3_()
+local function _4_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
     return nil
 end
 return {
     { nil, nil },
-    { vim.keymap.set("n", "<leader>tc", _3_, { noremap = true }) },
+    { vim.keymap.set("n", "<leader>tc", _4_, { noremap = true }) },
     {
         vim.api.nvim_create_autocmd(
             { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
