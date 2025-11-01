@@ -3,19 +3,11 @@ local function toggle_fstring()
     local _ = vim.api.nvim_get_current_win()
     local cursor = vim.api.nvim_win_get_cursor(_)
     do
-        local node
-        do
-            local ts = require("lib.treesitter")
-            node = ts["nearest-parent-of-type"]("string")
-        end
+        local node = require("lib.treesitter")["nearest-parent-of-type"]("string")
         if not node then
             print("f-string-toggle: could not detect string at point")
         else
-            local srow, scol, _ecol, _erow
-            do
-                local ts_utils = require("nvim-treesitter.ts_utils")
-                srow, scol, _ecol, _erow = ts_utils.get_vim_range({ node:range() })
-            end
+            local srow, scol, _ecol, _erow = require("nvim-treesitter.ts_utils").get_vim_range({ node:range() })
             vim.fn.setcursorcharpos({ srow, scol })
             local char = vim.api.nvim_get_current_line():sub(scol, scol)
             if char == "f" then

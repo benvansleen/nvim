@@ -21,17 +21,15 @@ local function _2_()
         return cmp.accept({ index = 1 })
     end
     local function _6_(ctx)
-        local menu = require("colorful-menu")
-        return menu.blink_components_text(ctx)
+        return require("colorful-menu").blink_components_text(ctx)
     end
     local function _7_(ctx)
-        local menu = require("colorful-menu")
-        return menu.blink_components_highlight(ctx)
+        return require("colorful-menu").blink_components_highlight(ctx)
     end
     local _8_
     do
-        local cats = require("nixCatsUtils")
-        if cats.isNixCats then
+        local nixCatsUtils = require("nixCatsUtils")
+        if nixCatsUtils.isNixCats then
             _8_ = "prefer_rust"
         else
             _8_ = "lua"

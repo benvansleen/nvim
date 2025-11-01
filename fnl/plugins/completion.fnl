@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : with-require} :macros)
+(import-macros {: tb : setup- : require-and-call : with-require} :macros)
 
 (fn has-words-before []
   (let [col (. (vim.api.nvim_win_get_cursor 0) 2)]
@@ -36,14 +36,16 @@
                                                  :columns [(tb :kind_icon)
                                                            (tb :label {:gap 1})]
                                                  :components {:label {:text (fn [ctx]
-                                                                              (with-require {menu :colorful-menu}
-                                                                                (menu.blink_components_text ctx)))
+                                                                              (require-and-call :colorful-menu
+                                                                                                :blink_components_text
+                                                                                                ctx))
                                                                       :highlight (fn [ctx]
-                                                                                   (with-require {menu :colorful-menu}
-                                                                                     (menu.blink_components_highlight ctx)))}}}}}
+                                                                                   (require-and-call :colorful-menu
+                                                                                                     :blink_components_highlight
+                                                                                                     ctx))}}}}}
                       :sources {:default [:lsp :path :buffer]}
-                      :fuzzy {:implementation (with-require {cats :nixCatsUtils}
-                                                (if cats.isNixCats
+                      :fuzzy {:implementation (with-require {: nixCatsUtils}
+                                                (if nixCatsUtils.isNixCats
                                                     :prefer_rust
                                                     :lua))}
                       :cmdline {:completion {:menu {:auto_show false}}}})})

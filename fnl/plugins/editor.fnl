@@ -1,5 +1,4 @@
-(import-macros {: config : tb : setup- : require-and-call : with-require-}
-               :macros)
+(import-macros {: config : tb : setup- : with-require-} :macros)
 
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :CursorMoved

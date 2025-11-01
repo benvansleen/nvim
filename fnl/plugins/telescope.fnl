@@ -1,4 +1,5 @@
-(import-macros {: tb : require-and-call : with-require : with-require-} :macros)
+(import-macros {: tb : require-and-call- : with-require : with-require-}
+               :macros)
 
 (tb :telescope.nvim
     {:for_cat :general.telescope
@@ -9,33 +10,34 @@
             (tb :<leader>ff
                 "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>"
                 {:mode [:n] :desc "[F]ind [F]ile"})
-            (tb :<leader>pf (require-and-call :telescope.builtin :find_files)
+            (tb :<leader>pf (require-and-call- :telescope.builtin :find_files)
                 {:mode [:n] :desc "Find [P]roject [F]ile"})
-            (tb :<leader>pw (require-and-call :telescope.builtin :live_grep)
+            (tb :<leader>pw (require-and-call- :telescope.builtin :live_grep)
                 {:mode [:n] :desc "Find [P]roject [W]ord"})
-            (tb :<leader>fh (require-and-call :telescope.builtin :oldfiles)
+            (tb :<leader>fh (require-and-call- :telescope.builtin :oldfiles)
                 {:mode [:n] :desc "[F]ind in file [H]istory"})
-            (tb :<leader>fb (require-and-call :telescope.builtin :buffers)
+            (tb :<leader>fb (require-and-call- :telescope.builtin :buffers)
                 {:mode [:n] :desc "[F]ind [B]uffer"})
             (tb :<leader>fl
-                (require-and-call :telescope.builtin :current_buffer_fuzzy_find)
+                (require-and-call- :telescope.builtin
+                                   :current_buffer_fuzzy_find)
                 {:mode [:n] :desc "[F]ind [L]ine"})
-            (tb :<leader>fd (require-and-call :telescope.builtin :diagnostics)
+            (tb :<leader>fd (require-and-call- :telescope.builtin :diagnostics)
                 {:mode [:n] :desc "[F]ind [D]iagnostic"})
-            (tb :<leader>fr (require-and-call :telescope.builtin :resume)
+            (tb :<leader>fr (require-and-call- :telescope.builtin :resume)
                 {:mode [:n] :desc "[F]ind [R]resume"})
-            (tb :<leader>fk (require-and-call :telescope.builtin :keymaps)
+            (tb :<leader>fk (require-and-call- :telescope.builtin :keymaps)
                 {:mode [:n] :desc "[F]ind [K]eymap"})
-            (tb :<leader>fH (require-and-call :telescope.builtin :help_tags)
+            (tb :<leader>fH (require-and-call- :telescope.builtin :help_tags)
                 {:mode [:n] :desc "[F]ind [H]elp"})
             (tb :<leader>fm "<cmd>Telescope notify<CR>"
                 {:mode [:n] :desc "[F]ind [M]essage"})
-            (tb :<leader>ft (require-and-call :telescope.builtin :builtin)
+            (tb :<leader>ft (require-and-call- :telescope.builtin :builtin)
                 {:mode [:n] :desc "[F]ind [T]elescope"})
             (tb :<leader>ps "<cmd>Telescope zoxide list<CR>"
                 {:mode [:n] :desc "[P]roject [S]earch"})
             (tb :<leader>gr
-                (require-and-call :telescope.builtin :lsp_references)
+                (require-and-call- :telescope.builtin :lsp_references)
                 {:mode [:n] :desc "[G]o to [R]eferences"})]
      :load (fn [name]
              (vim.cmd.packadd name)

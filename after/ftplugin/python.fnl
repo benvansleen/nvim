@@ -1,13 +1,14 @@
-(import-macros {: config : with-require : with-preserve-position} :macros)
+(import-macros {: config : require-and-call : with-preserve-position} :macros)
 
 (fn toggle-fstring []
   (with-preserve-position [_ cursor]
-    (let [node (with-require {ts :lib.treesitter}
-                 (ts.nearest-parent-of-type :string))]
+    (let [node (require-and-call :lib.treesitter :nearest-parent-of-type
+                                 :string)]
       (if (not node)
           (print "f-string-toggle: could not detect string at point")
-          (let [(srow scol _ecol _erow) (with-require {ts-utils :nvim-treesitter.ts_utils}
-                                          (ts-utils.get_vim_range [(node:range)]))]
+          (let [(srow scol _ecol _erow) (require-and-call :nvim-treesitter.ts_utils
+                                                          :get_vim_range
+                                                          [(node:range)])]
             (vim.fn.setcursorcharpos [srow scol])
             (let [char (: (vim.api.nvim_get_current_line) :sub scol scol)]
               (if (= char :f)

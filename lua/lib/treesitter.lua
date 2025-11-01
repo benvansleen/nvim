@@ -9,8 +9,7 @@ local function nearest_parent_of_type(node_type, node)
     end
     local or_2_ = node
     if not or_2_ then
-        local ts_utils = require("nvim-treesitter.ts_utils")
-        or_2_ = ts_utils.get_node_at_cursor()
+        or_2_ = require("nvim-treesitter.ts_utils").get_node_at_cursor()
     end
     return climb_tree(or_2_)
 end

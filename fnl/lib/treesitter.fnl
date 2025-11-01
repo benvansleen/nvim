@@ -1,4 +1,4 @@
-(import-macros {: with-require} :macros)
+(import-macros {: require-and-call} :macros)
 
 (fn nearest-parent-of-type [node-type node]
   (fn climb-tree [node]
@@ -6,7 +6,8 @@
         node
         (tail! (climb-tree (node:parent)))))
 
-  (climb-tree (or node (with-require {ts-utils :nvim-treesitter.ts_utils}
-                         (ts-utils.get_node_at_cursor)))))
+  (climb-tree (or node
+                  (require-and-call :nvim-treesitter.ts_utils
+                                    :get_node_at_cursor))))
 
 {: nearest-parent-of-type}

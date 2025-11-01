@@ -1,10 +1,10 @@
-(import-macros {: tb : setup- : require-and-call} :macros)
+(import-macros {: tb : setup- : require-and-call-} :macros)
 
 [(tb :neogit
      {:for_cat :general.git
       :cmd [:Neogit]
       :keys [(tb :<leader><leader>g
-                 (require-and-call :neogit :open {:cwd "%:p:h" :kind :auto})
+                 (require-and-call- :neogit :open {:cwd "%:p:h" :kind :auto})
                  {:mode [:n] :desc "Open Neogit"})]
       :after (setup- :neogit
                      {:auto_refresh true
@@ -26,11 +26,11 @@
  (tb :gitsigns.nvim
      {:for_cat :general.git
       :event :DeferredUIEnter
-      :keys [(tb " gs" (require-and-call :gitsigns :stage_hunk)
+      :keys [(tb " gs" (require-and-call- :gitsigns :stage_hunk)
                  {:mode [:n] :desc "[G]it: [S]tage hunk"})
-             (tb " gR" (require-and-call :gitsigns :reset_hunk)
+             (tb " gR" (require-and-call- :gitsigns :reset_hunk)
                  {:mode [:n] :desc "[G]it: [R]eset hunk"})
-             (tb " gp" (require-and-call :gitsigns :preview_hunk_inline)
+             (tb " gp" (require-and-call- :gitsigns :preview_hunk_inline)
                  {:mode [:n] :desc "[G]it: [P]review hunk"})]
       :after (setup- :gitsigns
                      {:signs {:add {:text "┃"

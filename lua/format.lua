@@ -1,5 +1,4 @@
 -- [nfnl] fnl/format.fnl
-local lze = require("lze")
 local function _1_()
     local p_7_auto = require("conform")
     return p_7_auto.setup({
@@ -7,7 +6,7 @@ local function _1_()
         formatters_by_ft = { fennel = { "fnlfmt" }, lua = { "stylua" } },
     })
 end
-lze.load({
+require("lze").load({
     {
         "conform.nvim",
         after = _1_,
@@ -18,7 +17,6 @@ lze.load({
     },
 })
 local function _2_()
-    local conform = require("conform")
-    return conform.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
+    return require("conform").format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
 return { { vim.keymap.set("n", "<leader>FF", _2_, { desc = "[F]ormat buffer", noremap = true }) } }

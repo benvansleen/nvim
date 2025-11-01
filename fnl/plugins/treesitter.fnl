@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : require-and-call} :macros)
+(import-macros {: tb : setup-} :macros)
 
 (tb :nvim-treesitter
     {:for_cat :general.treesitter

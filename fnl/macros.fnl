@@ -39,10 +39,12 @@
 
 (fn require-and-call [mod f opts]
   (if opts
-      `(fn []
-         ((. (require ,mod) ,f) ,opts))
-      `(fn []
-         ((. (require ,mod) ,f)))))
+      `((. (require ,mod) ,f) ,opts)
+      `((. (require ,mod) ,f))))
+
+(fn require-and-call- [...] ; (print ...)
+  (let [form (require-and-call ...)] ; (print (view form))
+    `(fn [] ,form)))
 
 (fn setup [req opts]
   (if opts
@@ -92,9 +94,8 @@
   (let [imports (icollect [_ plugin (ipairs plugins)]
                   {:import (.. :plugins "." plugin)})]
     `(do
-       (import-macros {: with-require} :macros)
-       (with-require {lze# :lze}
-         (lze#.load ,imports)))))
+       (import-macros {: require-and-call} :macros)
+       (require-and-call :lze :load ,imports))))
 
 {: tb
  : when-let
@@ -102,6 +103,7 @@
  : with-require-
  : with-preserve-position
  : require-and-call
+ : require-and-call-
  : setup
  : setup-
  : config

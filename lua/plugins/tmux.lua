@@ -4,20 +4,16 @@ local function _1_()
     return p_7_auto.setup({ auto_save = nil, disable_on_zoom = true })
 end
 local function _2_()
-    local nav = require("Navigator")
-    return nav.up()
+    return require("Navigator").up()
 end
 local function _3_()
-    local nav = require("Navigator")
-    return nav.down()
+    return require("Navigator").down()
 end
 local function _4_()
-    local nav = require("Navigator")
-    return nav.left()
+    return require("Navigator").left()
 end
 local function _5_()
-    local nav = require("Navigator")
-    return nav.right()
+    return require("Navigator").right()
 end
 return {
     "Navigator.nvim",

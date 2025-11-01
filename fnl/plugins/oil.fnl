@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : require-and-call : config} :macros)
+(import-macros {: tb : setup- : config} :macros)
 
 (config (g {loaded_netrwPlugin 1}))
 

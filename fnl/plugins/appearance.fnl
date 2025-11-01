@@ -2,7 +2,7 @@
                 : tb
                 : setup
                 : setup-
-                : require-and-call
+                : require-and-call-
                 : with-require
                 : with-require-} :macros)
 
@@ -90,7 +90,7 @@
  (tb :focus.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :keys [(tb :<leader>s (require-and-call :focus :split_nicely)
+      :keys [(tb :<leader>s (require-and-call- :focus :split_nicely)
                  {:desc "Open [S]plit"})]
       :after (with-require- {: focus}
                (focus.setup {:enable true
