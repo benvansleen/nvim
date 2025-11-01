@@ -226,6 +226,9 @@
             lint = with pkgs.vimPlugins; [
               nvim-lint
             ];
+            lsp = with pkgs.vimPlugins; [
+              symbol-usage-nvim
+            ];
             lisp = with pkgs.vimPlugins; [
               nvim-parinfer
             ];
@@ -419,6 +422,7 @@
               number-toggle = true;
               general = true;
               lint = false;
+              lsp = true;
               lisp = true;
               fnl = true;
               format = true;

@@ -1,6 +1,8 @@
 (import-macros {: require-and-call} :macros)
 
 (fn [_ bufnr]
+  (vim.lsp.inlay_hint.enable true nil bufnr)
+
   (fn map [mode keys func desc]
     (vim.keymap.set mode keys func
                     {:buffer bufnr

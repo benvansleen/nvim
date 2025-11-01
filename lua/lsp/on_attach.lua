@@ -1,5 +1,6 @@
 -- [nfnl] fnl/lsp/on_attach.fnl
 local function _1_(_, bufnr)
+    vim.lsp.inlay_hint.enable(true, nil, bufnr)
     local function map(mode, keys, func, desc)
         local _2_
         if desc then

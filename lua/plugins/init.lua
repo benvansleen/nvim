@@ -5,6 +5,7 @@ return lze_18_auto.load({
     { import = "plugins.completion" },
     { import = "plugins.editor" },
     { import = "plugins.git" },
+    { import = "plugins.lsp" },
     { import = "plugins.lisp" },
     { import = "plugins.oil" },
     { import = "plugins.telescope" },

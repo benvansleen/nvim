@@ -111,7 +111,23 @@ return lze.load({
     {
         "basedpyright",
         enabled = (nixCats("python") or false),
-        lsp = { filetypes = { "python" }, settings = { python = {} }, on_attach = require("lsp.on_attach") },
+        lsp = {
+            filetypes = { "python" },
+            settings = {
+                basedpyright = {
+                    analysis = {
+                        useTypingExtensions = true,
+                        inlayHints = {
+                            variableTypes = true,
+                            callArgumentNames = true,
+                            functionReturnTypes = true,
+                            genericTypes = true,
+                        },
+                    },
+                },
+            },
+            on_attach = require("lsp.on_attach"),
+        },
     },
     {
         "ts_ls",

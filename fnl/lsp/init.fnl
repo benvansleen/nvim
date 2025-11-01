@@ -73,6 +73,7 @@
                     :lsp {:filetypes [:lua]
                           :settings {:Lua {:runtime {:version :LuaJIT}
                                            :formatters {:ignoreComments true}
+                                           ; :codeLens {:enable true}
                                            :signatureHelp {:enabled true}
                                            :diagnostics {:globals [:nixCats
                                                                    :vim]
@@ -98,7 +99,11 @@
                (tb :basedpyright
                    {:enabled (or (nixCats :python) false)
                     :lsp {:filetypes [:python]
-                          :settings {:python {}}
+                          :settings {:basedpyright {:analysis {:useTypingExtensions true
+                                                               :inlayHints {:variableTypes true
+                                                                            :callArgumentNames true
+                                                                            :functionReturnTypes true
+                                                                            :genericTypes true}}}}
                           :on_attach (require :lsp.on_attach)}})
                (tb :ts_ls
                    {:enabled (or (nixCats :typescript) false)
