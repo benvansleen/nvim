@@ -1,11 +1,12 @@
 (import-macros {: config} :macros)
 
-(fn get-buf-fts [win]
-  (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win) :filetype))
+(fn get-buf-ft [win]
+  (vim.api.nvim_get_option_value :filetype
+                                 {:buf (vim.api.nvim_win_get_buf win)}))
 
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)
-        ft (get-buf-fts win)]
+        ft (get-buf-ft win)]
     (and (not cfg.external) (not= ft "") (not= ft :fidget)
          (not= ft :smear-cursor) (not= ft :wk) (not= ft :TelescopePrompt)
          (not= ft :TelescopeResults) (not= ft :TelescopeResults))))
@@ -13,7 +14,7 @@
 (fn count-windows []
   (let [windows (vim.tbl_filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
     (when vim.g._debug_my_center_buffer
-      (print (vim.inspect (vim.tbl_map get-buf-fts windows))))
+      (print (vim.inspect (vim.tbl_map get-buf-ft windows))))
     (length windows)))
 
 (let [screen-width (vim.api.nvim_win_get_width 0)
