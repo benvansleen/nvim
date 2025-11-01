@@ -123,7 +123,7 @@ return {
         { "<leader>fH", _13_, desc = "[F]ind [H]elp", mode = { "n" } },
         { "<leader>fm", "<cmd>Telescope notify<CR>", desc = "[F]ind [M]essage", mode = { "n" } },
         { "<leader>ft", _14_, desc = "[F]ind [T]elescope", mode = { "n" } },
-        { "<leader>fc", "<cmd>Telescope zoxide list<CR>", desc = "[F]ind [C]hange [D]irectory", mode = { "n" } },
+        { "<leader>ps", "<cmd>Telescope zoxide list<CR>", desc = "[P]roject [S]earch", mode = { "n" } },
         { "<leader>gr", _15_, desc = "[G]o to [R]eferences", mode = { "n" } },
     },
     load = _16_,

@@ -32,8 +32,8 @@
                 {:mode [:n] :desc "[F]ind [M]essage"})
             (tb :<leader>ft (require-and-call :telescope.builtin :builtin)
                 {:mode [:n] :desc "[F]ind [T]elescope"})
-            (tb :<leader>fc "<cmd>Telescope zoxide list<CR>"
-                {:mode [:n] :desc "[F]ind [C]hange [D]irectory"})
+            (tb :<leader>ps "<cmd>Telescope zoxide list<CR>"
+                {:mode [:n] :desc "[P]roject [S]earch"})
             (tb :<leader>gr
                 (require-and-call :telescope.builtin :lsp_references)
                 {:mode [:n] :desc "[G]o to [R]eferences"})]
