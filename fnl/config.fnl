@@ -33,6 +33,7 @@
                 showmode false
                 signcolumn :yes
                 smartcase true
+                showtabline 0
                 softtabstop -1
                 splitbelow true
                 splitright true

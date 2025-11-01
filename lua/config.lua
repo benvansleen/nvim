@@ -29,6 +29,7 @@ do
     vim.opt["shiftwidth"] = 4
     vim.opt["signcolumn"] = "yes"
     vim.opt["smartcase"] = true
+    vim.opt["showtabline"] = 0
     vim.opt["softtabstop"] = -1
     vim.opt["splitbelow"] = true
     vim.opt["splitright"] = true
@@ -66,6 +67,7 @@ do
             { nil, nil, nil, nil, nil, nil },
             { require("clipboard"), require("lsp"), require("plugins") },
             {
+                nil,
                 nil,
                 nil,
                 nil,
