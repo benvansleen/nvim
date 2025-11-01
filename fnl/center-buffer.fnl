@@ -4,12 +4,21 @@
   (vim.api.nvim_get_option_value :filetype
                                  {:buf (vim.api.nvim_win_get_buf win)}))
 
+(local disabled-ft [:blink-cmp-documentation
+                    :blink-cmp-menu
+                    :dashboard
+                    :fidget
+                    :markdown
+                    :smear-cursor
+                    :toggleterm
+                    :TelescopePrompt
+                    :TelescopeResults])
+
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)
         ft (get-buf-ft win)]
-    (and (not cfg.external) (not= ft "") (not= ft :dashboard) (not= ft :fidget)
-         (not= ft :smear-cursor) (not= ft :wk) (not= ft :TelescopePrompt)
-         (not= ft :TelescopeResults) (not= ft :TelescopeResults))))
+    (and (not cfg.external) (not= ft "")
+         (not (vim.tbl_contains disabled-ft ft)))))
 
 (fn count-windows []
   (let [windows (vim.tbl_filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
