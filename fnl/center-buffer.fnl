@@ -42,9 +42,9 @@
           (set vim.wo.statuscolumn statuscolumn))))
 
   (config (g {my_center_buffer true _debug_my_center_buffer false})
-          (nmap {:<leader>tc (fn []
-                               (set vim.g.my_center_buffer
-                                    (not vim.g.my_center_buffer)))})
+          (nmap {["[T]oggle [c]enter-[b]uffer" :<leader>tc] (fn []
+                                                              (set vim.g.my_center_buffer
+                                                                   (not vim.g.my_center_buffer)))})
           (autocmd {[:BufEnter
                       :BufWinEnter
                       :BufWinLeave

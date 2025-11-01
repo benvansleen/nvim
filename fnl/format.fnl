@@ -11,7 +11,7 @@
                                                    :lsp_fallback :fallback}
                                   :formatters_by_ft {:fennel (tb :fnlfmt)
                                                      :lua (tb :stylua)}})})])
-  (config (nmap {:<leader>FF (with-require- {: conform}
-                               (conform.format {:lsp_fallback true
-                                                :async false
-                                                :timeout_ms 1000}))})))
+  (config (nmap {["[F]ormat buffer" :<leader>FF] (with-require- {: conform}
+                                                   (conform.format {:lsp_fallback true
+                                                                    :async false
+                                                                    :timeout_ms 1000}))})))

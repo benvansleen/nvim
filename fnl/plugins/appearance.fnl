@@ -90,7 +90,8 @@
  (tb :focus.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :keys [(tb :<leader>s (require-and-call :focus :split_nicely))]
+      :keys [(tb :<leader>s (require-and-call :focus :split_nicely)
+                 {:desc "Open [S]plit"})]
       :after (with-require- {: focus}
                (focus.setup {:enable true
                              :commands true

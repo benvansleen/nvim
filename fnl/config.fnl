@@ -44,21 +44,19 @@
                 timeoutlen 300
                 updatetime 250
                 undofile true})
-          (nmap {:<Esc> :<cmd>nohlsearch<CR>
-                 :<C-j> :<C-d>zz
-                 :<C-k> :<C-u>zz
-                 :<leader>tc (fn []
-                               (set vim.g.my_center_buffer
-                                    (not vim.g.my_center_buffer)))
-                 :<leader>te (fn []
-                               (let [vt (. (vim.diagnostic.config)
-                                           :virtual_lines)]
-                                 (vim.diagnostic.config {:virtual_lines (not vt)})))
-                 :<leader>wtf (fn [] (print (vim.api.nvim_buf_get_name 0)))
-                 :<leader>q (fn [] (vim.api.nvim_buf_delete 0 {}))
-                 :<leader>huc :<cmd>Inspect<CR>})
-          (imap {:jj :<Esc>})
-          (vmap {:J ":m '>+1<CR>gv=gv" :K ":m '>-2<CR>gv=gv"})
+          (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
+                 ["Scroll down" :<C-j>] :<C-d>zz
+                 ["Scroll up" :<C-k>] :<C-u>zz
+                 ["[T]oggle virtual lines" :<leader>te] (fn []
+                                                         (let [vt (. (vim.diagnostic.config)
+                                                                     :virtual_lines)]
+                                                           (vim.diagnostic.config {:virtual_lines (not vt)})))
+                 ["[W]hat's [T]his [F]ile?" :<leader>wtf] (fn [] (print (vim.api.nvim_buf_get_name 0)))
+                 ["[Q]uit buffer" :<leader>q] (fn [] (vim.api.nvim_buf_delete 0 {}))
+                 ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>})
+          (imap {["Exit Insert Mode" :jj] :<Esc>})
+          (vmap {["Move lines down" :J] ":m '>+1<CR>gv=gv"
+                 ["Move lines up" :K] ":m '>-2<CR>gv=gv"})
           (autocmd {[:BufWinEnter] {:desc "return cursor to where it was last time file was closed"
                                     :pattern "*"
                                     :command "silent! normal! g`\"zv"}
@@ -83,4 +81,4 @@
 
 (with-require {: nixCatsUtils}
   (when (not nixCatsUtils.isNixCats)
-    (config (nmap {:<up> :<C-u> :<down> :<C-d>}))))
+    (config (nmap {["Scroll Up" :<up>] :<C-u> ["Scroll Down" :<down>] :<C-d>}))))

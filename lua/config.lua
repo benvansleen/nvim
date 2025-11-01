@@ -46,20 +46,16 @@ do
     vim.opt["showcmd"] = false
     vim.opt["showmode"] = false
     local function _1_()
-        vim.g.my_center_buffer = not vim.g.my_center_buffer
-        return nil
-    end
-    local function _2_()
         local vt = vim.diagnostic.config().virtual_lines
         return vim.diagnostic.config({ virtual_lines = not vt })
     end
-    local function _3_()
+    local function _2_()
         return print(vim.api.nvim_buf_get_name(0))
     end
-    local function _4_()
+    local function _3_()
         return vim.api.nvim_buf_delete(0, {})
     end
-    local function _5_()
+    local function _4_()
         return vim.highlight.on_yank()
     end
     do
@@ -100,19 +96,23 @@ do
                 nil,
             },
             {
-                vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true }),
-                vim.keymap.set("n", "<C-j>", "<C-d>zz", { noremap = true }),
-                vim.keymap.set("n", "<C-k>", "<C-u>zz", { noremap = true }),
-                vim.keymap.set("n", "<leader>tc", _1_, { noremap = true }),
-                vim.keymap.set("n", "<leader>te", _2_, { noremap = true }),
-                vim.keymap.set("n", "<leader>wtf", _3_, { noremap = true }),
-                vim.keymap.set("n", "<leader>q", _4_, { noremap = true }),
-                vim.keymap.set("n", "<leader>huc", "<cmd>Inspect<CR>", { noremap = true }),
+                vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true }),
+                vim.keymap.set("n", "<C-j>", "<C-d>zz", { desc = "Scroll down", noremap = true }),
+                vim.keymap.set("n", "<C-k>", "<C-u>zz", { desc = "Scroll up", noremap = true }),
+                vim.keymap.set("n", "<leader>te", _1_, { desc = "[T]oggle virtual lines", noremap = true }),
+                vim.keymap.set("n", "<leader>wtf", _2_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
+                vim.keymap.set("n", "<leader>q", _3_, { desc = "[Q]uit buffer", noremap = true }),
+                vim.keymap.set(
+                    "n",
+                    "<leader>huc",
+                    "<cmd>Inspect<CR>",
+                    { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
+                ),
             },
-            { vim.keymap.set("i", "jj", "<Esc>", { noremap = true }) },
+            { vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true }) },
             {
-                vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true }),
-                vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { noremap = true }),
+                vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move lines down", noremap = true }),
+                vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move lines up", noremap = true }),
             },
             {
                 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
@@ -120,7 +120,7 @@ do
                     pattern = "*",
                     command = 'silent! normal! g`"zv',
                 }),
-                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _5_ }),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _4_ }),
             },
         }
     end
@@ -149,8 +149,8 @@ local nixCatsUtils = require("nixCatsUtils")
 if not nixCatsUtils.isNixCats then
     return {
         {
-            vim.keymap.set("n", "<up>", "<C-u>", { noremap = true }),
-            vim.keymap.set("n", "<down>", "<C-d>", { noremap = true }),
+            vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),
+            vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", noremap = true }),
         },
     }
 else

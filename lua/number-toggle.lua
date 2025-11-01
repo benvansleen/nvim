@@ -23,7 +23,7 @@ local function _4_()
     end
 end
 return {
-    { vim.keymap.set("n", "<leader>tn", _1_, { noremap = true }) },
+    { vim.keymap.set("n", "<leader>tn", _1_, { desc = "[T]oggle [n]umbertoggle", noremap = true }) },
     {
         vim.api.nvim_create_autocmd(
             { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },

@@ -52,7 +52,7 @@ local function _4_()
 end
 return {
     { nil, nil },
-    { vim.keymap.set("n", "<leader>tc", _4_, { noremap = true }) },
+    { vim.keymap.set("n", "<leader>tc", _4_, { desc = "[T]oggle [c]enter-[b]uffer", noremap = true }) },
     {
         vim.api.nvim_create_autocmd(
             { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },

@@ -20,4 +20,5 @@
                     (when (= srow (. cursor 1))
                       (tset cursor 2 (+ (. cursor 2) 1)))))))))))
 
-(config (nmap {:<leader>tf toggle-fstring}) (imap {:<M-f> toggle-fstring}))
+(config (nmap {["[T]oggle [f]-string" :<leader>tf] toggle-fstring})
+        (imap {["Toggle [f]-string" :<M-f>] toggle-fstring}))

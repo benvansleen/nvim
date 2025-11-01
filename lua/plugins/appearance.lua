@@ -132,6 +132,6 @@ return {
         after = _8_,
         event = "DeferredUIEnter",
         for_cat = "general.extra",
-        keys = { { "<leader>s", _11_ } },
+        keys = { { "<leader>s", _11_, desc = "Open [S]plit" } },
     },
 }

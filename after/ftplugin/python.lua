@@ -36,6 +36,6 @@ local function toggle_fstring()
     return vim.api.nvim_win_set_cursor(_, cursor)
 end
 return {
-    { vim.keymap.set("n", "<leader>tf", toggle_fstring, { noremap = true }) },
-    { vim.keymap.set("i", "<M-f>", toggle_fstring, { noremap = true }) },
+    { vim.keymap.set("n", "<leader>tf", toggle_fstring, { desc = "[T]oggle [f]-string", noremap = true }) },
+    { vim.keymap.set("i", "<M-f>", toggle_fstring, { desc = "Toggle [f]-string", noremap = true }) },
 }

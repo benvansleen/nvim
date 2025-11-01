@@ -2,10 +2,10 @@
 
 ;; fnlfmt: skip
 (let [numbertoggle-g (vim.api.nvim_create_augroup :numbertoggle {})]
-  (config (nmap {:<leader>tn (fn []
-                               (let [cur vim.wo.nu]
-                                 (set vim.wo.number (not cur))
-                                 (set vim.wo.relativenumber (not cur))))})
+  (config (nmap {["[T]oggle [n]umbertoggle" :<leader>tn] (fn []
+                                                            (let [cur vim.wo.nu]
+                                                              (set vim.wo.number (not cur))
+                                                              (set vim.wo.relativenumber (not cur))))})
           (autocmd {[:BufEnter :FocusGained :InsertLeave :CmdlineLeave :WinEnter]
                     {:pattern "*"
                      :group numbertoggle-g

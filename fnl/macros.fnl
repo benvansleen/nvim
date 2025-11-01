@@ -69,8 +69,8 @@
       `(tset vim.g ,(tostring k) ,v)))
 
   (fn set-mappings [mode mappings]
-    (icollect [k v (pairs mappings)]
-      `(vim.keymap.set ,mode ,k ,v {:noremap true})))
+    (icollect [[desc k] v (pairs mappings)]
+      `(vim.keymap.set ,mode ,k ,v {:noremap true :desc ,desc})))
 
   (fn set-autocmds [cmds]
     (icollect [events cfg (pairs cmds)]
