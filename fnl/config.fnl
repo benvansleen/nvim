@@ -1,4 +1,4 @@
-(import-macros {: config : with-require} :macros)
+(import-macros {: config : load-plugins : with-require} :macros)
 
 (with-require {: lze : lzextras lzUtils :nixCatsUtils.lzUtils}
   (lze.register_handlers lzUtils.for_cat)
@@ -71,7 +71,7 @@
   (require :number-toggle))
 
 (when (nixCats :debug)
-  (require :debug))
+  (load-plugins :debug))
 
 (when (nixCats :lint)
   (require :lint))

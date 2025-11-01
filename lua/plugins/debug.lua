@@ -1,6 +1,4 @@
--- [nfnl] fnl/debug.fnl
-local lze = require("lze")
-local cats = require("nixCatsUtils")
+-- [nfnl] fnl/plugins/debug.fnl
 local function _1_(_)
     do
         local dap = require("dap")
@@ -34,6 +32,18 @@ local function _1_(_)
                 },
             },
         })
+        dap.adapters.debugpy = { type = "executable", command = "python", args = { "-m", "debugpy.adapter" } }
+        dap.configurations.python = {
+            {
+                type = "debugpy",
+                request = "launch",
+                name = "Launch file",
+                program = "${file}",
+                stopAtEntry = true,
+                cwd = "${workspaceFolder}",
+                pythonPath = ".venv/bin/python",
+            },
+        }
     end
     local p_7_auto = require("nvim-dap-virtual-text")
     local function _3_(variable, _buf, _stackframe, _node, options)
@@ -64,26 +74,33 @@ local function _1_(_)
     })
 end
 local _7_
-if cats.isNixCats then
-    local function _8_(name)
+local _8_
+do
+    local nixCatsUtils = require("nixCatsUtils")
+    _8_ = nixCatsUtils.isNixCats
+end
+if _8_ then
+    local function _9_(name)
+        print(name)
         vim.cmd.packadd(name)
         vim.cmd.packadd("nvim-dap-ui")
         return vim.cmd.packadd("nvim-dap-virtual-text")
     end
-    _7_ = _8_
+    _7_ = _9_
 else
-    local function _9_(name)
+    local function _10_(name)
         vim.cmd.packadd(name)
         vim.cmd.packadd("nvim-dap-ui")
         vim.cmd.packadd("nvim-dap-virtual-text")
         return vim.cmd.packadd("mason-nvim-dap.nvim")
     end
-    _7_ = _9_
+    _7_ = _10_
 end
-return lze.load({
+return {
     {
         "nvim-dap",
         after = _1_,
+        event = "DeferredUIEnter",
         for_cat = { cat = "debug", default = false },
         keys = {
             { "<F5>", desc = "Debug: Start/Continue" },
@@ -96,4 +113,4 @@ return lze.load({
         },
         load = _7_,
     },
-})
+}

@@ -424,6 +424,7 @@
               center-buffer = true;
               number-toggle = true;
               general = true;
+              debug = true;
               lint = false;
               lsp = true;
               lisp = true;

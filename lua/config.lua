@@ -134,7 +134,7 @@ if nixCats("number-toggle") then
 else
 end
 if nixCats("debug") then
-    require("debug")
+    require("lze").load({ { import = "plugins.debug" } })
 else
 end
 if nixCats("lint") then
