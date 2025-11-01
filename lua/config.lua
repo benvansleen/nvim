@@ -59,9 +59,6 @@ do
         return vim.api.nvim_buf_delete(0, {})
     end
     local function _5_()
-        return print(vim.inspect(vim.treesitter.get_captures_at_cursor(0)))
-    end
-    local function _6_()
         return vim.highlight.on_yank()
     end
     do
@@ -108,9 +105,9 @@ do
                 vim.keymap.set("n", "<leader>te", _2_, { noremap = true }),
                 vim.keymap.set("n", "<leader>wtf", _3_, { noremap = true }),
                 vim.keymap.set("n", "<leader>q", _4_, { noremap = true }),
-                vim.keymap.set("n", "<leader>huc", _5_, { noremap = true }),
+                vim.keymap.set("n", "<leader>huc", "<cmd>Inspect<CR>", { noremap = true }),
             },
-            { vim.keymap.set("i", "jj", "<ESC>", { noremap = true }) },
+            { vim.keymap.set("i", "jj", "<Esc>", { noremap = true }) },
             {
                 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true }),
                 vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { noremap = true }),
@@ -121,7 +118,7 @@ do
                     pattern = "*",
                     command = 'silent! normal! g`"zv',
                 }),
-                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _6_ }),
+                vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = highlight_g, pattern = "*", callback = _5_ }),
             },
         }
     end
