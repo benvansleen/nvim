@@ -37,16 +37,26 @@ local function _7_()
     })
 end
 local function _8_()
+    local p_7_auto = require("nvim-highlight-colors")
+    return p_7_auto.setup({
+        render = "virtual",
+        virtual_symbol = "\226\150\160",
+        virtual_symbol_prefix = " ",
+        virtual_symbol_suffix = " ",
+        virtual_symbol_position = "inline",
+    })
+end
+local function _9_()
     local p_8_auto = require("nvim-surround")
     return p_8_auto.setup()
 end
-local function _9_(_)
+local function _10_(_)
     vim.g.startuptime_event_width = 0
     vim.g.startuptime_tries = 10
     vim.g.startuptime_exe_path = nixCats.packageBinPath
     return nil
 end
-local function _10_()
+local function _11_()
     local which_key = require("which-key")
     which_key.setup({ preset = "helix", delay = 500 })
     return which_key.add({
@@ -82,13 +92,14 @@ return {
         keys = { { "s", "<Plug>(leap)", desc = "Leap!", mode = { "n", "x", "o" } } },
     },
     { "nvim-autopairs", after = _7_, event = "InsertEnter", for_cat = "general.always" },
-    { "nvim-surround", after = _8_, event = "CursorMoved", for_cat = "general.always" },
+    { "nvim-highlight-colors", after = _8_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "nvim-surround", after = _9_, event = "CursorMoved", for_cat = "general.always" },
     {
         "undotree",
         cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
         for_cat = "general.extra",
         keys = { { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree", mode = { "n" } } },
     },
-    { "vim-startuptime", before = _9_, cmd = { "StartupTime" }, for_cat = "general.extra" },
-    { "which-key.nvim", after = _10_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "vim-startuptime", before = _10_, cmd = { "StartupTime" }, for_cat = "general.extra" },
+    { "which-key.nvim", after = _11_, event = "DeferredUIEnter", for_cat = "general.extra" },
 }

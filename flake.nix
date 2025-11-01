@@ -249,7 +249,9 @@
                 colorful-menu-nvim
               ];
               treesitter = with pkgs.vimPlugins; [
+                hlargs-nvim
                 nvim-treesitter-textobjects
+                nvim-treesitter-textsubjects
                 nvim-treesitter.withAllGrammars
                 # This is for if you only want some of the grammars
                 # (nvim-treesitter.withPlugins (
@@ -288,6 +290,7 @@
                 indent-blankline-nvim
                 dashboard-nvim
                 oil-nvim
+                nvim-highlight-colors
                 pkgs.neovimPlugins.direnv-nvim
                 pkgs.neovimPlugins.foldtext-nvim
                 smear-cursor-nvim

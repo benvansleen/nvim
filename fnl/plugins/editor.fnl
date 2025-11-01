@@ -38,6 +38,15 @@
                       :disable_filetype [:TelescopePrompt]
                       :disable_in_macro true
                       :enable_check_bracket_line true})})
+ (tb :nvim-highlight-colors
+     {:for_cat :general.extra
+      :event :DeferredUIEnter
+      :after (setup- :nvim-highlight-colors
+                     {:render :virtual
+                      :virtual_symbol "■"
+                      :virtual_symbol_prefix " "
+                      :virtual_symbol_suffix " "
+                      :virtual_symbol_position :inline})})
  (tb :nvim-surround {:for_cat :general.always
                      :event :CursorMoved
                      :after (setup- :nvim-surround)})

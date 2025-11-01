@@ -13,6 +13,15 @@ local function _1_()
                 node_decremental = "grm",
             },
         },
+        textsubjects = {
+            enable = true,
+            prev_selection = ",",
+            keymaps = {
+                ["."] = "textsubjects-smart",
+                [";"] = "textsubjects-container-outer",
+                ["i;"] = "textsubjects-container-inner",
+            },
+        },
         textobjects = {
             select = {
                 enable = true,
@@ -46,9 +55,17 @@ end
 local function _2_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("nvim-treesitter-textobjects")
+    vim.cmd.packadd("nvim-treesitter-textsubjects")
     vim.wo.foldlevel = 10
     vim.wo.foldmethod = "expr"
     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     return nil
 end
-return { "nvim-treesitter", after = _1_, event = "DeferredUIEnter", for_cat = "general.treesitter", load = _2_ }
+local function _3_()
+    local p_8_auto = require("hlargs")
+    return p_8_auto.setup()
+end
+return {
+    { "nvim-treesitter", after = _1_, event = "DeferredUIEnter", for_cat = "general.treesitter", load = _2_ },
+    { "hlargs.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.treesitter" },
+}
