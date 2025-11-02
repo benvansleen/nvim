@@ -46,10 +46,12 @@
   (config (g {my_center_buffer true _debug_my_center_buffer false})
           (nmap {["[T]oggle [c]enter-buffer" :<leader>tc] (fn []
                                                             (set vim.g.my_center_buffer
-                                                                 (not vim.g.my_center_buffer)))
+                                                                 (not vim.g.my_center_buffer))
+                                                            (center-buffer))
                  ["[T]oggle [c]enter-buffer Debug Mode" :<leader>tC] (fn []
                                                                        (set vim.g._debug_my_center_buffer
-                                                                            (not vim.g._debug_my_center_buffer)))})
+                                                                            (not vim.g._debug_my_center_buffer))
+                                                                       (center-buffer))})
           (autocmd {[:BufEnter
                       :BufWinEnter
                       :BufWinLeave

@@ -50,11 +50,11 @@ vim.g["my_center_buffer"] = true
 vim.g["_debug_my_center_buffer"] = false
 local function _4_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
-    return nil
+    return center_buffer()
 end
 local function _5_()
     vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
-    return nil
+    return center_buffer()
 end
 return {
     { nil, nil },
