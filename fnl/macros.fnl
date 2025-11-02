@@ -97,6 +97,14 @@
        (import-macros {: require-and-call} :macros)
        (require-and-call :lze :load ,imports))))
 
+(fn dot-repeatable- [mod cmd]
+  `(let [cmd# ,cmd]
+     (import-macros {: require-and-call-} :macros)
+     (tset _G cmd# (require-and-call- ,mod ,cmd))
+     (fn []
+       (tset vim.o :operatorfunc (.. "v:lua." cmd#))
+       (vim.cmd.normal "g@l"))))
+
 {: tb
  : when-let
  : with-require
@@ -107,4 +115,5 @@
  : setup
  : setup-
  : config
- : load-plugins}
+ : load-plugins
+ : dot-repeatable-}

@@ -1,38 +1,73 @@
 -- [nfnl] fnl/plugins/debug.fnl
-local function _1_(_)
+local continue
+do
+    local cmd_20_auto = "continue"
+    local function _1_()
+        return require("dap").continue()
+    end
+    _G[cmd_20_auto] = _1_
+    local function _2_()
+        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        return vim.cmd.normal("g@l")
+    end
+    continue = _2_
+end
+local step_over
+do
+    local cmd_20_auto = "step_over"
+    local function _3_()
+        return require("dap").step_over()
+    end
+    _G[cmd_20_auto] = _3_
+    local function _4_()
+        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        return vim.cmd.normal("g@l")
+    end
+    step_over = _4_
+end
+local step_into
+do
+    local cmd_20_auto = "step_into"
+    local function _5_()
+        return require("dap").step_into()
+    end
+    _G[cmd_20_auto] = _5_
+    local function _6_()
+        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        return vim.cmd.normal("g@l")
+    end
+    step_into = _6_
+end
+local step_out
+do
+    local cmd_20_auto = "step_out"
+    local function _7_()
+        return require("dap").step_out()
+    end
+    _G[cmd_20_auto] = _7_
+    local function _8_()
+        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        return vim.cmd.normal("g@l")
+    end
+    step_out = _8_
+end
+local toggle_breakpoint
+do
+    local cmd_20_auto = "toggle_breakpoint"
+    local function _9_()
+        return require("dap").toggle_breakpoint()
+    end
+    _G[cmd_20_auto] = _9_
+    local function _10_()
+        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        return vim.cmd.normal("g@l")
+    end
+    toggle_breakpoint = _10_
+end
+local function _11_(_)
     do
         local dap = require("dap")
-        local dapui = require("dapui")
-        vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
-        vim.keymap.set("n", "<F1>", dap.step_into, { desc = "Debug: Step Into" })
-        vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Debug: Step Over" })
-        vim.keymap.set("n", "<F3>", dap.step_out, { desc = "Debug: Step out" })
-        vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result" })
-        vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-        local function _2_()
-            return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-        end
-        vim.keymap.set("n", "<leader>B", _2_, { desc = "Debug: Set Breakpoint" })
-        dap.listeners.after.event_initialized.dapui_config = dapui.open
-        dap.listeners.before.event_terminated.dapui_config = dapui.close
-        dap.listeners.before.event_exited.dapui_config = dapui.close
-        dapui.setup({
-            icons = { expanded = "\226\150\190", collapsed = "\226\150\184", current_frame = "*" },
-            controls = {
-                icons = {
-                    pause = "\226\143\184",
-                    play = "\226\150\182",
-                    step_into = "\226\143\142",
-                    step_over = "\226\143\173",
-                    step_out = "\226\143\174",
-                    step_back = "b",
-                    run_last = "\226\150\182\226\150\182",
-                    terminate = "\226\143\185",
-                    disconnect = "\226\143\143",
-                },
-            },
-        })
-        dap.adapters.debugpy = { type = "executable", command = "python", args = { "-m", "debugpy.adapter" } }
+        dap.adapters.debugpy = { type = "executable", command = "debugpy-adapter" }
         dap.configurations.python = {
             {
                 type = "debugpy",
@@ -42,22 +77,46 @@ local function _1_(_)
                 stopAtEntry = true,
                 cwd = "${workspaceFolder}",
                 pythonPath = ".venv/bin/python",
+                justMyCode = false,
             },
         }
+        vim.api.nvim_set_hl(0, "BreakpointLineHl", { underdotted = true })
+        vim.api.nvim_set_hl(0, "DapLineAtPointLineHl", { underline = true })
+        vim.fn.sign_define({
+            { name = "DapBreakpoint", text = "\239\132\145", texthl = "Red", linehl = "BreakpointLineHl" },
+            {
+                name = "DapBreakpointCondition",
+                text = "\239\132\145",
+                texthl = "Yellow",
+                linehl = "DapBreakpointLineHl",
+            },
+            { name = "DapStopped", text = "\226\134\146", linehl = "DapLineAtPointLineHl" },
+        })
+    end
+    do
+        local p_7_auto = require("dap-view")
+        p_7_auto.setup({
+            auto_toggle = true,
+            winbar = {
+                sections = { "repl", "watches", "scopes", "exceptions", "breakpoints", "threads" },
+                default_section = "repl",
+                controls = { enabled = true, position = "right" },
+            },
+        })
     end
     local p_7_auto = require("nvim-dap-virtual-text")
-    local function _3_(variable, _buf, _stackframe, _node, options)
+    local function _12_(variable, _buf, _stackframe, _node, options)
         if options.virt_text_pos == "inline" then
             return (" = " .. variable.value)
         else
             return (variable.name .. " = " .. variable.value)
         end
     end
-    local _5_
+    local _14_
     if vim.fn.has("nvim-0.10") == 1 then
-        _5_ = "inline"
+        _14_ = "inline"
     else
-        _5_ = "eol"
+        _14_ = "eol"
     end
     return p_7_auto.setup({
         enabled = true,
@@ -65,51 +124,71 @@ local function _1_(_)
         highlight_changed_variables = true,
         show_stop_reason = true,
         only_first_definition = true,
-        display_callback = _3_,
-        virt_text_pos = _5_,
+        display_callback = _12_,
+        virt_text_pos = _14_,
         all_references = false,
         clear_on_continue = false,
         commented = false,
         highlight_new_as_changed = false,
     })
 end
-local _7_
-local _8_
+local function _16_()
+    return require("dap").restart()
+end
+local function _17_()
+    return require("dap").close()
+end
+local function _18_()
+    return require("dap.breakpoints").clear()
+end
+local function _19_()
+    local dap = require("dap")
+    return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end
+local function _20_()
+    return require("dap-view").toggle()
+end
+local _21_
+local _22_
 do
     local nixCatsUtils = require("nixCatsUtils")
-    _8_ = nixCatsUtils.isNixCats
+    _22_ = nixCatsUtils.isNixCats
 end
-if _8_ then
-    local function _9_(name)
+if _22_ then
+    local function _23_(name)
         vim.cmd.packadd(name)
-        vim.cmd.packadd("nvim-dap-ui")
+        vim.cmd.packadd("nvim-dap-view")
         return vim.cmd.packadd("nvim-dap-virtual-text")
     end
-    _7_ = _9_
+    _21_ = _23_
 else
-    local function _10_(name)
+    local function _24_(name)
         vim.cmd.packadd(name)
-        vim.cmd.packadd("nvim-dap-ui")
+        vim.cmd.packadd("nvim-dap-view")
         vim.cmd.packadd("nvim-dap-virtual-text")
         return vim.cmd.packadd("mason-nvim-dap.nvim")
     end
-    _7_ = _10_
+    _21_ = _24_
 end
 return {
     {
         "nvim-dap",
-        after = _1_,
-        event = "DeferredUIEnter",
+        after = _11_,
         for_cat = { cat = "debug", default = false },
         keys = {
-            { "<F5>", desc = "Debug: Start/Continue" },
-            { "<F1>", desc = "Debug: Step Into" },
-            { "<F2>", desc = "Debug: Step Over" },
-            { "<F3>", desc = "Debug: Step Out" },
-            { "<leader>b", desc = "Debug: Toggle Breakpoint" },
-            { "<leader>B", desc = "Debug: Set Breakpoint" },
-            { "<F7>", desc = "Debug: See last session result" },
+            { "<leader>dc", continue, desc = "Debug: Start/Continue" },
+            { "<leader>dR", _16_, desc = "Debug: Restart" },
+            { "<leader>dq", _17_, desc = "Debug: Quit" },
+            { "<leader>di", step_into, desc = "Debug: Step Into" },
+            { "<leader>dn", step_over, desc = "Debug: Step Over" },
+            { "<leader>do", step_out, desc = "Debug: Step Out" },
+            { "<leader>dC", _18_, desc = "Debug: Clear Breakpoints" },
+            { "<leader>db", toggle_breakpoint, desc = "Debug: Toggle Breakpoint" },
+            { "<leader>dB", _19_, desc = "Debug: Set Conditional Breakpoint" },
+            { "<leader>dw", "<cmd>DapViewWatch<cr>", desc = "Debug: Set Watch" },
+            { "<leader>dt", _20_, desc = "Debug: See last session result" },
         },
-        load = _7_,
+        load = _21_,
+        on_require = "dap",
     },
 }

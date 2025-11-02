@@ -7,6 +7,8 @@
 (local disabled-ft [:blink-cmp-documentation
                     :blink-cmp-menu
                     :dashboard
+                    :dap-repl
+                    :dap-view
                     :fidget
                     :markdown
                     :smear-cursor

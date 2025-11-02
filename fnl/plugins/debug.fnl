@@ -1,72 +1,90 @@
-(import-macros {: tb : setup : with-require} :macros)
+(import-macros {: tb
+                : setup
+                : require-and-call-
+                : with-require
+                : with-require-
+                : dot-repeatable-} :macros)
+
+(local continue (dot-repeatable- :dap :continue))
+(local step-over (dot-repeatable- :dap :step_over))
+(local step-into (dot-repeatable- :dap :step_into))
+(local step-out (dot-repeatable- :dap :step_out))
+(local toggle-breakpoint (dot-repeatable- :dap :toggle_breakpoint))
 
 [(tb :nvim-dap {:for_cat {:cat :debug :default false}
-                :event :DeferredUIEnter
-                :keys [(tb :<F5> {:desc "Debug: Start/Continue"})
-                       (tb :<F1> {:desc "Debug: Step Into"})
-                       (tb :<F2> {:desc "Debug: Step Over"})
-                       (tb :<F3> {:desc "Debug: Step Out"})
-                       (tb :<leader>b {:desc "Debug: Toggle Breakpoint"})
-                       (tb :<leader>B {:desc "Debug: Set Breakpoint"})
-                       (tb :<F7> {:desc "Debug: See last session result"})]
+                :on_require :dap
+                :keys [(tb :<leader>dc continue {:desc "Debug: Start/Continue"})
+                       (tb :<leader>dR (require-and-call- :dap :restart)
+                           {:desc "Debug: Restart"})
+                       (tb :<leader>dq (require-and-call- :dap :close)
+                           {:desc "Debug: Quit"})
+                       (tb :<leader>di step-into {:desc "Debug: Step Into"})
+                       (tb :<leader>dn step-over {:desc "Debug: Step Over"})
+                       (tb :<leader>do step-out {:desc "Debug: Step Out"})
+                       (tb :<leader>dC
+                           (require-and-call- :dap.breakpoints :clear)
+                           {:desc "Debug: Clear Breakpoints"})
+                       (tb :<leader>db toggle-breakpoint
+                           {:desc "Debug: Toggle Breakpoint"})
+                       (tb :<leader>dB
+                           (with-require- {: dap}
+                             (-> "Breakpoint condition: "
+                                 vim.fn.input
+                                 dap.set_breakpoint))
+                           {:desc "Debug: Set Conditional Breakpoint"})
+                       (tb :<leader>dw :<cmd>DapViewWatch<cr>
+                           {:desc "Debug: Set Watch"})
+                       (tb :<leader>dt (require-and-call- :dap-view :toggle)
+                           {:desc "Debug: See last session result"})]
                 :load (if (with-require {: nixCatsUtils} nixCatsUtils.isNixCats)
                           (fn [name]
                             (vim.cmd.packadd name)
-                            (vim.cmd.packadd :nvim-dap-ui)
+                            (vim.cmd.packadd :nvim-dap-view)
                             (vim.cmd.packadd :nvim-dap-virtual-text))
                           (fn [name]
                             (vim.cmd.packadd name)
-                            (vim.cmd.packadd :nvim-dap-ui)
+                            (vim.cmd.packadd :nvim-dap-view)
                             (vim.cmd.packadd :nvim-dap-virtual-text)
                             (vim.cmd.packadd :mason-nvim-dap.nvim)))
                 :after (fn [_]
-                         (with-require {: dap : dapui}
-                           (vim.keymap.set :n :<F5> dap.continue
-                                           {:desc "Debug: Start/Continue"})
-                           (vim.keymap.set :n :<F1> dap.step_into
-                                           {:desc "Debug: Step Into"})
-                           (vim.keymap.set :n :<F2> dap.step_over
-                                           {:desc "Debug: Step Over"})
-                           (vim.keymap.set :n :<F3> dap.step_out
-                                           {:desc "Debug: Step out"})
-                           (vim.keymap.set :n :<F7> dapui.toggle
-                                           {:desc "Debug: See last session result"})
-                           (vim.keymap.set :n :<leader>b dap.toggle_breakpoint
-                                           {:desc "Debug: Toggle Breakpoint"})
-                           (vim.keymap.set :n :<leader>B
-                                           (fn []
-                                             (dap.set_breakpoint (vim.fn.input "Breakpoint condition: ")))
-                                           {:desc "Debug: Set Breakpoint"})
-                           (set dap.listeners.after.event_initialized.dapui_config
-                                dapui.open)
-                           (set dap.listeners.before.event_terminated.dapui_config
-                                dapui.close)
-                           (set dap.listeners.before.event_exited.dapui_config
-                                dapui.close)
-                           (dapui.setup {:icons {:expanded "▾"
-                                                 :collapsed "▸"
-                                                 :current_frame "*"}
-                                         :controls {:icons {:pause "⏸"
-                                                            :play "▶"
-                                                            :step_into "⏎"
-                                                            :step_over "⏭"
-                                                            :step_out "⏮"
-                                                            :step_back :b
-                                                            :run_last "▶▶"
-                                                            :terminate "⏹"
-                                                            :disconnect "⏏"}}})
+                         (with-require {: dap}
                            (set dap.adapters.debugpy
-                                {:type :executable
-                                 :command :python
-                                 :args [:-m :debugpy.adapter]})
+                                {:type :executable :command :debugpy-adapter})
                            (set dap.configurations.python
                                 [{:type :debugpy
                                   :request :launch
                                   :name "Launch file"
                                   :program "${file}"
                                   :stopAtEntry true
+                                  :justMyCode false
                                   :cwd "${workspaceFolder}"
-                                  :pythonPath :.venv/bin/python}]))
+                                  :pythonPath :.venv/bin/python}])
+                           (vim.api.nvim_set_hl 0 :BreakpointLineHl
+                                                {:underdotted true})
+                           (vim.api.nvim_set_hl 0 :DapLineAtPointLineHl
+                                                {:underline true})
+                           (vim.fn.sign_define [{:name :DapBreakpoint
+                                                 :text ""
+                                                 :texthl :Red
+                                                 :linehl :BreakpointLineHl}
+                                                {:name :DapBreakpointCondition
+                                                 :text ""
+                                                 :texthl :Yellow
+                                                 :linehl :DapBreakpointLineHl}
+                                                {:name :DapStopped
+                                                 :text "→"
+                                                 :linehl :DapLineAtPointLineHl}]))
+                         (setup :dap-view
+                                {:auto_toggle true
+                                 :winbar {:sections [:repl
+                                                     :watches
+                                                     :scopes
+                                                     :exceptions
+                                                     :breakpoints
+                                                     :threads]
+                                          :default_section :repl
+                                          :controls {:enabled true
+                                                     :position :right}}})
                          (setup :nvim-dap-virtual-text
                                 {:enabled true
                                  :enabled_commands true

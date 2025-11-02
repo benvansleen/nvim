@@ -23,12 +23,12 @@
       flake = false;
     };
     "plugins-foldtext-nvim" = {
-        url = "github:OXY2DEV/foldtext.nvim";
-        flake = false;
+      url = "github:OXY2DEV/foldtext.nvim";
+      flake = false;
     };
     "plugins-telescope-cmdline-nvim" = {
-        url = "github:jonarrien/telescope-cmdline.nvim";
-        flake = false;
+      url = "github:jonarrien/telescope-cmdline.nvim";
+      flake = false;
     };
 
     # see :help nixCats.flake.inputs
@@ -136,8 +136,11 @@
             ];
             # but you can choose which ones you want
             # per nvim package you export
-            debug = with pkgs; {
-            };
+            debug = with pkgs; [
+              # python = [
+                python3Packages.debugpy
+              # ];
+            ];
 
             fnl = with pkgs; [
               fennel-ls
@@ -159,7 +162,11 @@
             };
             neonixdev = {
               # also you can do this.
-              inherit (pkgs) nix-doc lua-language-server nixd nixfmt-rfc-style;
+              inherit (pkgs)
+                nix-doc
+                lua-language-server
+                nixd
+                ;
               # and each will be its own sub category
             };
 
@@ -218,7 +225,7 @@
               # via the extraCats section at the bottom of categoryDefinitions.
               default = [
                 nvim-dap
-                nvim-dap-ui
+                nvim-dap-view
                 nvim-dap-virtual-text
               ];
               go = [ nvim-dap-go ];
