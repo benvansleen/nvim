@@ -1,4 +1,5 @@
-(import-macros {: config : tb : setup- : with-require-} :macros)
+(import-macros {: config : tb : require-and-call : setup- : with-require-}
+               :macros)
 
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :CursorMoved
@@ -6,9 +7,11 @@
  (tb :direnv-nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (setup- :direnv
-                     {:autoload_direnv true
-                      :notifications {:silent_autoload true}})})
+      :after (fn []
+               (when (vim.fn.executable :direnv)
+                 (require-and-call :direnv :setup
+                                   {:autoload_direnv true
+                                    :notifications {:silent_autoload true}})))})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after (setup- :fidget)})
