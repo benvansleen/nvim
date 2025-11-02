@@ -124,7 +124,13 @@ local function _11_()
     return require("focus").split_nicely()
 end
 return {
-    { "dashboard-nvim", after = _5_, event = "VimEnter", for_cat = "general.extra" },
+    {
+        "dashboard-nvim",
+        after = _5_,
+        event = "VimEnter",
+        for_cat = "general.extra",
+        keys = { { "<leader><leader>d", "<cmd>Dashboard<cr>", desc = "Open [D]ashboard" } },
+    },
     { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
     { "helpview.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {

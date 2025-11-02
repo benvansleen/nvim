@@ -35,6 +35,8 @@
 [(tb :dashboard-nvim
      {:for_cat :general.extra
       :event :VimEnter
+      :keys [(tb :<leader><leader>d :<cmd>Dashboard<cr>
+                 {:desc "Open [D]ashboard"})]
       :after (with-require- {: dashboard}
                (dashboard.setup {:theme :hyper
                                  :change_to_root_vcs true
