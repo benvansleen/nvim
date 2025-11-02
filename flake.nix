@@ -159,7 +159,7 @@
             };
             neonixdev = {
               # also you can do this.
-              inherit (pkgs) nix-doc lua-language-server nixd;
+              inherit (pkgs) nix-doc lua-language-server nixd nixfmt-rfc-style;
               # and each will be its own sub category
             };
 
@@ -412,7 +412,7 @@
 
               # explained below in the `regularCats` package's definition
               # OR see :help nixCats.flake.outputs.settings for all of the settings available
-              wrapRc = true;
+              wrapRc = false;
               configDirName = "nvim";
               # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
               hosts.python3.enable = true;
@@ -451,8 +451,7 @@
               # there is also an extra table you can use to pass extra stuff.
               # but you can pass all the same stuff in any of these sets and access it in lua
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
-                # or inherit nixpkgs;
+                nixpkgs = ''import ${pkgs.path} { }'';
               };
             };
           };

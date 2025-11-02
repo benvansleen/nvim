@@ -90,12 +90,13 @@
                    {:enabled (and cats.isNixCats
                                   (or (nixCats :nix) (nixCats :neonixdev) false))
                     :lsp {:filetypes [:nix]
+                          :cmd_env {:NIX_PATH "nixpkgs=flake:nixpkgs"}
                           :settings {:nixd {:nixpkgs {:expr (or (nixCats.extra :nixdExtras.nixpkgs)
-                                                                "import <nixpkgs> {}")}
-                                            :options {:nixos {:expr (nixCats.extra :nixdExtras.nixos_options)}
-                                                      :home-manager {:expr (nixCats.extra :nixdExtras.home_manager_options)}}
-                                            :formatting {:command [:nixfmt]}
-                                            :diagnostic {:suppress [:sema-escaping-with]}}}}})
+                                                                "import <nixpkgs> {}")}}
+                                     :options {:nixos {:expr (nixCats.extra :nixdExtras.nixos_options)}
+                                               :home-manager {:expr (nixCats.extra :nixdExtras.home_manager_options)}}
+                                     :formatting {:command [:nixfmt]}
+                                     :diagnostic {:suppress [:sema-escaping-with]}}}})
                (tb :basedpyright
                    {:enabled (or (nixCats :python) false)
                     :lsp {:filetypes [:python]
