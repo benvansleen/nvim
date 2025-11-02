@@ -50,9 +50,16 @@ local function _4_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
     return nil
 end
+local function _5_()
+    vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
+    return nil
+end
 return {
     { nil, nil },
-    { vim.keymap.set("n", "<leader>tc", _4_, { desc = "[T]oggle [c]enter-[b]uffer", noremap = true }) },
+    {
+        vim.keymap.set("n", "<leader>tc", _4_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
+        vim.keymap.set("n", "<leader>tC", _5_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
+    },
     {
         vim.api.nvim_create_autocmd(
             { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },

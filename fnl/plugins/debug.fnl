@@ -11,7 +11,6 @@
                        (tb :<F7> {:desc "Debug: See last session result"})]
                 :load (if (with-require {: nixCatsUtils} nixCatsUtils.isNixCats)
                           (fn [name]
-                            (print name)
                             (vim.cmd.packadd name)
                             (vim.cmd.packadd :nvim-dap-ui)
                             (vim.cmd.packadd :nvim-dap-virtual-text))

@@ -81,7 +81,6 @@ do
 end
 if _8_ then
     local function _9_(name)
-        print(name)
         vim.cmd.packadd(name)
         vim.cmd.packadd("nvim-dap-ui")
         return vim.cmd.packadd("nvim-dap-virtual-text")

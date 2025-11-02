@@ -420,7 +420,7 @@
             };
             # enable the categories you want from categoryDefinitions
             categories = {
-              markdown = true;
+              markdown = false;
               center-buffer = true;
               number-toggle = true;
               general = true;
