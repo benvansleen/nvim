@@ -8,7 +8,7 @@
      {:for_cat :general.extra
       :event :DeferredUIEnter
       :after (fn []
-               (when (vim.fn.executable :direnv)
+               (when (= (vim.fn.executable :direnv) 1)
                  (require-and-call :direnv :setup
                                    {:autoload_direnv true
                                     :notifications {:silent_autoload true}})))})

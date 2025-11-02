@@ -4,7 +4,7 @@ local function _1_()
     return p_8_auto.setup()
 end
 local function _2_()
-    if vim.fn.executable("direnv") then
+    if vim.fn.executable("direnv") == 1 then
         return require("direnv").setup({ autoload_direnv = true, notifications = { silent_autoload = true } })
     else
         return nil
