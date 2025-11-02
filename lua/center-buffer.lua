@@ -33,12 +33,14 @@ local function count_windows()
         return len
     end
 end
+local factor = 3
 local screen_width = vim.api.nvim_win_get_width(0)
 local statuscolumn = "  %l%s%C"
-local statuscolumn_wide = (string.rep(" ", ((screen_width - 100) / 3)) .. statuscolumn)
 local function center_buffer()
     local winwidth = vim.api.nvim_win_get_width(0)
-    if vim.g.my_center_buffer and (count_windows() == 1) and (winwidth > (screen_width / 3)) then
+    local screen_width0 = (vim.g.my_center_buffer_screen_width or screen_width)
+    local statuscolumn_wide = (string.rep(" ", ((screen_width0 - 88) / factor)) .. statuscolumn)
+    if vim.g.my_center_buffer and (count_windows() == 1) and (winwidth > (screen_width0 / factor)) then
         vim.wo.statuscolumn = statuscolumn_wide
         return nil
     else
@@ -46,26 +48,38 @@ local function center_buffer()
         return nil
     end
 end
+local function update_screen_width()
+    vim.g.my_center_buffer_screen_width = vim.api.nvim_win_get_width(0)
+    return nil
+end
 vim.g["my_center_buffer"] = true
+vim.g["my_center_buffer_screen_width"] = screen_width
 vim.g["_debug_my_center_buffer"] = false
 local function _4_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
+    update_screen_width()
     return center_buffer()
 end
 local function _5_()
     vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
+    update_screen_width()
+    return center_buffer()
+end
+local function _6_()
+    update_screen_width()
     return center_buffer()
 end
 return {
-    { nil, nil },
+    { nil, nil, nil },
     {
         vim.keymap.set("n", "<leader>tc", _4_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
         vim.keymap.set("n", "<leader>tC", _5_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
     },
     {
         vim.api.nvim_create_autocmd(
-            { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave", "WinResized", "VimResized" },
+            { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave" },
             { callback = center_buffer }
         ),
+        vim.api.nvim_create_autocmd({ "WinResized", "VimResized" }, { callback = _6_ }),
     },
 }

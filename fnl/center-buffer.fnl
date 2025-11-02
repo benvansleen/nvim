@@ -32,30 +32,33 @@
           0
           len))))
 
-(let [screen-width (vim.api.nvim_win_get_width 0)
-      statuscolumn "  %l%s%C"
-      statuscolumn-wide (.. (string.rep " " (/ (- screen-width 100) 3))
-                            statuscolumn)]
+(let [factor 3
+      screen-width (vim.api.nvim_win_get_width 0)
+      statuscolumn "  %l%s%C"]
   (fn center-buffer []
-    (let [winwidth (vim.api.nvim_win_get_width 0)]
+    (let [winwidth (vim.api.nvim_win_get_width 0)
+          screen-width (or vim.g.my_center_buffer_screen_width screen-width)
+          statuscolumn-wide (.. (string.rep " " (/ (- screen-width 88) factor))
+                                statuscolumn)]
       (if (and vim.g.my_center_buffer (= (count-windows) 1)
-               (> winwidth (/ screen-width 3)))
+               (> winwidth (/ screen-width factor)))
           (set vim.wo.statuscolumn statuscolumn-wide)
           (set vim.wo.statuscolumn statuscolumn))))
 
-  (config (g {my_center_buffer true _debug_my_center_buffer false})
-          (nmap {["[T]oggle [c]enter-buffer" :<leader>tc] (fn []
-                                                            (set vim.g.my_center_buffer
-                                                                 (not vim.g.my_center_buffer))
-                                                            (center-buffer))
-                 ["[T]oggle [c]enter-buffer Debug Mode" :<leader>tC] (fn []
-                                                                       (set vim.g._debug_my_center_buffer
-                                                                            (not vim.g._debug_my_center_buffer))
-                                                                       (center-buffer))})
-          (autocmd {[:BufEnter
-                      :BufWinEnter
-                      :BufWinLeave
-                      :WinEnter
-                      :WinLeave
-                      :WinResized
-                      :VimResized] {:callback center-buffer}})))
+  (fn update-screen-width []
+    (set vim.g.my_center_buffer_screen_width (vim.api.nvim_win_get_width 0)))
+
+  (macro toggle-mode- [toggle]
+    `(fn []
+       (set ,toggle (not ,toggle))
+       (update-screen-width)
+       (center-buffer)))
+  (config (g {my_center_buffer true
+              _debug_my_center_buffer false
+              my_center_buffer_screen_width screen-width})
+          (nmap {["[T]oggle [c]enter-buffer" :<leader>tc] (toggle-mode- vim.g.my_center_buffer)
+                 ["[T]oggle [c]enter-buffer Debug Mode" :<leader>tC] (toggle-mode- vim.g._debug_my_center_buffer)})
+          (autocmd {[:BufEnter :BufWinEnter :BufWinLeave :WinEnter :WinLeave] {:callback center-buffer}
+                    [:WinResized :VimResized] {:callback (fn []
+                                                           (update-screen-width)
+                                                           (center-buffer))}})))
