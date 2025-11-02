@@ -13,11 +13,11 @@
             (let [char (: (vim.api.nvim_get_current_line) :sub scol scol)]
               (if (= char :f)
                   (do
-                    (vim.cmd "normal x")
+                    (vim.cmd.normal :x)
                     (when (= srow (. cursor 1))
                       (tset cursor 2 (- (. cursor 2) 1))))
                   (do
-                    (vim.cmd "normal if")
+                    (vim.cmd.normal :if)
                     (when (= srow (. cursor 1))
                       (tset cursor 2 (+ (. cursor 2) 1)))))))))))
 

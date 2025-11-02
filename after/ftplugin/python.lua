@@ -11,13 +11,13 @@ local function toggle_fstring()
             vim.fn.setcursorcharpos({ srow, scol })
             local char = vim.api.nvim_get_current_line():sub(scol, scol)
             if char == "f" then
-                vim.cmd("normal x")
+                vim.cmd.normal("x")
                 if srow == cursor[1] then
                     cursor[2] = (cursor[2] - 1)
                 else
                 end
             else
-                vim.cmd("normal if")
+                vim.cmd.normal("if")
                 if srow == cursor[1] then
                     cursor[2] = (cursor[2] + 1)
                 else
