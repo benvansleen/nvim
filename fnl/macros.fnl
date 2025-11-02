@@ -2,7 +2,10 @@
 
 ;; from https://github.com/Olical/dotfiles/blob/dabf3678b48d6857ad01a8f7d2e274ac48fc37f2/stowed/.config/nvim/fnl/config/macros.fnl#L3
 (fn tb [& args]
-  "Mixed sequential and associative tables at compile time. Because the Neovim ecosystem loves them but Fennel has no neat way to express them (which I think is fine, I don't like the idea of them in general)."
+  "
+  Mixed sequential and associative tables at compile time.
+  Meaning: {'pkg', {opt1 = 'value'}}
+  "
   (let [to-merge (when (table? (. args (length args)))
                    (table.remove args))]
     (if to-merge
