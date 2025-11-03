@@ -24,7 +24,9 @@
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (setup- :ibl {:exclude {:filetypes [:dashboard :fennel]}})})
+      :after (setup- :ibl {:exclude {:filetypes [:dashboard :fennel]}
+                           :scope {:enabled true}
+                           :indent {:char "│"}})})
  (tb :leap.nvim
      {:for_cat :general.always
       :event :CursorMoved

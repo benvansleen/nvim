@@ -22,7 +22,11 @@ local function _5_()
 end
 local function _6_()
     local p_7_auto = require("ibl")
-    return p_7_auto.setup({ exclude = { filetypes = { "dashboard", "fennel" } } })
+    return p_7_auto.setup({
+        exclude = { filetypes = { "dashboard", "fennel" } },
+        scope = { enabled = true },
+        indent = { char = "\226\148\130" },
+    })
 end
 local function _7_()
     local leap = require("leap")
