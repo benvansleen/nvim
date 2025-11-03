@@ -30,6 +30,7 @@ local function _1_()
                     width = { padding = 0.02 },
                     height = { padding = 0 },
                     preview_height = 0.6,
+                    preview_cutoff = 12,
                 },
             },
             layout_strategy = "horizontal",
