@@ -137,30 +137,27 @@ local function _11_(_)
                 default_section = "repl",
                 controls = { enabled = true, position = "right" },
             },
+            windows = { terminal = { position = "right" } },
             auto_toggle = false,
         })
     end
     do
-        local cats_20_auto = require("nixCatsUtils")
-        if not cats_20_auto.isNixCats then
-            local p_8_auto = require("nvim-dap-repl-highlights")
-            p_8_auto.setup()
-        else
-        end
+        local p_8_auto = require("nvim-dap-repl-highlights")
+        p_8_auto.setup()
     end
     local p_7_auto = require("nvim-dap-virtual-text")
-    local function _17_(variable, _buf, _stackframe, _node, options)
+    local function _16_(variable, _buf, _stackframe, _node, options)
         if options.virt_text_pos == "inline" then
             return (" = " .. variable.value)
         else
             return (variable.name .. " = " .. variable.value)
         end
     end
-    local _19_
+    local _18_
     if vim.fn.has("nvim-0.10") == 1 then
-        _19_ = "inline"
+        _18_ = "inline"
     else
-        _19_ = "eol"
+        _18_ = "eol"
     end
     return p_7_auto.setup({
         enabled = true,
@@ -168,38 +165,38 @@ local function _11_(_)
         highlight_changed_variables = true,
         show_stop_reason = true,
         only_first_definition = true,
-        display_callback = _17_,
-        virt_text_pos = _19_,
+        display_callback = _16_,
+        virt_text_pos = _18_,
         all_references = false,
         clear_on_continue = false,
         commented = false,
         highlight_new_as_changed = false,
     })
 end
-local function _21_()
+local function _20_()
     return require("dap").restart()
 end
-local function _22_()
+local function _21_()
     return require("dap").close()
 end
-local function _23_()
+local function _22_()
     return require("dap.breakpoints").clear()
 end
-local function _24_()
+local function _23_()
     local dap = require("dap")
     return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end
-local function _25_()
+local function _24_()
     return require("dap-view").toggle()
 end
-local function _26_(name)
+local function _25_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("nvim-dap-view")
     vim.cmd.packadd("nvim-dap-virtual-text")
     vim.cmd.packadd("nvim-dap-python")
+    vim.cmd.packadd("nvim-dap-repl-highlights")
     local cats_20_auto = require("nixCatsUtils")
     if not cats_20_auto.isNixCats then
-        vim.cmd.packadd("nvim-dap-repl-highlights")
         return vim.cmd.packadd("mason-nvim-dap.nvim")
     else
         return nil
@@ -212,18 +209,18 @@ return {
         for_cat = { cat = "debug", default = true },
         keys = {
             { "<leader>dc", continue, desc = "Debug: Start/Continue" },
-            { "<leader>dR", _21_, desc = "Debug: Restart" },
-            { "<leader>dq", _22_, desc = "Debug: Quit" },
+            { "<leader>dR", _20_, desc = "Debug: Restart" },
+            { "<leader>dq", _21_, desc = "Debug: Quit" },
             { "<leader>di", step_into, desc = "Debug: Step Into" },
             { "<leader>dn", step_over, desc = "Debug: Step Over" },
             { "<leader>do", step_out, desc = "Debug: Step Out" },
-            { "<leader>dC", _23_, desc = "Debug: Clear Breakpoints" },
+            { "<leader>dC", _22_, desc = "Debug: Clear Breakpoints" },
             { "<leader>db", toggle_breakpoint, desc = "Debug: Toggle Breakpoint" },
-            { "<leader>dB", _24_, desc = "Debug: Set Conditional Breakpoint" },
+            { "<leader>dB", _23_, desc = "Debug: Set Conditional Breakpoint" },
             { "<leader>dw", "<cmd>DapViewWatch<cr>", desc = "Debug: Set Watch" },
-            { "<leader>dt", _25_, desc = "Debug: See last session result" },
+            { "<leader>dt", _24_, desc = "Debug: See last session result" },
         },
-        load = _26_,
+        load = _25_,
         on_require = "dap",
     },
 }

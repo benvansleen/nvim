@@ -106,7 +106,11 @@
                              :ui {:cursorline false
                                   :signcolumn false
                                   :winhighlight false}})
-               (let [ignore-filetypes [:TelescopePrompt :TelescopeResults]
+               (let [ignore-filetypes [:TelescopePrompt
+                                       :TelescopeResults
+                                       :dap-repl
+                                       :dap-view
+                                       :dap-view-term]
                      ;:toggleterm
                      ignore-buftypes [:prompt :popup]
                      augroup (vim.api.nvim_create_augroup :FocusDisable

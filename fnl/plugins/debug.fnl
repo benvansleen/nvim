@@ -43,8 +43,8 @@
                         (vim.cmd.packadd :nvim-dap-view)
                         (vim.cmd.packadd :nvim-dap-virtual-text)
                         (vim.cmd.packadd :nvim-dap-python)
-                        (unless-nix (vim.cmd.packadd :nvim-dap-repl-highlights)
-                                    (vim.cmd.packadd :mason-nvim-dap.nvim)))
+                        (vim.cmd.packadd :nvim-dap-repl-highlights)
+                        (unless-nix (vim.cmd.packadd :mason-nvim-dap.nvim)))
                 :after (fn [_]
                          (with-require {: dap}
                            (setup :dap-python :debugpy-adapter)
@@ -120,8 +120,9 @@
                                                      :threads]
                                           :default_section :repl
                                           :controls {:enabled true
-                                                     :position :right}}})
-                         (unless-nix (setup :nvim-dap-repl-highlights))
+                                                     :position :right}}
+                                 :windows {:terminal {:position :right}}})
+                         (setup :nvim-dap-repl-highlights)
                          (setup :nvim-dap-virtual-text
                                 {:enabled true
                                  :enabled_commands true

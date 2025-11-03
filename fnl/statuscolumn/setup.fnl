@@ -7,8 +7,6 @@
 (local disabled-ft [:blink-cmp-documentation
                     :blink-cmp-menu
                     :dashboard
-                    :dap-repl
-                    :dap-view
                     :fidget
                     :markdown
                     :NeogitPopup
@@ -50,6 +48,9 @@
 
 (fn statuscolumn.border [buf-ft]
   (disable-for-fts buf-ft [:dashboard
+                           :dap-repl
+                           :dap-view
+                           :dap-view-term
                            :NeogitStatus
                            :startuptime
                            :toggleterm
@@ -101,8 +102,12 @@
                   (if (> foldlevel foldlevel-before) "▽"
                       (if (> foldlevel foldlevel-after) "╰" "│")))))))
 
-  (disable-for-fts buf-ft [:TelescopePrompt :NeogitStatus :startuptime]
-                   (calc-folds)))
+  (disable-for-fts buf-ft [:dap-repl
+                           :dap-view
+                           :dap-view-term
+                           :TelescopePrompt
+                           :NeogitStatus
+                           :startuptime] (calc-folds)))
 
 (fn statuscolumn.defaults [_]
   "%l%s")

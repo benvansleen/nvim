@@ -159,6 +159,22 @@
         "type": "github"
       }
     },
+    "plugins-nvim-dap-repl-highlights": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759852002,
+        "narHash": "sha256-1QjmDy4v1AvNs5F4V8C3Lu7CVQH+uOV8gU855oz2IjY=",
+        "owner": "LiadOz",
+        "repo": "nvim-dap-repl-highlights",
+        "rev": "f31deba47fe3ee6ff8d2f13d9dbd06b2d1ae06b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LiadOz",
+        "repo": "nvim-dap-repl-highlights",
+        "type": "github"
+      }
+    },
     "plugins-telescope-cmdline-nvim": {
       "flake": false,
       "locked": {
@@ -204,6 +220,7 @@
         "nixpkgs": "nixpkgs",
         "plugins-direnv-nvim": "plugins-direnv-nvim",
         "plugins-foldtext-nvim": "plugins-foldtext-nvim",
+        "plugins-nvim-dap-repl-highlights": "plugins-nvim-dap-repl-highlights",
         "plugins-telescope-cmdline-nvim": "plugins-telescope-cmdline-nvim",
         "pre-commit-hooks": "pre-commit-hooks",
         "treefmt-nix": "treefmt-nix"

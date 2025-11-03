@@ -26,6 +26,10 @@
       url = "github:OXY2DEV/foldtext.nvim";
       flake = false;
     };
+    "plugins-nvim-dap-repl-highlights" = {
+      url = "github:LiadOz/nvim-dap-repl-highlights";
+      flake = false;
+    };
     "plugins-telescope-cmdline-nvim" = {
       url = "github:jonarrien/telescope-cmdline.nvim";
       flake = false;
@@ -235,6 +239,7 @@
                 nvim-dap-view
                 nvim-dap-virtual-text
                 nvim-dap-python
+                pkgs.neovimPlugins.nvim-dap-repl-highlights
               ];
               go = [ nvim-dap-go ];
             };
@@ -267,7 +272,24 @@
                 hlargs-nvim
                 nvim-treesitter-textobjects
                 nvim-treesitter-textsubjects
-                nvim-treesitter.withAllGrammars
+                (nvim-treesitter.overrideAttrs {
+                  passthru.dependencies = nvim-treesitter.withAllGrammars.passthru.dependencies ++ [
+                    (pkgs.neovimUtils.grammarToPlugin (
+                      pkgs.tree-sitter.buildGrammar {
+                        language = "dap_repl";
+                        version = "0.0.0+rev=f31deba";
+                        src = pkgs.fetchFromGitHub {
+                          owner = "LiadOz";
+                          repo = "nvim-dap-repl-highlights";
+                          rev = "f31deba47fe3ee6ff8d2f13d9dbd06b2d1ae06b5";
+                          hash = "sha256-1QjmDy4v1AvNs5F4V8C3Lu7CVQH+uOV8gU855oz2IjY=";
+                        };
+                        meta.homepage = "https://github.com/LiadOz/nvim-dap-repl-highlights";
+                      }
+                    ))
+                  ];
+                })
+
                 # This is for if you only want some of the grammars
                 # (nvim-treesitter.withPlugins (
                 #   plugins: with plugins; [

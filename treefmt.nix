@@ -11,7 +11,7 @@
       includes = [ "*.fnl" ];
     };
     jsonfmt.enable = true;
-    nixfmt.enable = false; # currently failing
+    nixfmt.enable = true;
     statix.enable = true;
     stylua.enable = true;
   };
