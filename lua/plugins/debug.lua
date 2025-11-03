@@ -1,65 +1,60 @@
 -- [nfnl] fnl/plugins/debug.fnl
 local continue
 do
-    local cmd_20_auto = "continue"
     local function _1_()
         return require("dap").continue()
     end
-    _G[cmd_20_auto] = _1_
+    _G["__continue"] = _1_
     local function _2_()
-        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        vim.o["operatorfunc"] = "v:lua.__continue"
         return vim.cmd.normal("g@l")
     end
     continue = _2_
 end
 local step_over
 do
-    local cmd_20_auto = "step_over"
     local function _3_()
         return require("dap").step_over()
     end
-    _G[cmd_20_auto] = _3_
+    _G["__step_over"] = _3_
     local function _4_()
-        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        vim.o["operatorfunc"] = "v:lua.__step_over"
         return vim.cmd.normal("g@l")
     end
     step_over = _4_
 end
 local step_into
 do
-    local cmd_20_auto = "step_into"
     local function _5_()
         return require("dap").step_into()
     end
-    _G[cmd_20_auto] = _5_
+    _G["__step_into"] = _5_
     local function _6_()
-        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        vim.o["operatorfunc"] = "v:lua.__step_into"
         return vim.cmd.normal("g@l")
     end
     step_into = _6_
 end
 local step_out
 do
-    local cmd_20_auto = "step_out"
     local function _7_()
         return require("dap").step_out()
     end
-    _G[cmd_20_auto] = _7_
+    _G["__step_out"] = _7_
     local function _8_()
-        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        vim.o["operatorfunc"] = "v:lua.__step_out"
         return vim.cmd.normal("g@l")
     end
     step_out = _8_
 end
 local toggle_breakpoint
 do
-    local cmd_20_auto = "toggle_breakpoint"
     local function _9_()
         return require("dap").toggle_breakpoint()
     end
-    _G[cmd_20_auto] = _9_
+    _G["__toggle_breakpoint"] = _9_
     local function _10_()
-        vim.o["operatorfunc"] = ("v:lua." .. cmd_20_auto)
+        vim.o["operatorfunc"] = "v:lua.__toggle_breakpoint"
         return vim.cmd.normal("g@l")
     end
     toggle_breakpoint = _10_
@@ -96,12 +91,12 @@ local function _11_(_)
     do
         local p_7_auto = require("dap-view")
         p_7_auto.setup({
-            auto_toggle = true,
             winbar = {
                 sections = { "repl", "watches", "scopes", "exceptions", "breakpoints", "threads" },
                 default_section = "repl",
                 controls = { enabled = true, position = "right" },
             },
+            auto_toggle = false,
         })
     end
     local p_7_auto = require("nvim-dap-virtual-text")

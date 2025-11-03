@@ -3,13 +3,13 @@
                 : require-and-call-
                 : with-require
                 : with-require-
-                : dot-repeatable-} :macros)
+                : dot-repeatable} :macros)
 
-(local continue (dot-repeatable- :dap :continue))
-(local step-over (dot-repeatable- :dap :step_over))
-(local step-into (dot-repeatable- :dap :step_into))
-(local step-out (dot-repeatable- :dap :step_out))
-(local toggle-breakpoint (dot-repeatable- :dap :toggle_breakpoint))
+(dot-repeatable continue (require-and-call- :dap :continue))
+(dot-repeatable step-over (require-and-call- :dap :step_over))
+(dot-repeatable step-into (require-and-call- :dap :step_into))
+(dot-repeatable step-out (require-and-call- :dap :step_out))
+(dot-repeatable toggle-breakpoint (require-and-call- :dap :toggle_breakpoint))
 
 [(tb :nvim-dap {:for_cat {:cat :debug :default false}
                 :on_require :dap
@@ -75,7 +75,7 @@
                                                  :text "→"
                                                  :linehl :DapLineAtPointLineHl}]))
                          (setup :dap-view
-                                {:auto_toggle true
+                                {:auto_toggle false
                                  :winbar {:sections [:repl
                                                      :watches
                                                      :scopes
