@@ -1,4 +1,4 @@
-(import-macros {: tb : require-and-call : setup-} :macros)
+(import-macros {: config : tb : require-and-call : setup-} :macros)
 
 [(tb :nvim-treesitter
      {:for_cat :general.treesitter
@@ -7,9 +7,9 @@
               (vim.cmd.packadd name)
               (vim.cmd.packadd :nvim-treesitter-textobjects)
               (vim.cmd.packadd :nvim-treesitter-textsubjects)
-              (set vim.wo.foldlevel 10)
-              (set vim.wo.foldmethod :expr)
-              (set vim.wo.foldexpr "v:lua.vim.treesitter.foldexpr()"))
+              (config (wo {foldlevel 1
+                           foldmethod :expr
+                           foldexpr "v:lua.vim.treesitter.foldexpr()"})))
       :after (setup- :nvim-treesitter.configs
                      {:highlight {:enable true
                                   :additional_vim_regex_highlighting false}
@@ -49,28 +49,3 @@
  (tb :hlargs.nvim {:for_cat :general.treesitter
                    :event :DeferredUIEnter
                    :after (setup- :hlargs)})]
-
-;})]
-
-; (require-and-call :nvim-treesitter-textsubjects :configure
-;                   {:prev_selection ","
-;                    :keymaps ["."
-;                              :textsubjects-smart
-;                              ";"
-;                              :textsubjects-container-outer
-;                              "i;"
-;                              :textsubjects-container-inner]}))})]
-
-; (tb :nvim-treesitter-textsubjects
-;     {:for_cat :general.treesitter
-;      ; :event :CursorMoved
-;      ; :event :DeferredUIEnter
-;      :on_require :nvim-treesitter
-;      :after (require-and-call- :nvim-treesitter-textsubjects :configure
-;                                {:prev_selection ","
-;                                 :keymaps ["."
-;                                           :textsubjects-smart
-;                                           ";"
-;                                           :textsubjects-container-outer
-;                                           "i;"
-;                                           :textsubjects-container-inner]})})]
