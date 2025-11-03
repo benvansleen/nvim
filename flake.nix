@@ -133,12 +133,19 @@
             ];
             # these names are arbitrary.
             lint = with pkgs; [
+              deadnix
+              luaPackages.fennel
+              statix
+              typos
+              python3Packages.ruff
             ];
             # but you can choose which ones you want
             # per nvim package you export
             debug = with pkgs; [
               # python = [
-                python3Packages.debugpy
+              gdb
+              # rustc # for rust-gdb
+              python3Packages.debugpy
               # ];
             ];
 
@@ -197,7 +204,7 @@
                 helpview-nvim
               ];
             };
-            # You can retreive information from the
+            # You can retrieve information from the
             # packageDefinitions of the package this was packaged with.
             # :help nixCats.flake.outputs.categoryDefinitions.scheme
             themer =
@@ -404,7 +411,7 @@
         nvim =
           { pkgs, name, ... }@misc:
           {
-            # these also recieve our pkgs variable
+            # these also receive our pkgs variable
             # see :help nixCats.flake.outputs.packageDefinitions
             settings = {
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
@@ -432,7 +439,7 @@
               number-toggle = true;
               general = true;
               debug = true;
-              lint = false;
+              lint = true;
               lsp = true;
               lisp = true;
               fnl = true;

@@ -140,7 +140,7 @@ if nixCats("debug") then
 else
 end
 if nixCats("lint") then
-    require("lint")
+    require("lze").load({ { import = "plugins.lint" } })
 else
 end
 if nixCats("format") then

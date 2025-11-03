@@ -75,7 +75,7 @@
   (load-plugins :debug))
 
 (when (nixCats :lint)
-  (require :lint))
+  (load-plugins :lint))
 
 (when (nixCats :format)
   (require :format))
