@@ -48,7 +48,10 @@
     (vim.api.nvim_set_hl 0 (.. :Gradient_ i) {: fg})))
 
 (fn statuscolumn.border [buf-ft]
-  (disable-for-fts buf-ft [:dashboard :NeogitStatus :TelescopePrompt]
+  (disable-for-fts buf-ft [:dashboard
+                           :NeogitStatus
+                           :toggleterm
+                           :TelescopePrompt]
                    (if (< vim.v.relnum (- (length colors) 1))
                        (.. "%#Gradient_" (+ vim.v.relnum 1) "#│")
                        (.. "%#Gradient_" (length colors) "#│"))))

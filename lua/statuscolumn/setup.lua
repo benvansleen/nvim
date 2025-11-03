@@ -43,7 +43,7 @@ statuscolumn.highlights = function()
     return nil
 end
 statuscolumn.border = function(buf_ft)
-    if vim.tbl_contains({ "dashboard", "NeogitStatus", "TelescopePrompt" }, buf_ft) then
+    if vim.tbl_contains({ "dashboard", "NeogitStatus", "toggleterm", "TelescopePrompt" }, buf_ft) then
         return " "
     else
         if vim.v.relnum < (#colors - 1) then
