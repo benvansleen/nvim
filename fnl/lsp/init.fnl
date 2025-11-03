@@ -113,4 +113,11 @@
                                       :typescript
                                       :typescriptreact]
                           :settings {}
+                          :on_attach (require :lsp.on_attach)}})
+               (tb :rust_analyzer
+                   {:enabled true
+                    :lsp {:filetypes [:rust]
+                          :cmd [:rust-analyzer]
+                          :settings {:diagnostic {:enable true}
+                                     :checkOnSave {:command :clippy}}
                           :on_attach (require :lsp.on_attach)}})])))

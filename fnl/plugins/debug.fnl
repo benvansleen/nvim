@@ -1,5 +1,6 @@
 (import-macros {: tb
                 : setup
+                : require-and-call
                 : require-and-call-
                 : with-require
                 : with-require-
@@ -36,29 +37,73 @@
                            {:desc "Debug: Set Watch"})
                        (tb :<leader>dt (require-and-call- :dap-view :toggle)
                            {:desc "Debug: See last session result"})]
-                :load (if (with-require {: nixCatsUtils} nixCatsUtils.isNixCats)
-                          (fn [name]
-                            (vim.cmd.packadd name)
-                            (vim.cmd.packadd :nvim-dap-view)
-                            (vim.cmd.packadd :nvim-dap-virtual-text))
-                          (fn [name]
-                            (vim.cmd.packadd name)
-                            (vim.cmd.packadd :nvim-dap-view)
-                            (vim.cmd.packadd :nvim-dap-virtual-text)
-                            (vim.cmd.packadd :mason-nvim-dap.nvim)))
+                :load (fn [name]
+                        (vim.cmd.packadd name)
+                        (vim.cmd.packadd :nvim-dap-view)
+                        (vim.cmd.packadd :nvim-dap-virtual-text)
+                        (when (with-require {: nixCatsUtils}
+                                nixCatsUtils.isNixCats)
+                          (vim.cmd.packadd :mason-nvim-dap.nvim)))
                 :after (fn [_]
                          (with-require {: dap}
                            (set dap.adapters.debugpy
                                 {:type :executable :command :debugpy-adapter})
+                           (set dap.adapters.gdb
+                                {:type :executable
+                                 :command :gdb
+                                 :args [:--interpreter=dap
+                                        :--eval-command
+                                        "set print pretty on"]})
+                           (set dap.adapters.rust-gdb
+                                {:type :executable
+                                 :command :rust-gdb
+                                 :args [:--interpreter=dap
+                                        :--eval-command
+                                        "set print pretty on"]})
                            (set dap.configurations.python
                                 [{:type :debugpy
-                                  :request :launch
+                                  :request :Launch
                                   :name "Launch file"
                                   :program "${file}"
                                   :stopAtEntry true
                                   :justMyCode false
                                   :cwd "${workspaceFolder}"
                                   :pythonPath :.venv/bin/python}])
+                           (set dap.configurations.c
+                                [{:type :gdb
+                                  :name :Launch
+                                  :request :launch
+                                  :program (fn []
+                                             (vim.fn.input "Path to executable: "
+                                                           (.. (vim.fn.getcwd)
+                                                               "/")
+                                                           :file))
+                                  :cwd "${workspaceFolder}"
+                                  :stopAtBeginningOfMainSubprogram false}])
+                           (set dap.configurations.rust
+                                [{:type :rust-gdb
+                                  :name :Launch
+                                  :request :launch
+                                  :program (fn []
+                                             (vim.fn.input "Path to executable: "
+                                                           (.. (vim.fn.getcwd)
+                                                               "/")
+                                                           :file))
+                                  :cwd "${workspaceFolder}"
+                                  :stopAtBeginningOfMainSubprogram true}
+                                 {:type :rust-gdb
+                                  :name :Attach
+                                  :request :attach
+                                  :program (fn []
+                                             (vim.fn.input "Path to executable: "
+                                                           (.. (vim.fn.getcwd)
+                                                               "/")
+                                                           :file))
+                                  :pid (fn []
+                                         (require-and-call :dap.utils
+                                                           :pick_process
+                                                           {:filter (vim.fn.input "Executable name (filter): ")}))
+                                  :cwd "${workspaceFolder}"}])
                            (vim.api.nvim_set_hl 0 :BreakpointLineHl
                                                 {:underdotted true})
                            (vim.api.nvim_set_hl 0 :DapLineAtPointLineHl

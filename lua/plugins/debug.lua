@@ -63,16 +63,66 @@ local function _11_(_)
     do
         local dap = require("dap")
         dap.adapters.debugpy = { type = "executable", command = "debugpy-adapter" }
+        dap.adapters.gdb = {
+            type = "executable",
+            command = "gdb",
+            args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+        }
+        dap.adapters["rust-gdb"] = {
+            type = "executable",
+            command = "rust-gdb",
+            args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+        }
         dap.configurations.python = {
             {
                 type = "debugpy",
-                request = "launch",
+                request = "Launch",
                 name = "Launch file",
                 program = "${file}",
                 stopAtEntry = true,
                 cwd = "${workspaceFolder}",
                 pythonPath = ".venv/bin/python",
                 justMyCode = false,
+            },
+        }
+        local function _12_()
+            return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
+        end
+        dap.configurations.c = {
+            {
+                type = "gdb",
+                name = "Launch",
+                request = "launch",
+                program = _12_,
+                cwd = "${workspaceFolder}",
+                stopAtBeginningOfMainSubprogram = false,
+            },
+        }
+        local function _13_()
+            return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
+        end
+        local function _14_()
+            return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
+        end
+        local function _15_()
+            return require("dap.utils").pick_process({ filter = vim.fn.input("Executable name (filter): ") })
+        end
+        dap.configurations.rust = {
+            {
+                type = "rust-gdb",
+                name = "Launch",
+                request = "launch",
+                program = _13_,
+                cwd = "${workspaceFolder}",
+                stopAtBeginningOfMainSubprogram = true,
+            },
+            {
+                type = "rust-gdb",
+                name = "Attach",
+                request = "attach",
+                program = _14_,
+                pid = _15_,
+                cwd = "${workspaceFolder}",
             },
         }
         vim.api.nvim_set_hl(0, "BreakpointLineHl", { underdotted = true })
@@ -100,18 +150,18 @@ local function _11_(_)
         })
     end
     local p_7_auto = require("nvim-dap-virtual-text")
-    local function _12_(variable, _buf, _stackframe, _node, options)
+    local function _16_(variable, _buf, _stackframe, _node, options)
         if options.virt_text_pos == "inline" then
             return (" = " .. variable.value)
         else
             return (variable.name .. " = " .. variable.value)
         end
     end
-    local _14_
+    local _18_
     if vim.fn.has("nvim-0.10") == 1 then
-        _14_ = "inline"
+        _18_ = "inline"
     else
-        _14_ = "eol"
+        _18_ = "eol"
     end
     return p_7_auto.setup({
         enabled = true,
@@ -119,51 +169,44 @@ local function _11_(_)
         highlight_changed_variables = true,
         show_stop_reason = true,
         only_first_definition = true,
-        display_callback = _12_,
-        virt_text_pos = _14_,
+        display_callback = _16_,
+        virt_text_pos = _18_,
         all_references = false,
         clear_on_continue = false,
         commented = false,
         highlight_new_as_changed = false,
     })
 end
-local function _16_()
+local function _20_()
     return require("dap").restart()
 end
-local function _17_()
+local function _21_()
     return require("dap").close()
 end
-local function _18_()
+local function _22_()
     return require("dap.breakpoints").clear()
 end
-local function _19_()
+local function _23_()
     local dap = require("dap")
     return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end
-local function _20_()
+local function _24_()
     return require("dap-view").toggle()
 end
-local _21_
-local _22_
-do
-    local nixCatsUtils = require("nixCatsUtils")
-    _22_ = nixCatsUtils.isNixCats
-end
-if _22_ then
-    local function _23_(name)
-        vim.cmd.packadd(name)
-        vim.cmd.packadd("nvim-dap-view")
-        return vim.cmd.packadd("nvim-dap-virtual-text")
+local function _25_(name)
+    vim.cmd.packadd(name)
+    vim.cmd.packadd("nvim-dap-view")
+    vim.cmd.packadd("nvim-dap-virtual-text")
+    local _26_
+    do
+        local nixCatsUtils = require("nixCatsUtils")
+        _26_ = nixCatsUtils.isNixCats
     end
-    _21_ = _23_
-else
-    local function _24_(name)
-        vim.cmd.packadd(name)
-        vim.cmd.packadd("nvim-dap-view")
-        vim.cmd.packadd("nvim-dap-virtual-text")
+    if _26_ then
         return vim.cmd.packadd("mason-nvim-dap.nvim")
+    else
+        return nil
     end
-    _21_ = _24_
 end
 return {
     {
@@ -172,18 +215,18 @@ return {
         for_cat = { cat = "debug", default = false },
         keys = {
             { "<leader>dc", continue, desc = "Debug: Start/Continue" },
-            { "<leader>dR", _16_, desc = "Debug: Restart" },
-            { "<leader>dq", _17_, desc = "Debug: Quit" },
+            { "<leader>dR", _20_, desc = "Debug: Restart" },
+            { "<leader>dq", _21_, desc = "Debug: Quit" },
             { "<leader>di", step_into, desc = "Debug: Step Into" },
             { "<leader>dn", step_over, desc = "Debug: Step Over" },
             { "<leader>do", step_out, desc = "Debug: Step Out" },
-            { "<leader>dC", _18_, desc = "Debug: Clear Breakpoints" },
+            { "<leader>dC", _22_, desc = "Debug: Clear Breakpoints" },
             { "<leader>db", toggle_breakpoint, desc = "Debug: Toggle Breakpoint" },
-            { "<leader>dB", _19_, desc = "Debug: Set Conditional Breakpoint" },
+            { "<leader>dB", _23_, desc = "Debug: Set Conditional Breakpoint" },
             { "<leader>dw", "<cmd>DapViewWatch<cr>", desc = "Debug: Set Watch" },
-            { "<leader>dt", _20_, desc = "Debug: See last session result" },
+            { "<leader>dt", _24_, desc = "Debug: See last session result" },
         },
-        load = _21_,
+        load = _25_,
         on_require = "dap",
     },
 }
