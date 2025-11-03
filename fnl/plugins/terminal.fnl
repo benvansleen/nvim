@@ -10,4 +10,5 @@
                       :size (fn [term]
                               (case term.direction
                                 :horizontal 15
-                                :vertical (* vim.o.columns 0.4)))})})]
+                                :vertical (* vim.o.columns 0.4)))
+                      :shade_terminals false})})]

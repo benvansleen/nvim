@@ -11,6 +11,12 @@ local function _1_()
             return nil
         end
     end
-    return p_7_auto.setup({ open_mapping = "<M-t>", direction = "vertical", persist_size = true, size = _2_ })
+    return p_7_auto.setup({
+        open_mapping = "<M-t>",
+        direction = "vertical",
+        persist_size = true,
+        size = _2_,
+        shade_terminals = false,
+    })
 end
 return { { "toggleterm.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" } }
