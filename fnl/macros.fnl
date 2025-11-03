@@ -65,13 +65,9 @@
     (icollect [_ req (pairs opts)]
       `(require ,req)))
 
-  (fn set-options [opts]
+  (fn set-opt [t opts]
     (icollect [k v (pairs opts)]
-      `(tset vim.opt ,(tostring k) ,v)))
-
-  (fn set-global [opts] ; (print (view opts))
-    (icollect [k v (pairs opts)]
-      `(tset vim.g ,(tostring k) ,v)))
+      `(tset ,t ,(tostring k) ,v)))
 
   (fn set-mappings [mode mappings]
     (icollect [[desc k] v (pairs mappings)]
@@ -85,8 +81,10 @@
     (let [[kw body] form]
       (case [(tostring kw)]
         [:requires] (set-require body)
-        [:opt] (set-options body)
-        [:g] (set-global body)
+        [:g] (set-opt `vim.g body)
+        [:opt] (set-opt `vim.opt body)
+        [:wo] (set-opt `vim.wo body)
+        [:bo] (set-opt `vim.bo body)
         [:nmap] (set-mappings :n body)
         [:imap] (set-mappings :i body)
         [:vmap] (set-mappings :v body)
