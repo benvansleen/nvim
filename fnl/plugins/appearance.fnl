@@ -53,6 +53,10 @@
                                                       :group :Label
                                                       :action "Telescope find_files"
                                                       :key :f}
+                                                     {:desc "Recent Files"
+                                                      :group :Error
+                                                      :action "Telescope oldfiles"
+                                                      :key :r}
                                                      {:desc "Find Word"
                                                       :group :Warning
                                                       :action "Telescope live_grep"

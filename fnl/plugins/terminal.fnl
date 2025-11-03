@@ -1,8 +1,10 @@
-(import-macros {: tb : setup-} :macros)
+(import-macros {: tb : require-and-call- : setup-} :macros)
 
 [(tb :toggleterm.nvim
      {:for_cat :general.extra
-      :event :DeferredUIEnter
+      :on_require :toggleterm
+      :keys [(tb :<M-t> (require-and-call- :toggleterm :toggle_command)
+                 {:desc "Toggle Terminal"})]
       :after (setup- :toggleterm
                      {:open_mapping :<M-t>
                       :direction :vertical

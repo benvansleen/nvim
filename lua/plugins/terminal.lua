@@ -19,4 +19,15 @@ local function _1_()
         shade_terminals = false,
     })
 end
-return { { "toggleterm.nvim", after = _1_, event = "DeferredUIEnter", for_cat = "general.extra" } }
+local function _5_()
+    return require("toggleterm").toggle_command()
+end
+return {
+    {
+        "toggleterm.nvim",
+        after = _1_,
+        for_cat = "general.extra",
+        keys = { { "<M-t>", _5_, desc = "Toggle Terminal" } },
+        on_require = "toggleterm",
+    },
+}
