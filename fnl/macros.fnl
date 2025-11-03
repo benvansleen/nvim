@@ -65,6 +65,12 @@
     (icollect [_ req (pairs opts)]
       `(require ,req)))
 
+  (fn load-plugins-when-enabled [ms]
+    (icollect [_ m (ipairs ms)]
+      `(when (nixCats ,m)
+         (import-macros {: load-plugins} :macros)
+         (load-plugins ,m))))
+
   (fn set-opt [t opts]
     (icollect [k v (pairs opts)]
       `(tset ,t ,(tostring k) ,v)))
@@ -81,6 +87,7 @@
     (let [[kw body] form]
       (case [(tostring kw)]
         [:requires] (set-require body)
+        [:load-plugins-when-enabled] (load-plugins-when-enabled body)
         [:g] (set-opt `vim.g body)
         [:opt] (set-opt `vim.opt body)
         [:wo] (set-opt `vim.wo body)
@@ -110,6 +117,13 @@
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))
 
+(fn unless-nix [& body]
+  `(do
+     (import-macros {: with-require} :macros)
+     (with-require {cats# :nixCatsUtils}
+       (when (not cats#.isNixCats)
+         ,(unpack body)))))
+
 {: config
  : dot-repeatable
  : load-plugins
@@ -118,6 +132,7 @@
  : setup
  : setup-
  : tb
+ : unless-nix
  : when-let
  : with-preserve-position
  : with-require

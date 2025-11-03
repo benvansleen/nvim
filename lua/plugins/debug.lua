@@ -197,12 +197,8 @@ local function _25_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("nvim-dap-view")
     vim.cmd.packadd("nvim-dap-virtual-text")
-    local _26_
-    do
-        local nixCatsUtils = require("nixCatsUtils")
-        _26_ = nixCatsUtils.isNixCats
-    end
-    if _26_ then
+    local cats_20_auto = require("nixCatsUtils")
+    if not cats_20_auto.isNixCats then
         return vim.cmd.packadd("mason-nvim-dap.nvim")
     else
         return nil

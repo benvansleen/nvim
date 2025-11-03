@@ -4,7 +4,8 @@
                 : require-and-call-
                 : with-require
                 : with-require-
-                : dot-repeatable} :macros)
+                : dot-repeatable
+                : unless-nix} :macros)
 
 (dot-repeatable continue (require-and-call- :dap :continue))
 (dot-repeatable step-over (require-and-call- :dap :step_over))
@@ -41,9 +42,7 @@
                         (vim.cmd.packadd name)
                         (vim.cmd.packadd :nvim-dap-view)
                         (vim.cmd.packadd :nvim-dap-virtual-text)
-                        (when (with-require {: nixCatsUtils}
-                                nixCatsUtils.isNixCats)
-                          (vim.cmd.packadd :mason-nvim-dap.nvim)))
+                        (unless-nix (vim.cmd.packadd :mason-nvim-dap.nvim)))
                 :after (fn [_]
                          (with-require {: dap}
                            (set dap.adapters.debugpy

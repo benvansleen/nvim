@@ -12,6 +12,25 @@ vim.g["my_center_buffer"] = true
 vim.g["netrw_liststyle"] = 0
 vim.g["netrw_banner"] = 0
 vim.g["_debug_my_center_buffer"] = false
+local _1_
+if nixCats("debug") then
+    _1_ = require("lze").load({ { import = "plugins.debug" } })
+else
+    _1_ = nil
+end
+local _3_
+if nixCats("lint") then
+    _3_ = require("lze").load({ { import = "plugins.lint" } })
+else
+    _3_ = nil
+end
+local function _5_(...)
+    if nixCats("format") then
+        return require("lze").load({ { import = "plugins.format" } })
+    else
+        return nil
+    end
+end
 vim.opt["autoindent"] = true
 vim.opt["breakindent"] = true
 vim.opt["expandtab"] = true
@@ -43,23 +62,24 @@ vim.opt["relativenumber"] = false
 vim.opt["ruler"] = false
 vim.opt["showcmd"] = false
 vim.opt["showmode"] = false
-local function _1_()
+local function _6_()
     local vt = vim.diagnostic.config().virtual_lines
     return vim.diagnostic.config({ virtual_lines = not vt })
 end
-local function _2_()
+local function _7_()
     return print(vim.api.nvim_buf_get_name(0))
 end
-local function _3_()
+local function _8_()
     return vim.api.nvim_buf_delete(0, {})
 end
-local function _4_()
+local function _9_()
     return vim.highlight.on_yank()
 end
 do
     local _ = {
         { nil, nil, nil, nil, nil, nil },
         { require("clipboard"), require("lsp"), require("lib"), require("statuscolumn"), require("plugins") },
+        { _1_, _3_, _5_(...) },
         {
             nil,
             nil,
@@ -97,9 +117,9 @@ do
             vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true }),
             vim.keymap.set("n", "<C-j>", "<C-d>zz", { desc = "Scroll down", noremap = true }),
             vim.keymap.set("n", "<C-k>", "<C-u>zz", { desc = "Scroll up", noremap = true }),
-            vim.keymap.set("n", "<leader>te", _1_, { desc = "[T]oggle virtual lines", noremap = true }),
-            vim.keymap.set("n", "<leader>wtf", _2_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
-            vim.keymap.set("n", "<leader>q", _3_, { desc = "[Q]uit buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>te", _6_, { desc = "[T]oggle virtual lines", noremap = true }),
+            vim.keymap.set("n", "<leader>wtf", _7_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
+            vim.keymap.set("n", "<leader>q", _8_, { desc = "[Q]uit buffer", noremap = true }),
             vim.keymap.set(
                 "n",
                 "<leader>huc",
@@ -120,7 +140,7 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _4_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
             ),
         },
     }
@@ -129,20 +149,8 @@ if nixCats("number-toggle") then
     require("number-toggle")
 else
 end
-if nixCats("debug") then
-    require("lze").load({ { import = "plugins.debug" } })
-else
-end
-if nixCats("lint") then
-    require("lze").load({ { import = "plugins.lint" } })
-else
-end
-if nixCats("format") then
-    require("format")
-else
-end
-local nixCatsUtils = require("nixCatsUtils")
-if not nixCatsUtils.isNixCats then
+local cats_20_auto = require("nixCatsUtils")
+if not cats_20_auto.isNixCats then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

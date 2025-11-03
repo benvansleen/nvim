@@ -1,4 +1,4 @@
-(import-macros {: config : load-plugins : with-require} :macros)
+(import-macros {: config : with-require : unless-nix} :macros)
 
 (with-require {: lze : lzextras lzUtils :nixCatsUtils.lzUtils}
   (lze.register_handlers lzUtils.for_cat)
@@ -11,6 +11,7 @@
             netrw_liststyle 0
             netrw_banner 0})
         (requires [:clipboard :lsp :lib :statuscolumn :plugins])
+        (load-plugins-when-enabled [:debug :lint :format])
         (opt {autoindent true
               breakindent true
               expandtab true
@@ -68,15 +69,5 @@
 (when (nixCats :number-toggle)
   (require :number-toggle))
 
-(when (nixCats :debug)
-  (load-plugins :debug))
-
-(when (nixCats :lint)
-  (load-plugins :lint))
-
-(when (nixCats :format)
-  (require :format))
-
-(with-require {: nixCatsUtils}
-  (when (not nixCatsUtils.isNixCats)
-    (config (nmap {["Scroll Up" :<up>] :<C-u> ["Scroll Down" :<down>] :<C-d>}))))
+(unless-nix (config (nmap {["Scroll Up" :<up>] :<C-u>
+                           ["Scroll Down" :<down>] :<C-d>})))
