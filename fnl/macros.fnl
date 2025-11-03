@@ -112,15 +112,15 @@
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))
 
-{: tb
- : when-let
- : with-require
- : with-require-
- : with-preserve-position
+{: config
+ : dot-repeatable
+ : load-plugins
  : require-and-call
  : require-and-call-
  : setup
  : setup-
- : config
- : load-plugins
- : dot-repeatable}
+ : tb
+ : when-let
+ : with-preserve-position
+ : with-require
+ : with-require-}
