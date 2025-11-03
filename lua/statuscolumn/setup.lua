@@ -35,7 +35,7 @@ local function count_windows()
     end
 end
 local statuscolumn = {}
-local colors = { "#bebdbf", "#888788", "#565556", "#282828" }
+local colors = { "#616161", "#555555", "#494949", "#3e3e3e", "#333333", "#282828" }
 statuscolumn.highlights = function()
     for i, fg in ipairs(colors) do
         vim.api.nvim_set_hl(0, ("Gradient_" .. i), { fg = fg })

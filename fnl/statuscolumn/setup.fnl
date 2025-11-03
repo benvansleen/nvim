@@ -35,7 +35,7 @@
 (local statuscolumn {})
 
 ;; from https://colordesigner.io/gradient-generator
-(local colors ["#bebdbf" "#888788" "#565556" "#282828"])
+(local colors ["#616161" "#555555" "#494949" "#3e3e3e" "#333333" "#282828"])
 
 (macro disable-for-fts [ft disabled-fts & body]
   `(if (vim.tbl_contains ,disabled-fts ,ft)
