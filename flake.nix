@@ -234,6 +234,7 @@
                 nvim-dap
                 nvim-dap-view
                 nvim-dap-virtual-text
+                nvim-dap-python
               ];
               go = [ nvim-dap-go ];
             };

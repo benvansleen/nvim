@@ -33,6 +33,8 @@
                                         (fn [_] (vim.lsp.buf.format))
                                         {:desc "Format current buffer with LSP"})
   (when (nixCats :general.telescope)
+    (nmap :gd (require-and-call- :telescope.builtin :lsp_definitions)
+          "[G]oto [D]efinitions")
     (nmap :gr (require-and-call- :telescope.builtin :lsp_references)
           "[G]oto [R]eferences")
     (nmap :gI (require-and-call- :telescope.builtin :lsp_implementations)

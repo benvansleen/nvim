@@ -7,7 +7,7 @@
               (vim.cmd.packadd name)
               (vim.cmd.packadd :nvim-treesitter-textobjects)
               (vim.cmd.packadd :nvim-treesitter-textsubjects)
-              (config (wo {foldlevel 1
+              (config (wo {foldlevel 4
                            foldmethod :expr
                            foldexpr "v:lua.vim.treesitter.foldexpr()"})))
       :after (setup- :nvim-treesitter.configs

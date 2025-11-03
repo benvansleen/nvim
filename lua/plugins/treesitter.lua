@@ -56,7 +56,7 @@ local function _2_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("nvim-treesitter-textobjects")
     vim.cmd.packadd("nvim-treesitter-textsubjects")
-    vim.wo["foldlevel"] = 1
+    vim.wo["foldlevel"] = 4
     vim.wo["foldmethod"] = "expr"
     vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
     return { { nil, nil, nil } }

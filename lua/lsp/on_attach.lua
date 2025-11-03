@@ -35,21 +35,25 @@ local function _1_(_, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, "Format", _5_, { desc = "Format current buffer with LSP" })
     if nixCats("general.telescope") then
         local function _6_()
+            return require("telescope.builtin").lsp_definitions()
+        end
+        nmap("gd", _6_, "[G]oto [D]efinitions")
+        local function _7_()
             return require("telescope.builtin").lsp_references()
         end
-        nmap("gr", _6_, "[G]oto [R]eferences")
-        local function _7_()
+        nmap("gr", _7_, "[G]oto [R]eferences")
+        local function _8_()
             return require("telescope.builtin").lsp_implementations()
         end
-        nmap("gI", _7_, "[G]oto [I]mplementation")
-        local function _8_()
+        nmap("gI", _8_, "[G]oto [I]mplementation")
+        local function _9_()
             return require("telescope.builtin").lsp_document_symbols()
         end
-        nmap("<leader>ds", _8_, "[D]ocument [S]ymbols")
-        local function _9_()
+        nmap("<leader>ds", _9_, "[D]ocument [S]ymbols")
+        local function _10_()
             return require("telescope.builtin").lsp_dynamic_workspace_symbols()
         end
-        return nmap("<leader>ws", _9_, "[W]orkspace [S]ymbols")
+        return nmap("<leader>ws", _10_, "[W]orkspace [S]ymbols")
     else
         return nil
     end

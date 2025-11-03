@@ -13,7 +13,7 @@
 (dot-repeatable step-out (require-and-call- :dap :step_out))
 (dot-repeatable toggle-breakpoint (require-and-call- :dap :toggle_breakpoint))
 
-[(tb :nvim-dap {:for_cat {:cat :debug :default false}
+[(tb :nvim-dap {:for_cat {:cat :debug :default true}
                 :on_require :dap
                 :keys [(tb :<leader>dc continue {:desc "Debug: Start/Continue"})
                        (tb :<leader>dR (require-and-call- :dap :restart)
@@ -42,11 +42,11 @@
                         (vim.cmd.packadd name)
                         (vim.cmd.packadd :nvim-dap-view)
                         (vim.cmd.packadd :nvim-dap-virtual-text)
+                        (vim.cmd.packadd :nvim-dap-python)
                         (unless-nix (vim.cmd.packadd :mason-nvim-dap.nvim)))
                 :after (fn [_]
                          (with-require {: dap}
-                           (set dap.adapters.debugpy
-                                {:type :executable :command :debugpy-adapter})
+                           (setup :dap-python :debugpy-adapter)
                            (set dap.adapters.gdb
                                 {:type :executable
                                  :command :gdb
@@ -59,15 +59,6 @@
                                  :args [:--interpreter=dap
                                         :--eval-command
                                         "set print pretty on"]})
-                           (set dap.configurations.python
-                                [{:type :debugpy
-                                  :request :Launch
-                                  :name "Launch file"
-                                  :program "${file}"
-                                  :stopAtEntry true
-                                  :justMyCode false
-                                  :cwd "${workspaceFolder}"
-                                  :pythonPath :.venv/bin/python}])
                            (set dap.configurations.c
                                 [{:type :gdb
                                   :name :Launch

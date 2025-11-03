@@ -62,7 +62,10 @@ end
 local function _11_(_)
     do
         local dap = require("dap")
-        dap.adapters.debugpy = { type = "executable", command = "debugpy-adapter" }
+        do
+            local p_7_auto = require("dap-python")
+            p_7_auto.setup("debugpy-adapter")
+        end
         dap.adapters.gdb = {
             type = "executable",
             command = "gdb",
@@ -72,18 +75,6 @@ local function _11_(_)
             type = "executable",
             command = "rust-gdb",
             args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
-        }
-        dap.configurations.python = {
-            {
-                type = "debugpy",
-                request = "Launch",
-                name = "Launch file",
-                program = "${file}",
-                stopAtEntry = true,
-                cwd = "${workspaceFolder}",
-                pythonPath = ".venv/bin/python",
-                justMyCode = false,
-            },
         }
         local function _12_()
             return vim.fn.input("Path to executable: ", (vim.fn.getcwd() .. "/"), "file")
@@ -197,6 +188,7 @@ local function _25_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("nvim-dap-view")
     vim.cmd.packadd("nvim-dap-virtual-text")
+    vim.cmd.packadd("nvim-dap-python")
     local cats_20_auto = require("nixCatsUtils")
     if not cats_20_auto.isNixCats then
         return vim.cmd.packadd("mason-nvim-dap.nvim")
@@ -208,7 +200,7 @@ return {
     {
         "nvim-dap",
         after = _11_,
-        for_cat = { cat = "debug", default = false },
+        for_cat = { cat = "debug", default = true },
         keys = {
             { "<leader>dc", continue, desc = "Debug: Start/Continue" },
             { "<leader>dR", _20_, desc = "Debug: Restart" },
