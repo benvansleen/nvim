@@ -32,7 +32,7 @@ local function _1_()
                     preview_height = 0.6,
                 },
             },
-            layout_strategy = "vertical",
+            layout_strategy = "horizontal",
             path_display = { "filename_first" },
             prompt_prefix = "\239\129\148\239\129\148 ",
             selection_caret = "\239\129\148 ",

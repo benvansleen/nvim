@@ -56,7 +56,7 @@
                                                                       :width {:padding 0.02}
                                                                       :height {:padding 0}
                                                                       :preview_height 0.6}}
-                                           :layout_strategy :vertical
+                                           :layout_strategy :horizontal
                                            :path_display [:filename_first]
                                            :prompt_prefix " "
                                            :prompt_title false
