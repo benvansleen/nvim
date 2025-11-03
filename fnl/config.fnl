@@ -9,7 +9,8 @@
             my_center_buffer true
             _debug_my_center_buffer false
             netrw_liststyle 0
-            netrw_banner 0}) (requires [:clipboard :lsp :lib :plugins])
+            netrw_banner 0})
+        (requires [:clipboard :lsp :lib :statuscolumn :plugins])
         (opt {autoindent true
               breakindent true
               expandtab true
@@ -35,7 +36,6 @@
               softtabstop -1
               splitbelow true
               splitright true
-              statuscolumn "  %l%s%C"
               statusline "%{repeat('─',winwidth('.'))}"
               tabstop 4
               termguicolors true
@@ -64,9 +64,6 @@
                                                                        {})
                                    :pattern "*"
                                    :callback (fn [] (vim.highlight.on_yank))}}))
-
-(when (nixCats :center-buffer)
-  (require :center-buffer))
 
 (when (nixCats :number-toggle)
   (require :number-toggle))

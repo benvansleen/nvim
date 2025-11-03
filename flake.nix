@@ -435,7 +435,6 @@
             # enable the categories you want from categoryDefinitions
             categories = {
               markdown = false;
-              center-buffer = true;
               number-toggle = true;
               general = true;
               debug = true;

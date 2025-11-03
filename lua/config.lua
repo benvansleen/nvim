@@ -32,7 +32,6 @@ vim.opt["showtabline"] = 0
 vim.opt["softtabstop"] = -1
 vim.opt["splitbelow"] = true
 vim.opt["splitright"] = true
-vim.opt["statuscolumn"] = "  %l%s%C"
 vim.opt["statusline"] = "%{repeat('\226\148\128',winwidth('.'))}"
 vim.opt["tabstop"] = 4
 vim.opt["termguicolors"] = true
@@ -60,9 +59,8 @@ end
 do
     local _ = {
         { nil, nil, nil, nil, nil, nil },
-        { require("clipboard"), require("lsp"), require("lib"), require("plugins") },
+        { require("clipboard"), require("lsp"), require("lib"), require("statuscolumn"), require("plugins") },
         {
-            nil,
             nil,
             nil,
             nil,
@@ -126,10 +124,6 @@ do
             ),
         },
     }
-end
-if nixCats("center-buffer") then
-    require("center-buffer")
-else
 end
 if nixCats("number-toggle") then
     require("number-toggle")
