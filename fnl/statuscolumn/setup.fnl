@@ -13,6 +13,7 @@
                     :markdown
                     :NeogitPopup
                     :smear-cursor
+                    :startuptime
                     :TelescopePrompt
                     :TelescopeResults
                     :wk])
@@ -50,6 +51,7 @@
 (fn statuscolumn.border [buf-ft]
   (disable-for-fts buf-ft [:dashboard
                            :NeogitStatus
+                           :startuptime
                            :toggleterm
                            :TelescopePrompt]
                    (if (< vim.v.relnum (- (length colors) 1))
@@ -99,7 +101,8 @@
                   (if (> foldlevel foldlevel-before) "▽"
                       (if (> foldlevel foldlevel-after) "╰" "│")))))))
 
-  (disable-for-fts buf-ft [:TelescopePrompt :NeogitStatus] (calc-folds)))
+  (disable-for-fts buf-ft [:TelescopePrompt :NeogitStatus :startuptime]
+                   (calc-folds)))
 
 (fn statuscolumn.defaults [_]
   "%l%s")

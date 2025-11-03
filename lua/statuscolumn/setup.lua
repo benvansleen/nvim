@@ -12,6 +12,7 @@ local disabled_ft = {
     "markdown",
     "NeogitPopup",
     "smear-cursor",
+    "startuptime",
     "TelescopePrompt",
     "TelescopeResults",
     "wk",
@@ -43,7 +44,7 @@ statuscolumn.highlights = function()
     return nil
 end
 statuscolumn.border = function(buf_ft)
-    if vim.tbl_contains({ "dashboard", "NeogitStatus", "toggleterm", "TelescopePrompt" }, buf_ft) then
+    if vim.tbl_contains({ "dashboard", "NeogitStatus", "startuptime", "toggleterm", "TelescopePrompt" }, buf_ft) then
         return " "
     else
         if vim.v.relnum < (#colors - 1) then
@@ -115,7 +116,7 @@ statuscolumn.folds = function(buf_ft)
         end
         return ("%@v:lua.click_handler@" .. _9_)
     end
-    if vim.tbl_contains({ "TelescopePrompt", "NeogitStatus" }, buf_ft) then
+    if vim.tbl_contains({ "TelescopePrompt", "NeogitStatus", "startuptime" }, buf_ft) then
         return " "
     else
         return calc_folds()
