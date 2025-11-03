@@ -17,6 +17,7 @@ vim.opt["breakindent"] = true
 vim.opt["expandtab"] = true
 vim.opt["fillchars"] = { eob = " " }
 vim.opt["hlsearch"] = true
+vim.opt["ignorecase"] = true
 vim.opt["inccommand"] = "split"
 vim.opt["laststatus"] = 0
 vim.opt["list"] = true
@@ -61,6 +62,7 @@ do
         { nil, nil, nil, nil, nil, nil },
         { require("clipboard"), require("lsp"), require("lib"), require("plugins") },
         {
+            nil,
             nil,
             nil,
             nil,

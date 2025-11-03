@@ -15,6 +15,7 @@
               expandtab true
               fillchars {:eob " "}
               hlsearch true
+              ignorecase true
               inccommand :split
               laststatus 0
               list true
