@@ -1,5 +1,6 @@
-(import-macros {: config} :macros)
+(import-macros {: config : with-require} :macros)
 
-(config (opt {statuscolumn "%!v:lua.require('statuscolumn.setup').init()"}))
+(config (opt {statuscolumn (with-require {column :statuscolumn.setup}
+                             column.activate)}))
 
 {}

@@ -10,6 +10,7 @@ local disabled_ft = {
     "dap-view",
     "fidget",
     "markdown",
+    "NeogitPopup",
     "smear-cursor",
     "TelescopePrompt",
     "TelescopeResults",
@@ -41,14 +42,9 @@ statuscolumn.highlights = function()
     end
     return nil
 end
-statuscolumn.border = function()
-    local buf_ft
-    local function _3_(buf)
-        return vim.api.nvim_get_option_value("filetype", { buf = buf })
-    end
-    buf_ft = _3_(vim.api.nvim_get_current_buf())
-    if vim.tbl_contains({ "toggleterm", "TelescopePrompt" }, buf_ft) then
-        return ""
+statuscolumn.border = function(buf_ft)
+    if vim.tbl_contains({ "dashboard", "NeogitStatus", "TelescopePrompt" }, buf_ft) then
+        return " "
     else
         if vim.v.relnum < (#colors - 1) then
             return ("%#Gradient_" .. (vim.v.relnum + 1) .. "#\226\148\130")
@@ -57,7 +53,7 @@ statuscolumn.border = function()
         end
     end
 end
-statuscolumn.number = function()
+statuscolumn.number = function(_)
     local linenum
     if vim.wo.relativenumber then
         linenum = (((vim.v.relnum == 0) and vim.v.lnum) or vim.v.relnum)
@@ -74,10 +70,15 @@ statuscolumn.number = function()
         return ""
     end
 end
-statuscolumn["center-buffer"] = function()
+statuscolumn["center-buffer"] = function(buf_ft)
     local factor = 3
     local winwidth = vim.api.nvim_win_get_width(0)
-    local screen_width = (vim.g.my_center_buffer_screen_width or winwidth)
+    local buf_specific_adjustment
+    do
+        local _ = buf_ft
+        buf_specific_adjustment = 0
+    end
+    local screen_width = ((vim.g.my_center_buffer_screen_width or winwidth) + buf_specific_adjustment)
     if vim.g.my_center_buffer and (count_windows() == 1) and (winwidth > (screen_width / factor)) then
         return string.rep(" ", ((screen_width - 88) / factor))
     else
@@ -87,75 +88,99 @@ end
 _G.click_handler = function()
     return vim.cmd("normal! za")
 end
-statuscolumn.folds = function()
-    local foldlevel = vim.fn.foldlevel(vim.v.lnum)
-    local foldlevel_before = vim.fn.foldlevel(((((vim.v.lnum - 1) >= 1) and (vim.v.lnum - 1)) or (vim.v.lnum - 1)))
-    local foldlevel_after =
-        vim.fn.foldlevel(((((vim.v.lnum + 1) <= vim.fn.line("$")) and (vim.v.lnum + 1)) or vim.fn.line("$")))
-    local foldclosed = vim.fn.foldclosed(vim.v.lnum)
-    local _10_
-    if (vim.v.virtnum ~= 0) or (foldlevel == 0) then
-        _10_ = " "
-    else
-        if (foldclosed ~= -1) and (foldclosed == vim.v.lnum) then
-            _10_ = "\226\150\182"
+statuscolumn.folds = function(buf_ft)
+    local function calc_folds()
+        local foldlevel = vim.fn.foldlevel(vim.v.lnum)
+        local foldlevel_before = vim.fn.foldlevel(((((vim.v.lnum - 1) >= 1) and (vim.v.lnum - 1)) or (vim.v.lnum - 1)))
+        local foldlevel_after =
+            vim.fn.foldlevel(((((vim.v.lnum + 1) <= vim.fn.line("$")) and (vim.v.lnum + 1)) or vim.fn.line("$")))
+        local foldclosed = vim.fn.foldclosed(vim.v.lnum)
+        local _9_
+        if (vim.v.virtnum ~= 0) or (foldlevel == 0) then
+            _9_ = " "
         else
-            if foldlevel > foldlevel_before then
-                _10_ = "\226\150\189"
+            if (foldclosed ~= -1) and (foldclosed == vim.v.lnum) then
+                _9_ = "\226\150\182"
             else
-                if foldlevel > foldlevel_after then
-                    _10_ = "\226\149\176"
+                if foldlevel > foldlevel_before then
+                    _9_ = "\226\150\189"
                 else
-                    _10_ = "\226\148\130"
+                    if foldlevel > foldlevel_after then
+                        _9_ = "\226\149\176"
+                    else
+                        _9_ = "\226\148\130"
+                    end
                 end
             end
         end
+        return ("%@v:lua.click_handler@" .. _9_)
     end
-    return ("%@v:lua.click_handler@" .. _10_)
+    if vim.tbl_contains({ "TelescopePrompt", "NeogitStatus" }, buf_ft) then
+        return " "
+    else
+        return calc_folds()
+    end
 end
-statuscolumn.defaults = function()
+statuscolumn.defaults = function(_)
     return "%l%s"
 end
 statuscolumn.init = function()
+    local buf_ft
+    local function _15_(buf)
+        return vim.api.nvim_get_option_value("filetype", { buf = buf })
+    end
+    buf_ft = _15_(vim.api.nvim_get_current_buf())
     statuscolumn.highlights()
     return (
         table.concat({
-            statuscolumn["center-buffer"](),
-            statuscolumn.folds(),
-            statuscolumn.defaults(),
-            statuscolumn.border(),
+            statuscolumn["center-buffer"](buf_ft),
+            "%s",
+            statuscolumn.folds(buf_ft),
+            "%l",
+            statuscolumn.border(buf_ft),
             " ",
         }) or ""
     )
 end
+statuscolumn.activate = "%!v:lua.require('statuscolumn.setup').init()"
+local function force_statuscolumn_redraw()
+    vim.wo.statuscolumn = statuscolumn.activate
+    return nil
+end
 local function update_screen_width()
     vim.g.my_center_buffer_screen_width = vim.api.nvim_win_get_width(0)
-    vim.wo.statuscolumn = vim.wo.statuscolumn
     return nil
 end
 vim.g["my_center_buffer"] = true
 vim.g["my_center_buffer_screen_width"] = vim.api.nvim_win_get_width(0)
 vim.g["_debug_my_center_buffer"] = false
-local function _15_()
-    vim.g.my_center_buffer = not vim.g.my_center_buffer
-    return update_screen_width()
-end
 local function _16_()
+    vim.g.my_center_buffer = not vim.g.my_center_buffer
+    update_screen_width()
+    return force_statuscolumn_redraw()
+end
+local function _17_()
     vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
-    return update_screen_width()
+    update_screen_width()
+    return force_statuscolumn_redraw()
+end
+local function _18_()
+    update_screen_width()
+    return force_statuscolumn_redraw()
 end
 do
     local _ = {
         { nil, nil, nil },
         {
-            vim.keymap.set("n", "<leader>tc", _15_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
-            vim.keymap.set("n", "<leader>tC", _16_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
+            vim.keymap.set("n", "<leader>tc", _16_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>tC", _17_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
         },
         {
             vim.api.nvim_create_autocmd(
-                { "BufLeave", "BufWinLeave", "WinLeave", "WinResized", "VimResized" },
-                { callback = update_screen_width }
+                { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave" },
+                { callback = force_statuscolumn_redraw }
             ),
+            vim.api.nvim_create_autocmd({ "WinResized", "VimResized" }, { callback = _18_ }),
         },
     }
 end

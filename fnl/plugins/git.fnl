@@ -1,20 +1,23 @@
 (import-macros {: tb : setup- : require-and-call-} :macros)
 
-[(tb :neogit
-     {:for_cat :general.git
-      :cmd [:Neogit]
-      :keys [(tb :<leader><leader>g
-                 (require-and-call- :neogit :open {:cwd "%:p:h" :kind :auto})
-                 {:mode [:n] :desc "Open Neogit"})]
-      :after (setup- :neogit
-                     {:auto_refresh true
-                      :filewatcher {:enabled true :interval 1000}
-                      :disable_hint true
-                      :graph_style :unicode
-                      :process_spinner true
-                      :mappings {:status {:gr :RefreshBuffer}
-                                 :popup {:p :PushPopup :F :PullPopup}}
-                      :integrations {:telescope true :diffview true}})})
+[(tb :neogit {:for_cat :general.git
+              :cmd [:Neogit]
+              :keys [(tb :<leader><leader>g
+                         (require-and-call- :neogit :open
+                                            {:cwd "%:p:h" :kind :auto})
+                         {:mode [:n] :desc "Open Neogit"})]
+              :after (setup- :neogit
+                             {:auto_refresh true
+                              :filewatcher {:enabled true :interval 1000}
+                              :disable_hint true
+                              :graph_style :unicode
+                              :process_spinner true
+                              :mappings {:status {:gr :RefreshBuffer}
+                                         :popup {:p :PushPopup :F :PullPopup}}
+                              :integrations {:telescope true :diffview true}
+                              :signs {:hunk ["" ""]
+                                      :item ["▶" "▽"]
+                                      :section ["▶" "▽"]}})})
  (tb :diffview.nvim {:for_cat :general.git
                      :cmd [:DiffviewOpen :DiffviewFileHistory]
                      :after (setup- :diffview
@@ -33,18 +36,18 @@
              (tb " gp" (require-and-call- :gitsigns :preview_hunk_inline)
                  {:mode [:n] :desc "[G]it: [P]review hunk"})]
       :after (setup- :gitsigns
-                     {:signs {:add {:text "┃"
-                                    :change {:text "┃"}
-                                    :delete {:text "_"}
-                                    :topdelete {:text "‾"}
-                                    :changedelete {:text "~"}
-                                    :untracked {:text "┆"}}
-                              :signs_staged {:add {:text "┃"}
-                                             :change {:text "┃"}
-                                             :delete {:text "_"}
-                                             :topdelete {:text "‾"}
-                                             :changedelete {:text "~"}
-                                             :untracked {:text "┆"}}}
+                     {:signs {:add {:text "│"}
+                              :change {:text "│"}
+                              :delete {:text "_"}
+                              :topdelete {:text "‾"}
+                              :changedelete {:text "~"}
+                              :untracked {:text "┆"}}
+                      :signs_staged {:add {:text "│"}
+                                     :change {:text "│"}
+                                     :delete {:text "_"}
+                                     :topdelete {:text "‾"}
+                                     :changedelete {:text "~"}
+                                     :untracked {:text "┆"}}
                       :signs_staged_enable false
                       :signcolumn true
                       :numhl false

@@ -9,6 +9,14 @@ local function _1_()
         process_spinner = true,
         mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
         integrations = { telescope = true, diffview = true },
+        signs = {
+            hunk = { "", "" },
+            item = { "\226\150\182", "\226\150\189" },
+            section = {
+                "\226\150\182",
+                "\226\150\189",
+            },
+        },
     })
 end
 local function _2_()
@@ -28,22 +36,20 @@ local function _4_()
     local p_7_auto = require("gitsigns")
     return p_7_auto.setup({
         signs = {
-            add = {
-                text = "\226\148\131",
-                change = { text = "\226\148\131" },
-                delete = { text = "_" },
-                topdelete = { text = "\226\128\190" },
-                changedelete = { text = "~" },
-                untracked = { text = "\226\148\134" },
-            },
-            signs_staged = {
-                add = { text = "\226\148\131" },
-                change = { text = "\226\148\131" },
-                delete = { text = "_" },
-                topdelete = { text = "\226\128\190" },
-                changedelete = { text = "~" },
-                untracked = { text = "\226\148\134" },
-            },
+            add = { text = "\226\148\130" },
+            change = { text = "\226\148\130" },
+            delete = { text = "_" },
+            topdelete = { text = "\226\128\190" },
+            changedelete = { text = "~" },
+            untracked = { text = "\226\148\134" },
+        },
+        signs_staged = {
+            add = { text = "\226\148\130" },
+            change = { text = "\226\148\130" },
+            delete = { text = "_" },
+            topdelete = { text = "\226\128\190" },
+            changedelete = { text = "~" },
+            untracked = { text = "\226\148\134" },
         },
         signcolumn = true,
         watch_gitdir = { follow_files = true },
