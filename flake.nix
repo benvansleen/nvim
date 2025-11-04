@@ -209,7 +209,6 @@
               ];
               extra = [
                 nvim-web-devicons
-                helpview-nvim
               ];
             };
             # You can retrieve information from the
@@ -329,6 +328,7 @@
               extra = with pkgs.vimPlugins; [
                 fidget-nvim
                 focus-nvim
+                helpview-nvim
                 indent-blankline-nvim
                 dashboard-nvim
                 oil-nvim
