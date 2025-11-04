@@ -1,44 +1,43 @@
-(import-macros {: config : tb : require-and-call : setup- : with-require-}
+(import-macros {: config : require-and-call : setup : tb : with-require}
                :macros)
 
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :CursorMoved
-                    :after (setup- :Comment)})
+                    :after #(setup :Comment)})
  (tb :direnv-nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (fn []
-               (when (= (vim.fn.executable :direnv) 1)
-                 (require-and-call :direnv :setup
-                                   {:autoload_direnv true
-                                    :notifications {:silent_autoload true}})))})
+      :after #(when (= (vim.fn.executable :direnv) 1)
+                (require-and-call :direnv :setup
+                                  {:autoload_direnv true
+                                   :notifications {:silent_autoload true}}))})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
-                   :after (setup- :fidget)})
+                   :after #(setup :fidget)})
  (tb :foldtext-nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (with-require- {: foldtext}
-               (foldtext.setup)
-               (config (opt {fillchars {:eob " " :fold " "}})))})
+      :after #(with-require {: foldtext}
+                (foldtext.setup)
+                (config (opt {fillchars {:eob " " :fold " "}})))})
  (tb :indent-blankline.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (setup- :ibl {:exclude {:filetypes [:dashboard :fennel]}
+      :after #(setup :ibl {:exclude {:filetypes [:dashboard :fennel]}
                            :scope {:enabled true}
                            :indent {:char "│"}})})
  (tb :leap.nvim
      {:for_cat :general.always
       :event :CursorMoved
       :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]
-      :after (with-require- {: leap}
-               (set leap.opts.safe_labels "")
-               (set leap.opts.preview false)
-               (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
+      :after #(with-require {: leap}
+                (set leap.opts.safe_labels "")
+                (set leap.opts.preview false)
+                (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
  (tb :nvim-autopairs
      {:for_cat :general.always
       :event :InsertEnter
-      :after (setup- :nvim-autopairs
+      :after #(setup :nvim-autopairs
                      {:check_ts true
                       :disable_filetype [:TelescopePrompt]
                       :disable_in_macro true
@@ -46,7 +45,7 @@
  (tb :nvim-highlight-colors
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (setup- :nvim-highlight-colors
+      :after #(setup :nvim-highlight-colors
                      {:render :virtual
                       :virtual_symbol "■"
                       :virtual_symbol_prefix " "
@@ -54,7 +53,7 @@
                       :virtual_symbol_position :inline})})
  (tb :nvim-surround {:for_cat :general.always
                      :event :CursorMoved
-                     :after (setup- :nvim-surround)})
+                     :after #(setup :nvim-surround)})
  (tb :undotree {:for_cat :general.extra
                 :cmd [:UndotreeToggle
                       :UndotreeHide
@@ -73,21 +72,22 @@
  (tb :which-key.nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter
-      :after (with-require- {: which-key}
-               (which-key.setup {:preset :helix :delay 500})
-               (which-key.add [(tb :<leader><leader> {:group "buffer commands"})
-                               (tb :<leader><leader>_ {:hidden true})
-                               (tb :<leader>c {:group "[c]ode"})
-                               (tb :<leader>c_ {:hidden true})
-                               (tb :<leader>d {:group "[d]ocument"})
-                               (tb :<leader>d_ {:hidden true})
-                               (tb :<leader>f {:group "[f]ind"})
-                               (tb :<leader>f_ {:hidden true})
-                               (tb :<leader>g {:group "[g]it"})
-                               (tb :<leader>g_ {:hidden true})
-                               (tb :<leader>r {:group "[r]ename"})
-                               (tb :<leader>r_ {:hidden true})
-                               (tb :<leader>t {:group "[t]oggle"})
-                               (tb :<leader>t_ {:hidden true})
-                               (tb :<leader>w {:group "[w]orkspace"})
-                               (tb :<leader>w_ {:hidden true})]))})]
+      :after #(with-require {: which-key}
+                (which-key.setup {:preset :helix :delay 500})
+                (which-key.add [(tb :<leader><leader>
+                                    {:group "buffer commands"})
+                                (tb :<leader><leader>_ {:hidden true})
+                                (tb :<leader>c {:group "[c]ode"})
+                                (tb :<leader>c_ {:hidden true})
+                                (tb :<leader>d {:group "[d]ocument"})
+                                (tb :<leader>d_ {:hidden true})
+                                (tb :<leader>f {:group "[f]ind"})
+                                (tb :<leader>f_ {:hidden true})
+                                (tb :<leader>g {:group "[g]it"})
+                                (tb :<leader>g_ {:hidden true})
+                                (tb :<leader>r {:group "[r]ename"})
+                                (tb :<leader>r_ {:hidden true})
+                                (tb :<leader>t {:group "[t]oggle"})
+                                (tb :<leader>t_ {:hidden true})
+                                (tb :<leader>w {:group "[w]orkspace"})
+                                (tb :<leader>w_ {:hidden true})]))})]

@@ -1,4 +1,4 @@
-(import-macros {: tb : setup : setup- : with-require} :macros)
+(import-macros {: setup : tb : with-require} :macros)
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}
                         :signs {:text {vim.diagnostic.severity.ERROR ""
@@ -63,7 +63,7 @@
                    {:for_cat :neonixdev
                     :cmd [:LazyDev]
                     :ft [:lua]
-                    :after (setup- :lazydev
+                    :after #(setup :lazydev
                                    {:library {:words [:nixCats]
                                               :path (.. (or nixCats.nixCatsPath
                                                             "")

@@ -1,4 +1,4 @@
-(import-macros {: config : tb : require-and-call : setup-} :macros)
+(import-macros {: config : require-and-call : setup : tb} :macros)
 
 [(tb :nvim-treesitter
      {:for_cat :general.treesitter
@@ -10,7 +10,7 @@
               (config (wo {foldlevel 4
                            foldmethod :expr
                            foldexpr "v:lua.vim.treesitter.foldexpr()"})))
-      :after (setup- :nvim-treesitter.configs
+      :after #(setup :nvim-treesitter.configs
                      {:highlight {:enable true
                                   :additional_vim_regex_highlighting false}
                       :indent {:enable false}
@@ -48,4 +48,4 @@
                                            :swap_previous {:<leader>A "@parameter.inner"}}}})})
  (tb :hlargs.nvim {:for_cat :general.treesitter
                    :event :DeferredUIEnter
-                   :after (setup- :hlargs)})]
+                   :after #(setup :hlargs)})]

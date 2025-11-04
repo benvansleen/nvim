@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : require-and-call : with-require} :macros)
+(import-macros {: require-and-call : setup : tb : with-require} :macros)
 
 (fn has-words-before []
   (let [col (. (vim.api.nvim_win_get_cursor 0) 2)]
@@ -10,7 +10,7 @@
 [(tb :blink.cmp
      {:for_cat :general.blink
       :event :InsertEnter
-      :after (setup- :blink.cmp
+      :after #(setup :blink.cmp
                      {:keymap {:preset :none
                                :<Tab> [(fn [cmp]
                                          (when (has-words-before)
@@ -53,4 +53,4 @@
  (tb :colorful-menu.nvim
      {:for_cat :general.blink
       :on_plugin [:blink.cmp]
-      :after (setup- :colorful-menu {})})]
+      :after #(setup :colorful-menu {})})]

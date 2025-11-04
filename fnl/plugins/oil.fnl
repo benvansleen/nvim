@@ -1,4 +1,4 @@
-(import-macros {: tb : setup- : config} :macros)
+(import-macros {: config : setup : tb} :macros)
 
 (config (g {loaded_netrwPlugin 1}))
 
@@ -9,7 +9,7 @@
                 {:mode [:n] :noremap true :desc "Open Parent Directory"})
             (tb :<leader>- "<cmd>Oil .<CR>"
                 {:mode [:n] :noremap true :desc "Open nvim root directory"})]
-     :after (setup- :oil
+     :after #(setup :oil
                     {:default_file_explorer true
                      :view_options {:show_hidden true}
                      :columns [:icon :permissions :size]

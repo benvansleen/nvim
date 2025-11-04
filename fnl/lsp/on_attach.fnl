@@ -1,4 +1,4 @@
-(import-macros {: require-and-call-} :macros)
+(import-macros {: require-and-call} :macros)
 
 (fn [_ bufnr]
   (vim.lsp.inlay_hint.enable true nil bufnr)
@@ -33,15 +33,15 @@
                                         (fn [_] (vim.lsp.buf.format))
                                         {:desc "Format current buffer with LSP"})
   (when (nixCats :general.telescope)
-    (nmap :gd (require-and-call- :telescope.builtin :lsp_definitions)
+    (nmap :gd #(require-and-call :telescope.builtin :lsp_definitions)
           "[G]oto [D]efinitions")
-    (nmap :gr (require-and-call- :telescope.builtin :lsp_references)
+    (nmap :gr #(require-and-call :telescope.builtin :lsp_references)
           "[G]oto [R]eferences")
-    (nmap :gI (require-and-call- :telescope.builtin :lsp_implementations)
+    (nmap :gI #(require-and-call :telescope.builtin :lsp_implementations)
           "[G]oto [I]mplementation")
     (nmap :<leader>ds
-          (require-and-call- :telescope.builtin :lsp_document_symbols)
+          #(require-and-call :telescope.builtin :lsp_document_symbols)
           "[D]ocument [S]ymbols")
     (nmap :<leader>ws
-          (require-and-call- :telescope.builtin :lsp_dynamic_workspace_symbols)
+          #(require-and-call :telescope.builtin :lsp_dynamic_workspace_symbols)
           "[W]orkspace [S]ymbols")))

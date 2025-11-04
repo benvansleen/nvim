@@ -1,11 +1,11 @@
-(import-macros {: tb : require-and-call- : setup-} :macros)
+(import-macros {: require-and-call : setup : tb} :macros)
 
 [(tb :toggleterm.nvim
      {:for_cat :general.extra
       :on_require :toggleterm
-      :keys [(tb :<M-t> (require-and-call- :toggleterm :toggle_command)
+      :keys [(tb :<M-t> #(require-and-call :toggleterm :toggle_command)
                  {:desc "Toggle Terminal"})]
-      :after (setup- :toggleterm
+      :after #(setup :toggleterm
                      {:open_mapping :<M-t>
                       :direction :vertical
                       :persist_size true

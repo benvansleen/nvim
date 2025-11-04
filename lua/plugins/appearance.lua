@@ -91,7 +91,7 @@ return {
         keys = { { "<leader><leader>d", "<cmd>Dashboard<cr>", desc = "Open [D]ashboard" } },
     },
     { "smear-cursor.nvim", after = _2_, event = "CursorMoved", for_cat = "general.extra" },
-    { "helpview.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "helpview.nvim", after = _3_, for_cat = "general.extra", ft = "help" },
     {
         "focus.nvim",
         after = _4_,

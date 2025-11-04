@@ -1,42 +1,40 @@
-(import-macros {: tb
-                : setup
+(import-macros {: dot-repeatable
                 : require-and-call
-                : require-and-call-
-                : with-require
-                : with-require-
-                : dot-repeatable
-                : unless-nix} :macros)
+                : setup
+                : tb
+                : unless-nix
+                : with-require} :macros)
 
-(dot-repeatable continue (require-and-call- :dap :continue))
-(dot-repeatable step-over (require-and-call- :dap :step_over))
-(dot-repeatable step-into (require-and-call- :dap :step_into))
-(dot-repeatable step-out (require-and-call- :dap :step_out))
-(dot-repeatable toggle-breakpoint (require-and-call- :dap :toggle_breakpoint))
+(dot-repeatable continue #(require-and-call :dap :continue))
+(dot-repeatable step-over #(require-and-call :dap :step_over))
+(dot-repeatable step-into #(require-and-call :dap :step_into))
+(dot-repeatable step-out #(require-and-call :dap :step_out))
+(dot-repeatable toggle-breakpoint #(require-and-call :dap :toggle_breakpoint))
 
 [(tb :nvim-dap {:for_cat {:cat :debug :default true}
                 :on_require :dap
                 :keys [(tb :<leader>dc continue {:desc "Debug: Start/Continue"})
-                       (tb :<leader>dR (require-and-call- :dap :restart)
+                       (tb :<leader>dR #(require-and-call :dap :restart)
                            {:desc "Debug: Restart"})
-                       (tb :<leader>dq (require-and-call- :dap :close)
+                       (tb :<leader>dq #(require-and-call :dap :close)
                            {:desc "Debug: Quit"})
                        (tb :<leader>di step-into {:desc "Debug: Step Into"})
                        (tb :<leader>dn step-over {:desc "Debug: Step Over"})
                        (tb :<leader>do step-out {:desc "Debug: Step Out"})
                        (tb :<leader>dC
-                           (require-and-call- :dap.breakpoints :clear)
+                           #(require-and-call :dap.breakpoints :clear)
                            {:desc "Debug: Clear Breakpoints"})
                        (tb :<leader>db toggle-breakpoint
                            {:desc "Debug: Toggle Breakpoint"})
                        (tb :<leader>dB
-                           (with-require- {: dap}
-                             (-> "Breakpoint condition: "
-                                 vim.fn.input
-                                 dap.set_breakpoint))
+                           #(with-require {: dap}
+                              (-> "Breakpoint condition: "
+                                  vim.fn.input
+                                  dap.set_breakpoint))
                            {:desc "Debug: Set Conditional Breakpoint"})
                        (tb :<leader>dw :<cmd>DapViewWatch<cr>
                            {:desc "Debug: Set Watch"})
-                       (tb :<leader>dt (require-and-call- :dap-view :toggle)
+                       (tb :<leader>dt #(require-and-call :dap-view :toggle)
                            {:desc "Debug: See last session result"})]
                 :load (fn [name]
                         (vim.cmd.packadd name)

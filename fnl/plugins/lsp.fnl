@@ -1,4 +1,4 @@
-(import-macros {: tb : setup-} :macros)
+(import-macros {: setup : tb} :macros)
 
 (fn text_format [symbol]
   (let [fragments []
@@ -19,4 +19,4 @@
 (tb :symbol-usage.nvim
     {:for_cat :lsp
      :event :LspAttach
-     :after (setup- :symbol-usage {: text_format})})
+     :after #(setup :symbol-usage {: text_format})})

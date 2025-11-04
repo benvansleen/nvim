@@ -30,10 +30,6 @@
        (do
          ,(unpack body)))))
 
-(fn with-require- [...]
-  (let [form (with-require ...)]
-    `(fn [] ,form)))
-
 (fn with-preserve-position [[window cursor] & body]
   `(let [,window (vim.api.nvim_get_current_win)
          ,cursor (vim.api.nvim_win_get_cursor ,window)]
@@ -45,20 +41,12 @@
       `((. (require ,mod) ,f) ,opts)
       `((. (require ,mod) ,f))))
 
-(fn require-and-call- [...] ; (print ...)
-  (let [form (require-and-call ...)] ; (print (view form))
-    `(fn [] ,form)))
-
 (fn setup [req opts]
   (if opts
       `(let [p# (require ,req)]
          (p#.setup ,opts))
       `(let [p# (require ,req)]
          (p#.setup))))
-
-(fn setup- [...]
-  (let [setup-form (setup ...)]
-    `(fn [] ,setup-form)))
 
 (fn config [& body]
   (fn set-require [opts]
@@ -128,12 +116,9 @@
  : dot-repeatable
  : load-plugins
  : require-and-call
- : require-and-call-
  : setup
- : setup-
  : tb
  : unless-nix
  : when-let
  : with-preserve-position
- : with-require
- : with-require-}
+ : with-require}
