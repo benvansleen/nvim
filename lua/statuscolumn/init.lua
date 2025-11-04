@@ -5,7 +5,4 @@ do
     _1_ = column.activate
 end
 vim.opt["statuscolumn"] = _1_
-do
-    local _ = { { nil } }
-end
-return {}
+return { { nil } }

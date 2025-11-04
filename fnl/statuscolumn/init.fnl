@@ -2,5 +2,3 @@
 
 (config (opt {statuscolumn (with-require {column :statuscolumn.setup}
                              column.activate)}))
-
-{}
