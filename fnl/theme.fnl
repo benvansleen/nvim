@@ -29,16 +29,17 @@
         :customize (partial customize-colors palette)})
 
 (fn set-telescope-highlights []
-  (let [{: bg4} palette
-        dark-hard "#1d2021"
+  (let [{: bg4 : blue : green} palette
+        dark-hard-bg (with-require {colors :gruvbox-material.colors}
+                       (. (colors.get vim.o.background :hard) :bg0))
         hl #(vim.api.nvim_set_hl 0 $1 $2)]
     (hl :TelescopePromptNormal {:bg bg4 :link nil})
     (hl :TelescopePromptBorder {:fg bg4 :bg bg4 :link nil})
-    (hl :TelescopeNormal {:bg dark-hard :link nil})
+    (hl :TelescopeNormal {:bg dark-hard-bg :link nil})
     (hl :TelescopeSelection {:bold true :bg bg4 :link nil})
-    (hl :TelescopeBorder {:fg dark-hard :bg dark-hard :link nil})
-    (hl :TelescopePromptTitle {:fg bg4 :bg palette.blue :link nil})
-    (hl :TelescopeResultsTitle {:fg bg4 :bg palette.green :link nil})
+    (hl :TelescopeBorder {:fg dark-hard-bg :bg dark-hard-bg :link nil})
+    (hl :TelescopePromptTitle {:fg bg4 :bg blue :link nil})
+    (hl :TelescopeResultsTitle {:fg bg4 :bg green :link nil})
     (hl :TelescopePreviewTitle {:link :TelescopeResultsTitle})))
 
 {: set-telescope-highlights : update-hl}
