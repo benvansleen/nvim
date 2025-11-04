@@ -7,7 +7,7 @@
     (set vim.wo.statuscolumn statuscolumn.activate)))
 
 (fn update-screen-width []
-  (set vim.g.my_center_buffer_screen_width (vim.api.nvim_win_get_width 0)))
+  (set vim.g.my_center_buffer_screen_width vim.o.columns))
 
 (macro toggle-mode- [toggle]
   `(fn []

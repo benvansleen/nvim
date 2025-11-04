@@ -9,7 +9,7 @@ local function force_statuscolumn_redraw()
     end
 end
 local function update_screen_width()
-    vim.g.my_center_buffer_screen_width = vim.api.nvim_win_get_width(0)
+    vim.g.my_center_buffer_screen_width = vim.o.columns
     return nil
 end
 vim.g["my_center_buffer"] = true
