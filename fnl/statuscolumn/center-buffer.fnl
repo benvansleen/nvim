@@ -6,6 +6,7 @@
                     :blink-cmp-menu
                     :dashboard
                     :fidget
+                    :flash_prompt
                     :markdown
                     :NeogitPopup
                     :smear-cursor

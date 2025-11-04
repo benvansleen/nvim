@@ -29,12 +29,35 @@ local function _6_()
     })
 end
 local function _7_()
-    local leap = require("leap")
-    leap.opts.safe_labels = ""
-    leap.opts.preview = false
-    return vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+    local p_7_auto = require("flash")
+    return p_7_auto.setup({
+        labels = "asdfghjklqwertyuiop",
+        jump = { autojump = false },
+        label = { style = "inline", rainbow = { enabled = true }, uppercase = false },
+        modes = {
+            char = { enabled = false },
+            search = { enabled = false },
+            treesitter = { label = { before = true, style = "overlay", after = false }, jump = { pos = "start" } },
+            treesitter_search = { label = { after = true, style = "overlay", before = false } },
+        },
+    })
 end
 local function _8_()
+    return require("flash").jump()
+end
+local function _9_()
+    return require("flash").treesitter()
+end
+local function _10_()
+    return require("flash").remote()
+end
+local function _11_()
+    return require("flash").treesitter_search()
+end
+local function _12_()
+    return require("flash").jump({ pattern = vim.fn.expand("<cword>") })
+end
+local function _13_()
     local p_7_auto = require("nvim-autopairs")
     return p_7_auto.setup({
         check_ts = true,
@@ -43,7 +66,7 @@ local function _8_()
         enable_check_bracket_line = true,
     })
 end
-local function _9_()
+local function _14_()
     local p_7_auto = require("nvim-highlight-colors")
     return p_7_auto.setup({
         render = "virtual",
@@ -53,17 +76,17 @@ local function _9_()
         virtual_symbol_position = "inline",
     })
 end
-local function _10_()
+local function _15_()
     local p_8_auto = require("nvim-surround")
     return p_8_auto.setup()
 end
-local function _11_(_)
+local function _16_(_)
     vim.g.startuptime_event_width = 0
     vim.g.startuptime_tries = 10
     vim.g.startuptime_exe_path = nixCats.packageBinPath
     return nil
 end
-local function _12_()
+local function _17_()
     local which_key = require("which-key")
     which_key.setup({ preset = "helix", delay = 500 })
     return which_key.add({
@@ -92,21 +115,27 @@ return {
     { "foldtext-nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" },
     { "indent-blankline.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
-        "leap.nvim",
+        "flash.nvim",
         after = _7_,
-        event = "CursorMoved",
         for_cat = "general.always",
-        keys = { { "s", "<Plug>(leap)", desc = "Leap!", mode = { "n", "x", "o" } } },
+        keys = {
+            { "s", _8_, desc = "Jump", mode = { "n", "x", "o" } },
+            { "S", _9_, desc = "Jump treesitter", mode = { "n", "x", "o" } },
+            { "r", _10_, mode = { "o" } },
+            { "R", _11_, mode = { "o", "x" } },
+            { "L", _12_, mode = { "n" } },
+        },
+        on_require = "flash",
     },
-    { "nvim-autopairs", after = _8_, event = "InsertEnter", for_cat = "general.always" },
-    { "nvim-highlight-colors", after = _9_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "nvim-surround", after = _10_, event = "CursorMoved", for_cat = "general.always" },
+    { "nvim-autopairs", after = _13_, event = "InsertEnter", for_cat = "general.always" },
+    { "nvim-highlight-colors", after = _14_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "nvim-surround", after = _15_, event = "CursorMoved", for_cat = "general.always" },
     {
         "undotree",
         cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
         for_cat = "general.extra",
         keys = { { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree", mode = { "n" } } },
     },
-    { "vim-startuptime", before = _11_, cmd = { "StartupTime" }, for_cat = "general.extra" },
-    { "which-key.nvim", after = _12_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "vim-startuptime", before = _16_, cmd = { "StartupTime" }, for_cat = "general.extra" },
+    { "which-key.nvim", after = _17_, event = "DeferredUIEnter", for_cat = "general.extra" },
 }

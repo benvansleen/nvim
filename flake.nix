@@ -313,7 +313,7 @@
               ];
               always = with pkgs.vimPlugins; [
                 comment-nvim
-                leap-nvim
+                flash-nvim
                 nvim-autopairs
                 nvim-lspconfig
                 nvim-surround

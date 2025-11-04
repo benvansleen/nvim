@@ -32,7 +32,7 @@ require("nixCatsUtils.catPacker").setup({
 
     { "OXY2DEV/helpview.nvim" },
 
-    { "ggandor/leap.nvim", opt = true },
+    { "folke/flash.nvim", opt = true },
     { "gpanders/nvim-parinfer", opt = true },
     { "numToStr/Navigator.nvim", opt = true },
     { "sphamba/smear-cursor.nvim", opt = true },

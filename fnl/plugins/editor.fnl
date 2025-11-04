@@ -26,14 +26,35 @@
       :after #(setup :ibl {:exclude {:filetypes [:dashboard :fennel]}
                            :scope {:enabled true}
                            :indent {:char "│"}})})
- (tb :leap.nvim
+ (tb :flash.nvim
      {:for_cat :general.always
-      :event :CursorMoved
-      :keys [(tb :s "<Plug>(leap)" {:mode [:n :x :o] :desc :Leap!})]
-      :after #(with-require {: leap}
-                (set leap.opts.safe_labels "")
-                (set leap.opts.preview false)
-                (vim.api.nvim_set_hl 0 :LeapBackdrop {:link :Comment}))})
+      :on_require :flash
+      :keys [(tb :s #(require-and-call :flash :jump)
+                 {:mode [:n :x :o] :desc :Jump})
+             (tb :S #(require-and-call :flash :treesitter)
+                 {:mode [:n :x :o] :desc "Jump treesitter"})
+             (tb :r #(require-and-call :flash :remote) {:mode [:o]})
+             (tb :R #(require-and-call :flash :treesitter_search)
+                 {:mode [:o :x]})
+             (tb :L
+                 #(require-and-call :flash :jump
+                                    {:pattern (vim.fn.expand :<cword>)})
+                 {:mode [:n]})]
+      :after #(setup :flash
+                     {:labels :asdfghjklqwertyuiop
+                      :jump {:autojump false}
+                      :label {:uppercase false
+                              :style :inline
+                              :rainbow {:enabled true}}
+                      :modes {:char {:enabled false}
+                              :search {:enabled false}
+                              :treesitter {:label {:before true
+                                                   :after false
+                                                   :style :overlay}
+                                           :jump {:pos :start}}
+                              :treesitter_search {:label {:before false
+                                                          :after true
+                                                          :style :overlay}}}})})
  (tb :nvim-autopairs
      {:for_cat :general.always
       :event :InsertEnter
