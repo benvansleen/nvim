@@ -16,8 +16,8 @@ local function _1_()
             layout_config = {
                 horizontal = {
                     prompt_position = "top",
-                    width = { padding = 1 },
-                    height = { padding = 1 },
+                    width = { padding = 5 },
+                    height = { padding = 2 },
                     preview_width = 0.5,
                 },
                 vertical = {

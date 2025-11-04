@@ -52,8 +52,8 @@
      :after (with-require- {: telescope}
               (telescope.setup {:defaults {:border true
                                            :layout_config {:horizontal {:prompt_position :top
-                                                                        :width {:padding 1}
-                                                                        :height {:padding 1}
+                                                                        :width {:padding 5}
+                                                                        :height {:padding 2}
                                                                         :preview_width 0.5}
                                                            :vertical {:prompt_position :top
                                                                       :width {:padding 0.02}
