@@ -131,12 +131,7 @@ statuscolumn.folds = function(buf_ft)
         end
         return ("%@v:lua.click_handler@" .. _10_)
     end
-    if
-        vim.tbl_contains(
-            { "dap-repl", "dap-view", "dap-view-term", "TelescopePrompt", "NeogitStatus", "startuptime" },
-            buf_ft
-        )
-    then
+    if vim.tbl_contains({ "dap-repl", "dap-view", "dap-view-term", "TelescopePrompt", "startuptime" }, buf_ft) then
         return " "
     else
         return calc_folds()

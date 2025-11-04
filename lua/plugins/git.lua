@@ -9,14 +9,7 @@ local function _1_()
         process_spinner = true,
         mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
         integrations = { telescope = true, diffview = true },
-        signs = {
-            hunk = { "", "" },
-            item = { "\226\150\182", "\226\150\189" },
-            section = {
-                "\226\150\182",
-                "\226\150\189",
-            },
-        },
+        signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
     })
 end
 local function _2_()

@@ -17,8 +17,8 @@
                                          :popup {:p :PushPopup :F :PullPopup}}
                               :integrations {:telescope true :diffview true}
                               :signs {:hunk ["" ""]
-                                      :item ["▶" "▽"]
-                                      :section ["▶" "▽"]}})})
+                                      :item ["" ""]
+                                      :section ["" ""]}})})
  (tb :diffview.nvim {:for_cat :general.git
                      :cmd [:DiffviewOpen :DiffviewFileHistory]
                      :after (setup- :diffview

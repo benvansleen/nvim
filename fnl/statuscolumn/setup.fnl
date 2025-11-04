@@ -108,7 +108,6 @@
                            :dap-view
                            :dap-view-term
                            :TelescopePrompt
-                           :NeogitStatus
                            :startuptime] (calc-folds)))
 
 (fn statuscolumn.signs [buf-ft]
