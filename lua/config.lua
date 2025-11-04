@@ -73,6 +73,15 @@ local function _8_()
     return vim.api.nvim_buf_delete(0, {})
 end
 local function _9_()
+    local cats_20_auto = require("nixCatsUtils")
+    if not cats_20_auto.isNixCats then
+        local _ = require("non_nix_download")
+        return vim.cmd("PaqSync")
+    else
+        return nil
+    end
+end
+local function _11_()
     return vim.highlight.on_yank()
 end
 do
@@ -133,6 +142,7 @@ do
                 "<cmd>Inspect<CR>",
                 { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
             ),
+            vim.keymap.set("n", "<leader>LP", _9_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true }),
         },
         { vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true }) },
         {
@@ -147,7 +157,7 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _11_ }
             ),
         },
     }
