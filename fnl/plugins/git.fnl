@@ -1,10 +1,11 @@
-(import-macros {: tb : setup- : require-and-call-} :macros)
+(import-macros {: tb : setup- : require-and-call : require-and-call-} :macros)
 
 [(tb :neogit {:for_cat :general.git
               :cmd [:Neogit]
+              :on_require :neogit
               :keys [(tb :<leader><leader>g
                          (require-and-call- :neogit :open
-                                            {:cwd "%:p:h" :kind :auto})
+                                            {:cwd "%:p:h" :kind :replace})
                          {:mode [:n] :desc "Open Neogit"})]
               :after (setup- :neogit
                              {:auto_refresh true

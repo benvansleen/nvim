@@ -20,7 +20,7 @@ local function _1_()
     })
 end
 local function _2_()
-    return require("neogit").open({ cwd = "%:p:h", kind = "auto" })
+    return require("neogit").open({ cwd = "%:p:h", kind = "replace" })
 end
 local function _3_()
     local p_7_auto = require("diffview")
@@ -92,6 +92,7 @@ return {
         cmd = { "Neogit" },
         for_cat = "general.git",
         keys = { { "<leader><leader>g", _2_, desc = "Open Neogit", mode = { "n" } } },
+        on_require = "neogit",
     },
     { "diffview.nvim", after = _3_, cmd = { "DiffviewOpen", "DiffviewFileHistory" }, for_cat = "general.git" },
     {

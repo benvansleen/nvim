@@ -6,32 +6,6 @@
                 : with-require
                 : with-require-} :macros)
 
-(let [theme-name :gruvbox-material
-      contrast :medium
-      colors (with-require {colors :gruvbox-material.colors}
-               (colors.get vim.o.background contrast))]
-  (setup theme-name {:italics true
-                     : contrast
-                     :comments {:italics true}
-                     :background {:transparent false}
-                     :customize (fn [g o]
-                                  (when (or (= g :TelescopeBorder)
-                                            (= g :TelescopeNormal)
-                                            (= g :TelescopePromptNormal)
-                                            (= g :TelescopePromptBorder)
-                                            (= g :TelescopePromptTitle)
-                                            (= g :TelescopePreviewTitle)
-                                            (= g :TelescopeResultsTitle))
-                                    (set o.link nil)
-                                    (set o.bg colors.bg0)
-                                    (set o.fg colors.bg0))
-                                  (when (or (= g :GreenSign) (= g :RedSign)
-                                            (= g :BlueSign))
-                                    (set o.bg colors.bg0))
-                                  (when (or (= g :Folded) (= g :FoldColumn))
-                                    (set o.bg colors.bg0))
-                                  o)}))
-
 [(tb :dashboard-nvim
      {:for_cat :general.extra
       :event :VimEnter

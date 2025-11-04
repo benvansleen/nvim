@@ -81,18 +81,24 @@ statuscolumn.number = function(_)
     end
 end
 statuscolumn["center-buffer"] = function(buf_ft)
-    local factor = 3
-    local winwidth = vim.api.nvim_win_get_width(0)
-    local buf_specific_adjustment
-    do
-        local _ = buf_ft
-        buf_specific_adjustment = 0
+    local function center_buffer()
+        local factor = 3
+        local buf_specific_adjustment
+        do
+            local _ = buf_ft
+            buf_specific_adjustment = 0
+        end
+        local screen_width = ((vim.g.my_center_buffer_screen_width or winwidth) + buf_specific_adjustment)
+        if vim.g.my_center_buffer and (count_windows() == 1) and (vim.o.columns > (screen_width / factor)) then
+            return string.rep(" ", ((screen_width - 88) / factor))
+        else
+            return " "
+        end
     end
-    local screen_width = ((vim.g.my_center_buffer_screen_width or winwidth) + buf_specific_adjustment)
-    if vim.g.my_center_buffer and (count_windows() == 1) and (winwidth > (screen_width / factor)) then
-        return string.rep(" ", ((screen_width - 88) / factor))
-    else
+    if vim.tbl_contains({ "TelescopePrompt" }, buf_ft) then
         return " "
+    else
+        return center_buffer()
     end
 end
 _G.click_handler = function()
@@ -105,25 +111,25 @@ statuscolumn.folds = function(buf_ft)
         local foldlevel_after =
             vim.fn.foldlevel(((((vim.v.lnum + 1) <= vim.fn.line("$")) and (vim.v.lnum + 1)) or vim.fn.line("$")))
         local foldclosed = vim.fn.foldclosed(vim.v.lnum)
-        local _9_
+        local _10_
         if (vim.v.virtnum ~= 0) or (foldlevel == 0) then
-            _9_ = " "
+            _10_ = " "
         else
             if (foldclosed ~= -1) and (foldclosed == vim.v.lnum) then
-                _9_ = "\226\150\182"
+                _10_ = "\226\150\182"
             else
                 if foldlevel > foldlevel_before then
-                    _9_ = "\226\150\189"
+                    _10_ = "\226\150\189"
                 else
                     if foldlevel > foldlevel_after then
-                        _9_ = "\226\149\176"
+                        _10_ = "\226\149\176"
                     else
-                        _9_ = "\226\148\130"
+                        _10_ = "\226\148\130"
                     end
                 end
             end
         end
-        return ("%@v:lua.click_handler@" .. _9_)
+        return ("%@v:lua.click_handler@" .. _10_)
     end
     if
         vim.tbl_contains(
@@ -136,20 +142,24 @@ statuscolumn.folds = function(buf_ft)
         return calc_folds()
     end
 end
-statuscolumn.defaults = function(_)
-    return "%l%s"
+statuscolumn.signs = function(buf_ft)
+    if vim.tbl_contains({ "TelescopePrompt" }, buf_ft) then
+        return " "
+    else
+        return "%s"
+    end
 end
 statuscolumn.init = function()
     local buf_ft
-    local function _15_(buf)
-        return vim.api.nvim_get_option_value("filetype", { buf = buf })
+    local function _17_(_241)
+        return vim.api.nvim_get_option_value("filetype", { buf = _241 })
     end
-    buf_ft = _15_(vim.api.nvim_get_current_buf())
+    buf_ft = _17_(vim.api.nvim_get_current_buf())
     statuscolumn.highlights()
     return (
         table.concat({
             statuscolumn["center-buffer"](buf_ft),
-            "%s",
+            statuscolumn.signs(buf_ft),
             statuscolumn.folds(buf_ft),
             "%l",
             statuscolumn.border(buf_ft),
@@ -159,27 +169,31 @@ statuscolumn.init = function()
 end
 statuscolumn.activate = "%!v:lua.require('statuscolumn.setup').init()"
 local function force_statuscolumn_redraw()
-    vim.wo.statuscolumn = statuscolumn.activate
-    return nil
+    if vim.bo.filetype ~= "dashboard" then
+        vim.wo.statuscolumn = statuscolumn.activate
+        return nil
+    else
+        return nil
+    end
 end
 local function update_screen_width()
     vim.g.my_center_buffer_screen_width = vim.api.nvim_win_get_width(0)
     return nil
 end
 vim.g["my_center_buffer"] = true
-vim.g["my_center_buffer_screen_width"] = vim.api.nvim_win_get_width(0)
+vim.g["my_center_buffer_screen_width"] = vim.o.columns
 vim.g["_debug_my_center_buffer"] = false
-local function _16_()
+local function _19_()
     vim.g.my_center_buffer = not vim.g.my_center_buffer
     update_screen_width()
     return force_statuscolumn_redraw()
 end
-local function _17_()
+local function _20_()
     vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
     update_screen_width()
     return force_statuscolumn_redraw()
 end
-local function _18_()
+local function _21_()
     update_screen_width()
     return force_statuscolumn_redraw()
 end
@@ -187,15 +201,12 @@ do
     local _ = {
         { nil, nil, nil },
         {
-            vim.keymap.set("n", "<leader>tc", _16_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
-            vim.keymap.set("n", "<leader>tC", _17_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
+            vim.keymap.set("n", "<leader>tc", _19_, { desc = "[T]oggle [c]enter-buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>tC", _20_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
         },
         {
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter", "BufWinLeave", "WinEnter", "WinLeave" },
-                { callback = force_statuscolumn_redraw }
-            ),
-            vim.api.nvim_create_autocmd({ "WinResized", "VimResized" }, { callback = _18_ }),
+            vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, { callback = force_statuscolumn_redraw }),
+            vim.api.nvim_create_autocmd({ "WinNew", "WinEnter", "WinResized", "VimResized" }, { callback = _21_ }),
         },
     }
 end

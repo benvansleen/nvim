@@ -1,5 +1,8 @@
-(import-macros {: tb : require-and-call- : with-require : with-require-}
-               :macros)
+(import-macros {: tb
+                : require-and-call
+                : require-and-call-
+                : with-require
+                : with-require-} :macros)
 
 (tb :telescope.nvim
     {:for_cat :general.telescope
@@ -49,25 +52,28 @@
      :after (with-require- {: telescope}
               (telescope.setup {:defaults {:border true
                                            :layout_config {:horizontal {:prompt_position :top
-                                                                        :width {:padding 0}
-                                                                        :height {:padding 0}
+                                                                        :width {:padding 1}
+                                                                        :height {:padding 1}
                                                                         :preview_width 0.5}
                                                            :vertical {:prompt_position :top
                                                                       :width {:padding 0.02}
                                                                       :height {:padding 0}
                                                                       :preview_height 0.6
                                                                       :preview_cutoff 12}}
-                                           :layout_strategy :horizontal
+                                           :layout_strategy :flex
                                            :path_display [:filename_first]
                                            :prompt_prefix " "
-                                           :prompt_title false
-                                           :results_title false
-                                           :selection_caret " "
+                                           :dynamic_preview_title true
+                                           :selection_caret "  "
                                            :sorting_strategy :ascending}
                                 :extensions {:ui-select [(with-require {themes :telescope.themes}
                                                            (themes.get_cursor))]
-                                             :cmdline {:picker (with-require {themes :telescope.themes}
-                                                                 (themes.get_ivy {:layout_config {:height 0.3}}))
+                                             :cmdline {:picker {:layout_strategy :vertical
+                                                                :layout_config {:prompt_position :top
+                                                                                :anchor :SW
+                                                                                :width {:padding 0}}
+                                                                :prompt_title false
+                                                                :results_title false}
                                                        :mappings {:run_input :<M-CR>}
                                                        :output_pane {:enabled true}}
                                              :file_browser (let [fb telescope.extensions.file_browser.actions]
@@ -80,4 +86,5 @@
               (telescope.load_extension :fzf)
               (telescope.load_extension :file_browser)
               (telescope.load_extension :cmdline)
-              (telescope.load_extension :zoxide))})
+              (telescope.load_extension :zoxide)
+              (require-and-call :theme :set-telescope-highlights))})

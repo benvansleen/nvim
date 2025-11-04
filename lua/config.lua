@@ -78,7 +78,14 @@ end
 do
     local _ = {
         { nil, nil, nil, nil, nil, nil },
-        { require("clipboard"), require("lsp"), require("lib"), require("statuscolumn"), require("plugins") },
+        {
+            require("clipboard"),
+            require("lsp"),
+            require("lib"),
+            require("statuscolumn"),
+            require("plugins"),
+            require("theme"),
+        },
         { _1_, _3_, _5_(...) },
         {
             nil,

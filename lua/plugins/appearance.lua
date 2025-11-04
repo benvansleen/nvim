@@ -1,47 +1,5 @@
 -- [nfnl] fnl/plugins/appearance.fnl
-do
-    local theme_name = "gruvbox-material"
-    local contrast = "medium"
-    local colors
-    do
-        local colors0 = require("gruvbox-material.colors")
-        colors = colors0.get(vim.o.background, contrast)
-    end
-    local p_7_auto = require(theme_name)
-    local function _1_(g, o)
-        if
-            (g == "TelescopeBorder")
-            or (g == "TelescopeNormal")
-            or (g == "TelescopePromptNormal")
-            or (g == "TelescopePromptBorder")
-            or (g == "TelescopePromptTitle")
-            or (g == "TelescopePreviewTitle")
-            or (g == "TelescopeResultsTitle")
-        then
-            o.link = nil
-            o.bg = colors.bg0
-            o.fg = colors.bg0
-        else
-        end
-        if (g == "GreenSign") or (g == "RedSign") or (g == "BlueSign") then
-            o.bg = colors.bg0
-        else
-        end
-        if (g == "Folded") or (g == "FoldColumn") then
-            o.bg = colors.bg0
-        else
-        end
-        return o
-    end
-    p_7_auto.setup({
-        italics = true,
-        contrast = contrast,
-        comments = { italics = true },
-        background = { transparent = false },
-        customize = _1_,
-    })
-end
-local function _5_()
+local function _1_()
     local dashboard = require("dashboard")
     dashboard.setup({
         theme = "hyper",
@@ -75,7 +33,7 @@ local function _5_()
     vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
     return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
 end
-local function _6_()
+local function _2_()
     local p_7_auto = require("smear_cursor")
     return p_7_auto.setup({
         smear_between_buffers = true,
@@ -84,11 +42,11 @@ local function _6_()
         smear_insert_mode = true,
     })
 end
-local function _7_()
+local function _3_()
     local p_7_auto = require("helpview")
     return p_7_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
 end
-local function _8_()
+local function _4_()
     local focus = require("focus")
     focus.setup({
         enable = true,
@@ -100,11 +58,11 @@ local function _8_()
     local ignore_filetypes = { "TelescopePrompt", "TelescopeResults", "dap-repl", "dap-view", "dap-view-term" }
     local ignore_buftypes = { "prompt", "popup" }
     local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-    local function _9_(_)
+    local function _5_(_)
         vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
         return nil
     end
-    local function _10_(_)
+    local function _6_(_)
         vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
         return nil
     end
@@ -112,33 +70,33 @@ local function _8_()
         {
             vim.api.nvim_create_autocmd(
                 "WinEnter",
-                { desc = "Disable focus autoresize for BufType", callback = _9_, group = augroup }
+                { desc = "Disable focus autoresize for BufType", callback = _5_, group = augroup }
             ),
             vim.api.nvim_create_autocmd(
                 "FileType",
-                { desc = "Disable focus autoresize for FileType", callback = _10_, group = augroup }
+                { desc = "Disable focus autoresize for FileType", callback = _6_, group = augroup }
             ),
         },
     }
 end
-local function _11_()
+local function _7_()
     return require("focus").split_nicely()
 end
 return {
     {
         "dashboard-nvim",
-        after = _5_,
+        after = _1_,
         event = "VimEnter",
         for_cat = "general.extra",
         keys = { { "<leader><leader>d", "<cmd>Dashboard<cr>", desc = "Open [D]ashboard" } },
     },
-    { "smear-cursor.nvim", after = _6_, event = "CursorMoved", for_cat = "general.extra" },
-    { "helpview.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "smear-cursor.nvim", after = _2_, event = "CursorMoved", for_cat = "general.extra" },
+    { "helpview.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
         "focus.nvim",
-        after = _8_,
+        after = _4_,
         event = "DeferredUIEnter",
         for_cat = "general.extra",
-        keys = { { "<leader>s", _11_, desc = "Open [S]plit" } },
+        keys = { { "<leader>s", _7_, desc = "Open [S]plit" } },
     },
 }

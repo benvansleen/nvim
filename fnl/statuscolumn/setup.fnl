@@ -69,16 +69,18 @@
         (string.format "%4d" linenum) "")))
 
 (fn statuscolumn.center-buffer [buf-ft]
-  (let [factor 3
-        winwidth (vim.api.nvim_win_get_width 0)
-        buf-specific-adjustment (case buf-ft
-                                  _ 0)
-        screen-width (+ (or vim.g.my_center_buffer_screen_width winwidth)
-                        buf-specific-adjustment)]
-    (if (and vim.g.my_center_buffer (= (count-windows) 1)
-             (> winwidth (/ screen-width factor)))
-        (string.rep " " (/ (- screen-width 88) factor))
-        " ")))
+  (fn center-buffer []
+    (let [factor 3
+          buf-specific-adjustment (case buf-ft
+                                    _ 0)
+          screen-width (+ (or vim.g.my_center_buffer_screen_width winwidth)
+                          buf-specific-adjustment)]
+      (if (and vim.g.my_center_buffer (= (count-windows) 1)
+               (> vim.o.columns (/ screen-width factor)))
+          (string.rep " " (/ (- screen-width 88) factor))
+          " ")))
+
+  (disable-for-fts buf-ft [:TelescopePrompt] (center-buffer)))
 
 (fn _G.click_handler []
   (vim.cmd "normal! za"))
@@ -109,15 +111,15 @@
                            :NeogitStatus
                            :startuptime] (calc-folds)))
 
-(fn statuscolumn.defaults [_]
-  "%l%s")
+(fn statuscolumn.signs [buf-ft]
+  (disable-for-fts buf-ft [:TelescopePrompt] "%s"))
 
 (fn statuscolumn.init []
   (let [buf-ft (-> (vim.api.nvim_get_current_buf)
-                   ((fn [buf] (vim.api.nvim_get_option_value :filetype {: buf}))))]
+                   (#(vim.api.nvim_get_option_value :filetype {:buf $1})))]
     (statuscolumn.highlights)
     (or (table.concat [(statuscolumn.center-buffer buf-ft)
-                       "%s"
+                       (statuscolumn.signs buf-ft)
                        (statuscolumn.folds buf-ft)
                        "%l"
                        (statuscolumn.border buf-ft)
@@ -126,7 +128,8 @@
 (set statuscolumn.activate "%!v:lua.require('statuscolumn.setup').init()")
 
 (fn force-statuscolumn-redraw []
-  (set vim.wo.statuscolumn statuscolumn.activate))
+  (when (not= vim.bo.filetype :dashboard)
+    (set vim.wo.statuscolumn statuscolumn.activate)))
 
 (fn update-screen-width []
   (set vim.g.my_center_buffer_screen_width (vim.api.nvim_win_get_width 0)))
@@ -139,12 +142,12 @@
 
 (config (g {my_center_buffer true
             _debug_my_center_buffer false
-            my_center_buffer_screen_width (vim.api.nvim_win_get_width 0)})
+            my_center_buffer_screen_width vim.o.columns})
         (nmap {["[T]oggle [c]enter-buffer" :<leader>tc] (toggle-mode- vim.g.my_center_buffer)
                ["[T]oggle [c]enter-buffer Debug Mode" :<leader>tC] (toggle-mode- vim.g._debug_my_center_buffer)})
-        (autocmd {[:BufEnter :BufWinEnter :BufWinLeave :WinEnter :WinLeave] {:callback force-statuscolumn-redraw}
-                  [:WinResized :VimResized] {:callback (fn []
-                                                         (update-screen-width)
-                                                         (force-statuscolumn-redraw))}}))
+        (autocmd {[:BufWinEnter :BufWinLeave] {:callback force-statuscolumn-redraw}
+                  [:WinNew :WinEnter :WinResized :VimResized] {:callback (fn []
+                                                                           (update-screen-width)
+                                                                           (force-statuscolumn-redraw))}}))
 
 statuscolumn
