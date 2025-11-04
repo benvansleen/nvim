@@ -37,7 +37,7 @@ local function _7_()
         modes = {
             char = { enabled = false },
             search = { enabled = false },
-            treesitter = { label = { before = true, style = "overlay", after = false }, jump = { pos = "start" } },
+            treesitter = { label = { before = true, style = "overlay", after = false }, jump = { pos = "range" } },
             treesitter_search = { label = { after = true, style = "overlay", before = false } },
         },
     })

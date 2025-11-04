@@ -51,7 +51,7 @@
                               :treesitter {:label {:before true
                                                    :after false
                                                    :style :overlay}
-                                           :jump {:pos :start}}
+                                           :jump {:pos :range}}
                               :treesitter_search {:label {:before false
                                                           :after true
                                                           :style :overlay}}}})})
