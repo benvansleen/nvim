@@ -34,6 +34,10 @@
       url = "github:jonarrien/telescope-cmdline.nvim";
       flake = false;
     };
+    "plugins-telescope-egrepify-nvim" = {
+      url = "github:fdschmidt93/telescope-egrepify.nvim";
+      flake = false;
+    };
 
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
@@ -300,6 +304,7 @@
               ];
               telescope = with pkgs.vimPlugins; [
                 pkgs.neovimPlugins.telescope-cmdline-nvim
+                pkgs.neovimPlugins.telescope-egrepify-nvim
                 telescope-file-browser-nvim
                 telescope-fzf-native-nvim
                 telescope-nvim

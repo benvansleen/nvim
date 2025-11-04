@@ -1,5 +1,9 @@
 (import-macros {: require-and-call : tb : with-require} :macros)
 
+;; telescope-egrepify-nvim relies on vim.tbl_flatten, which will be
+;; deprecated in nvim 0.13. Silence this warning for now.
+(set vim.deprecate #nil)
+
 (tb :telescope.nvim
     {:for_cat :general.telescope
      :cmd [:Telescope :LiveGrepGitRoot]
@@ -11,7 +15,7 @@
                 {:mode [:n] :desc "[F]ind [F]ile"})
             (tb :<leader>pf #(require-and-call :telescope.builtin :find_files)
                 {:mode [:n] :desc "Find [P]roject [F]ile"})
-            (tb :<leader>pw #(require-and-call :telescope.builtin :live_grep)
+            (tb :<leader>pw "<cmd>Telescope egrepify<cr>"
                 {:mode [:n] :desc "Find [P]roject [W]ord"})
             (tb :<leader>fh #(require-and-call :telescope.builtin :oldfiles)
                 {:mode [:n] :desc "[F]ind in file [H]istory"})
@@ -40,10 +44,11 @@
                 {:mode [:n] :desc "[G]o to [R]eferences"})]
      :load (fn [name]
              (vim.cmd.packadd name)
+             (vim.cmd.packadd :telescope-cmdline-nvim)
+             (vim.cmd.packadd :telescope-egrepify-nvim)
+             (vim.cmd.packadd :telescope-file-browser.nvim)
              (vim.cmd.packadd :telescope-fzf-native.nvim)
              (vim.cmd.packadd :telescope-ui-select.nvim)
-             (vim.cmd.packadd :telescope-file-browser.nvim)
-             (vim.cmd.packadd :telescope-cmdline-nvim)
              (vim.cmd.packadd :telescope-zoxide))
      :after #(with-require {: telescope}
                (telescope.setup {:defaults {:border true
@@ -72,15 +77,34 @@
                                                                  :results_title false}
                                                         :mappings {:run_input :<M-CR>}
                                                         :output_pane {:enabled true}}
+                                              :egrepify {:AND true
+                                                         :permutations true
+                                                         :lnum true
+                                                         :lnum_hl :EgrepifyLnum
+                                                         :col false
+                                                         :filename_hl "@keyword"
+                                                         :title false
+                                                         :prefixes {:! {:flag :invert-match}
+                                                                    :^ {:flag :invert-match}
+                                                                    "#" {:flag :glob
+                                                                         :cb #(string.format "*.{%s}"
+                                                                                             $1)}
+                                                                    :> {:flag :glob
+                                                                        :cb #(string.format "**/{%s}*/**"
+                                                                                            $1)}
+                                                                    :& {:flag :glob
+                                                                        :cb #(string.format "*{%s}*"
+                                                                                            $1)}}}
                                               :file_browser (let [fb telescope.extensions.file_browser.actions]
                                                               {:mappings {:i {:<left> fb.backspace}}})
                                               :fzf {:fuzzy true
                                                     :override_generic_sorter true
                                                     :override_file_sorter true
                                                     :case_mode :smart_case}}})
-               (telescope.load_extension :ui-select)
-               (telescope.load_extension :fzf)
-               (telescope.load_extension :file_browser)
                (telescope.load_extension :cmdline)
+               (telescope.load_extension :egrepify)
+               (telescope.load_extension :file_browser)
+               (telescope.load_extension :fzf)
+               (telescope.load_extension :ui-select)
                (telescope.load_extension :zoxide)
                (require-and-call :theme :set-telescope-highlights))})

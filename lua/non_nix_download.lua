@@ -47,6 +47,7 @@ require("nixCatsUtils.catPacker").setup({
 
     { "jvgrootveld/telescope-zoxide", opt = true },
     { "jonarrien/telescope-cmdline.nvim", opt = true, as = "telescope-cmdline-nvim" },
+    { "fdschmidt93/telescope-egrepify.nvim", opt = true, as = "telescope-egrepify-nvim" },
     { "nvim-telescope/telescope-file-browser.nvim", opt = true },
     { "nvim-telescope/telescope-fzf-native.nvim", build = ":!which make && make", opt = true },
     { "nvim-telescope/telescope-ui-select.nvim", opt = true },
