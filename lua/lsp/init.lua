@@ -1,17 +1,4 @@
 -- [nfnl] fnl/lsp/init.fnl
-vim.diagnostic.config({
-    virtual_lines = { current_line = true },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.INFO] = "",
-            [vim.diagnostic.severity.HINT] = "",
-        },
-        linehl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg" },
-        numhl = { [vim.diagnostic.severity.WARN] = "WarningMsg" },
-    },
-})
 local cats = require("nixCatsUtils")
 local lze = require("lze")
 local old_ft_fallback = lze.h.lsp.get_ft_fallback()
@@ -74,6 +61,7 @@ return lze.load({
     {
         "lua_ls",
         enabled = (nixCats("lua") or nixCats("neonixdev") or false),
+        ft = { "lua" },
         lsp = {
             filetypes = { "lua" },
             settings = {
@@ -87,12 +75,21 @@ return lze.load({
             },
         },
     },
-    { "fennel_ls", enabled = (nixCats("fnl") or false), lsp = { filetypes = { "fennel" }, settings = {} } },
-    { "rnix", enabled = not cats.isNixCats, lsp = { filetypes = { "nix" } } },
-    { "nil_ls", enabled = not cats.isNixCats, lsp = { filetypes = { "nix" } } },
+    {
+        "fennel_ls",
+        enabled = (nixCats("fnl") or false),
+        ft = { "fennel" },
+        lsp = {
+            filetypes = { "fennel" },
+            settings = {},
+        },
+    },
+    { "rnix", enabled = not cats.isNixCats, ft = { "nix" }, lsp = { filetypes = { "nix" } } },
+    { "nil_ls", enabled = not cats.isNixCats, ft = { "nix" }, lsp = { filetypes = { "nix" } } },
     {
         "nixd",
         enabled = (cats.isNixCats and (nixCats("nix") or nixCats("neonixdev") or false)),
+        ft = { "nix" },
         lsp = {
             filetypes = { "nix" },
             cmd_env = { NIX_PATH = "nixpkgs=flake:nixpkgs" },
@@ -110,6 +107,7 @@ return lze.load({
     {
         "basedpyright",
         enabled = (nixCats("python") or false),
+        ft = { "python" },
         lsp = {
             filetypes = { "python" },
             settings = {
@@ -122,6 +120,7 @@ return lze.load({
                             functionReturnTypes = true,
                             genericTypes = true,
                         },
+                        diagnosticSeverityOverrides = { reportMissingTypeStubs = false },
                     },
                 },
             },
@@ -131,6 +130,7 @@ return lze.load({
     {
         "ts_ls",
         enabled = (nixCats("typescript") or false),
+        ft = { "typescript" },
         lsp = {
             filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
             settings = {},
@@ -140,6 +140,7 @@ return lze.load({
     {
         "rust_analyzer",
         enabled = true,
+        ft = { "rust" },
         lsp = {
             filetypes = { "rust" },
             cmd = { "rust-analyzer" },

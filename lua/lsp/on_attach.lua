@@ -1,5 +1,18 @@
 -- [nfnl] fnl/lsp/on_attach.fnl
 local function _1_(_, bufnr)
+    vim.diagnostic.config({
+        virtual_lines = { current_line = true },
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "",
+                [vim.diagnostic.severity.WARN] = "",
+                [vim.diagnostic.severity.INFO] = "",
+                [vim.diagnostic.severity.HINT] = "",
+            },
+            linehl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg" },
+            numhl = { [vim.diagnostic.severity.WARN] = "WarningMsg" },
+        },
+    })
     vim.lsp.inlay_hint.enable(true, nil, bufnr)
     local function map(mode, keys, func, desc)
         local _2_

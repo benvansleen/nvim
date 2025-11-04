@@ -1,17 +1,5 @@
 (import-macros {: setup : tb : with-require} :macros)
 
-(vim.diagnostic.config {:virtual_lines {:current_line true}
-                        :signs {:text {vim.diagnostic.severity.ERROR ""
-                                       ;""
-                                       vim.diagnostic.severity.WARN ""
-                                       ;" "
-                                       vim.diagnostic.severity.INFO ""
-                                       ;" "
-                                       vim.diagnostic.severity.HINT ""}
-                                ;" "}
-                                :linehl {vim.diagnostic.severity.ERROR :ErrorMsg}
-                                :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
-
 (with-require {cats :nixCatsUtils : lze}
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
     (when (and cats.isNixCats (nixCats :lspDebugMode))
@@ -70,6 +58,7 @@
                                                         :/lua)}})})
                (tb :lua_ls
                    {:enabled (or (nixCats :lua) (nixCats :neonixdev) false)
+                    :ft [:lua]
                     :lsp {:filetypes [:lua]
                           :settings {:Lua {:runtime {:version :LuaJIT}
                                            :formatters {:ignoreComments true}
@@ -81,14 +70,19 @@
                                            :telemetry {:enabled false}}}}})
                (tb :fennel_ls
                    {:enabled (or (nixCats :fnl) false)
+                    :ft [:fennel]
                     :lsp {:filetypes [:fennel] :settings {}}})
                (tb :rnix {:enabled (not cats.isNixCats)
+                          :ft [:nix]
                           :lsp {:filetypes [:nix]}})
                (tb :nil_ls
-                   {:enabled (not cats.isNixCats) :lsp {:filetypes [:nix]}})
+                   {:enabled (not cats.isNixCats)
+                    :ft [:nix]
+                    :lsp {:filetypes [:nix]}})
                (tb :nixd
                    {:enabled (and cats.isNixCats
                                   (or (nixCats :nix) (nixCats :neonixdev) false))
+                    :ft [:nix]
                     :lsp {:filetypes [:nix]
                           :cmd_env {:NIX_PATH "nixpkgs=flake:nixpkgs"}
                           :settings {:nixd {:nixpkgs {:expr (or (nixCats.extra :nixdExtras.nixpkgs)
@@ -99,15 +93,18 @@
                                      :diagnostic {:suppress [:sema-escaping-with]}}}})
                (tb :basedpyright
                    {:enabled (or (nixCats :python) false)
+                    :ft [:python]
                     :lsp {:filetypes [:python]
                           :settings {:basedpyright {:analysis {:useTypingExtensions true
                                                                :inlayHints {:variableTypes true
                                                                             :callArgumentNames true
                                                                             :functionReturnTypes true
-                                                                            :genericTypes true}}}}
+                                                                            :genericTypes true}
+                                                               :diagnosticSeverityOverrides {:reportMissingTypeStubs false}}}}
                           :on_attach (require :lsp.on_attach)}})
                (tb :ts_ls
                    {:enabled (or (nixCats :typescript) false)
+                    :ft [:typescript]
                     :lsp {:filetypes [:javascript
                                       :javascriptreact
                                       :typescript
@@ -116,6 +113,7 @@
                           :on_attach (require :lsp.on_attach)}})
                (tb :rust_analyzer
                    {:enabled true
+                    :ft [:rust]
                     :lsp {:filetypes [:rust]
                           :cmd [:rust-analyzer]
                           :settings {:diagnostic {:enable true}
