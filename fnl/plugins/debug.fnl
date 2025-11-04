@@ -138,13 +138,20 @@
                                                         _stackframe
                                                         _node
                                                         options]
-                                                     (if (= options.virt_text_pos
-                                                            :inline)
-                                                         (.. " = "
-                                                             variable.value)
-                                                         (.. variable.name
-                                                             " = "
-                                                             variable.value)))
+                                                     (let [value (if (> (length variable.value)
+                                                                        30)
+                                                                     (.. (variable.value:sub 1
+                                                                                             15)
+                                                                         "..."
+                                                                         (variable.value:sub (- (length variable.value)
+                                                                                                15)
+                                                                                             (length variable.value)))
+                                                                     variable.value)]
+                                                       (if (= options.virt_text_pos
+                                                              :inline)
+                                                           (.. " = " value)
+                                                           (.. variable.name
+                                                               " = " value))))
                                  :virt_text_pos (if (= (vim.fn.has :nvim-0.10)
                                                        1)
                                                     :inline
