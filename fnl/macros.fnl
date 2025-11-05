@@ -105,12 +105,18 @@
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))
 
-(fn unless-nix [& body]
+(fn check-nix [bool & body]
   `(do
      (import-macros {: with-require} :macros)
      (with-require {cats# :nixCatsUtils}
-       (when (not cats#.isNixCats)
+       (when (= ,bool cats#.isNixCats)
          ,(unpack body)))))
+
+(fn unless-nix [...]
+  (check-nix false ...))
+
+(fn when-nix [...]
+  (check-nix true ...))
 
 {: config
  : dot-repeatable
@@ -120,5 +126,6 @@
  : tb
  : unless-nix
  : when-let
+ : when-nix
  : with-preserve-position
  : with-require}

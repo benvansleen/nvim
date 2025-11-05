@@ -74,7 +74,7 @@ local function _8_()
 end
 local function _9_()
     local cats_20_auto = require("nixCatsUtils")
-    if not cats_20_auto.isNixCats then
+    if false == cats_20_auto.isNixCats then
         local _ = require("non_nix_download")
         return vim.cmd("PaqSync")
     else
@@ -167,7 +167,7 @@ if nixCats("number-toggle") then
 else
 end
 local cats_20_auto = require("nixCatsUtils")
-if not cats_20_auto.isNixCats then
+if false == cats_20_auto.isNixCats then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

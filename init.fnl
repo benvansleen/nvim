@@ -1,5 +1,5 @@
-(import-macros {: config : setup} :macros)
+(import-macros {: config : setup : when-nix} :macros)
 
-(vim.loader.enable)
+(when-nix (vim.loader.enable))
 (setup :nixCatsUtils {:non_nix_value true})
 (config (requires [:config]))

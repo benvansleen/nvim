@@ -202,7 +202,7 @@ local function _26_(name)
     vim.cmd.packadd("nvim-dap-python")
     vim.cmd.packadd("nvim-dap-repl-highlights")
     local cats_20_auto = require("nixCatsUtils")
-    if not cats_20_auto.isNixCats then
+    if false == cats_20_auto.isNixCats then
         return vim.cmd.packadd("mason-nvim-dap.nvim")
     else
         return nil
