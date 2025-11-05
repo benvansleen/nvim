@@ -36,15 +36,15 @@
              (tb :r #(require-and-call :flash :remote)
                  {:mode [:o] :desc "Flash treesitter node"})
              (tb :R #(require-and-call :flash :treesitter_search)
-                 {:mode [:o :x]} :desc "Flash treesitter search")
+                 {:mode [:o :x] :desc "Flash treesitter search"})
              (tb :f #(require-and-call :flash.plugins.char :jump)
-                 {:mode [:n :x :o]})
+                 {:mode [:n :x :o] :desc "Flash find next"})
              (tb :t #(require-and-call :flash.plugins.char :jump)
-                 {:mode [:n :x :o]})
+                 {:mode [:n :x :o] :desc "Flash up to"})
              (tb :F #(require-and-call :flash.plugins.char :jump)
-                 {:mode [:n :x :o]})
+                 {:mode [:n :x :o] :desc "Flash find previous"})
              (tb :T #(require-and-call :flash.plugins.char :jump)
-                 {:mode [:n :x :o]})
+                 {:mode [:n :x :o] :desc "Flash find previous up to"})
              (tb :L
                  #(require-and-call :flash :jump
                                     {:pattern (vim.fn.expand :<cword>)})
@@ -70,8 +70,8 @@
                                                    :after false
                                                    :style :overlay}
                                            :jump {:pos :range}}
-                              :treesitter_search {:label {:before false
-                                                          :after true
+                              :treesitter_search {:label {:before true
+                                                          :after false
                                                           :style :overlay}}}})})
  (tb :nvim-autopairs
      {:for_cat :general.always
