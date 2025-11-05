@@ -3,7 +3,7 @@
 
 [(tb :dashboard-nvim
      {:for_cat :general.extra
-      :event :VimEnter
+      :event :DeferredUIEnter
       :keys [(tb :<leader><leader>d :<cmd>Dashboard<cr>
                  {:desc "Open [D]ashboard"})]
       :after #(with-require {: dashboard}

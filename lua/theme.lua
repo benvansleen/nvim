@@ -41,21 +41,24 @@ local function set_telescope_highlights()
     local bg4 = palette.bg4
     local blue = palette.blue
     local green = palette.green
-    local dark_hard_bg
-    do
+    local function _5_()
         local colors = require("gruvbox-material.colors")
-        dark_hard_bg = colors.get(vim.o.background, "hard").bg0
+        return colors.get(vim.o.background, "hard")
     end
+    local _let_6_ = _5_()
+    local dark_hard_bg0 = _let_6_.bg0
     local hl
-    local function _5_(_241, _242)
+    local function _7_(_241, _242)
         return vim.api.nvim_set_hl(0, _241, _242)
     end
-    hl = _5_
+    hl = _7_
     hl("TelescopePromptNormal", { bg = bg4, link = nil })
     hl("TelescopePromptBorder", { fg = bg4, bg = bg4, link = nil })
-    hl("TelescopeNormal", { bg = dark_hard_bg, link = nil })
+    hl("TelescopeNormal", { bg = dark_hard_bg0, link = nil })
+    hl("TelescopeResultsNormal", { bg = dark_hard_bg0, link = nil })
+    hl("TelescopePreviewNormal", { bg = dark_hard_bg0, link = nil })
     hl("TelescopeSelection", { bold = true, bg = bg4, link = nil })
-    hl("TelescopeBorder", { fg = dark_hard_bg, bg = dark_hard_bg, link = nil })
+    hl("TelescopeBorder", { fg = dark_hard_bg0, bg = dark_hard_bg0, link = nil })
     hl("TelescopePromptTitle", { fg = bg4, bg = blue, link = nil })
     hl("TelescopeResultsTitle", { fg = bg4, bg = green, link = nil })
     return hl("TelescopePreviewTitle", { link = "TelescopeResultsTitle" })

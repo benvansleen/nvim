@@ -208,6 +208,7 @@
                 plenary-nvim
               ];
               extra = [
+                dashboard-nvim
                 nvim-web-devicons
               ];
             };
@@ -330,7 +331,6 @@
                 focus-nvim
                 helpview-nvim
                 indent-blankline-nvim
-                dashboard-nvim
                 oil-nvim
                 nvim-highlight-colors
                 pkgs.neovimPlugins.direnv-nvim

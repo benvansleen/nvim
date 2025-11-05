@@ -86,7 +86,7 @@ return {
     {
         "dashboard-nvim",
         after = _1_,
-        event = "VimEnter",
+        event = "DeferredUIEnter",
         for_cat = "general.extra",
         keys = { { "<leader><leader>d", "<cmd>Dashboard<cr>", desc = "Open [D]ashboard" } },
     },

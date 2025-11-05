@@ -1,4 +1,5 @@
 -- [nfnl] init.fnl
+vim.loader.enable()
 do
     local p_7_auto = require("nixCatsUtils")
     p_7_auto.setup({ non_nix_value = true })

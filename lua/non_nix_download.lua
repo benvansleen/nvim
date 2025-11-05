@@ -38,7 +38,7 @@ require("nixCatsUtils.catPacker").setup({
     { "sphamba/smear-cursor.nvim", opt = true },
     { "brenoprata10/nvim-highlight-colors", opt = true },
     { "nvim-focus/focus.nvim", opt = true },
-    { "nvimdev/dashboard-nvim", opt = true },
+    { "nvimdev/dashboard-nvim" },
 
     { "m-demare/hlargs.nvim", opt = true },
     { "RRethy/nvim-treesitter-textsubjects", opt = true },
