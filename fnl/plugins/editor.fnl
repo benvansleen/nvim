@@ -33,9 +33,18 @@
                  {:mode [:n :x :o] :desc :Jump})
              (tb :S #(require-and-call :flash :treesitter)
                  {:mode [:n :x :o] :desc "Jump treesitter"})
-             (tb :r #(require-and-call :flash :remote) {:mode [:o]})
+             (tb :r #(require-and-call :flash :remote)
+                 {:mode [:o] :desc "Flash treesitter node"})
              (tb :R #(require-and-call :flash :treesitter_search)
-                 {:mode [:o :x]})
+                 {:mode [:o :x]} :desc "Flash treesitter search")
+             (tb :f #(require-and-call :flash.plugins.char :jump)
+                 {:mode [:n :x :o]})
+             (tb :t #(require-and-call :flash.plugins.char :jump)
+                 {:mode [:n :x :o]})
+             (tb :F #(require-and-call :flash.plugins.char :jump)
+                 {:mode [:n :x :o]})
+             (tb :T #(require-and-call :flash.plugins.char :jump)
+                 {:mode [:n :x :o]})
              (tb :L
                  #(require-and-call :flash :jump
                                     {:pattern (vim.fn.expand :<cword>)})
@@ -45,8 +54,17 @@
                       :jump {:autojump false}
                       :label {:uppercase false
                               :style :inline
+                              :after false
+                              :before true
                               :rainbow {:enabled true}}
-                      :modes {:char {:enabled false}
+                      :modes {:char {:enabled true
+                                     :autohide true
+                                     :jump_labels true
+                                     :multi_line false
+                                     :char_actions #{:f :right
+                                                     :t :right
+                                                     :F :left
+                                                     :T :left}}
                               :search {:enabled false}
                               :treesitter {:label {:before true
                                                    :after false
