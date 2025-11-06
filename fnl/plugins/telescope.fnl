@@ -1,4 +1,4 @@
-(import-macros {: require-and-call : tb : with-require} :macros)
+(import-macros {: config : require-and-call : tb : with-require} :macros)
 
 ;; telescope-egrepify-nvim relies on vim.tbl_flatten, which will be
 ;; deprecated in nvim 0.13. Silence this warning for now.
@@ -49,8 +49,12 @@
              (vim.cmd.packadd :telescope-file-browser.nvim)
              (vim.cmd.packadd :telescope-fzf-native.nvim)
              (vim.cmd.packadd :telescope-ui-select.nvim)
+             (vim.cmd.packadd :telescope-zf-native.nvim)
              (vim.cmd.packadd :telescope-zoxide))
      :after #(with-require {: telescope}
+               (config (autocmd {[:User] {:pattern :TelescopeFindPre
+                                          :callback #(set vim.g._start_buf
+                                                          (vim.api.nvim_get_current_buf))}}))
                (telescope.setup {:defaults {:border true
                                             :layout_config {:horizontal {:prompt_position :top
                                                                          :width {:padding 5}
@@ -101,12 +105,24 @@
                                                                :follow_symlinks true})
                                               :fzf {:fuzzy true
                                                     :override_generic_sorter true
-                                                    :override_file_sorter true
-                                                    :case_mode :smart_case}}})
+                                                    :override_file_sorter false
+                                                    :case_mode :smart_case}
+                                              :zf-native {:file {:enable true
+                                                                 :initial_sort #(let [pattern (-> vim.g._start_buf
+                                                                                                  vim.api.nvim_buf_get_name
+                                                                                                  (vim.fn.fnamemodify ":e")
+                                                                                                  (#(.. "%."
+                                                                                                        $1
+                                                                                                        "$")))]
+                                                                                  (if ($1:match pattern)
+                                                                                      0
+                                                                                      1))}
+                                                          :generic {:enable false}}}})
                (telescope.load_extension :cmdline)
                (telescope.load_extension :egrepify)
                (telescope.load_extension :file_browser)
                (telescope.load_extension :fzf)
                (telescope.load_extension :ui-select)
+               (telescope.load_extension :zf-native)
                (telescope.load_extension :zoxide)
                (require-and-call :theme :set-telescope-highlights))})

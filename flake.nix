@@ -311,6 +311,7 @@
                 telescope-fzf-native-nvim
                 telescope-nvim
                 telescope-ui-select-nvim
+                telescope-zf-native-nvim
                 telescope-zoxide
               ];
               always = with pkgs.vimPlugins; [
