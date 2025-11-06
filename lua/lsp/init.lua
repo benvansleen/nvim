@@ -120,6 +120,7 @@ return lze.load({
                             functionReturnTypes = true,
                             genericTypes = true,
                         },
+                        autoImportCompletions = true,
                         diagnosticSeverityOverrides = { reportMissingTypeStubs = false },
                     },
                 },

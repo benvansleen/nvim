@@ -12,4 +12,7 @@
                 {:desc "[F]ormat [F]ile"})]
      :after #(setup :conform
                     {:format_on_save {:timeout_ms 1000 :lsp_fallback :fallback}
-                     :formatters_by_ft {:fennel (tb :fnlfmt) :lua (tb :stylua)}})})
+                     :formatters_by_ft {:fennel (tb :fnlfmt)
+                                        :lua (tb :stylua)
+                                        :python (tb :ruff_format
+                                                    :ruff_organize_imports)}})})

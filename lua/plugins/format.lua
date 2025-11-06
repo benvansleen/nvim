@@ -3,7 +3,14 @@ local function _1_()
     local p_7_auto = require("conform")
     return p_7_auto.setup({
         format_on_save = { timeout_ms = 1000, lsp_fallback = "fallback" },
-        formatters_by_ft = { fennel = { "fnlfmt" }, lua = { "stylua" } },
+        formatters_by_ft = {
+            fennel = { "fnlfmt" },
+            lua = { "stylua" },
+            python = {
+                "ruff_format",
+                "ruff_organize_imports",
+            },
+        },
     })
 end
 local function _2_()

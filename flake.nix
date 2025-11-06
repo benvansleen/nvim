@@ -187,6 +187,7 @@
 
             python = with pkgs; [
               basedpyright
+              ruff
             ];
 
             typescript = with pkgs; [

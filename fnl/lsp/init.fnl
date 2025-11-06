@@ -100,6 +100,7 @@
                                                                             :callArgumentNames true
                                                                             :functionReturnTypes true
                                                                             :genericTypes true}
+                                                               :autoImportCompletions true
                                                                :diagnosticSeverityOverrides {:reportMissingTypeStubs false}}}}
                           :on_attach (require :lsp.on_attach)}})
                (tb :ts_ls
