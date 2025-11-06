@@ -1,6 +1,6 @@
-(import-macros {: require-and-call} :macros)
+(import-macros {: require-and-call : with-require} :macros)
 
-(fn [_ bufnr]
+(fn [client bufnr]
   (vim.diagnostic.config {:virtual_lines {:current_line true}
                           :signs {:text {vim.diagnostic.severity.ERROR ""
                                          vim.diagnostic.severity.WARN ""
@@ -9,6 +9,8 @@
                                   :linehl {vim.diagnostic.severity.ERROR :ErrorMsg}
                                   :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
   (vim.lsp.inlay_hint.enable true nil bufnr)
+  (with-require {: nvim-navic}
+    (nvim-navic.attach client bufnr))
 
   (fn map [mode keys func desc]
     (vim.keymap.set mode keys func

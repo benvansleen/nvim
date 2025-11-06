@@ -1,5 +1,5 @@
 -- [nfnl] fnl/lsp/on_attach.fnl
-local function _1_(_, bufnr)
+local function _1_(client, bufnr)
     vim.diagnostic.config({
         virtual_lines = { current_line = true },
         signs = {
@@ -14,6 +14,10 @@ local function _1_(_, bufnr)
         },
     })
     vim.lsp.inlay_hint.enable(true, nil, bufnr)
+    do
+        local nvim_navic = require("nvim-navic")
+        nvim_navic.attach(client, bufnr)
+    end
     local function map(mode, keys, func, desc)
         local _2_
         if desc then
@@ -42,7 +46,7 @@ local function _1_(_, bufnr)
         return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end
     nmap("<leader>wl", _4_, "[W]orkspace [L]ist Folders")
-    local function _5_(_0)
+    local function _5_(_)
         return vim.lsp.buf.format()
     end
     vim.api.nvim_buf_create_user_command(bufnr, "Format", _5_, { desc = "Format current buffer with LSP" })

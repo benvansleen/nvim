@@ -6,6 +6,7 @@
         (tail! (update-hl cur-hl.link opts))
         (vim.tbl_extend :force cur-hl opts))))
 
+(local hl (partial vim.api.nvim_set_hl 0))
 (local theme-name :gruvbox-material)
 (local contrast :medium)
 (local palette (with-require {colors :gruvbox-material.colors}
@@ -28,11 +29,14 @@
         :background {:transparent false}
         :customize (partial customize-colors palette)})
 
+(let [italic-nontext (update-hl :NonText {:italic true})]
+  (hl :WinBar (update-hl :NonText italic-nontext))
+  (hl :WinBarNC (update-hl :NonText italic-nontext)))
+
 (fn set-telescope-highlights []
   (let [{: bg4 : blue : green} palette
         {:bg0 dark-hard-bg0} (with-require {colors :gruvbox-material.colors}
-                               (colors.get vim.o.background :hard))
-        hl #(vim.api.nvim_set_hl 0 $1 $2)]
+                               (colors.get vim.o.background :hard))]
     (hl :TelescopePromptNormal {:bg bg4 :link nil})
     (hl :TelescopePromptBorder {:fg bg4 :bg bg4 :link nil})
     (hl :TelescopeNormal {:bg dark-hard-bg0 :link nil})

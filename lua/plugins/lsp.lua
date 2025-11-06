@@ -22,4 +22,15 @@ local function _4_()
     local p_7_auto = require("symbol-usage")
     return p_7_auto.setup({ text_format = text_format })
 end
-return { "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" }
+local function _5_()
+    do
+        local p_7_auto = require("nvim-navic")
+        p_7_auto.setup({ click = true, lsp = { auto_attach = true } })
+    end
+    vim.wo["winbar"] = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    return { { nil } }
+end
+return {
+    { "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" },
+    { "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" },
+}

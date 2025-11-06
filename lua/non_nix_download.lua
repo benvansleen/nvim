@@ -63,6 +63,7 @@ require("nixCatsUtils.catPacker").setup({
     { "williamboman/mason.nvim", opt = true },
     { "williamboman/mason-lspconfig.nvim", opt = true },
     { "j-hui/fidget.nvim", opt = true },
+    { "SmiteshP/nvim-navic", opt = true },
     { "neovim/nvim-lspconfig", opt = true },
     { "Wansmer/symbol-usage.nvim", opt = true },
 

@@ -251,6 +251,7 @@
               nvim-lint
             ];
             lsp = with pkgs.vimPlugins; [
+              nvim-navic
               symbol-usage-nvim
             ];
             lisp = with pkgs.vimPlugins; [
