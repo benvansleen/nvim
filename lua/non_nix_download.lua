@@ -28,7 +28,6 @@ require("nixCatsUtils.catPacker").setup({
     { "fdschmidt93/telescope-egrepify.nvim", opt = true, as = "telescope-egrepify-nvim" },
     { "nvim-telescope/telescope-file-browser.nvim", opt = true },
     { "nvim-telescope/telescope-fzf-native.nvim", build = ":!which make && make", opt = true },
-    { "natecraddock/telescope-zf-native.nvim", opt = true },
     { "nvim-telescope/telescope-ui-select.nvim", opt = true },
     { "nvim-telescope/telescope.nvim", opt = true },
 
