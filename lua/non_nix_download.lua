@@ -41,7 +41,7 @@ require("nixCatsUtils.catPacker").setup({
     { "nvim-telescope/telescope.nvim", opt = true },
 
     { "akinsho/toggleterm.nvim", opt = true },
-    { "NotAShelf/direnv.nvim", opt = true, as = "direnv-nvim" },
+    { "actionshrimp/direnv.nvim", opt = true, as = "direnv-nvim" },
     { "stevearc/oil.nvim", opt = true },
 
     -- lsp

@@ -19,7 +19,7 @@
     };
 
     "plugins-direnv-nvim" = {
-      url = "github:NotAShelf/direnv.nvim";
+      url = "github:actionshrimp/direnv.nvim";
       flake = false;
     };
     "plugins-foldtext-nvim" = {
@@ -307,6 +307,7 @@
               telescope = with pkgs.vimPlugins; [
                 pkgs.neovimPlugins.telescope-cmdline-nvim
                 pkgs.neovimPlugins.telescope-egrepify-nvim
+                project-nvim
                 telescope-file-browser-nvim
                 telescope-fzf-native-nvim
                 telescope-nvim
@@ -577,9 +578,11 @@
             hooks = {
               check-added-large-files.enable = true;
               check-merge-conflicts.enable = true;
+              deadnix.enable = false;
               detect-private-keys.enable = true;
               end-of-file-fixer.enable = true;
               ripsecrets.enable = true;
+              statix.enable = true;
               trim-trailing-whitespace.enable = true;
               treefmt = {
                 enable = true;

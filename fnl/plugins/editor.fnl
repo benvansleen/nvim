@@ -38,13 +38,13 @@
                             #(with-require {dial :dial.map}
                                (dial.manipulate :decrement :gvisual))
                             {:mode [:v] :desc :Increment})]})
- (tb :direnv-nvim
-     {:for_cat :general.extra
-      :event :DeferredUIEnter
-      :after #(when (= (vim.fn.executable :direnv) 1)
-                (require-and-call :direnv :setup
-                                  {:autoload_direnv true
-                                   :notifications {:silent_autoload true}}))})
+ (tb :direnv-nvim {:for_cat :general.extra
+                   :event :DeferredUIEnter
+                   :after #(when (= (vim.fn.executable :direnv) 1)
+                             (setup :direnv-nvim
+                                    {:async true
+                                     :on_direnv_finished #(vim.cmd :LspStart)
+                                     :type :buffer}))})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
                    :after #(setup :fidget)})

@@ -130,15 +130,15 @@
     "plugins-direnv-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1749467049,
-        "narHash": "sha256-KqO8uDbVy4sVVZ6mHikuO+SWCzWr97ZuFRC8npOPJIE=",
-        "owner": "NotAShelf",
+        "lastModified": 1759863545,
+        "narHash": "sha256-p2im4nUV0n9HQsjCA9oGJvTADfKGlCEr/RYWGlUszuU=",
+        "owner": "actionshrimp",
         "repo": "direnv.nvim",
-        "rev": "4dfc8758a1deab45e37b7f3661e0fd3759d85788",
+        "rev": "0d2edd378dbdf2c653869772d761ad914219ba9d",
         "type": "github"
       },
       "original": {
-        "owner": "NotAShelf",
+        "owner": "actionshrimp",
         "repo": "direnv.nvim",
         "type": "github"
       }
