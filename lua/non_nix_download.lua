@@ -1,28 +1,37 @@
 require("nixCatsUtils.catPacker").setup({
     { "BirdeeHub/lze" },
     { "BirdeeHub/lzextras" },
-    { "stevearc/oil.nvim" },
-    { "joshdick/onedark.vim" },
-    { "nvim-tree/nvim-web-devicons" },
     { "nvim-lua/plenary.nvim" },
-    { "tpope/vim-repeat" },
+
     { "f4z3r/gruvbox-material.nvim" },
-
+    { "nvim-tree/nvim-web-devicons" },
+    { "nvimdev/dashboard-nvim" },
+    { "sphamba/smear-cursor.nvim", opt = true },
     { "OXY2DEV/helpview.nvim", opt = true },
+    { "brenoprata10/nvim-highlight-colors", opt = true },
 
+    -- general editor
+    { "tpope/vim-repeat" },
     { "folke/flash.nvim", opt = true },
     { "gpanders/nvim-parinfer", opt = true },
-    { "numToStr/Navigator.nvim", opt = true },
-    { "sphamba/smear-cursor.nvim", opt = true },
-    { "brenoprata10/nvim-highlight-colors", opt = true },
-    { "nvim-focus/focus.nvim", opt = true },
-    { "nvimdev/dashboard-nvim" },
+    { "OXY2DEV/foldtext.nvim", opt = true, as = "foldtext-nvim" },
+    { "windwp/nvim-autopairs", opt = true },
+    { "lukas-reineke/indent-blankline.nvim", opt = true },
+    { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
+    { "kylechui/nvim-surround", opt = true },
+    { "monaqa/dial.nvim", opt = true },
 
+    -- splits & navigation
+    { "numToStr/Navigator.nvim", opt = true },
+    { "nvim-focus/focus.nvim", opt = true },
+
+    -- treesitter
     { "m-demare/hlargs.nvim", opt = true },
     { "RRethy/nvim-treesitter-textsubjects", opt = true },
     { "nvim-treesitter/nvim-treesitter-textobjects", opt = true },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
 
+    -- telescope
     { "jvgrootveld/telescope-zoxide", opt = true },
     { "jonarrien/telescope-cmdline.nvim", opt = true, as = "telescope-cmdline-nvim" },
     { "fdschmidt93/telescope-egrepify.nvim", opt = true, as = "telescope-egrepify-nvim" },
@@ -33,9 +42,7 @@ require("nixCatsUtils.catPacker").setup({
 
     { "akinsho/toggleterm.nvim", opt = true },
     { "NotAShelf/direnv.nvim", opt = true, as = "direnv-nvim" },
-
-    { "OXY2DEV/foldtext.nvim", opt = true, as = "foldtext-nvim" },
-    { "windwp/nvim-autopairs", opt = true },
+    { "stevearc/oil.nvim", opt = true },
 
     -- lsp
     { "williamboman/mason.nvim", opt = true },
@@ -58,7 +65,6 @@ require("nixCatsUtils.catPacker").setup({
     { "stevearc/conform.nvim", opt = true },
 
     -- dap
-    { "nvim-neotest/nvim-nio", opt = true },
     { "LiadOz/nvim-dap-repl-highlights", opt = true },
     { "igorlfs/nvim-dap-view", opt = true },
     { "mfussenegger/nvim-dap-python", opt = true },
@@ -66,14 +72,11 @@ require("nixCatsUtils.catPacker").setup({
     { "jay-babu/mason-nvim-dap.nvim", opt = true },
     { "mfussenegger/nvim-dap", opt = true },
 
-    { "mbbill/undotree", opt = true },
-    { "folke/which-key.nvim", opt = true },
+    -- git
     { "lewis6991/gitsigns.nvim", opt = true },
     { "NeogitOrg/neogit", opt = true },
-    { "lukas-reineke/indent-blankline.nvim", opt = true },
-    { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
-    { "kylechui/nvim-surround", opt = true },
-    { "monaqa/dial.nvim", opt = true },
 
+    { "mbbill/undotree", opt = true },
+    { "folke/which-key.nvim", opt = true },
     { "dstein64/vim-startuptime", opt = true },
 })
