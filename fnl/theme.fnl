@@ -31,7 +31,9 @@
 
 (let [italic-nontext (update-hl :NonText {:italic true})]
   (hl :WinBar (update-hl :NonText italic-nontext))
-  (hl :WinBarNC (update-hl :NonText italic-nontext)))
+  (hl :WinBarNC (update-hl :NonText italic-nontext))
+  (hl :StatusLine {:bg palette.bg0})
+  (hl :StatusLineNC {:bg palette.bg0}))
 
 (fn set-telescope-highlights []
   (let [{: bg4 : blue : green} palette
