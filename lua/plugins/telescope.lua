@@ -21,7 +21,7 @@ local function _2_()
     local _7_
     do
         local fb = telescope.extensions.file_browser.actions
-        _7_ = { mappings = { i = { ["<left>"] = fb.backspace } } }
+        _7_ = { mappings = { i = { ["<left>"] = fb.backspace } }, follow_symlinks = true, respect_gitignore = false }
     end
     telescope.setup({
         defaults = {

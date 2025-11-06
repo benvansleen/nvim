@@ -96,7 +96,9 @@
                                                                         :cb #(string.format "*{%s}*"
                                                                                             $1)}}}
                                               :file_browser (let [fb telescope.extensions.file_browser.actions]
-                                                              {:mappings {:i {:<left> fb.backspace}}})
+                                                              {:mappings {:i {:<left> fb.backspace}}
+                                                               :respect_gitignore false
+                                                               :follow_symlinks true})
                                               :fzf {:fuzzy true
                                                     :override_generic_sorter true
                                                     :override_file_sorter true
