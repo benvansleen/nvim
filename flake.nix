@@ -201,7 +201,6 @@
             ];
             general = with pkgs.vimPlugins; {
               always = [
-                nfnl
                 lze
                 lzextras
                 vim-repeat
@@ -313,6 +312,7 @@
                 telescope-zoxide
               ];
               always = with pkgs.vimPlugins; [
+                nfnl
                 comment-nvim
                 flash-nvim
                 nvim-autopairs

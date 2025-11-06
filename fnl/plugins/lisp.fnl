@@ -6,13 +6,14 @@
 
 (local lisp-fts [:fennel])
 
-(tb :nvim-parinfer
-    {:filetypes lisp-fts
-     :for_cat :lisp
-     :after #(each [_ ft (ipairs lisp-fts)]
-               (set-hl (.. "@punctuation.bracket." ft) "@punctuation.bracket"
-                       {:link :NonText})
-               (set-hl (.. "@function.call." ft) "@function.call"
-                       {:italic true})
-               (set-hl (.. "@module.builtin." ft) "@module.builtin"
-                       {:bold true}))})
+[(tb :nfnl {:ft [:fennel]})
+ (tb :nvim-parinfer
+     {:ft lisp-fts
+      :for_cat :lisp
+      :after #(each [_ ft (ipairs lisp-fts)]
+                (set-hl (.. "@punctuation.bracket." ft) "@punctuation.bracket"
+                        {:link :NonText})
+                (set-hl (.. "@function.call." ft) "@function.call"
+                        {:italic true})
+                (set-hl (.. "@module.builtin." ft) "@module.builtin"
+                        {:bold true}))})]

@@ -27,4 +27,4 @@ local function _1_()
     end
     return nil
 end
-return { "nvim-parinfer", after = _1_, filetypes = lisp_fts, for_cat = "lisp" }
+return { { "nfnl", ft = { "fennel" } }, { "nvim-parinfer", after = _1_, for_cat = "lisp", ft = lisp_fts } }
