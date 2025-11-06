@@ -20,7 +20,7 @@ local function text_format(symbol)
 end
 local function _4_()
     local p_7_auto = require("symbol-usage")
-    return p_7_auto.setup({ text_format = text_format })
+    return p_7_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
 end
 local function _5_()
     do

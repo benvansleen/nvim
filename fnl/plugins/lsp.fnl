@@ -19,7 +19,8 @@
 [(tb :symbol-usage.nvim
      {:for_cat :lsp
       :event :LspAttach
-      :after #(setup :symbol-usage {: text_format})})
+      :after #(setup :symbol-usage
+                     {: text_format :disable {:filetypes [:fennel]}})})
  (tb :nvim-navic
      {:for_cat :lsp
       :on_require :nvim-navic
