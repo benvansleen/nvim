@@ -5,6 +5,7 @@ end
 local disabled_ft = {
     "blink-cmp-documentation",
     "blink-cmp-menu",
+    "blink-cmp-signature",
     "dashboard",
     "fidget",
     "flash_prompt",
