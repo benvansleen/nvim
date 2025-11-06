@@ -328,6 +328,7 @@
                 Navigator-nvim
               ];
               extra = with pkgs.vimPlugins; [
+                dial-nvim
                 fidget-nvim
                 focus-nvim
                 helpview-nvim

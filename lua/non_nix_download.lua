@@ -97,6 +97,7 @@ require("nixCatsUtils.catPacker").setup({
     { "lukas-reineke/indent-blankline.nvim", opt = true },
     { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
     { "kylechui/nvim-surround", opt = true },
+    { "monaqa/dial.nvim", opt = true },
 
     { "dstein64/vim-startuptime", opt = true },
 

@@ -4,6 +4,40 @@
 [(tb :comment.nvim {:for_cat :general.extra
                     :event :CursorMoved
                     :after #(setup :Comment)})
+ (tb :dial.nvim {:for_cat :general.extra
+                 :on_require :dial
+                 :keys [(tb :<C-a>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :increment :normal))
+                            {:mode [:n] :desc :Increment})
+                        (tb :<C-x>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :decrement :normal))
+                            {:mode [:n] :desc :Increment})
+                        (tb :g<C-a>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :increment :gnormal))
+                            {:mode [:n] :desc :Increment})
+                        (tb :g<C-x>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :decrement :gnormal))
+                            {:mode [:n] :desc :Increment})
+                        (tb :<C-a>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :increment :visual))
+                            {:mode [:v] :desc :Increment})
+                        (tb :<C-x>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :decrement :visual))
+                            {:mode [:v] :desc :Increment})
+                        (tb :g<C-a>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :increment :gvisual))
+                            {:mode [:v] :desc :Increment})
+                        (tb :g<C-x>
+                            #(with-require {dial :dial.map}
+                               (dial.manipulate :decrement :gvisual))
+                            {:mode [:v] :desc :Increment})]})
  (tb :direnv-nvim
      {:for_cat :general.extra
       :event :DeferredUIEnter

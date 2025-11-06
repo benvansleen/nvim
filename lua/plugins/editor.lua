@@ -4,23 +4,55 @@ local function _1_()
     return p_8_auto.setup()
 end
 local function _2_()
+    local dial = require("dial.map")
+    return dial.manipulate("increment", "normal")
+end
+local function _3_()
+    local dial = require("dial.map")
+    return dial.manipulate("decrement", "normal")
+end
+local function _4_()
+    local dial = require("dial.map")
+    return dial.manipulate("increment", "gnormal")
+end
+local function _5_()
+    local dial = require("dial.map")
+    return dial.manipulate("decrement", "gnormal")
+end
+local function _6_()
+    local dial = require("dial.map")
+    return dial.manipulate("increment", "visual")
+end
+local function _7_()
+    local dial = require("dial.map")
+    return dial.manipulate("decrement", "visual")
+end
+local function _8_()
+    local dial = require("dial.map")
+    return dial.manipulate("increment", "gvisual")
+end
+local function _9_()
+    local dial = require("dial.map")
+    return dial.manipulate("decrement", "gvisual")
+end
+local function _10_()
     if vim.fn.executable("direnv") == 1 then
         return require("direnv").setup({ autoload_direnv = true, notifications = { silent_autoload = true } })
     else
         return nil
     end
 end
-local function _4_()
+local function _12_()
     local p_8_auto = require("fidget")
     return p_8_auto.setup()
 end
-local function _5_()
+local function _13_()
     local foldtext = require("foldtext")
     foldtext.setup()
     vim.opt["fillchars"] = { eob = " ", fold = " " }
     return { { nil } }
 end
-local function _6_()
+local function _14_()
     local p_7_auto = require("ibl")
     return p_7_auto.setup({
         exclude = { filetypes = { "dashboard", "fennel" } },
@@ -28,9 +60,9 @@ local function _6_()
         indent = { char = "\226\148\130" },
     })
 end
-local function _7_()
+local function _15_()
     local p_7_auto = require("flash")
-    local function _8_()
+    local function _16_()
         return { f = "right", t = "right", F = "left", T = "left" }
     end
     return p_7_auto.setup({
@@ -38,41 +70,41 @@ local function _7_()
         jump = { autojump = false },
         label = { style = "inline", before = true, rainbow = { enabled = true }, after = false, uppercase = false },
         modes = {
-            char = { enabled = true, autohide = true, jump_labels = true, char_actions = _8_, multi_line = false },
+            char = { enabled = true, autohide = true, jump_labels = true, char_actions = _16_, multi_line = false },
             search = { enabled = false },
             treesitter = { label = { before = true, style = "overlay", after = false }, jump = { pos = "range" } },
             treesitter_search = { label = { before = true, style = "overlay", after = false } },
         },
     })
 end
-local function _9_()
+local function _17_()
     return require("flash").jump()
 end
-local function _10_()
+local function _18_()
     return require("flash").treesitter()
 end
-local function _11_()
+local function _19_()
     return require("flash").remote()
 end
-local function _12_()
+local function _20_()
     return require("flash").treesitter_search()
 end
-local function _13_()
+local function _21_()
     return require("flash.plugins.char").jump()
 end
-local function _14_()
+local function _22_()
     return require("flash.plugins.char").jump()
 end
-local function _15_()
+local function _23_()
     return require("flash.plugins.char").jump()
 end
-local function _16_()
+local function _24_()
     return require("flash.plugins.char").jump()
 end
-local function _17_()
+local function _25_()
     return require("flash").jump({ pattern = vim.fn.expand("<cword>") })
 end
-local function _18_()
+local function _26_()
     local p_7_auto = require("nvim-autopairs")
     return p_7_auto.setup({
         check_ts = true,
@@ -81,7 +113,7 @@ local function _18_()
         enable_check_bracket_line = true,
     })
 end
-local function _19_()
+local function _27_()
     local p_7_auto = require("nvim-highlight-colors")
     return p_7_auto.setup({
         render = "virtual",
@@ -91,17 +123,17 @@ local function _19_()
         virtual_symbol_position = "inline",
     })
 end
-local function _20_()
+local function _28_()
     local p_8_auto = require("nvim-surround")
     return p_8_auto.setup()
 end
-local function _21_(_)
+local function _29_(_)
     vim.g.startuptime_event_width = 0
     vim.g.startuptime_tries = 10
     vim.g.startuptime_exe_path = nixCats.packageBinPath
     return nil
 end
-local function _22_()
+local function _30_()
     local which_key = require("which-key")
     which_key.setup({ preset = "helix", delay = 500 })
     return which_key.add({
@@ -125,36 +157,51 @@ local function _22_()
 end
 return {
     { "comment.nvim", after = _1_, event = "CursorMoved", for_cat = "general.extra" },
-    { "direnv-nvim", after = _2_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "fidget.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "foldtext-nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "indent-blankline.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    {
+        "dial.nvim",
+        for_cat = "general.extra",
+        keys = {
+            { "<C-a>", _2_, desc = "Increment", mode = { "n" } },
+            { "<C-x>", _3_, desc = "Increment", mode = { "n" } },
+            { "g<C-a>", _4_, desc = "Increment", mode = { "n" } },
+            { "g<C-x>", _5_, desc = "Increment", mode = { "n" } },
+            { "<C-a>", _6_, desc = "Increment", mode = { "v" } },
+            { "<C-x>", _7_, desc = "Increment", mode = { "v" } },
+            { "g<C-a>", _8_, desc = "Increment", mode = { "v" } },
+            { "g<C-x>", _9_, desc = "Increment", mode = { "v" } },
+        },
+        on_require = "dial",
+    },
+    { "direnv-nvim", after = _10_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "fidget.nvim", after = _12_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "foldtext-nvim", after = _13_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "indent-blankline.nvim", after = _14_, event = "DeferredUIEnter", for_cat = "general.extra" },
     {
         "flash.nvim",
-        after = _7_,
+        after = _15_,
         for_cat = "general.always",
         keys = {
-            { "s", _9_, desc = "Jump", mode = { "n", "x", "o" } },
-            { "S", _10_, desc = "Jump treesitter", mode = { "n", "x", "o" } },
-            { "r", _11_, desc = "Flash treesitter node", mode = { "o" } },
-            { "R", _12_, desc = "Flash treesitter search", mode = { "o", "x" } },
-            { "f", _13_, desc = "Flash find next", mode = { "n", "x", "o" } },
-            { "t", _14_, desc = "Flash up to", mode = { "n", "x", "o" } },
-            { "F", _15_, desc = "Flash find previous", mode = { "n", "x", "o" } },
-            { "T", _16_, desc = "Flash find previous up to", mode = { "n", "x", "o" } },
-            { "L", _17_, mode = { "n" } },
+            { "s", _17_, desc = "Jump", mode = { "n", "x", "o" } },
+            { "S", _18_, desc = "Jump treesitter", mode = { "n", "x", "o" } },
+            { "r", _19_, desc = "Flash treesitter node", mode = { "o" } },
+            { "R", _20_, desc = "Flash treesitter search", mode = { "o", "x" } },
+            { "f", _21_, desc = "Flash find next", mode = { "n", "x", "o" } },
+            { "t", _22_, desc = "Flash up to", mode = { "n", "x", "o" } },
+            { "F", _23_, desc = "Flash find previous", mode = { "n", "x", "o" } },
+            { "T", _24_, desc = "Flash find previous up to", mode = { "n", "x", "o" } },
+            { "L", _25_, mode = { "n" } },
         },
         on_require = "flash",
     },
-    { "nvim-autopairs", after = _18_, event = "InsertEnter", for_cat = "general.always" },
-    { "nvim-highlight-colors", after = _19_, event = "DeferredUIEnter", for_cat = "general.extra" },
-    { "nvim-surround", after = _20_, event = "CursorMoved", for_cat = "general.always" },
+    { "nvim-autopairs", after = _26_, event = "InsertEnter", for_cat = "general.always" },
+    { "nvim-highlight-colors", after = _27_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "nvim-surround", after = _28_, event = "CursorMoved", for_cat = "general.always" },
     {
         "undotree",
         cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
         for_cat = "general.extra",
         keys = { { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree", mode = { "n" } } },
     },
-    { "vim-startuptime", before = _21_, cmd = { "StartupTime" }, for_cat = "general.extra" },
-    { "which-key.nvim", after = _22_, event = "DeferredUIEnter", for_cat = "general.extra" },
+    { "vim-startuptime", before = _29_, cmd = { "StartupTime" }, for_cat = "general.extra" },
+    { "which-key.nvim", after = _30_, event = "DeferredUIEnter", for_cat = "general.extra" },
 }
