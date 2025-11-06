@@ -8,6 +8,7 @@
             maplocalleader " "
             my_center_buffer true
             _debug_my_center_buffer false
+            loaded_netrwPlugin 0
             netrw_liststyle 0
             netrw_banner 0})
         (requires [:clipboard :lsp :lib :statuscolumn :plugins :theme])
@@ -42,7 +43,8 @@
               termguicolors true
               timeoutlen 300
               updatetime 250
-              undofile true})
+              undofile true
+              winborder :shadow})
         (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
                ["Scroll down" :<C-j>] :<C-d>zz
                ["Scroll up" :<C-k>] :<C-u>zz

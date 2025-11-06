@@ -9,6 +9,7 @@ end
 vim.g["mapleader"] = " "
 vim.g["maplocalleader"] = " "
 vim.g["my_center_buffer"] = true
+vim.g["loaded_netrwPlugin"] = 0
 vim.g["netrw_liststyle"] = 0
 vim.g["netrw_banner"] = 0
 vim.g["_debug_my_center_buffer"] = false
@@ -57,6 +58,7 @@ vim.opt["termguicolors"] = true
 vim.opt["timeoutlen"] = 300
 vim.opt["updatetime"] = 250
 vim.opt["undofile"] = true
+vim.opt["winborder"] = "shadow"
 vim.opt["number"] = false
 vim.opt["relativenumber"] = false
 vim.opt["ruler"] = false
@@ -86,7 +88,7 @@ local function _11_()
 end
 do
     local _ = {
-        { nil, nil, nil, nil, nil, nil },
+        { nil, nil, nil, nil, nil, nil, nil },
         {
             require("clipboard"),
             require("lsp"),
@@ -97,6 +99,7 @@ do
         },
         { _1_, _3_, _5_(...) },
         {
+            nil,
             nil,
             nil,
             nil,

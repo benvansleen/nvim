@@ -271,6 +271,7 @@
                 cmp-cmdline
                 blink-cmp
                 blink-compat
+                blink-ripgrep-nvim
                 colorful-menu-nvim
               ];
               treesitter = with pkgs.vimPlugins; [

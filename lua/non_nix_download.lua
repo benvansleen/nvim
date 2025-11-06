@@ -1,26 +1,4 @@
--- load the plugins via paq-nvim when not on nix
--- YOU are in charge of putting the plugin
--- urls and build steps in here, which will only be used when not on nix.
--- and you should keep any setup functions OUT of this file
-
--- again, you dont need this file if you only use nix to load the config,
--- this is a fallback only, and is optional.
 require("nixCatsUtils.catPacker").setup({
-    --[[ ------------------------------------------ ]]
-    --[[ The way to think of this is, its very      ]]
-    --[[ similar to the main nix file for nixCats   ]]
-    --[[                                            ]]
-    --[[ It can be used to download your plugins,   ]]
-    --[[ and it has an opt for optional plugins.    ]]
-    --[[                                            ]]
-    --[[ We dont want to handle anything about      ]]
-    --[[ loading those plugins here, so that we can ]]
-    --[[ use the same loading code that we use for  ]]
-    --[[ our normal nix-loaded config.              ]]
-    --[[ we will do all our loading and configuring ]]
-    --[[ elsewhere in our configuration, so that    ]]
-    --[[ we dont have to write it twice.            ]]
-    --[[ ------------------------------------------ ]]
     { "BirdeeHub/lze" },
     { "BirdeeHub/lzextras" },
     { "stevearc/oil.nvim" },
@@ -67,14 +45,12 @@ require("nixCatsUtils.catPacker").setup({
     { "neovim/nvim-lspconfig", opt = true },
     { "Wansmer/symbol-usage.nvim", opt = true },
 
-    --  NOTE:  we take care of lazy loading elsewhere in an autocommand
-    -- so that we can use the same code on and off nix.
-    -- so here we just tell it not to auto load it
     { "folke/lazydev.nvim", opt = true },
 
     -- completion
     { "Saghen/blink.cmp", opt = true },
     { "Saghen/blink.compat", opt = true },
+    { "mikavilpas/blink-ripgrep.nvim", opt = true },
     { "xzbdmw/colorful-menu.nvim", opt = true },
 
     -- lint and format
@@ -100,9 +76,4 @@ require("nixCatsUtils.catPacker").setup({
     { "monaqa/dial.nvim", opt = true },
 
     { "dstein64/vim-startuptime", opt = true },
-
-    -- all the rest of the setup will be done using the normal setup functions later,
-    -- thus working regardless of what method loads the plugins.
-    -- only stuff pertaining to downloading should be added to paq.
 })
--- OK, again, that isnt needed if you load this setup via nix, but it is an option.

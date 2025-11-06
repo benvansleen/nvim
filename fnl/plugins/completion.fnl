@@ -1,11 +1,11 @@
 (import-macros {: require-and-call : setup : tb : with-require} :macros)
 
-(fn has-words-before []
-  (let [col (. (vim.api.nvim_win_get_cursor 0) 2)]
-    (if (= col 0)
-        false
-        (let [line (vim.api.nvim_get_current_line)]
-          (= (string.match (string.sub line col col) "%s") nil)))))
+(macro has-words-before []
+  `(let [col# (. (vim.api.nvim_win_get_cursor 0) 2)]
+     (if (= col# 0)
+         false
+         (let [line# (vim.api.nvim_get_current_line)]
+           (= (string.match (string.sub line# col# col#) "%s") nil)))))
 
 [(tb :blink.cmp
      {:for_cat :general.blink
@@ -17,9 +17,14 @@
                                            (or (cmp.show) (cmp.insert_next))))
                                        :fallback]
                                :<S-Tab> [:insert_prev]
-                               "<M-;>" [(fn [cmp] (cmp.accept {:index 1}))]}
+                               "<M-;>" [(fn [cmp] (cmp.accept {:index 1}))]
+                               :<C-n> [#($1.show {:providers [:ripgrep]})]}
                       :appearance {:nerd_font_variant :normal}
-                      :completion {:documentation {:auto_show true}
+                      :signature {:enabled true
+                                  :trigger {:enabled true}
+                                  :window {:show_documentation false}}
+                      :completion {:documentation {:auto_show true
+                                                   :auto_show_delay_ms 1000}
                                    :ghost_text {:enabled true
                                                 :show_with_selection true
                                                 :show_without_selection true
@@ -32,7 +37,7 @@
                                           :auto_show false
                                           :auto_show_delay_ms 50
                                           :max_height 7
-                                          :draw {:align_to :cursor
+                                          :draw {:align_to :label
                                                  :columns [(tb :kind_icon)
                                                            (tb :label {:gap 1})]
                                                  :components {:label {:text (fn [ctx]
@@ -43,13 +48,18 @@
                                                                                    (require-and-call :colorful-menu
                                                                                                      :blink_components_highlight
                                                                                                      ctx))}}}}}
-                      :sources {:default [:lsp :path :buffer]}
+                      :sources {:default [:lsp :path :buffer :ripgrep]
+                                :providers {:ripgrep {:module :blink-ripgrep
+                                                      :name :Ripgrep
+                                                      :opts {:prefix_min_len 3
+                                                             :backend {:use :gitgrep-or-ripgrep}}}}}
                       :fuzzy {:implementation (with-require {: nixCatsUtils}
                                                 (if nixCatsUtils.isNixCats
                                                     :prefer_rust
                                                     :lua))}
                       :cmdline {:completion {:menu {:auto_show false}}}})})
  (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})
+ (tb :blink-ripgrep.nvim {:for_cat :general.blink :on_plugin [:blink.cmp]})
  (tb :colorful-menu.nvim
      {:for_cat :general.blink
       :on_plugin [:blink.cmp]
