@@ -188,7 +188,9 @@ local function _32_()
         local p_7_auto = require("project")
         p_7_auto.setup({
             telescope = { disable_file_picker = false, prefer_file_browser = false },
+            allow_different_owners = true,
             detection_methods = { "pattern" },
+            exclude_dirs = { "/nix/*", "node_modules/*", ".venv/*" },
             scope_chdir = "global",
             silent_chdir = true,
             manual_mode = false,

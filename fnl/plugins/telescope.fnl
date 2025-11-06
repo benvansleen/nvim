@@ -149,7 +149,11 @@
                               (setup :project
                                      {:telescope {:prefer_file_browser false
                                                   :disable_file_picker false}
+                                      :allow_different_owners true
                                       :detection_methods [:pattern]
+                                      :exclude_dirs [:/nix/*
+                                                     :node_modules/*
+                                                     :.venv/*]
                                       :manual_mode false
                                       :scope_chdir :global
                                       :silent_chdir true})
