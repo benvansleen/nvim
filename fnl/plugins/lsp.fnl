@@ -1,4 +1,4 @@
-(import-macros {: config : setup : tb} :macros)
+(import-macros {: config : setup : tb : with-require} :macros)
 
 (fn text_format [symbol]
   (let [fragments []
@@ -25,5 +25,6 @@
      {:for_cat :lsp
       :on_require :nvim-navic
       :after #(do
-                (setup :nvim-navic {:click true :lsp {:auto_attach true}})
-                (config (wo {winbar "%{%v:lua.require'nvim-navic'.get_location()%}"})))})]
+                (setup :nvim-navic {:click true :lsp {:auto_attach false}})
+                (config (autocmd {[:LspDetach] {:callback #(set vim.wo.winbar
+                                                                "")}})))})]

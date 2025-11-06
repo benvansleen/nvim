@@ -17,6 +17,7 @@ local function _1_(client, bufnr)
     do
         local nvim_navic = require("nvim-navic")
         nvim_navic.attach(client, bufnr)
+        vim.wo.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end
     local function map(mode, keys, func, desc)
         local _2_

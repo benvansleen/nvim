@@ -10,7 +10,8 @@
                                   :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
   (vim.lsp.inlay_hint.enable true nil bufnr)
   (with-require {: nvim-navic}
-    (nvim-navic.attach client bufnr))
+    (nvim-navic.attach client bufnr)
+    (set vim.wo.winbar "%{%v:lua.require'nvim-navic'.get_location()%}"))
 
   (fn map [mode keys func desc]
     (vim.keymap.set mode keys func

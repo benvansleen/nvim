@@ -25,10 +25,13 @@ end
 local function _5_()
     do
         local p_7_auto = require("nvim-navic")
-        p_7_auto.setup({ click = true, lsp = { auto_attach = true } })
+        p_7_auto.setup({ click = true, lsp = { auto_attach = false } })
     end
-    vim.wo["winbar"] = "%{%v:lua.require'nvim-navic'.get_location()%}"
-    return { { nil } }
+    local function _6_()
+        vim.wo.winbar = ""
+        return nil
+    end
+    return { { vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ }) } }
 end
 return {
     { "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" },
