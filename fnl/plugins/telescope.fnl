@@ -142,7 +142,8 @@
                           :ProjectRecents
                           :ProjectRoot
                           :ProjectSession]
-                    :keys [(tb :<leader>ps "<cmd>Telescope projects<cr>"
+                    :keys [(tb :<leader>ps
+                               "<cmd>Telescope projects theme=dropdown<cr>"
                                {:mode [:n] :desc "[P]roject [S]witch"})]
                     :event :DeferredUIEnter
                     :after #(do

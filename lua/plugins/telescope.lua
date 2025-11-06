@@ -244,6 +244,8 @@ return {
         },
         event = "DeferredUIEnter",
         for_cat = "general.telescope",
-        keys = { { "<leader>ps", "<cmd>Telescope projects<cr>", desc = "[P]roject [S]witch", mode = { "n" } } },
+        keys = {
+            { "<leader>ps", "<cmd>Telescope projects theme=dropdown<cr>", desc = "[P]roject [S]witch", mode = { "n" } },
+        },
     },
 }

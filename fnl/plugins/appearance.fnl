@@ -3,7 +3,7 @@
 
 [(tb :dashboard-nvim
      {:for_cat :general.extra
-      :event :DeferredUIEnter
+      :event :VimEnter
       :keys [(tb :<leader><leader>d :<cmd>Dashboard<cr>
                  {:desc "Open [D]ashboard"})]
       :after #(with-require {: dashboard}
@@ -30,6 +30,10 @@
                                                        :group :Warning
                                                        :action "Telescope live_grep"
                                                        :key :w}
+                                                      {:desc "Find Project"
+                                                       :group "@module"
+                                                       :action "Telescope projects theme=dropdown"
+                                                       :key :p}
                                                       {:desc :Git
                                                        :group "@property"
                                                        :action :Neogit

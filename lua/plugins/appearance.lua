@@ -20,6 +20,7 @@ local function _1_()
                 { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
                 { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
                 { desc = "Find Word", group = "Warning", action = "Telescope live_grep", key = "w" },
+                { desc = "Find Project", group = "@module", action = "Telescope projects theme=dropdown", key = "p" },
                 { desc = "Git", group = "@property", action = "Neogit", key = "g" },
                 { desc = "Change Directory", group = "@constant", action = "Telescope zoxide list", key = "c" },
                 { desc = "Dotfiles", group = "Number", action = "Telescope find_files cwd=~/.config", key = "d" },
@@ -86,7 +87,7 @@ return {
     {
         "dashboard-nvim",
         after = _1_,
-        event = "DeferredUIEnter",
+        event = "VimEnter",
         for_cat = "general.extra",
         keys = { { "<leader><leader>d", "<cmd>Dashboard<cr>", desc = "Open [D]ashboard" } },
     },
