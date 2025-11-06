@@ -43,7 +43,9 @@
                    :after #(when (= (vim.fn.executable :direnv) 1)
                              (setup :direnv-nvim
                                     {:async true
-                                     :on_direnv_finished #(vim.cmd :LspStart)
+                                     :on_direnv_finished #(when (> (vim.fn.exists ":LspStart")
+                                                                   0)
+                                                            (vim.cmd :LspStart))
                                      :type :buffer}))})
  (tb :fidget.nvim {:for_cat :general.extra
                    :event :DeferredUIEnter
