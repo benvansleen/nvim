@@ -30,12 +30,22 @@ local function _2_()
         local fb = telescope.extensions.file_browser.actions
         _8_ = { mappings = { i = { ["<left>"] = fb.backspace } }, follow_symlinks = true, respect_gitignore = false }
     end
-    local function _9_(_2410)
+    local _9_
+    do
+        local cats_20_auto = require("nixCatsUtils")
+        _9_ = cats_20_auto.isNixCats
+    end
+    local _11_
+    do
+        local cats_20_auto = require("nixCatsUtils")
+        _11_ = cats_20_auto.isNixCats
+    end
+    local function _13_(_2410)
         local pattern
-        local function _10_(_2411)
+        local function _14_(_2411)
             return ("%." .. _2411 .. "$")
         end
-        pattern = _10_(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.g._start_buf), ":e"))
+        pattern = _14_(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.g._start_buf), ":e"))
         if _2410:match(pattern) then
             return 0
         else
@@ -99,10 +109,10 @@ local function _2_()
             fzf = {
                 fuzzy = true,
                 override_generic_sorter = true,
+                override_file_sorter = not _9_,
                 case_mode = "smart_case",
-                override_file_sorter = false,
             },
-            ["zf-native"] = { file = { enable = true, initial_sort = _9_ }, generic = { enable = false } },
+            ["zf-native"] = { file = { enable = _11_, initial_sort = _13_ }, generic = { enable = false } },
         },
     })
     telescope.load_extension("cmdline")
@@ -110,48 +120,68 @@ local function _2_()
     telescope.load_extension("file_browser")
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
-    telescope.load_extension("zf-native")
+    do
+        local _16_
+        do
+            local cats_20_auto = require("nixCatsUtils")
+            _16_ = cats_20_auto.isNixCats
+        end
+        if true == _16_ then
+            telescope.load_extension("zf-native")
+        else
+        end
+    end
     telescope.load_extension("zoxide")
     return require("theme")["set-telescope-highlights"]()
 end
-local function _12_()
+local function _19_()
     return require("telescope.builtin").find_files()
 end
-local function _13_()
+local function _20_()
     return require("telescope.builtin").oldfiles()
 end
-local function _14_()
+local function _21_()
     return require("telescope.builtin").buffers()
 end
-local function _15_()
+local function _22_()
     return require("telescope.builtin").current_buffer_fuzzy_find()
 end
-local function _16_()
+local function _23_()
     return require("telescope.builtin").diagnostics()
 end
-local function _17_()
+local function _24_()
     return require("telescope.builtin").resume()
 end
-local function _18_()
+local function _25_()
     return require("telescope.builtin").keymaps()
 end
-local function _19_()
+local function _26_()
     return require("telescope.builtin").help_tags()
 end
-local function _20_()
+local function _27_()
     return require("telescope.builtin").builtin()
 end
-local function _21_()
+local function _28_()
     return require("telescope.builtin").lsp_references()
 end
-local function _22_(name)
+local function _29_(name)
     vim.cmd.packadd(name)
     vim.cmd.packadd("telescope-cmdline-nvim")
     vim.cmd.packadd("telescope-egrepify-nvim")
     vim.cmd.packadd("telescope-file-browser.nvim")
     vim.cmd.packadd("telescope-fzf-native.nvim")
     vim.cmd.packadd("telescope-ui-select.nvim")
-    vim.cmd.packadd("telescope-zf-native.nvim")
+    do
+        local _30_
+        do
+            local cats_20_auto = require("nixCatsUtils")
+            _30_ = cats_20_auto.isNixCats
+        end
+        if true == _30_ then
+            vim.cmd.packadd("telescope-zf-native.nvim")
+        else
+        end
+    end
     return vim.cmd.packadd("telescope-zoxide")
 end
 return {
@@ -167,20 +197,20 @@ return {
             desc = "[F]ind [F]ile",
             mode = { "n" },
         },
-        { "<leader>pf", _12_, desc = "Find [P]roject [F]ile", mode = { "n" } },
+        { "<leader>pf", _19_, desc = "Find [P]roject [F]ile", mode = { "n" } },
         { "<leader>pw", "<cmd>Telescope egrepify<cr>", desc = "Find [P]roject [W]ord", mode = { "n" } },
-        { "<leader>fh", _13_, desc = "[F]ind in file [H]istory", mode = { "n" } },
-        { "<leader>fb", _14_, desc = "[F]ind [B]uffer", mode = { "n" } },
-        { "<leader>fl", _15_, desc = "[F]ind [L]ine", mode = { "n" } },
-        { "<leader>fd", _16_, desc = "[F]ind [D]iagnostic", mode = { "n" } },
-        { "<leader>fr", _17_, desc = "[F]ind [R]resume", mode = { "n" } },
-        { "<leader>fk", _18_, desc = "[F]ind [K]eymap", mode = { "n" } },
-        { "<leader>fH", _19_, desc = "[F]ind [H]elp", mode = { "n" } },
+        { "<leader>fh", _20_, desc = "[F]ind in file [H]istory", mode = { "n" } },
+        { "<leader>fb", _21_, desc = "[F]ind [B]uffer", mode = { "n" } },
+        { "<leader>fl", _22_, desc = "[F]ind [L]ine", mode = { "n" } },
+        { "<leader>fd", _23_, desc = "[F]ind [D]iagnostic", mode = { "n" } },
+        { "<leader>fr", _24_, desc = "[F]ind [R]resume", mode = { "n" } },
+        { "<leader>fk", _25_, desc = "[F]ind [K]eymap", mode = { "n" } },
+        { "<leader>fH", _26_, desc = "[F]ind [H]elp", mode = { "n" } },
         { "<leader>fm", "<cmd>Telescope notify<CR>", desc = "[F]ind [M]essage", mode = { "n" } },
-        { "<leader>ft", _20_, desc = "[F]ind [T]elescope", mode = { "n" } },
+        { "<leader>ft", _27_, desc = "[F]ind [T]elescope", mode = { "n" } },
         { "<leader>ps", "<cmd>Telescope zoxide list<CR>", desc = "[P]roject [S]earch", mode = { "n" } },
-        { "<leader>gr", _21_, desc = "[G]o to [R]eferences", mode = { "n" } },
+        { "<leader>gr", _28_, desc = "[G]o to [R]eferences", mode = { "n" } },
     },
-    load = _22_,
+    load = _29_,
     on_require = { "telescope" },
 }

@@ -1,8 +1,8 @@
-(import-macros {: setup : tb : with-require} :macros)
+(import-macros {: is-nix : setup : tb : with-require} :macros)
 
-(with-require {cats :nixCatsUtils : lze}
+(with-require {: lze}
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
-    (when (and cats.isNixCats (nixCats :lspDebugMode))
+    (when (and (is-nix) (nixCats :lspDebugMode))
       (vim.lsp.set_log_level :debug))
     (lze.h.lsp.set_ft_fallback (fn [name]
                                  (let [lspcfg (or (nixCats.pawsible [:allPlugins
@@ -39,7 +39,7 @@
                                               {:on_attach (require :lsp.on_attach)
                                                :root_markers [:.git]}))})
                (tb :mason.nvim
-                   {:enabled (not cats.isNixCats)
+                   {:enabled (not (is-nix))
                     :on_plugin [:nvim-lspconfig]
                     :load (fn [name]
                             (vim.cmd.packadd name)
@@ -72,15 +72,15 @@
                    {:enabled (or (nixCats :fnl) false)
                     :ft [:fennel]
                     :lsp {:filetypes [:fennel] :settings {}}})
-               (tb :rnix {:enabled (not cats.isNixCats)
+               (tb :rnix {:enabled (not (is-nix))
                           :ft [:nix]
                           :lsp {:filetypes [:nix]}})
                (tb :nil_ls
-                   {:enabled (not cats.isNixCats)
+                   {:enabled (not (is-nix))
                     :ft [:nix]
                     :lsp {:filetypes [:nix]}})
                (tb :nixd
-                   {:enabled (and cats.isNixCats
+                   {:enabled (and (is-nix)
                                   (or (nixCats :nix) (nixCats :neonixdev) false))
                     :ft [:nix]
                     :lsp {:filetypes [:nix]

@@ -1,4 +1,5 @@
-(import-macros {: require-and-call : setup : tb : with-require} :macros)
+(import-macros {: is-nix : require-and-call : setup : tb : with-require}
+               :macros)
 
 (macro has-words-before []
   `(let [col# (. (vim.api.nvim_win_get_cursor 0) 2)]
@@ -53,10 +54,7 @@
                                                       :name :Ripgrep
                                                       :opts {:prefix_min_len 3
                                                              :backend {:use :gitgrep-or-ripgrep}}}}}
-                      :fuzzy {:implementation (with-require {: nixCatsUtils}
-                                                (if nixCatsUtils.isNixCats
-                                                    :prefer_rust
-                                                    :lua))}
+                      :fuzzy {:implementation (if (is-nix) :prefer_rust :lua)}
                       :cmdline {:completion {:menu {:auto_show false}}}})})
  (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})
  (tb :blink-ripgrep.nvim {:for_cat :general.blink :on_plugin [:blink.cmp]})

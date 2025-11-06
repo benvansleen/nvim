@@ -105,12 +105,17 @@
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))
 
-(fn check-nix [bool & body]
+(fn is-nix []
   `(do
      (import-macros {: with-require} :macros)
      (with-require {cats# :nixCatsUtils}
-       (when (= ,bool cats#.isNixCats)
-         ,(unpack body)))))
+       cats#.isNixCats)))
+
+(fn check-nix [bool & body]
+  `(do
+     (import-macros {: is-nix} :macros)
+     (when (= ,bool (is-nix))
+       ,(unpack body))))
 
 (fn unless-nix [...]
   (check-nix false ...))
@@ -120,6 +125,7 @@
 
 {: config
  : dot-repeatable
+ : is-nix
  : load-plugins
  : require-and-call
  : setup

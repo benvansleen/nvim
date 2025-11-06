@@ -75,15 +75,19 @@ local function _8_()
     return vim.api.nvim_buf_delete(0, {})
 end
 local function _9_()
-    local cats_20_auto = require("nixCatsUtils")
-    if false == cats_20_auto.isNixCats then
+    local _10_
+    do
+        local cats_20_auto = require("nixCatsUtils")
+        _10_ = cats_20_auto.isNixCats
+    end
+    if false == _10_ then
         local _ = require("non_nix_download")
         return vim.cmd("PaqSync")
     else
         return nil
     end
 end
-local function _11_()
+local function _13_()
     return vim.highlight.on_yank()
 end
 do
@@ -160,7 +164,7 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _11_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _13_ }
             ),
         },
     }
@@ -169,8 +173,12 @@ if nixCats("number-toggle") then
     require("number-toggle")
 else
 end
-local cats_20_auto = require("nixCatsUtils")
-if false == cats_20_auto.isNixCats then
+local _15_
+do
+    local cats_20_auto = require("nixCatsUtils")
+    _15_ = cats_20_auto.isNixCats
+end
+if false == _15_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),
