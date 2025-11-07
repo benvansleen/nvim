@@ -19,7 +19,7 @@ do
             end
             local function _5_()
                 local themes = require("telescope.themes")
-                return themes.get_cursor()
+                return themes.get_dropdown()
             end
             local function _6_(_2410)
                 return string.format("*.{%s}", _2410)

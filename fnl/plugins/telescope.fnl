@@ -43,7 +43,7 @@
                                                        :selection_caret "  "
                                                        :sorting_strategy :ascending}
                                             :extensions {:ui-select [(with-require {themes :telescope.themes}
-                                                                       (themes.get_cursor))]
+                                                                       (themes.get_dropdown))]
                                                          :cmdline {:picker {:layout_strategy :vertical
                                                                             :layout_config {:prompt_position :top
                                                                                             :anchor :SW
