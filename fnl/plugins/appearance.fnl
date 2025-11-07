@@ -52,7 +52,8 @@
                           (vim.api.nvim_set_hl 0 :DashboardMruTitle
                                                {:link :Red})
                           (vim.api.nvim_set_hl 0 :DashboardShortCut
-                                               {:link :Green}))}]
+                                               {:link :Green}))}
+               (nmap {["Open Dashboard" :<leader><leader>d] :<cmd>Dashboard<cr>})]
               [:smear-cursor.nvim
                {:for_cat :general.extra
                 :event :CursorMoved

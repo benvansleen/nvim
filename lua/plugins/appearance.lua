@@ -51,7 +51,16 @@ do
         keymap_18_auto =
             require("lzextras").keymap({ "dashboard-nvim", after = _2_, event = "VimEnter", for_cat = "general.extra" })
     end
-    _1_ = {}
+    _1_ = {
+        {
+            keymap_18_auto.set(
+                "n",
+                "<leader><leader>d",
+                "<cmd>Dashboard<cr>",
+                { desc = "Open Dashboard", noremap = true }
+            ),
+        },
+    }
 end
 local _3_
 do
