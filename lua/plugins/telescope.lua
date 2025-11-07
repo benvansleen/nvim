@@ -5,7 +5,7 @@ end
 vim.deprecate = _1_
 local _2_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _3_()
             local telescope = require("telescope")
@@ -38,13 +38,13 @@ do
             end
             local _9_
             do
-                local cats_30_auto = require("nixCatsUtils")
-                _9_ = cats_30_auto.isNixCats
+                local cats_31_auto = require("nixCatsUtils")
+                _9_ = cats_31_auto.isNixCats
             end
             local _11_
             do
-                local cats_30_auto = require("nixCatsUtils")
-                _11_ = cats_30_auto.isNixCats
+                local cats_31_auto = require("nixCatsUtils")
+                _11_ = cats_31_auto.isNixCats
             end
             telescope.setup({
                 defaults = {
@@ -116,8 +116,8 @@ do
             do
                 local _13_
                 do
-                    local cats_30_auto = require("nixCatsUtils")
-                    _13_ = cats_30_auto.isNixCats
+                    local cats_31_auto = require("nixCatsUtils")
+                    _13_ = cats_31_auto.isNixCats
                 end
                 if true == _13_ then
                     telescope.load_extension("zf-native")
@@ -140,8 +140,8 @@ do
             do
                 local _17_
                 do
-                    local cats_30_auto = require("nixCatsUtils")
-                    _17_ = cats_30_auto.isNixCats
+                    local cats_31_auto = require("nixCatsUtils")
+                    _17_ = cats_31_auto.isNixCats
                 end
                 if true == _17_ then
                     vim.cmd.packadd("telescope-zf-native.nvim")
@@ -150,7 +150,7 @@ do
             end
             return vim.cmd.packadd("telescope-zoxide")
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "telescope.nvim",
             after = _3_,
             cmd = { "Telescope", "LiveGrepGitRoot" },
@@ -188,50 +188,50 @@ do
     end
     _2_ = {
         {
-            keymap_18_auto.set(
+            keymap_19_auto.set(
                 "n",
                 ";",
                 "<cmd>Telescope cmdline<cr>",
                 { desc = "Execute extended command", noremap = true }
             ),
-            keymap_18_auto.set(
+            keymap_19_auto.set(
                 "n",
                 "<leader>ff",
                 "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",
                 { desc = "[F]ind [F]ile", noremap = true }
             ),
-            keymap_18_auto.set("n", "<leader>pf", _20_, { desc = "Find [P]roject [F]ile", noremap = true }),
-            keymap_18_auto.set(
+            keymap_19_auto.set("n", "<leader>pf", _20_, { desc = "Find [P]roject [F]ile", noremap = true }),
+            keymap_19_auto.set(
                 "n",
                 "<leader>pw",
                 "<cmd>Telescope egrepify<cr>",
                 { desc = "Find [P]roject [W]ord", noremap = true }
             ),
-            keymap_18_auto.set("n", "<leader>fh", _21_, { desc = "[F]ind in file [H]istory", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fb", _22_, { desc = "[F]ind [B]uffer", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fl", _23_, { desc = "[F]ind [L]ine", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fd", _24_, { desc = "[F]ind [D]iagnostic", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fr", _25_, { desc = "[F]ind [R]esume", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fk", _26_, { desc = "[F]ind [K]eymap", noremap = true }),
-            keymap_18_auto.set("n", "<leader>fH", _27_, { desc = "[F]ind [H]elp", noremap = true }),
-            keymap_18_auto.set(
+            keymap_19_auto.set("n", "<leader>fh", _21_, { desc = "[F]ind in file [H]istory", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fb", _22_, { desc = "[F]ind [B]uffer", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fl", _23_, { desc = "[F]ind [L]ine", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fd", _24_, { desc = "[F]ind [D]iagnostic", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fr", _25_, { desc = "[F]ind [R]esume", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fk", _26_, { desc = "[F]ind [K]eymap", noremap = true }),
+            keymap_19_auto.set("n", "<leader>fH", _27_, { desc = "[F]ind [H]elp", noremap = true }),
+            keymap_19_auto.set(
                 "n",
                 "<leader>fM",
                 "<cmd>Telescope notify<cr>",
                 { desc = "[F]ind [M]essage", noremap = true }
             ),
-            keymap_18_auto.set(
+            keymap_19_auto.set(
                 "n",
                 "<leader>cd",
                 "<cmd>Telescope zoxide list<cr>",
                 { desc = "[C]hange [D]irectory", noremap = true }
             ),
-            keymap_18_auto.set("n", "<leader>gr", _28_, { desc = "[G]o to [R]eferences", noremap = true }),
+            keymap_19_auto.set("n", "<leader>gr", _28_, { desc = "[G]o to [R]eferences", noremap = true }),
         },
     }
 end
 local function _30_(...)
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _29_()
             do
@@ -248,7 +248,7 @@ local function _30_(...)
             end
             return require("telescope").load_extension("projects")
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "project.nvim",
             after = _29_,
             cmd = {
@@ -267,7 +267,7 @@ local function _30_(...)
     end
     return {
         {
-            keymap_18_auto.set(
+            keymap_19_auto.set(
                 "n",
                 "<leader>ps",
                 "<cmd>Telescope projects theme=dropdown",

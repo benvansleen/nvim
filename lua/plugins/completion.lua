@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/completion.fnl
 local _1_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _2_()
             local p_7_auto = require("blink.cmp")
@@ -37,8 +37,8 @@ do
             local _12_
             local _13_
             do
-                local cats_30_auto = require("nixCatsUtils")
-                _13_ = cats_30_auto.isNixCats
+                local cats_31_auto = require("nixCatsUtils")
+                _13_ = cats_31_auto.isNixCats
             end
             if _13_ then
                 _12_ = "prefer_rust"
@@ -92,37 +92,37 @@ do
                 cmdline = { completion = { menu = { auto_show = false } } },
             })
         end
-        keymap_18_auto =
+        keymap_19_auto =
             require("lzextras").keymap({ "blink.cmp", after = _2_, event = "InsertEnter", for_cat = "general.blink" })
     end
     _1_ = {}
 end
 local _16_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
-        keymap_18_auto =
+        keymap_19_auto =
             require("lzextras").keymap({ "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
     end
     _16_ = {}
 end
 local _17_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
-        keymap_18_auto =
+        keymap_19_auto =
             require("lzextras").keymap({ "blink-ripgrep.nvim", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
     end
     _17_ = {}
 end
 local function _19_(...)
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _18_()
             local p_7_auto = require("colorful-menu")
             return p_7_auto.setup({})
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "colorful-menu.nvim",
             after = _18_,
             for_cat = "general.blink",

@@ -1,13 +1,13 @@
 -- [nfnl] fnl/plugins/editor.fnl
 local _1_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _2_()
             local p_8_auto = require("Comment")
             return p_8_auto.setup()
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "comment.nvim",
             after = _2_,
             event = "CursorMoved",
@@ -18,9 +18,9 @@ do
 end
 local _3_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
-        keymap_18_auto = require("lzextras").keymap({ "dial.nvim", for_cat = "general.extra", on_require = "dial" })
+        keymap_19_auto = require("lzextras").keymap({ "dial.nvim", for_cat = "general.extra", on_require = "dial" })
     end
     local function _4_()
         local dial = require("dial.map")
@@ -56,22 +56,22 @@ do
     end
     _3_ = {
         {
-            keymap_18_auto.set("n", "<C-a>", _4_, { desc = "Increment", noremap = true }),
-            keymap_18_auto.set("n", "<C-x>", _5_, { desc = "Decrement", noremap = true }),
-            keymap_18_auto.set("n", "g<C-a>", _6_, { desc = "Increment", noremap = true }),
-            keymap_18_auto.set("n", "g<C-x>", _7_, { desc = "Decrement", noremap = true }),
+            keymap_19_auto.set("n", "<C-a>", _4_, { desc = "Increment", noremap = true }),
+            keymap_19_auto.set("n", "<C-x>", _5_, { desc = "Decrement", noremap = true }),
+            keymap_19_auto.set("n", "g<C-a>", _6_, { desc = "Increment", noremap = true }),
+            keymap_19_auto.set("n", "g<C-x>", _7_, { desc = "Decrement", noremap = true }),
         },
         {
-            keymap_18_auto.set("v", "<C-a>", _8_, { desc = "Increment", noremap = true }),
-            keymap_18_auto.set("v", "<C-x>", _9_, { desc = "Decrement", noremap = true }),
-            keymap_18_auto.set("v", "g<C-a>", _10_, { desc = "Increment", noremap = true }),
-            keymap_18_auto.set("v", "g<C-x>", _11_, { desc = "Decrement", noremap = true }),
+            keymap_19_auto.set("v", "<C-a>", _8_, { desc = "Increment", noremap = true }),
+            keymap_19_auto.set("v", "<C-x>", _9_, { desc = "Decrement", noremap = true }),
+            keymap_19_auto.set("v", "g<C-a>", _10_, { desc = "Increment", noremap = true }),
+            keymap_19_auto.set("v", "g<C-x>", _11_, { desc = "Decrement", noremap = true }),
         },
     }
 end
 local _12_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _13_()
             if vim.fn.executable("direnv") == 1 then
@@ -88,7 +88,7 @@ do
                 return nil
             end
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "direnv-nvim",
             after = _13_,
             event = "DeferredUIEnter",
@@ -99,13 +99,13 @@ do
 end
 local _17_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _18_()
             local p_8_auto = require("fidget")
             return p_8_auto.setup()
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "fidget.nvim",
             after = _18_,
             event = "DeferredUIEnter",
@@ -116,7 +116,7 @@ do
 end
 local _19_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _20_()
             do
@@ -126,7 +126,7 @@ do
             vim.opt["fillchars"] = { eob = " ", fold = " " }
             return { { nil } }
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "foldtext-nvim",
             after = _20_,
             event = "DeferredUIEnter",
@@ -137,7 +137,7 @@ do
 end
 local _21_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _22_()
             local p_7_auto = require("ibl")
@@ -147,7 +147,7 @@ do
                 indent = { char = "\226\148\130" },
             })
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "indent-blankline.nvim",
             after = _22_,
             event = "DeferredUIEnter",
@@ -158,7 +158,7 @@ do
 end
 local _23_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _24_()
             local p_7_auto = require("flash")
@@ -192,7 +192,7 @@ do
                 },
             })
         end
-        keymap_18_auto =
+        keymap_19_auto =
             require("lzextras").keymap({ "flash.nvim", after = _24_, for_cat = "general.always", on_require = "flash" })
     end
     local function _26_()
@@ -221,20 +221,20 @@ do
     end
     _23_ = {
         {
-            keymap_18_auto.set({ "n", "x", "o" }, "s", _26_, { desc = "Jump", noremap = true }),
-            keymap_18_auto.set({ "n", "x", "o" }, "S", _27_, { desc = "Jump treesitter", noremap = true }),
-            keymap_18_auto.set({ "o" }, "r", _28_, { desc = "Flash remote", noremap = true }),
-            keymap_18_auto.set({ "x", "o" }, "R", _29_, { desc = "Flash treesitter search", noremap = true }),
-            keymap_18_auto.set({ "n", "x", "o" }, "f", _30_, { desc = "Flash find next", noremap = true }),
-            keymap_18_auto.set({ "n", "x", "o" }, "F", _31_, { desc = "Flash find previous", noremap = true }),
-            keymap_18_auto.set({ "n", "x", "o" }, "t", _32_, { desc = "Flash up to", noremap = true }),
-            keymap_18_auto.set({ "n", "x", "o" }, "T", _33_, { desc = "Flash up to previous", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "s", _26_, { desc = "Jump", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "S", _27_, { desc = "Jump treesitter", noremap = true }),
+            keymap_19_auto.set({ "o" }, "r", _28_, { desc = "Flash remote", noremap = true }),
+            keymap_19_auto.set({ "x", "o" }, "R", _29_, { desc = "Flash treesitter search", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "f", _30_, { desc = "Flash find next", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "F", _31_, { desc = "Flash find previous", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "t", _32_, { desc = "Flash up to", noremap = true }),
+            keymap_19_auto.set({ "n", "x", "o" }, "T", _33_, { desc = "Flash up to previous", noremap = true }),
         },
     }
 end
 local _34_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _35_()
             local p_7_auto = require("nvim-autopairs")
@@ -245,7 +245,7 @@ do
                 enable_check_bracket_line = true,
             })
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "nvim-autopairs",
             after = _35_,
             event = "InsertEnter",
@@ -256,13 +256,13 @@ do
 end
 local _36_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _37_()
             local p_8_auto = require("nvim-surround")
             return p_8_auto.setup()
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "nvim-surround",
             after = _37_,
             event = "CursorMoved",
@@ -272,16 +272,16 @@ do
     _36_ = {}
 end
 local function _38_(...)
-    local keymap_18_auto
+    local keymap_19_auto
     do
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "undotree",
             cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
             for_cat = "general.extra",
         })
     end
     return {
-        { keymap_18_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
+        { keymap_19_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
     }
 end
 return { { _1_, _3_, _12_, _17_, _19_, _21_, _23_, _34_, _36_, _38_(...) } }

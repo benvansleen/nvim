@@ -2,8 +2,8 @@
 do
     local _1_
     do
-        local cats_30_auto = require("nixCatsUtils")
-        _1_ = cats_30_auto.isNixCats
+        local cats_31_auto = require("nixCatsUtils")
+        _1_ = cats_31_auto.isNixCats
     end
     if true == _1_ then
         vim.loader.enable()

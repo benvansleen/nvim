@@ -1,4 +1,5 @@
-(import-macros {: load-plugins} :macros)
+(import-macros {: cfg} :macros)
 
-(load-plugins :appearance :completion :editor :git :lsp :lisp :misc :oil
-              :telescope :terminal :tmux :treesitter)
+(cfg (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
+                       :oil :telescope :terminal :tmux :treesitter)
+     (requires-plugins-when-enabled :debug :lint :format))

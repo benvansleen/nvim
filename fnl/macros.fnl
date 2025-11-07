@@ -53,11 +53,9 @@
     (icollect [_ req (pairs opts)]
       `(require ,req)))
 
-  (fn load-plugins-when-enabled [ms]
-    (icollect [_ m (ipairs ms)]
-      `(when (nixCats ,m)
-         (import-macros {: load-plugins} :macros)
-         (load-plugins ,m))))
+  (fn require-plugins [plugins]
+    (set-require (icollect [_ p (ipairs plugins)]
+                   (.. :plugins. p))))
 
   (fn set-opt [t opts]
     (icollect [k v (pairs opts)]
@@ -102,7 +100,10 @@
     (do
       (case (tostring kw)
         :requires (set-require body)
-        :load-plugins-when-enabled (load-plugins-when-enabled body)
+        :requires-plugins (require-plugins body)
+        :requires-plugins-when-enabled (icollect [_ p (ipairs body)]
+                                         `(when (nixCats ,p)
+                                            (require ,(.. :plugins. p))))
         :g (set-opt `vim.g (unpack body))
         :opt (set-opt `vim.opt (unpack body))
         :wo (set-opt `vim.wo (unpack body))
@@ -113,17 +114,8 @@
         :vmap (set-mappings `vim.keymap :v (unpack body))
         :autocmd (set-autocmds (unpack body))
         :plugins (icollect [_ p (ipairs body)]
-                   (do
-                     ; (print (view p))
-                     (configure-plugin p)))
+                   (configure-plugin p))
         _ (error (.. "Unknown config form: " (view kw)))))))
-
-(fn load-plugins [& plugins]
-  (let [imports (icollect [_ plugin (ipairs plugins)]
-                  {:import (.. :plugins "." plugin)})]
-    `(do
-       (import-macros {: require-and-call} :macros)
-       (require-and-call :lze :load ,imports))))
 
 (fn dot-repeatable [name f]
   (let [name# (-> name
@@ -158,7 +150,6 @@
 {: cfg
  : dot-repeatable
  : is-nix
- : load-plugins
  : require-and-call
  : setup
  : tb

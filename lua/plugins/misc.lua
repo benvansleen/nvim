@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/misc.fnl
 local _1_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _2_()
             local p_7_auto = require("nvim-highlight-colors")
@@ -13,7 +13,7 @@ do
                 virtual_symbol_position = "inline",
             })
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "nvim-highlight-colors",
             after = _2_,
             event = "DeferredUIEnter",
@@ -24,7 +24,7 @@ do
 end
 local _3_
 do
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _4_()
             vim.g["startuptime_event_width"] = 0
@@ -32,7 +32,7 @@ do
             vim.g["startuptime_exe_path"] = nixCats.packageBinPath
             return { { nil, nil, nil } }
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "vim-startuptime",
             before = _4_,
             cmd = { "StartupTime" },
@@ -42,7 +42,7 @@ do
     _3_ = {}
 end
 local function _6_(...)
-    local keymap_18_auto
+    local keymap_19_auto
     do
         local function _5_()
             local which_key = require("which-key")
@@ -66,7 +66,7 @@ local function _6_(...)
                 { "<leader>w_", hidden = true },
             })
         end
-        keymap_18_auto = require("lzextras").keymap({
+        keymap_19_auto = require("lzextras").keymap({
             "which-key.nvim",
             after = _5_,
             event = "DeferredUIEnter",
