@@ -6,6 +6,7 @@ return require("lze").load({
     { import = "plugins.git" },
     { import = "plugins.lsp" },
     { import = "plugins.lisp" },
+    { import = "plugins.misc" },
     { import = "plugins.oil" },
     { import = "plugins.telescope" },
     { import = "plugins.terminal" },

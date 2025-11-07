@@ -1,4 +1,4 @@
-(import-macros {: config : setup : tb : with-require} :macros)
+(import-macros {: cfg : setup} :macros)
 
 (fn text_format [symbol]
   (let [fragments []
@@ -16,15 +16,16 @@
       (table.insert fragments (.. symbol.implementation :implementations)))
     (.. (table.concat fragments ", ") stacked-functions)))
 
-[(tb :symbol-usage.nvim
-     {:for_cat :lsp
-      :event :LspAttach
-      :after #(setup :symbol-usage
-                     {: text_format :disable {:filetypes [:fennel]}})})
- (tb :nvim-navic
-     {:for_cat :lsp
-      :on_require :nvim-navic
-      :after #(do
-                (setup :nvim-navic {:click true :lsp {:auto_attach false}})
-                (config (autocmd {[:LspDetach] {:callback #(set vim.wo.winbar
-                                                                "")}})))})]
+(cfg (plugins [:symbol-usage.nvim
+               {:for_cat :lsp
+                :event :LspAttach
+                :after #(setup :symbol-usage
+                               {: text_format :disable {:filetypes [:fennel]}})}]
+              [:nvim-navic
+               {:for_cat :lsp
+                :on_require :nvim-navic
+                :after #(do
+                          (setup :nvim-navic
+                                 {:click true :lsp {:auto_attach false}})
+                          (cfg (autocmd {[:LspDetach] {:callback #(set vim.wo.winbar
+                                                                       "")}})))}]))

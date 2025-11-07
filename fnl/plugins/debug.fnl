@@ -1,7 +1,7 @@
-(import-macros {: dot-repeatable
+(import-macros {: cfg
+                : dot-repeatable
                 : require-and-call
                 : setup
-                : tb
                 : unless-nix
                 : with-require} :macros)
 
@@ -11,31 +11,9 @@
 (dot-repeatable step-out #(require-and-call :dap :step_out))
 (dot-repeatable toggle-breakpoint #(require-and-call :dap :toggle_breakpoint))
 
-[(tb :nvim-dap {:for_cat {:cat :debug :default true}
+(cfg (plugins [:nvim-dap
+               {:for_cat {:cat :debug :default true}
                 :on_require :dap
-                :keys [(tb :<leader>dc continue {:desc "Debug: Start/Continue"})
-                       (tb :<leader>dR #(require-and-call :dap :restart)
-                           {:desc "Debug: Restart"})
-                       (tb :<leader>dq #(require-and-call :dap :close)
-                           {:desc "Debug: Quit"})
-                       (tb :<leader>di step-into {:desc "Debug: Step Into"})
-                       (tb :<leader>dn step-over {:desc "Debug: Step Over"})
-                       (tb :<leader>do step-out {:desc "Debug: Step Out"})
-                       (tb :<leader>dC
-                           #(require-and-call :dap.breakpoints :clear)
-                           {:desc "Debug: Clear Breakpoints"})
-                       (tb :<leader>db toggle-breakpoint
-                           {:desc "Debug: Toggle Breakpoint"})
-                       (tb :<leader>dB
-                           #(with-require {: dap}
-                              (-> "Breakpoint condition: "
-                                  vim.fn.input
-                                  dap.set_breakpoint))
-                           {:desc "Debug: Set Conditional Breakpoint"})
-                       (tb :<leader>dw :<cmd>DapViewWatch<cr>
-                           {:desc "Debug: Set Watch"})
-                       (tb :<leader>dt #(require-and-call :dap-view :toggle)
-                           {:desc "Debug: See last session result"})]
                 :load (fn [name]
                         (vim.cmd.packadd name)
                         (vim.cmd.packadd :nvim-dap-view)
@@ -153,4 +131,22 @@
                                  :virt_text_pos (if (= (vim.fn.has :nvim-0.10)
                                                        1)
                                                     :inline
-                                                    :eol)}))})]
+                                                    :eol)}))}
+               (nmap {["Debug: Start/Continue" :<leader>dc] continue
+                      ["Debug: Restart" :<leader>dR] #(require-and-call :dap
+                                                                        :restart)
+                      ["Debug: Quit" :<leader>dq] #(require-and-call :dap
+                                                                     :close)
+                      ["Debug: Step Over" :<leader>dn] step-over
+                      ["Debug: Step Into" :<leader>di] step-into
+                      ["Debug: Step Out" :<leader>do] step-out
+                      ["Debug: Clear Breakpoints" :<leader>dC] #(require-and-call :dap.breakpoints
+                                                                                  :clear)
+                      ["Debug: Toggle Breakpoint" :<leader>db] toggle-breakpoint
+                      ["Debug: Set Conditional Breakpoint" :<leader>dB] #(with-require {: dap}
+                                                                           (-> "Breakpoint condition: "
+                                                                               vim.fn.input
+                                                                               dap.set_breakpoint))
+                      ["Debug: Set Watch" :<leader>dw] :<cmd>DapViewWatch<cr>
+                      ["Debug: Open dap-view" :<leader>dt] #(require-and-call :dap-view
+                                                                              :toggle)})]))

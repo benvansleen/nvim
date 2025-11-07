@@ -9,7 +9,6 @@ end
 vim.g["mapleader"] = " "
 vim.g["maplocalleader"] = " "
 vim.g["my_center_buffer"] = true
-vim.g["loaded_netrwPlugin"] = 0
 vim.g["netrw_liststyle"] = 0
 vim.g["netrw_banner"] = 0
 vim.g["_debug_my_center_buffer"] = false
@@ -77,8 +76,8 @@ end
 local function _9_()
     local _10_
     do
-        local cats_20_auto = require("nixCatsUtils")
-        _10_ = cats_20_auto.isNixCats
+        local cats_30_auto = require("nixCatsUtils")
+        _10_ = cats_30_auto.isNixCats
     end
     if false == _10_ then
         local _ = require("non_nix_download")
@@ -92,7 +91,7 @@ local function _13_()
 end
 do
     local _ = {
-        { nil, nil, nil, nil, nil, nil, nil },
+        { nil, nil, nil, nil, nil, nil },
         {
             require("clipboard"),
             require("lsp"),
@@ -137,9 +136,11 @@ do
             nil,
         },
         {
+            vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>zz", { desc = "Scroll up", noremap = true }),
+            vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>zz", { desc = "Scroll down", noremap = true }),
+        },
+        {
             vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true }),
-            vim.keymap.set("n", "<C-j>", "<C-d>zz", { desc = "Scroll down", noremap = true }),
-            vim.keymap.set("n", "<C-k>", "<C-u>zz", { desc = "Scroll up", noremap = true }),
             vim.keymap.set("n", "<leader>te", _6_, { desc = "[T]oggle virtual lines", noremap = true }),
             vim.keymap.set("n", "<leader>wtf", _7_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
             vim.keymap.set("n", "<leader>q", _8_, { desc = "[Q]uit buffer", noremap = true }),
@@ -175,8 +176,8 @@ else
 end
 local _15_
 do
-    local cats_20_auto = require("nixCatsUtils")
-    _15_ = cats_20_auto.isNixCats
+    local cats_30_auto = require("nixCatsUtils")
+    _15_ = cats_30_auto.isNixCats
 end
 if false == _15_ then
     return {

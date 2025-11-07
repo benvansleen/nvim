@@ -1,6 +1,6 @@
-(import-macros {: config} :macros)
+(import-macros {: cfg} :macros)
 
 ;; https://github.com/LazyVim/LazyVim/discussions/4112
-(config (opt {clipboard ""}))
+(cfg (opt {clipboard ""}))
 (vim.schedule (fn []
-                (config (opt {clipboard :unnamedplus}))))
+                (cfg (opt {clipboard :unnamedplus}))))

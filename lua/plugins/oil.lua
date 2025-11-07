@@ -1,42 +1,47 @@
 -- [nfnl] fnl/plugins/oil.fnl
 vim.g["loaded_netrwPlugin"] = 1
-do
-    local _ = { { nil } }
-end
-local function _1_()
-    local p_7_auto = require("oil")
-    return p_7_auto.setup({
-        default_file_explorer = true,
-        view_options = { show_hidden = true },
-        columns = { "icon", "permissions", "size" },
-        keymaps = {
-            ["g?"] = "actions.show_help",
-            ["<CR>"] = "actions.select",
-            ["<C-s>"] = "actions.select_vsplit",
-            ["<C-h>"] = "actions.select_split",
-            ["<C-t>"] = "actions.select_tab",
-            ["<C-p>"] = "actions.preview",
-            ["<C-c>"] = "actions.close",
-            q = "actions.close",
-            ["<C-l>"] = "actions.refresh",
-            ["-"] = "actions.parent",
-            _ = "actions.open_cwd",
-            ["`"] = "actions.cd",
-            ["~"] = "actions.tcd",
-            gs = "actions.change_sort",
-            gx = "actions.open_external",
-            ["g."] = "actions.toggle_hidden",
-            ["g\\"] = "actions.toggle_trash",
+local function _2_(...)
+    local keymap_18_auto
+    do
+        local function _1_()
+            local p_7_auto = require("oil")
+            return p_7_auto.setup({
+                default_file_explorer = true,
+                view_options = { show_hidden = true },
+                columns = { "icon", "permissions", "size" },
+                keymaps = {
+                    ["g?"] = "actions.show_help",
+                    ["<CR>"] = "actions.select",
+                    ["<C-s>"] = "actions.select_vsplit",
+                    ["<C-h>"] = "actions.select_split",
+                    ["<C-t>"] = "actions.select_tab",
+                    ["<C-p>"] = "actions.preview",
+                    ["<C-c>"] = "actions.close",
+                    q = "actions.close",
+                    ["<C-l>"] = "actions.refresh",
+                    ["-"] = "actions.parent",
+                    _ = "actions.open_cwd",
+                    ["`"] = "actions.cd",
+                    ["~"] = "actions.tcd",
+                    gs = "actions.change_sort",
+                    gx = "actions.open_external",
+                    ["g."] = "actions.toggle_hidden",
+                    ["g\\"] = "actions.toggle_trash",
+                },
+            })
+        end
+        keymap_18_auto = require("lzextras").keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
+    end
+    return {
+        {
+            keymap_18_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true }),
+            keymap_18_auto.set(
+                "n",
+                "<leader>-",
+                "<cmd>Oil .<cr>",
+                { desc = "Open nvim root directory", noremap = true }
+            ),
         },
-    })
+    }
 end
-return {
-    "oil.nvim",
-    after = _1_,
-    cmd = { "Oil" },
-    for_cat = "general.extra",
-    keys = {
-        { "-", "<cmd>Oil<CR>", desc = "Open Parent Directory", mode = { "n" }, noremap = true },
-        { "<leader>-", "<cmd>Oil .<CR>", desc = "Open nvim root directory", mode = { "n" }, noremap = true },
-    },
-}
+return { { nil }, { _2_(...) } }

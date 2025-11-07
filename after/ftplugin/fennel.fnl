@@ -1,5 +1,3 @@
-(import-macros {: config} :macros)
-
 (fn get-associated-filepath []
   (-> "%:p"
       vim.fn.expand

@@ -1,4 +1,4 @@
-(import-macros {: is-nix : setup : tb : with-require} :macros)
+(import-macros {: cfg : is-nix : setup : tb : with-require} :macros)
 
 (with-require {: lze}
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
@@ -12,23 +12,24 @@
                                                                      :start
                                                                      :nvim-lspconfig]))]
                                    (if lspcfg
-                                       (let [[ok cfg] (pcall dofile
-                                                             (.. lspcfg :/lsp/
-                                                                 name :.lua))
-                                             return (fn [ok cfg]
-                                                      (or (. (and ok cfg)
+                                       (let [[ok config] (pcall dofile
+                                                                (.. lspcfg
+                                                                    :/lsp/ name
+                                                                    :.lua))
+                                             return (fn [ok config]
+                                                      (or (. (and ok config)
                                                              :filetypes)
                                                           {}))]
                                          (if ok
-                                             (return ok cfg)
-                                             (let [[ok cfg] (pcall dofile
-                                                                   (.. lspcfg
-                                                                       :/lua/lspconfig/configs/
-                                                                       name
-                                                                       :.lua))]
-                                               (return ok cfg))))
+                                             (return ok config)
+                                             (let [[ok config] (pcall dofile
+                                                                      (.. lspcfg
+                                                                          :/lua/lspconfig/configs/
+                                                                          name
+                                                                          :.lua))]
+                                               (return ok config))))
                                        (old_ft_fallback name)))))
-    (lze.load [(tb :nvim-lspconfig
+    (cfg (plugins [:nvim-lspconfig
                    {:for_cat :general.always
                     :on_require [:lspconfig]
                     :lsp (fn [plugin]
@@ -37,8 +38,8 @@
                     :before (fn [_]
                               (vim.lsp.config "*"
                                               {:on_attach (require :lsp.on_attach)
-                                               :root_markers [:.git]}))})
-               (tb :mason.nvim
+                                               :root_markers [:.git]}))}]
+                  [:mason.vim
                    {:enabled (not (is-nix))
                     :on_plugin [:nvim-lspconfig]
                     :load (fn [name]
@@ -46,8 +47,8 @@
                             (vim.cmd.packadd :mason-lspconfig.nvim)
                             (setup :mason)
                             (setup :mason-lspconfig
-                                   {:automatic_installation false}))})
-               (tb :lazydev.nvim
+                                   {:automatic_installation false}))}]
+                  [:lazydev.nvim
                    {:for_cat :neonixdev
                     :cmd [:LazyDev]
                     :ft [:lua]
@@ -55,8 +56,8 @@
                                    {:library {:words [:nixCats]
                                               :path (.. (or nixCats.nixCatsPath
                                                             "")
-                                                        :/lua)}})})
-               (tb :lua_ls
+                                                        :/lua)}})}]
+                  [:lua_ls
                    {:enabled (or (nixCats :lua) (nixCats :neonixdev) false)
                     :ft [:lua]
                     :lsp {:filetypes [:lua]
@@ -67,19 +68,20 @@
                                            :diagnostics {:globals [:nixCats
                                                                    :vim]
                                                          :disable [:missing-fields]}
-                                           :telemetry {:enabled false}}}}})
-               (tb :fennel_ls
+                                           :telemetry {:enabled false}}}}}]
+                  [:fennel_ls
                    {:enabled (or (nixCats :fnl) false)
                     :ft [:fennel]
-                    :lsp {:filetypes [:fennel] :settings {}}})
-               (tb :rnix {:enabled (not (is-nix))
-                          :ft [:nix]
-                          :lsp {:filetypes [:nix]}})
-               (tb :nil_ls
+                    :lsp {:filetypes [:fennel] :settings {}}}]
+                  [:rnix
                    {:enabled (not (is-nix))
                     :ft [:nix]
-                    :lsp {:filetypes [:nix]}})
-               (tb :nixd
+                    :lsp {:filetypes [:nix]}}]
+                  [:nil_ls
+                   {:enabled (not (is-nix))
+                    :ft [:nix]
+                    :lsp {:filetypes [:nix]}}]
+                  [:nixd
                    {:enabled (and (is-nix)
                                   (or (nixCats :nix) (nixCats :neonixdev) false))
                     :ft [:nix]
@@ -90,8 +92,8 @@
                                      :options {:nixos {:expr (nixCats.extra :nixdExtras.nixos_options)}
                                                :home-manager {:expr (nixCats.extra :nixdExtras.home_manager_options)}}
                                      :formatting {:command [:nixfmt]}
-                                     :diagnostic {:suppress [:sema-escaping-with]}}}})
-               (tb :basedpyright
+                                     :diagnostic {:suppress [:sema-escaping-with]}}}}]
+                  [:basedpyright
                    {:enabled (or (nixCats :python) false)
                     :ft [:python]
                     :lsp {:filetypes [:python]
@@ -102,8 +104,8 @@
                                                                             :genericTypes true}
                                                                :autoImportCompletions true
                                                                :diagnosticSeverityOverrides {:reportMissingTypeStubs false}}}}
-                          :on_attach (require :lsp.on_attach)}})
-               (tb :ts_ls
+                          :on_attach (require :lsp.on_attach)}}]
+                  [:ts_ls
                    {:enabled (or (nixCats :typescript) false)
                     :ft [:typescript]
                     :lsp {:filetypes [:javascript
@@ -111,12 +113,12 @@
                                       :typescript
                                       :typescriptreact]
                           :settings {}
-                          :on_attach (require :lsp.on_attach)}})
-               (tb :rust_analyzer
+                          :on_attach (require :lsp.on_attach)}}]
+                  [:rust-analyzer
                    {:enabled true
                     :ft [:rust]
                     :lsp {:filetypes [:rust]
                           :cmd [:rust-analyzer]
                           :settings {:diagnostic {:enable true}
                                      :checkOnSave {:command :clippy}}
-                          :on_attach (require :lsp.on_attach)}})])))
+                          :on_attach (require :lsp.on_attach)}}]))))

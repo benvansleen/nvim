@@ -1,5 +1,4 @@
-(import-macros {: is-nix : require-and-call : setup : tb : with-require}
-               :macros)
+(import-macros {: cfg : is-nix : setup} :macros)
 
 (macro has-words-before []
   `(let [col# (. (vim.api.nvim_win_get_cursor 0) 2)]
@@ -8,57 +7,66 @@
          (let [line# (vim.api.nvim_get_current_line)]
            (= (string.match (string.sub line# col# col#) "%s") nil)))))
 
-[(tb :blink.cmp
-     {:for_cat :general.blink
-      :event :InsertEnter
-      :after #(setup :blink.cmp
-                     {:keymap {:preset :none
-                               :<Tab> [(fn [cmp]
-                                         (when (has-words-before)
-                                           (or (cmp.show) (cmp.insert_next))))
-                                       :fallback]
-                               :<S-Tab> [:insert_prev]
-                               "<M-;>" [(fn [cmp] (cmp.accept {:index 1}))]
-                               :<C-n> [#($1.show {:providers [:ripgrep]})]}
-                      :appearance {:nerd_font_variant :normal}
-                      :signature {:enabled true
-                                  :trigger {:enabled true}
-                                  :window {:show_documentation false}}
-                      :completion {:documentation {:auto_show true
-                                                   :auto_show_delay_ms 1000}
-                                   :ghost_text {:enabled true
-                                                :show_with_selection true
-                                                :show_without_selection true
-                                                :show_with_menu true
-                                                :show_without_menu true}
-                                   :keyword {:range :prefix}
-                                   :list {:selection {:preselect false}
-                                          :cycle {:from_top false}}
-                                   :menu {:enabled true
-                                          :auto_show false
-                                          :auto_show_delay_ms 50
-                                          :max_height 7
-                                          :draw {:align_to :label
-                                                 :columns [(tb :kind_icon)
-                                                           (tb :label {:gap 1})]
-                                                 :components {:label {:text (fn [ctx]
-                                                                              (require-and-call :colorful-menu
-                                                                                                :blink_components_text
-                                                                                                ctx))
-                                                                      :highlight (fn [ctx]
-                                                                                   (require-and-call :colorful-menu
-                                                                                                     :blink_components_highlight
-                                                                                                     ctx))}}}}}
-                      :sources {:default [:lsp :path :buffer :ripgrep]
-                                :providers {:ripgrep {:module :blink-ripgrep
-                                                      :name :Ripgrep
-                                                      :opts {:prefix_min_len 3
-                                                             :backend {:use :gitgrep-or-ripgrep}}}}}
-                      :fuzzy {:implementation (if (is-nix) :prefer_rust :lua)}
-                      :cmdline {:completion {:menu {:auto_show false}}}})})
- (tb :blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]})
- (tb :blink-ripgrep.nvim {:for_cat :general.blink :on_plugin [:blink.cmp]})
- (tb :colorful-menu.nvim
-     {:for_cat :general.blink
-      :on_plugin [:blink.cmp]
-      :after #(setup :colorful-menu {})})]
+(cfg (plugins [:blink.cmp
+               {:for_cat :general.blink
+                :event :InsertEnter
+                :after #(setup :blink.cmp
+                               {:keymap {:preset :none
+                                         :<Tab> [(fn [cmp]
+                                                   (when (has-words-before)
+                                                     (or (cmp.show)
+                                                         (cmp.insert_next))))
+                                                 :fallback]
+                                         :<S-Tab> [:insert_prev]
+                                         "<M-;>" [(fn [cmp]
+                                                    (cmp.accept {:index 1}))]
+                                         :<C-n> [#($1.show {:providers [:ripgrep]})]}
+                                :appearance {:nerd_font_variant :normal}
+                                :signature {:enabled true
+                                            :trigger {:enabled true}
+                                            :window {:show_documentation false}}
+                                :completion {:documentation {:auto_show true
+                                                             :auto_show_delay_ms 1000}
+                                             :ghost_text {:enabled true
+                                                          :show_with_selection true
+                                                          :show_without_selection true
+                                                          :show_with_menu true
+                                                          :show_without_menu true}
+                                             :keyword {:range :prefix}
+                                             :list {:selection {:preselect false}
+                                                    :cycle {:from_top false}}
+                                             :menu {:enabled true
+                                                    :auto_show false
+                                                    :auto_show_delay_ms 50
+                                                    :max_height 7
+                                                    :draw {:align_to :label
+                                                           :columns [(tb :kind_icon)
+                                                                     (tb :label
+                                                                         {:gap 1})]
+                                                           :components {:label {:text (fn [ctx]
+                                                                                        (require-and-call :colorful-menu
+                                                                                                          :blink_components_text
+                                                                                                          ctx))
+                                                                                :highlight (fn [ctx]
+                                                                                             (require-and-call :colorful-menu
+                                                                                                               :blink_components_highlight
+                                                                                                               ctx))}}}}}
+                                :sources {:default [:lsp
+                                                    :path
+                                                    :buffer
+                                                    :ripgrep]
+                                          :providers {:ripgrep {:module :blink-ripgrep
+                                                                :name :Ripgrep
+                                                                :opts {:prefix_min_len 3
+                                                                       :backend {:use :gitgrep-or-ripgrep}}}}}
+                                :fuzzy {:implementation (if (is-nix)
+                                                            :prefer_rust
+                                                            :lua)}
+                                :cmdline {:completion {:menu {:auto_show false}}}})}]
+              [:blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]}]
+              [:blink-ripgrep.nvim
+               {:for_cat :general.blink :on_plugin [:blink.cmp]}]
+              [:colorful-menu.nvim
+               {:for_cat :general.blink
+                :on_plugin [:blink.cmp]
+                :after #(setup :colorful-menu {})}]))

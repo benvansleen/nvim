@@ -1,3 +1,3 @@
-(import-macros {: config} :macros)
+(import-macros {: cfg} :macros)
 
-(config (requires [:lib.treesitter]))
+(cfg (requires :lib.treesitter))

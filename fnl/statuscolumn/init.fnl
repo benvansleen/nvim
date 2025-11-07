@@ -1,4 +1,4 @@
-(import-macros {: config : with-require} :macros)
+(import-macros {: cfg : with-require} :macros)
 
-(config (opt {statuscolumn (with-require {column :statuscolumn.setup}
-                             column.activate)}))
+(cfg (opt {statuscolumn (with-require {column :statuscolumn.setup}
+                          column.activate)}))

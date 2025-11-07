@@ -18,22 +18,36 @@ local function text_format(symbol)
     end
     return (table.concat(fragments, ", ") .. stacked_functions)
 end
-local function _4_()
-    local p_7_auto = require("symbol-usage")
-    return p_7_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
-end
-local function _5_()
+local _4_
+do
+    local keymap_18_auto
     do
-        local p_7_auto = require("nvim-navic")
-        p_7_auto.setup({ click = true, lsp = { auto_attach = false } })
+        local function _5_()
+            local p_7_auto = require("symbol-usage")
+            return p_7_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
+        end
+        keymap_18_auto =
+            require("lzextras").keymap({ "symbol-usage.nvim", after = _5_, event = "LspAttach", for_cat = "lsp" })
     end
-    local function _6_()
-        vim.wo.winbar = ""
-        return nil
-    end
-    return { { vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ }) } }
+    _4_ = {}
 end
-return {
-    { "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" },
-    { "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" },
-}
+local function _8_(...)
+    local keymap_18_auto
+    do
+        local function _6_()
+            do
+                local p_7_auto = require("nvim-navic")
+                p_7_auto.setup({ click = true, lsp = { auto_attach = false } })
+            end
+            local function _7_()
+                vim.wo.winbar = ""
+                return nil
+            end
+            return { { vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _7_ }) } }
+        end
+        keymap_18_auto =
+            require("lzextras").keymap({ "nvim-navic", after = _6_, for_cat = "lsp", on_require = "nvim-navic" })
+    end
+    return {}
+end
+return { { _4_, _8_(...) } }

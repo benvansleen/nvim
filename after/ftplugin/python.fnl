@@ -1,4 +1,4 @@
-(import-macros {: config : require-and-call : with-preserve-position} :macros)
+(import-macros {: cfg : require-and-call : with-preserve-position} :macros)
 
 (fn toggle-fstring []
   (with-preserve-position [_ cursor]
@@ -21,5 +21,5 @@
                     (when (= srow (. cursor 1))
                       (tset cursor 2 (+ (. cursor 2) 1)))))))))))
 
-(config (nmap {["[T]oggle [f]-string" :<leader>tf] toggle-fstring})
-        (imap {["Toggle [f]-string" :<M-f>] toggle-fstring}))
+(cfg (nmap {["[T]oggle [f]-string" :<leader>tf] toggle-fstring})
+     (imap {["Toggle [f]-string" :<M-f>] toggle-fstring}))
