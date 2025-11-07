@@ -2,7 +2,7 @@
 local lisp_fts = { "fennel" }
 local _1_
 do
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _2_()
             for _, ft in ipairs(lisp_fts) do
@@ -31,12 +31,12 @@ do
             end
             return nil
         end
-        keymap_19_auto = require("lzextras").keymap({ "nfnl", after = _2_, for_cat = "lisp", ft = lisp_fts })
+        keymap_20_auto = require("lzextras").keymap({ "nfnl", after = _2_, for_cat = "lisp", ft = lisp_fts })
     end
     _1_ = {}
 end
 local function _4_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _3_()
             for _, ft in ipairs(lisp_fts) do
@@ -65,7 +65,7 @@ local function _4_(...)
             end
             return nil
         end
-        keymap_19_auto = require("lzextras").keymap({ "nvim-parinfer", after = _3_, for_cat = "lisp", ft = lisp_fts })
+        keymap_20_auto = require("lzextras").keymap({ "nvim-parinfer", after = _3_, for_cat = "lisp", ft = lisp_fts })
     end
     return {}
 end

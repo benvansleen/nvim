@@ -1,7 +1,7 @@
 -- [nfnl] fnl/plugins/git.fnl
 local _1_
 do
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _2_()
             local p_7_auto = require("neogit")
@@ -16,7 +16,7 @@ do
                 signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
             })
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "neogit",
             after = _2_,
             cmd = "Neogit",
@@ -27,10 +27,10 @@ do
     local function _3_()
         return require("neogit").open({ cwd = "%:p:h", kind = "replace" })
     end
-    _1_ = { { keymap_19_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true }) } }
+    _1_ = { { keymap_20_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true }) } }
 end
 local function _5_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _4_()
             local p_7_auto = require("gitsigns")
@@ -76,7 +76,7 @@ local function _5_(...)
                 word_diff = false,
             })
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "gitsigns.nvim",
             after = _4_,
             event = "DeferredUIEnter",
@@ -94,9 +94,9 @@ local function _5_(...)
     end
     return {
         {
-            keymap_19_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true }),
-            keymap_19_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true }),
-            keymap_19_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true }),
+            keymap_20_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true }),
+            keymap_20_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true }),
+            keymap_20_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true }),
         },
     }
 end

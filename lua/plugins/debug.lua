@@ -60,7 +60,7 @@ do
     toggle_breakpoint = _10_
 end
 local function _22_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _11_(_)
             do
@@ -193,7 +193,7 @@ local function _22_(...)
             vim.cmd.packadd("nvim-dap-python")
             return vim.cmd.packadd("nvim-dap-repl-highlights")
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "nvim-dap",
             after = _11_,
             for_cat = { cat = "debug", default = true },
@@ -219,27 +219,27 @@ local function _22_(...)
     end
     return {
         {
-            keymap_19_auto.set("n", "<leader>dc", continue, { desc = "Debug: Start/Continue", noremap = true }),
-            keymap_19_auto.set("n", "<leader>dR", _23_, { desc = "Debug: Restart", noremap = true }),
-            keymap_19_auto.set("n", "<leader>dq", _24_, { desc = "Debug: Quit", noremap = true }),
-            keymap_19_auto.set("n", "<leader>dn", step_over, { desc = "Debug: Step Over", noremap = true }),
-            keymap_19_auto.set("n", "<leader>di", step_into, { desc = "Debug: Step Into", noremap = true }),
-            keymap_19_auto.set("n", "<leader>do", step_out, { desc = "Debug: Step Out", noremap = true }),
-            keymap_19_auto.set("n", "<leader>dC", _25_, { desc = "Debug: Clear Breakpoints", noremap = true }),
-            keymap_19_auto.set(
+            keymap_20_auto.set("n", "<leader>dc", continue, { desc = "Debug: Start/Continue", noremap = true }),
+            keymap_20_auto.set("n", "<leader>dR", _23_, { desc = "Debug: Restart", noremap = true }),
+            keymap_20_auto.set("n", "<leader>dq", _24_, { desc = "Debug: Quit", noremap = true }),
+            keymap_20_auto.set("n", "<leader>dn", step_over, { desc = "Debug: Step Over", noremap = true }),
+            keymap_20_auto.set("n", "<leader>di", step_into, { desc = "Debug: Step Into", noremap = true }),
+            keymap_20_auto.set("n", "<leader>do", step_out, { desc = "Debug: Step Out", noremap = true }),
+            keymap_20_auto.set("n", "<leader>dC", _25_, { desc = "Debug: Clear Breakpoints", noremap = true }),
+            keymap_20_auto.set(
                 "n",
                 "<leader>db",
                 toggle_breakpoint,
                 { desc = "Debug: Toggle Breakpoint", noremap = true }
             ),
-            keymap_19_auto.set("n", "<leader>dB", _26_, { desc = "Debug: Set Conditional Breakpoint", noremap = true }),
-            keymap_19_auto.set(
+            keymap_20_auto.set("n", "<leader>dB", _26_, { desc = "Debug: Set Conditional Breakpoint", noremap = true }),
+            keymap_20_auto.set(
                 "n",
                 "<leader>dw",
                 "<cmd>DapViewWatch<cr>",
                 { desc = "Debug: Set Watch", noremap = true }
             ),
-            keymap_19_auto.set("n", "<leader>dt", _27_, { desc = "Debug: Open dap-view", noremap = true }),
+            keymap_20_auto.set("n", "<leader>dt", _27_, { desc = "Debug: Open dap-view", noremap = true }),
         },
     }
 end

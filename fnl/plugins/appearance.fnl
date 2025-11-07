@@ -3,47 +3,48 @@
 (cfg (plugins [:dashboard-nvim
                {:for_cat :general.extra
                 :event :VimEnter
-                :after #(with-require {: dashboard}
-                          (dashboard.setup {:theme :hyper
-                                            :change_to_root_vcs true
-                                            :config {:header ["                                 __                 "
-                                                              "  ___     ___    ___   __  __ /\\_\\    ___ ___   "
-                                                              " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ "
-                                                              "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\"
-                                                              " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
-                                                              "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
-                                                              ""]
-                                                     :footer {}
-                                                     :packages {:enable false}
-                                                     :shortcut [{:desc :Files
-                                                                 :group :Label
-                                                                 :action "Telescope find_files"
-                                                                 :key :f}
-                                                                {:desc "Recent Files"
-                                                                 :group :Error
-                                                                 :action "Telescope oldfiles"
-                                                                 :key :r}
-                                                                {:desc "Find Word"
-                                                                 :group :Warning
-                                                                 :action "Telescope live_grep"
-                                                                 :key :w}
-                                                                {:desc "Find Project"
-                                                                 :group "@module"
-                                                                 :action "Telescope projects theme=dropdown"
-                                                                 :key :p}
-                                                                {:desc :Git
-                                                                 :group "@property"
-                                                                 :action :Neogit
-                                                                 :key :g}
-                                                                {:desc "Change Directory"
-                                                                 :group "@constant"
-                                                                 :action "Telescope zoxide list"
-                                                                 :key :c}
-                                                                {:desc :Dotfiles
-                                                                 :group :Number
-                                                                 :action "Telescope find_files cwd=~/.config"
-                                                                 :key :d}]
-                                                     :week_header {:enable false}}})
+                :after #(do
+                          (setup :dashboard
+                                 {:theme :hyper
+                                  :change_to_root_vcs true
+                                  :config {:header ["                                 __                 "
+                                                    "  ___     ___    ___   __  __ /\\_\\    ___ ___   "
+                                                    " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ "
+                                                    "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\"
+                                                    " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
+                                                    "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
+                                                    ""]
+                                           :footer {}
+                                           :packages {:enable false}
+                                           :shortcut [{:desc :Files
+                                                       :group :Label
+                                                       :action "Telescope find_files"
+                                                       :key :f}
+                                                      {:desc "Recent Files"
+                                                       :group :Error
+                                                       :action "Telescope oldfiles"
+                                                       :key :r}
+                                                      {:desc "Find Word"
+                                                       :group :Warning
+                                                       :action "Telescope live_grep"
+                                                       :key :w}
+                                                      {:desc "Find Project"
+                                                       :group "@module"
+                                                       :action "Telescope projects theme=dropdown"
+                                                       :key :p}
+                                                      {:desc :Git
+                                                       :group "@property"
+                                                       :action :Neogit
+                                                       :key :g}
+                                                      {:desc "Change Directory"
+                                                       :group "@constant"
+                                                       :action "Telescope zoxide list"
+                                                       :key :c}
+                                                      {:desc :Dotfiles
+                                                       :group :Number
+                                                       :action "Telescope find_files cwd=~/.config"
+                                                       :key :d}]
+                                           :week_header {:enable false}}})
                           (vim.api.nvim_set_hl 0 :DashboardHeader {:link :Blue})
                           (vim.api.nvim_set_hl 0 :DashboardFiles
                                                {:link "@comment"})

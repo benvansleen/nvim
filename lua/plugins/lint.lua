@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/lint.fnl
 local function _3_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _1_()
             local lint = require("lint")
@@ -16,7 +16,7 @@ local function _3_(...)
             end
             return { { vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _2_ }) } }
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "nvim-lint",
             after = _1_,
             event = "FileType",

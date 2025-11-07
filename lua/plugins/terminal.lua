@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/terminal.fnl
 local function _5_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _1_()
             local p_7_auto = require("toggleterm")
@@ -22,7 +22,7 @@ local function _5_(...)
                 shade_terminals = false,
             })
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "toggleterm.nvim",
             after = _1_,
             for_cat = "general.extra",
@@ -32,6 +32,6 @@ local function _5_(...)
     local function _6_()
         return require("toggleterm").toggle_command()
     end
-    return { { keymap_19_auto.set("n", "<M-t>", _6_, { desc = "Toggle Terminal", noremap = true }) } }
+    return { { keymap_20_auto.set("n", "<M-t>", _6_, { desc = "Toggle Terminal", noremap = true }) } }
 end
 return { { _5_(...) } }

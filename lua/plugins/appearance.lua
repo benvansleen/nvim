@@ -1,59 +1,66 @@
 -- [nfnl] fnl/plugins/appearance.fnl
 local _1_
 do
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _2_()
-            local dashboard = require("dashboard")
-            dashboard.setup({
-                theme = "hyper",
-                change_to_root_vcs = true,
-                config = {
-                    header = {
-                        "                                 __                 ",
-                        "  ___     ___    ___   __  __ /\\_\\    ___ ___   ",
-                        " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ ",
-                        "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\",
-                        " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\",
-                        "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/",
-                        "",
-                    },
-                    footer = {},
-                    packages = { enable = false },
-                    shortcut = {
-                        { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
-                        { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
-                        { desc = "Find Word", group = "Warning", action = "Telescope live_grep", key = "w" },
-                        {
-                            desc = "Find Project",
-                            group = "@module",
-                            action = "Telescope projects theme=dropdown",
-                            key = "p",
+            do
+                local p_7_auto = require("dashboard")
+                p_7_auto.setup({
+                    theme = "hyper",
+                    change_to_root_vcs = true,
+                    config = {
+                        header = {
+                            "                                 __                 ",
+                            "  ___     ___    ___   __  __ /\\_\\    ___ ___   ",
+                            " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ ",
+                            "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\",
+                            " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\",
+                            "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/",
+                            "",
                         },
-                        { desc = "Git", group = "@property", action = "Neogit", key = "g" },
-                        { desc = "Change Directory", group = "@constant", action = "Telescope zoxide list", key = "c" },
-                        {
-                            desc = "Dotfiles",
-                            group = "Number",
-                            action = "Telescope find_files cwd=~/.config",
-                            key = "d",
+                        footer = {},
+                        packages = { enable = false },
+                        shortcut = {
+                            { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
+                            { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
+                            { desc = "Find Word", group = "Warning", action = "Telescope live_grep", key = "w" },
+                            {
+                                desc = "Find Project",
+                                group = "@module",
+                                action = "Telescope projects theme=dropdown",
+                                key = "p",
+                            },
+                            { desc = "Git", group = "@property", action = "Neogit", key = "g" },
+                            {
+                                desc = "Change Directory",
+                                group = "@constant",
+                                action = "Telescope zoxide list",
+                                key = "c",
+                            },
+                            {
+                                desc = "Dotfiles",
+                                group = "Number",
+                                action = "Telescope find_files cwd=~/.config",
+                                key = "d",
+                            },
                         },
+                        week_header = { enable = false },
                     },
-                    week_header = { enable = false },
-                },
-            })
+                })
+            end
             vim.api.nvim_set_hl(0, "DashboardHeader", { link = "Blue" })
             vim.api.nvim_set_hl(0, "DashboardFiles", { link = "@comment" })
             vim.api.nvim_set_hl(0, "DashboardProjectTitle", { link = "Purple" })
             vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
             return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
         end
-        keymap_19_auto =
+        keymap_20_auto =
             require("lzextras").keymap({ "dashboard-nvim", after = _2_, event = "VimEnter", for_cat = "general.extra" })
     end
     _1_ = {
         {
-            keymap_19_auto.set(
+            keymap_20_auto.set(
                 "n",
                 "<leader><leader>d",
                 "<cmd>Dashboard<cr>",
@@ -64,7 +71,7 @@ do
 end
 local _3_
 do
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _4_()
             local p_7_auto = require("smear_cursor")
@@ -75,7 +82,7 @@ do
                 smear_insert_mode = true,
             })
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "smear-cursor.nvim",
             after = _4_,
             event = "CursorMoved",
@@ -86,19 +93,19 @@ do
 end
 local _5_
 do
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _6_()
             local p_7_auto = require("helpview")
             return p_7_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
         end
-        keymap_19_auto =
+        keymap_20_auto =
             require("lzextras").keymap({ "helpview.nvim", after = _6_, for_cat = "general.extra", ft = "help" })
     end
     _5_ = {}
 end
 local function _10_(...)
-    local keymap_19_auto
+    local keymap_20_auto
     do
         local function _7_()
             local focus = require("focus")
@@ -133,7 +140,7 @@ local function _10_(...)
                 },
             }
         end
-        keymap_19_auto = require("lzextras").keymap({
+        keymap_20_auto = require("lzextras").keymap({
             "focus.nvim",
             after = _7_,
             event = "DeferredUIEnter",
@@ -143,6 +150,6 @@ local function _10_(...)
     local function _11_()
         return require("focus").split_nicely()
     end
-    return { { keymap_19_auto.set("n", "<leader>s", _11_, { desc = "Open [S]plit", noremap = true }) } }
+    return { { keymap_20_auto.set("n", "<leader>s", _11_, { desc = "Open [S]plit", noremap = true }) } }
 end
 return { { _1_, _3_, _5_, _10_(...) } }

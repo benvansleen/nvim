@@ -28,6 +28,7 @@
            scrolloff 10
            shiftround true
            shiftwidth 4
+           shortmess+ :I
            showcmd false
            showmode false
            signcolumn :yes

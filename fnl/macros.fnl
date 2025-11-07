@@ -59,7 +59,11 @@
 
   (fn set-opt [t opts]
     (icollect [k v (pairs opts)]
-      `(tset ,t ,(tostring k) ,v)))
+      (let [k (tostring k)
+            kind (string.sub k -1)]
+        (case kind
+          "+" `(: (. ,t ,(string.sub k 1 -2)) :append ,v)
+          _ `(tset ,t ,k ,v)))))
 
   (fn set-mappings [keymap mode mappings]
     (fn set-map [keymap mode kb action desc]

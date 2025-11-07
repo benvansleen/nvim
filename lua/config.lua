@@ -57,8 +57,8 @@ end
 local function _4_()
     local _5_
     do
-        local cats_31_auto = require("nixCatsUtils")
-        _5_ = cats_31_auto.isNixCats
+        local cats_32_auto = require("nixCatsUtils")
+        _5_ = cats_32_auto.isNixCats
     end
     if false == _5_ then
         local _ = require("non_nix_download")
@@ -96,6 +96,7 @@ do
             nil,
             nil,
             nil,
+            vim.opt.shortmess:append("I"),
             nil,
             nil,
             nil,
@@ -156,8 +157,8 @@ else
 end
 local _10_
 do
-    local cats_31_auto = require("nixCatsUtils")
-    _10_ = cats_31_auto.isNixCats
+    local cats_32_auto = require("nixCatsUtils")
+    _10_ = cats_32_auto.isNixCats
 end
 if false == _10_ then
     return {
