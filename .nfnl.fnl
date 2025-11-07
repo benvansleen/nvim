@@ -8,4 +8,4 @@
                  :fnl/*.fnl
                  :fnl/**/*.fnl
                  :after/**/*.fnl
-                 :ftdetect/**/*.fnl]))
+                 :ftdetect/*.fnl]))
