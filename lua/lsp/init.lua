@@ -62,35 +62,7 @@ local _13_
 do
     local keymap_19_auto
     do
-        local _14_
-        do
-            local cats_31_auto = require("nixCatsUtils")
-            _14_ = cats_31_auto.isNixCats
-        end
-        local function _16_(name)
-            vim.cmd.packadd(name)
-            vim.cmd.packadd("mason-lspconfig.nvim")
-            do
-                local p_8_auto = require("mason")
-                p_8_auto.setup()
-            end
-            local p_7_auto = require("mason-lspconfig")
-            return p_7_auto.setup({ automatic_installation = false })
-        end
-        keymap_19_auto = require("lzextras").keymap({
-            "mason.vim",
-            enabled = not _14_,
-            load = _16_,
-            on_plugin = { "nvim-lspconfig" },
-        })
-    end
-    _13_ = {}
-end
-local _17_
-do
-    local keymap_19_auto
-    do
-        local function _18_()
+        local function _14_()
             local p_7_auto = require("lazydev")
             return p_7_auto.setup({
                 library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") },
@@ -98,15 +70,15 @@ do
         end
         keymap_19_auto = require("lzextras").keymap({
             "lazydev.nvim",
-            after = _18_,
+            after = _14_,
             cmd = { "LazyDev" },
             for_cat = "neonixdev",
             ft = { "lua" },
         })
     end
-    _17_ = {}
+    _13_ = {}
 end
-local _19_
+local _15_
 do
     local keymap_19_auto
     do
@@ -128,9 +100,9 @@ do
             },
         })
     end
-    _19_ = {}
+    _15_ = {}
 end
-local _20_
+local _16_
 do
     local keymap_19_auto
     do
@@ -141,52 +113,52 @@ do
             lsp = { filetypes = { "fennel" }, settings = {} },
         })
     end
-    _20_ = {}
+    _16_ = {}
 end
-local _21_
+local _17_
 do
     local keymap_19_auto
     do
-        local _22_
+        local _18_
         do
             local cats_31_auto = require("nixCatsUtils")
-            _22_ = cats_31_auto.isNixCats
+            _18_ = cats_31_auto.isNixCats
         end
         keymap_19_auto =
-            require("lzextras").keymap({ "rnix", enabled = not _22_, ft = { "nix" }, lsp = { filetypes = { "nix" } } })
+            require("lzextras").keymap({ "rnix", enabled = not _18_, ft = { "nix" }, lsp = { filetypes = { "nix" } } })
     end
-    _21_ = {}
+    _17_ = {}
 end
-local _24_
+local _20_
 do
     local keymap_19_auto
     do
-        local _25_
+        local _21_
         do
             local cats_31_auto = require("nixCatsUtils")
-            _25_ = cats_31_auto.isNixCats
+            _21_ = cats_31_auto.isNixCats
         end
         keymap_19_auto = require("lzextras").keymap({
             "nil_ls",
-            enabled = not _25_,
+            enabled = not _21_,
             ft = { "nix" },
             lsp = { filetypes = { "nix" } },
         })
     end
-    _24_ = {}
+    _20_ = {}
 end
-local _27_
+local _23_
 do
     local keymap_19_auto
     do
-        local _28_
+        local _24_
         do
             local cats_31_auto = require("nixCatsUtils")
-            _28_ = cats_31_auto.isNixCats
+            _24_ = cats_31_auto.isNixCats
         end
         keymap_19_auto = require("lzextras").keymap({
             "nixd",
-            enabled = (_28_ and (nixCats("nix") or nixCats("neonixdev") or false)),
+            enabled = (_24_ and (nixCats("nix") or nixCats("neonixdev") or false)),
             ft = { "nix" },
             lsp = {
                 filetypes = { "nix" },
@@ -203,9 +175,9 @@ do
             },
         })
     end
-    _27_ = {}
+    _23_ = {}
 end
-local _30_
+local _26_
 do
     local keymap_19_auto
     do
@@ -234,9 +206,9 @@ do
             },
         })
     end
-    _30_ = {}
+    _26_ = {}
 end
-local _31_
+local _27_
 do
     local keymap_19_auto
     do
@@ -251,9 +223,9 @@ do
             },
         })
     end
-    _31_ = {}
+    _27_ = {}
 end
-local function _32_(...)
+local function _28_(...)
     local keymap_19_auto
     do
         keymap_19_auto = require("lzextras").keymap({
@@ -270,4 +242,4 @@ local function _32_(...)
     end
     return {}
 end
-return { { _10_, _13_, _17_, _19_, _20_, _21_, _24_, _27_, _30_, _31_, _32_(...) } }
+return { { _10_, _13_, _15_, _16_, _17_, _20_, _23_, _26_, _27_, _28_(...) } }

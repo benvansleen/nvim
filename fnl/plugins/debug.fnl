@@ -19,8 +19,7 @@
                         (vim.cmd.packadd :nvim-dap-view)
                         (vim.cmd.packadd :nvim-dap-virtual-text)
                         (vim.cmd.packadd :nvim-dap-python)
-                        (vim.cmd.packadd :nvim-dap-repl-highlights)
-                        (unless-nix (vim.cmd.packadd :mason-nvim-dap.nvim)))
+                        (vim.cmd.packadd :nvim-dap-repl-highlights))
                 :after (fn [_]
                          (with-require {: dap}
                            (setup :dap-python :debugpy-adapter)

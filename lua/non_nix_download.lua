@@ -46,8 +46,6 @@ require("nixCatsUtils.catPacker").setup({
     { "stevearc/oil.nvim", opt = true },
 
     -- lsp
-    { "williamboman/mason.nvim", opt = true },
-    { "williamboman/mason-lspconfig.nvim", opt = true },
     { "j-hui/fidget.nvim", opt = true },
     { "SmiteshP/nvim-navic", opt = true },
     { "neovim/nvim-lspconfig", opt = true },
@@ -70,7 +68,6 @@ require("nixCatsUtils.catPacker").setup({
     { "igorlfs/nvim-dap-view", opt = true },
     { "mfussenegger/nvim-dap-python", opt = true },
     { "theHamsta/nvim-dap-virtual-text", opt = true },
-    { "jay-babu/mason-nvim-dap.nvim", opt = true },
     { "mfussenegger/nvim-dap", opt = true },
 
     -- git

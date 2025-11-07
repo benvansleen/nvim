@@ -39,15 +39,6 @@
                               (vim.lsp.config "*"
                                               {:on_attach (require :lsp.on_attach)
                                                :root_markers [:.git]}))}]
-                  [:mason.vim
-                   {:enabled (not (is-nix))
-                    :on_plugin [:nvim-lspconfig]
-                    :load (fn [name]
-                            (vim.cmd.packadd name)
-                            (vim.cmd.packadd :mason-lspconfig.nvim)
-                            (setup :mason)
-                            (setup :mason-lspconfig
-                                   {:automatic_installation false}))}]
                   [:lazydev.nvim
                    {:for_cat :neonixdev
                     :cmd [:LazyDev]
