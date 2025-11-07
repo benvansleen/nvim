@@ -1,5 +1,5 @@
 require("nixCatsUtils.catPacker").setup({
-    { "Olical/nfnl.nvim" },
+    { "Olical/nfnl" },
 
     { "BirdeeHub/lze" },
     { "BirdeeHub/lzextras" },

@@ -58,9 +58,7 @@
                                                        (print (vim.api.nvim_buf_get_name 0)))
             ["[Q]uit buffer" :<leader>q] (fn []
                                            (vim.api.nvim_buf_delete 0 {}))
-            ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>
-            ["[L]oad non-nix [P]ackage manager" :<leader>LP] #(unless-nix (with-require {_ :non_nix_download}
-                                                                            (vim.cmd :PaqSync)))})
+            ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>})
      (imap {["Exit Insert Mode" :jj] :<Esc>})
      (vmap {["Move lines down" :J] ":m '>+1<CR>gv=gv"
             ["Move lines up" :K] ":m '>-2<CR>gv=gv"})

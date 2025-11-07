@@ -7,8 +7,7 @@
 
 (local lisp-fts [:fennel])
 
-(cfg (plugins [:nfnl {:ft :fennel}]
-              [:nvim-parinfer
+(cfg (plugins [:nvim-parinfer
                {:ft lisp-fts
                 :for_cat :lisp
                 :after #(each [_ ft (ipairs lisp-fts)]

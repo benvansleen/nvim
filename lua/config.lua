@@ -74,19 +74,6 @@ local function _8_()
     return vim.api.nvim_buf_delete(0, {})
 end
 local function _9_()
-    local _10_
-    do
-        local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
-        _10_ = cats_31_auto.isNixCats
-    end
-    if false == _10_ then
-        local _ = require("nfnl.module").autoload("non_nix_download")
-        return vim.cmd("PaqSync")
-    else
-        return nil
-    end
-end
-local function _13_()
     return vim.highlight.on_yank()
 end
 do
@@ -158,7 +145,6 @@ do
                 "<cmd>Inspect<CR>",
                 { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
             ),
-            vim.keymap.set("n", "<leader>LP", _9_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true }),
         },
         { vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true }) },
         {
@@ -173,7 +159,7 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _13_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
             ),
         },
     }
@@ -182,12 +168,12 @@ if nixCats("number-toggle") then
     require("number-toggle")
 else
 end
-local _15_
+local _11_
 do
     local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _15_ = cats_31_auto.isNixCats
+    _11_ = cats_31_auto.isNixCats
 end
-if false == _15_ then
+if false == _11_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

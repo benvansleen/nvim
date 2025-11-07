@@ -20,6 +20,7 @@ function M.setup(v)
             local path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
             local is_installed = vim.fn.empty(vim.fn.glob(path)) == 0
             if not is_installed then
+                vim.notify("Bootstrapping paq")
                 vim.fn.system({ "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", path })
                 return true
             end
@@ -32,13 +33,9 @@ function M.setup(v)
                 vim.notify("Installing plugins... If prompted, hit Enter to continue.")
             end
             paq(packages)
-            -- local pkg_count = #require("paq").query("to_install")
-            -- if pkg_count > 0 then
-            --     vim.notify(string.format("There are %d packages to install", pkg_count))
-            --     paq.install()
-            -- end
+            paq.install()
         end
-        bootstrap_paq(vim.list_extend({ "savq/paq-nvim" }, v))
+        bootstrap_paq(v)
     end
 end
 return M
