@@ -10,7 +10,10 @@
          _debug_my_center_buffer false
          netrw_liststyle 0
          netrw_banner 0})
-     (requires :clipboard :lsp :lib :statuscolumn :plugins :theme)
+     (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
+                       :oil :telescope :terminal :tmux :treesitter)
+     (requires-plugins-when-enabled :debug :lint :format)
+     (requires :clipboard :lsp :lib :statuscolumn :theme)
      (opt {autoindent true
            breakindent true
            expandtab true

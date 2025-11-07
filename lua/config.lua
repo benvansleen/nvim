@@ -12,6 +12,25 @@ vim.g["my_center_buffer"] = true
 vim.g["netrw_liststyle"] = 0
 vim.g["netrw_banner"] = 0
 vim.g["_debug_my_center_buffer"] = false
+local _1_
+if nixCats("debug") then
+    _1_ = require("plugins.debug")
+else
+    _1_ = nil
+end
+local _3_
+if nixCats("lint") then
+    _3_ = require("plugins.lint")
+else
+    _3_ = nil
+end
+local function _5_(...)
+    if nixCats("format") then
+        return require("plugins.format")
+    else
+        return nil
+    end
+end
 vim.opt["autoindent"] = true
 vim.opt["breakindent"] = true
 vim.opt["expandtab"] = true
@@ -44,43 +63,51 @@ vim.opt["relativenumber"] = false
 vim.opt["ruler"] = false
 vim.opt["showcmd"] = false
 vim.opt["showmode"] = false
-local function _1_()
+local function _6_()
     local vt = vim.diagnostic.config().virtual_lines
     return vim.diagnostic.config({ virtual_lines = not vt })
 end
-local function _2_()
+local function _7_()
     return print(vim.api.nvim_buf_get_name(0))
 end
-local function _3_()
+local function _8_()
     return vim.api.nvim_buf_delete(0, {})
 end
-local function _4_()
-    local _5_
+local function _9_()
+    local _10_
     do
         local cats_32_auto = require("nixCatsUtils")
-        _5_ = cats_32_auto.isNixCats
+        _10_ = cats_32_auto.isNixCats
     end
-    if false == _5_ then
+    if false == _10_ then
         local _ = require("non_nix_download")
         return vim.cmd("PaqSync")
     else
         return nil
     end
 end
-local function _8_()
+local function _13_()
     return vim.highlight.on_yank()
 end
 do
     local _ = {
         { nil, nil, nil, nil, nil, nil },
         {
-            require("clipboard"),
-            require("lsp"),
-            require("lib"),
-            require("statuscolumn"),
-            require("plugins"),
-            require("theme"),
+            require("plugins.appearance"),
+            require("plugins.completion"),
+            require("plugins.editor"),
+            require("plugins.git"),
+            require("plugins.lisp"),
+            require("plugins.lsp"),
+            require("plugins.misc"),
+            require("plugins.oil"),
+            require("plugins.telescope"),
+            require("plugins.terminal"),
+            require("plugins.tmux"),
+            require("plugins.treesitter"),
         },
+        { _1_, _3_, _5_(...) },
+        { require("clipboard"), require("lsp"), require("lib"), require("statuscolumn"), require("theme") },
         {
             nil,
             nil,
@@ -122,16 +149,16 @@ do
         },
         {
             vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true }),
-            vim.keymap.set("n", "<leader>te", _1_, { desc = "[T]oggle virtual lines", noremap = true }),
-            vim.keymap.set("n", "<leader>wtf", _2_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
-            vim.keymap.set("n", "<leader>q", _3_, { desc = "[Q]uit buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>te", _6_, { desc = "[T]oggle virtual lines", noremap = true }),
+            vim.keymap.set("n", "<leader>wtf", _7_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
+            vim.keymap.set("n", "<leader>q", _8_, { desc = "[Q]uit buffer", noremap = true }),
             vim.keymap.set(
                 "n",
                 "<leader>huc",
                 "<cmd>Inspect<CR>",
                 { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
             ),
-            vim.keymap.set("n", "<leader>LP", _4_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true }),
+            vim.keymap.set("n", "<leader>LP", _9_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true }),
         },
         { vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true }) },
         {
@@ -146,7 +173,7 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _8_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _13_ }
             ),
         },
     }
@@ -155,12 +182,12 @@ if nixCats("number-toggle") then
     require("number-toggle")
 else
 end
-local _10_
+local _15_
 do
     local cats_32_auto = require("nixCatsUtils")
-    _10_ = cats_32_auto.isNixCats
+    _15_ = cats_32_auto.isNixCats
 end
-if false == _10_ then
+if false == _15_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),
