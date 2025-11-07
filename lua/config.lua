@@ -1,8 +1,8 @@
 -- [nfnl] fnl/config.fnl
 do
-    local lze = require("lze")
-    local lzextras = require("lzextras")
-    local lzUtils = require("nixCatsUtils.lzUtils")
+    local lze = require("nfnl.module").autoload("lze")
+    local lzextras = require("nfnl.module").autoload("lzextras")
+    local lzUtils = require("nfnl.module").autoload("nixCatsUtils.lzUtils")
     lze.register_handlers(lzUtils.for_cat)
     lze.register_handlers(lzextras.lsp)
 end
@@ -76,11 +76,11 @@ end
 local function _9_()
     local _10_
     do
-        local cats_32_auto = require("nixCatsUtils")
-        _10_ = cats_32_auto.isNixCats
+        local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+        _10_ = cats_31_auto.isNixCats
     end
     if false == _10_ then
-        local _ = require("non_nix_download")
+        local _ = require("nfnl.module").autoload("non_nix_download")
         return vim.cmd("PaqSync")
     else
         return nil
@@ -184,8 +184,8 @@ else
 end
 local _15_
 do
-    local cats_32_auto = require("nixCatsUtils")
-    _15_ = cats_32_auto.isNixCats
+    local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+    _15_ = cats_31_auto.isNixCats
 end
 if false == _15_ then
     return {

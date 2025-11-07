@@ -1,8 +1,9 @@
 -- [nfnl] fnl/plugins/oil.fnl
 vim.g["loaded_netrwPlugin"] = 1
 local function _2_(...)
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
             local p_7_auto = require("oil")
             return p_7_auto.setup({
@@ -30,12 +31,12 @@ local function _2_(...)
                 },
             })
         end
-        keymap_20_auto = require("lzextras").keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
+        keymap_19_auto = mod_6_auto.keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
     end
     return {
         {
-            keymap_20_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true }),
-            keymap_20_auto.set(
+            keymap_19_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true }),
+            keymap_19_auto.set(
                 "n",
                 "<leader>-",
                 "<cmd>Oil .<cr>",

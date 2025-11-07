@@ -1,26 +1,29 @@
 -- [nfnl] fnl/theme.fnl
+local _local_1_ = require("nfnl.module")
+local autoload = _local_1_.autoload
+local core = autoload("nfnl.core")
 local function update_hl(group, opts)
     local cur_hl = vim.api.nvim_get_hl(0, { name = group })
     if cur_hl.link then
         return update_hl(cur_hl.link, opts)
     else
-        return vim.tbl_extend("force", cur_hl, opts)
+        return core.merge(cur_hl, opts)
     end
 end
 local hl
-local function _2_(...)
+local function _3_(...)
     return vim.api.nvim_set_hl(0, ...)
 end
-hl = _2_
+hl = _3_
 local theme_name = "gruvbox-material"
 local contrast = "medium"
 local palette
 do
-    local colors = require("gruvbox-material.colors")
+    local colors = require("nfnl.module").autoload("gruvbox-material.colors")
     palette = colors.get(vim.o.background, contrast)
 end
-local function customize_colors(_3_, g, o)
-    local bg0 = _3_.bg0
+local function customize_colors(_4_, g, o)
+    local bg0 = _4_.bg0
     if (g == "GreenSign") or (g == "RedSign") or (g == "BlueSign") or (g == "Folded") or (g == "FoldColumn") then
         o.bg = bg0
         return o
@@ -31,7 +34,7 @@ local function customize_colors(_3_, g, o)
 end
 do
     local p_7_auto = require(theme_name)
-    local function _5_(...)
+    local function _6_(...)
         return customize_colors(palette, ...)
     end
     p_7_auto.setup({
@@ -39,7 +42,7 @@ do
         contrast = contrast,
         comments = { italics = true },
         background = { transparent = false },
-        customize = _5_,
+        customize = _6_,
     })
 end
 do
@@ -53,12 +56,12 @@ local function set_telescope_highlights()
     local bg4 = palette.bg4
     local blue = palette.blue
     local green = palette.green
-    local function _6_()
-        local colors = require("gruvbox-material.colors")
+    local function _7_()
+        local colors = require("nfnl.module").autoload("gruvbox-material.colors")
         return colors.get(vim.o.background, "hard")
     end
-    local _let_7_ = _6_()
-    local dark_hard_bg0 = _let_7_.bg0
+    local _let_8_ = _7_()
+    local dark_hard_bg0 = _let_8_.bg0
     hl("TelescopePromptNormal", { bg = bg4, link = nil })
     hl("TelescopePromptBorder", { fg = bg4, bg = bg4, link = nil })
     hl("TelescopeNormal", { bg = dark_hard_bg0, link = nil })

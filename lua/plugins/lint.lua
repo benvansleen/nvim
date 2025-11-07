@@ -1,9 +1,10 @@
 -- [nfnl] fnl/plugins/lint.fnl
 local function _3_(...)
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
-            local lint = require("lint")
+            local lint = require("nfnl.module").autoload("lint")
             lint.linters_by_ft = {
                 fennel = { "fennel" },
                 nix = { "deadnix", "nix", "statix" },
@@ -16,7 +17,7 @@ local function _3_(...)
             end
             return { { vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _2_ }) } }
         end
-        keymap_20_auto = require("lzextras").keymap({
+        keymap_19_auto = mod_6_auto.keymap({
             "nvim-lint",
             after = _1_,
             event = "FileType",

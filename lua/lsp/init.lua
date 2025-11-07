@@ -1,10 +1,10 @@
 -- [nfnl] fnl/lsp/init.fnl
-local lze = require("lze")
+local lze = require("nfnl.module").autoload("lze")
 local old_ft_fallback = lze.h.lsp.get_ft_fallback()
 local _1_
 do
-    local cats_32_auto = require("nixCatsUtils")
-    _1_ = cats_32_auto.isNixCats
+    local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+    _1_ = cats_31_auto.isNixCats
 end
 if _1_ and nixCats("lspDebugMode") then
     vim.lsp.set_log_level("debug")
@@ -39,16 +39,17 @@ end
 lze.h.lsp.set_ft_fallback(_4_)
 local _10_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        local function _11_(_)
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local function _11_()
             return vim.lsp.config("*", { on_attach = require("lsp.on_attach"), root_markers = { ".git" } })
         end
         local function _12_(plugin)
             vim.lsp.config(plugin.name, (plugin.lsp or {}))
             return vim.lsp.enable(plugin.name)
         end
-        keymap_20_auto = require("lzextras").keymap({
+        keymap_19_auto = mod_6_auto.keymap({
             "nvim-lspconfig",
             before = _11_,
             for_cat = "general.always",
@@ -60,15 +61,16 @@ do
 end
 local _13_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local function _14_()
             local p_7_auto = require("lazydev")
             return p_7_auto.setup({
                 library = { words = { "nixCats" }, path = ((nixCats.nixCatsPath or "") .. "/lua") },
             })
         end
-        keymap_20_auto = require("lzextras").keymap({
+        keymap_19_auto = mod_6_auto.keymap({
             "lazydev.nvim",
             after = _14_,
             cmd = { "LazyDev" },
@@ -80,9 +82,10 @@ do
 end
 local _15_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        keymap_20_auto = require("lzextras").keymap({
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        keymap_19_auto = mod_6_auto.keymap({
             "lua_ls",
             enabled = (nixCats("lua") or nixCats("neonixdev") or false),
             ft = { "lua" },
@@ -104,9 +107,10 @@ do
 end
 local _16_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        keymap_20_auto = require("lzextras").keymap({
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        keymap_19_auto = mod_6_auto.keymap({
             "fennel_ls",
             enabled = (nixCats("fnl") or false),
             ft = { "fennel" },
@@ -117,46 +121,45 @@ do
 end
 local _17_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local _18_
         do
-            local cats_32_auto = require("nixCatsUtils")
-            _18_ = cats_32_auto.isNixCats
+            local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+            _18_ = cats_31_auto.isNixCats
         end
-        keymap_20_auto =
-            require("lzextras").keymap({ "rnix", enabled = not _18_, ft = { "nix" }, lsp = { filetypes = { "nix" } } })
+        keymap_19_auto =
+            mod_6_auto.keymap({ "rnix", enabled = not _18_, ft = { "nix" }, lsp = { filetypes = { "nix" } } })
     end
     _17_ = {}
 end
 local _20_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local _21_
         do
-            local cats_32_auto = require("nixCatsUtils")
-            _21_ = cats_32_auto.isNixCats
+            local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+            _21_ = cats_31_auto.isNixCats
         end
-        keymap_20_auto = require("lzextras").keymap({
-            "nil_ls",
-            enabled = not _21_,
-            ft = { "nix" },
-            lsp = { filetypes = { "nix" } },
-        })
+        keymap_19_auto =
+            mod_6_auto.keymap({ "nil_ls", enabled = not _21_, ft = { "nix" }, lsp = { filetypes = { "nix" } } })
     end
     _20_ = {}
 end
 local _23_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local _24_
         do
-            local cats_32_auto = require("nixCatsUtils")
-            _24_ = cats_32_auto.isNixCats
+            local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
+            _24_ = cats_31_auto.isNixCats
         end
-        keymap_20_auto = require("lzextras").keymap({
+        keymap_19_auto = mod_6_auto.keymap({
             "nixd",
             enabled = (_24_ and (nixCats("nix") or nixCats("neonixdev") or false)),
             ft = { "nix" },
@@ -179,9 +182,10 @@ do
 end
 local _26_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        keymap_20_auto = require("lzextras").keymap({
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        keymap_19_auto = mod_6_auto.keymap({
             "basedpyright",
             enabled = (nixCats("python") or false),
             ft = { "python" },
@@ -210,9 +214,10 @@ do
 end
 local _27_
 do
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        keymap_20_auto = require("lzextras").keymap({
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        keymap_19_auto = mod_6_auto.keymap({
             "ts_ls",
             enabled = (nixCats("typescript") or false),
             ft = { "typescript" },
@@ -226,9 +231,10 @@ do
     _27_ = {}
 end
 local function _28_(...)
-    local keymap_20_auto
+    local keymap_19_auto
     do
-        keymap_20_auto = require("lzextras").keymap({
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        keymap_19_auto = mod_6_auto.keymap({
             "rust-analyzer",
             enabled = true,
             ft = { "rust" },

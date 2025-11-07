@@ -1,14 +1,16 @@
 (import-macros {: require-and-call} :macros)
+(local {: autoload : define} (require :nfnl.module))
+(local core (autoload :nfnl.core))
 
-(local statuscolumn {})
+(local M (define :statuscolumn {}))
 
 (macro disable-for-fts [ft disabled-fts & body]
-  `(if (vim.tbl_contains ,disabled-fts ,ft)
+  `(if (core.contains? ,disabled-fts ,ft)
        " "
        (do
          ,(unpack body))))
 
-(fn statuscolumn.border [buf-ft]
+(fn M.border [buf-ft]
   (disable-for-fts buf-ft [:dashboard
                            :dap-repl
                            :dap-view
@@ -19,7 +21,7 @@
                            :TelescopePrompt]
                    (require-and-call :statuscolumn.border :border)))
 
-(fn statuscolumn.number [_]
+(fn M.number [_]
   (let [linenum (if vim.wo.relativenumber
                     (or (and (= vim.v.relnum 0) vim.v.lnum) vim.v.relnum)
                     (if vim.wo.number
@@ -28,12 +30,12 @@
     (if (not= linenum nil)
         (string.format "%4d" linenum) "")))
 
-(fn statuscolumn.center-buffer [buf-ft]
+(fn M.center-buffer [buf-ft]
   (disable-for-fts buf-ft [:TelescopePrompt]
                    (require-and-call :statuscolumn.center-buffer :center-buffer
                                      buf-ft)))
 
-(fn statuscolumn.folds [buf-ft]
+(fn M.folds [buf-ft]
   (disable-for-fts buf-ft [:dap-repl
                            :dap-view
                            :dap-view-term
@@ -41,19 +43,19 @@
                            :startuptime]
                    (require-and-call :statuscolumn.folds :folds)))
 
-(fn statuscolumn.signs [buf-ft]
+(fn M.signs [buf-ft]
   (disable-for-fts buf-ft [:TelescopePrompt] "%s"))
 
-(fn statuscolumn.init []
+(fn M.init []
   (let [buf-ft (-> (vim.api.nvim_get_current_buf)
                    (#(vim.api.nvim_get_option_value :filetype {:buf $1})))]
-    (or (table.concat [(statuscolumn.center-buffer buf-ft)
-                       (statuscolumn.signs buf-ft)
-                       (statuscolumn.folds buf-ft)
+    (or (table.concat [(M.center-buffer buf-ft)
+                       (M.signs buf-ft)
+                       (M.folds buf-ft)
                        "%l"
-                       (statuscolumn.border buf-ft)
+                       (M.border buf-ft)
                        " "]) "")))
 
-(set statuscolumn.activate "%!v:lua.require('statuscolumn.setup').init()")
+(set M.activate "%!v:lua.require('statuscolumn.setup').init()")
 
-statuscolumn
+M

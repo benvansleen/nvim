@@ -1,10 +1,12 @@
 (import-macros {: setup : with-require} :macros)
+(local {: autoload} (require :nfnl.module))
+(local core (autoload :nfnl.core))
 
 (fn update-hl [group opts]
   (let [cur-hl (vim.api.nvim_get_hl 0 {:name group})]
     (if cur-hl.link
         (tail! (update-hl cur-hl.link opts))
-        (vim.tbl_extend :force cur-hl opts))))
+        (core.merge cur-hl opts))))
 
 (local hl (partial vim.api.nvim_set_hl 0))
 (local theme-name :gruvbox-material)

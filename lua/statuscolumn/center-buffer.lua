@@ -1,4 +1,7 @@
 -- [nfnl] fnl/statuscolumn/center-buffer.fnl
+local _local_1_ = require("nfnl.module")
+local autoload = _local_1_.autoload
+local core = autoload("nfnl.core")
 local function get_buf_ft(win)
     return vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(win) })
 end
@@ -20,12 +23,12 @@ local disabled_ft = {
 local function real_window_3f(win)
     local cfg = vim.api.nvim_win_get_config(win)
     local ft = get_buf_ft(win)
-    return (not cfg.external and (ft ~= "") and not vim.tbl_contains(disabled_ft, ft))
+    return (not cfg.external and (ft ~= "") and not core["contains?"](disabled_ft, ft))
 end
 local function count_windows()
-    local windows = vim.tbl_filter(real_window_3f, vim.api.nvim_tabpage_list_wins(0))
+    local windows = core.filter(real_window_3f, vim.api.nvim_tabpage_list_wins(0))
     if vim.g._debug_my_center_buffer then
-        print(vim.inspect(vim.tbl_map(get_buf_ft, windows)))
+        print(vim.inspect(core.map(get_buf_ft, windows)))
     else
     end
     local len = #windows

@@ -35,10 +35,9 @@
                     :lsp (fn [plugin]
                            (vim.lsp.config plugin.name (or plugin.lsp {}))
                            (vim.lsp.enable plugin.name))
-                    :before (fn [_]
-                              (vim.lsp.config "*"
-                                              {:on_attach (require :lsp.on_attach)
-                                               :root_markers [:.git]}))}]
+                    :before #(vim.lsp.config "*"
+                                             {:on_attach (require :lsp.on_attach)
+                                              :root_markers [:.git]})}]
                   [:lazydev.nvim
                    {:for_cat :neonixdev
                     :cmd [:LazyDev]

@@ -1,8 +1,12 @@
 -- [nfnl] fnl/statuscolumn/statuscolumn.fnl
-local statuscolumn = {}
-statuscolumn.border = function(buf_ft)
+local _local_1_ = require("nfnl.module")
+local autoload = _local_1_.autoload
+local define = _local_1_.define
+local core = autoload("nfnl.core")
+local M = define("statuscolumn", {})
+M.border = function(buf_ft)
     if
-        vim.tbl_contains({
+        core["contains?"]({
             "dashboard",
             "dap-repl",
             "dap-view",
@@ -15,10 +19,11 @@ statuscolumn.border = function(buf_ft)
     then
         return " "
     else
-        return require("statuscolumn.border").border()
+        local mod_6_auto = require("nfnl.module").autoload("statuscolumn.border")
+        return mod_6_auto.border()
     end
 end
-statuscolumn.number = function(_)
+M.number = function(_)
     local linenum
     if vim.wo.relativenumber then
         linenum = (((vim.v.relnum == 0) and vim.v.lnum) or vim.v.relnum)
@@ -35,43 +40,39 @@ statuscolumn.number = function(_)
         return ""
     end
 end
-statuscolumn["center-buffer"] = function(buf_ft)
-    if vim.tbl_contains({ "TelescopePrompt" }, buf_ft) then
+M["center-buffer"] = function(buf_ft)
+    if core["contains?"]({ "TelescopePrompt" }, buf_ft) then
         return " "
     else
-        return require("statuscolumn.center-buffer")["center-buffer"](buf_ft)
+        local mod_6_auto = require("nfnl.module").autoload("statuscolumn.center-buffer")
+        return mod_6_auto["center-buffer"](buf_ft)
     end
 end
-statuscolumn.folds = function(buf_ft)
-    if vim.tbl_contains({ "dap-repl", "dap-view", "dap-view-term", "TelescopePrompt", "startuptime" }, buf_ft) then
+M.folds = function(buf_ft)
+    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "TelescopePrompt", "startuptime" }, buf_ft) then
         return " "
     else
-        return require("statuscolumn.folds").folds()
+        local mod_6_auto = require("nfnl.module").autoload("statuscolumn.folds")
+        return mod_6_auto.folds()
     end
 end
-statuscolumn.signs = function(buf_ft)
-    if vim.tbl_contains({ "TelescopePrompt" }, buf_ft) then
+M.signs = function(buf_ft)
+    if core["contains?"]({ "TelescopePrompt" }, buf_ft) then
         return " "
     else
         return "%s"
     end
 end
-statuscolumn.init = function()
+M.init = function()
     local buf_ft
-    local function _8_(_241)
+    local function _9_(_241)
         return vim.api.nvim_get_option_value("filetype", { buf = _241 })
     end
-    buf_ft = _8_(vim.api.nvim_get_current_buf())
+    buf_ft = _9_(vim.api.nvim_get_current_buf())
     return (
-        table.concat({
-            statuscolumn["center-buffer"](buf_ft),
-            statuscolumn.signs(buf_ft),
-            statuscolumn.folds(buf_ft),
-            "%l",
-            statuscolumn.border(buf_ft),
-            " ",
-        }) or ""
+        table.concat({ M["center-buffer"](buf_ft), M.signs(buf_ft), M.folds(buf_ft), "%l", M.border(buf_ft), " " })
+        or ""
     )
 end
-statuscolumn.activate = "%!v:lua.require('statuscolumn.setup').init()"
-return statuscolumn
+M.activate = "%!v:lua.require('statuscolumn.setup').init()"
+return M

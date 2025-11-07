@@ -1,3 +1,6 @@
+(local {: autoload} (require :nfnl.module))
+(local core (autoload :nfnl.core))
+
 (fn get-buf-ft [win]
   (vim.api.nvim_get_option_value :filetype
                                  {:buf (vim.api.nvim_win_get_buf win)}))
@@ -19,13 +22,12 @@
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)
         ft (get-buf-ft win)]
-    (and (not cfg.external) (not= ft "")
-         (not (vim.tbl_contains disabled-ft ft)))))
+    (and (not cfg.external) (not= ft "") (not (core.contains? disabled-ft ft)))))
 
 (fn count-windows []
-  (let [windows (vim.tbl_filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
+  (let [windows (core.filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
     (when vim.g._debug_my_center_buffer
-      (print (vim.inspect (vim.tbl_map get-buf-ft windows))))
+      (print (vim.inspect (core.map get-buf-ft windows))))
     (let [len (length windows)]
       (if (and (= len 1) (= :toggleterm (get-buf-ft (. windows 1))))
           0
