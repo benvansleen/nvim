@@ -2,7 +2,7 @@
 (local {: autoload : define} (require :nfnl.module))
 (local core (autoload :nfnl.core))
 
-(local M (define :statuscolumn {}))
+(local M (define :statuscolumn))
 
 (macro disable-for-fts [ft disabled-fts & body]
   `(if (core.contains? ,disabled-fts ,ft)

@@ -256,6 +256,7 @@
               symbol-usage-nvim
             ];
             lisp = with pkgs.vimPlugins; [
+              conjure
               nvim-parinfer
             ];
             format = with pkgs.vimPlugins; [

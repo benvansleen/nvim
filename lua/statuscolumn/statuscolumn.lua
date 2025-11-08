@@ -3,7 +3,7 @@ local _local_1_ = require("nfnl.module")
 local autoload = _local_1_.autoload
 local define = _local_1_.define
 local core = autoload("nfnl.core")
-local M = define("statuscolumn", {})
+local M = define("statuscolumn")
 M.border = function(buf_ft)
     if
         core["contains?"]({

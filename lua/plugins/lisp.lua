@@ -3,11 +3,20 @@ local _local_1_ = require("nfnl.module")
 local autoload = _local_1_.autoload
 local theme = autoload("theme")
 local lisp_fts = { "fennel" }
-local function _3_(...)
+local _2_
+do
     local keymap_19_auto
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
-        local function _2_()
+        keymap_19_auto = mod_6_auto.keymap({ "conjure", ft = "fennel" })
+    end
+    _2_ = {}
+end
+local function _4_(...)
+    local keymap_19_auto
+    do
+        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local function _3_()
             for _, ft in ipairs(lisp_fts) do
                 vim.api.nvim_set_hl(
                     0,
@@ -27,8 +36,8 @@ local function _3_(...)
             end
             return nil
         end
-        keymap_19_auto = mod_6_auto.keymap({ "nvim-parinfer", after = _2_, for_cat = "lisp", ft = lisp_fts })
+        keymap_19_auto = mod_6_auto.keymap({ "nvim-parinfer", after = _3_, for_cat = "lisp", ft = lisp_fts })
     end
     return {}
 end
-return { { _3_(...) } }
+return { { _2_, _4_(...) } }
