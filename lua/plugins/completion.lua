@@ -82,17 +82,23 @@ do
                     },
                 },
                 sources = {
-                    default = { "lsp", "path", "buffer", "ripgrep" },
+                    default = { "lsp", "path", "buffer" },
                     providers = {
                         ripgrep = {
                             module = "blink-ripgrep",
                             name = "Ripgrep",
-                            opts = { prefix_min_len = 3, backend = { use = "gitgrep-or-ripgrep" } },
+                            opts = { prefix_min_len = 2, backend = { use = "gitgrep-or-ripgrep" } },
                         },
                     },
                 },
                 fuzzy = { implementation = _12_ },
-                cmdline = { completion = { menu = { auto_show = false } } },
+                cmdline = {
+                    completion = {
+                        menu = { auto_show = true },
+                        ghost_text = { enabled = true },
+                        list = { selection = { auto_insert = true, preselect = false } },
+                    },
+                },
             })
         end
         keymap_19_auto =

@@ -98,7 +98,7 @@ do
             local p_7_auto = require("helpview")
             return p_7_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
         end
-        keymap_19_auto = mod_6_auto.keymap({ "helpview.nvim", after = _6_, for_cat = "general.extra", ft = "help" })
+        keymap_19_auto = mod_6_auto.keymap({ "helpview.nvim", after = _6_, for_cat = "general.extra" })
     end
     _5_ = {}
 end

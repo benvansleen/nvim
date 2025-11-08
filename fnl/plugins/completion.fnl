@@ -51,18 +51,18 @@
                                                                                              (require-and-call :colorful-menu
                                                                                                                :blink_components_highlight
                                                                                                                ctx))}}}}}
-                                :sources {:default [:lsp
-                                                    :path
-                                                    :buffer
-                                                    :ripgrep]
+                                :sources {:default [:lsp :path :buffer]
                                           :providers {:ripgrep {:module :blink-ripgrep
                                                                 :name :Ripgrep
-                                                                :opts {:prefix_min_len 3
+                                                                :opts {:prefix_min_len 2
                                                                        :backend {:use :gitgrep-or-ripgrep}}}}}
                                 :fuzzy {:implementation (if (is-nix)
                                                             :prefer_rust
                                                             :lua)}
-                                :cmdline {:completion {:menu {:auto_show false}}}})}]
+                                :cmdline {:completion {:menu {:auto_show true}
+                                                       :ghost_text {:enabled true}
+                                                       :list {:selection {:preselect false
+                                                                          :auto_insert true}}}}})}]
               [:blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]}]
               [:blink-ripgrep.nvim
                {:for_cat :general.blink :on_plugin [:blink.cmp]}]

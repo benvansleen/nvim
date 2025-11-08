@@ -65,7 +65,6 @@
                                 :smear_insert_mode true})}]
               [:helpview.nvim
                {:for_cat :general.extra
-                :ft :help
                 :after #(setup :helpview
                                {:preview {:enable true
                                           :splitview_winopts {:split :right}}})}]
