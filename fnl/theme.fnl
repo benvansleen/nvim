@@ -39,7 +39,7 @@
   (hl :CursorLine {:bg bg0}))
 
 (fn set-telescope-highlights []
-  (let [{: bg4 : blue : green} palette
+  (let [{: bg4 : blue : bg_yellow} palette
         {:bg0 dark-hard-bg0} (with-require {colors :gruvbox-material.colors}
                                (colors.get vim.o.background :hard))]
     (hl :TelescopePromptNormal {:bg bg4 :link nil})
@@ -49,8 +49,8 @@
     (hl :TelescopePreviewNormal {:bg dark-hard-bg0 :link nil})
     (hl :TelescopeSelection {:bold true :bg bg4 :link nil})
     (hl :TelescopeBorder {:fg dark-hard-bg0 :bg dark-hard-bg0 :link nil})
-    (hl :TelescopePromptTitle {:fg bg4 :bg blue :link nil})
-    (hl :TelescopeResultsTitle {:fg bg4 :bg green :link nil})
+    (hl :TelescopePromptTitle {:fg bg4 :bg bg_yellow :link nil})
+    (hl :TelescopeResultsTitle {:fg bg4 :bg blue :link nil})
     (hl :TelescopePreviewTitle {:link :TelescopeResultsTitle})))
 
 {: set-telescope-highlights : update-hl}
