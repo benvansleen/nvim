@@ -8,7 +8,9 @@ M.border = function(buf_ft)
             "dap-repl",
             "dap-view",
             "dap-view-term",
+            "gitcommit",
             "NeogitStatus",
+            "NeogitDiffView",
             "startuptime",
             "toggleterm",
             "TelescopePrompt",
@@ -21,7 +23,7 @@ M.border = function(buf_ft)
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "TelescopePrompt" }, buf_ft) then
+    if core["contains?"]({ "NeogitDiffView", "TelescopePrompt" }, buf_ft) then
         return " "
     else
         local mod_6_auto = require("nfnl.module").autoload("statuscolumn.center-buffer")
@@ -29,7 +31,12 @@ M["center-buffer"] = function(buf_ft)
     end
 end
 M.folds = function(buf_ft)
-    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "TelescopePrompt", "startuptime" }, buf_ft) then
+    if
+        core["contains?"](
+            { "dap-repl", "dap-view", "dap-view-term", "NeogitDiffView", "TelescopePrompt", "startuptime" },
+            buf_ft
+        )
+    then
         return " "
     else
         local mod_6_auto = require("nfnl.module").autoload("statuscolumn.folds")

@@ -13,14 +13,16 @@
                            :dap-repl
                            :dap-view
                            :dap-view-term
+                           :gitcommit
                            :NeogitStatus
+                           :NeogitDiffView
                            :startuptime
                            :toggleterm
                            :TelescopePrompt]
                    (require-and-call :statuscolumn.border :border)))
 
 (fn M.center-buffer [buf-ft]
-  (disable-for-fts buf-ft [:TelescopePrompt]
+  (disable-for-fts buf-ft [:NeogitDiffView :TelescopePrompt]
                    (require-and-call :statuscolumn.center-buffer :center-buffer
                                      buf-ft)))
 
@@ -28,6 +30,7 @@
   (disable-for-fts buf-ft [:dap-repl
                            :dap-view
                            :dap-view-term
+                           :NeogitDiffView
                            :TelescopePrompt
                            :startuptime]
                    (require-and-call :statuscolumn.folds :folds)))
