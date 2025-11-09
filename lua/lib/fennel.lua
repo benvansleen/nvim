@@ -1,17 +1,21 @@
 -- [nfnl] fnl/lib/fennel.fnl
-local function get_associated_file()
-    local case_1_ = vim.fn.expand("%:e")
-    if case_1_ == "lua" then
-        return string.gsub(string.gsub(vim.fn.expand("%:p"), "%.lua", "%.fnl"), "/lua/", "/fnl/")
-    elseif case_1_ == "fnl" then
-        return string.gsub(string.gsub(vim.fn.expand("%:p"), "%.fnl", "%.lua"), "/fnl/", "/lua/")
-    else
-        return nil
+local M = require("nfnl.module").define("lib.fennel")
+M["get-associated-file"] = function()
+    local function _2_()
+        local case_1_ = vim.fn.expand("%:e")
+        if case_1_ == "lua" then
+            return string.gsub(string.gsub(vim.fn.expand("%:p"), "%.lua", "%.fnl"), "/lua/", "/fnl/")
+        elseif case_1_ == "fnl" then
+            return string.gsub(string.gsub(vim.fn.expand("%:p"), "%.fnl", "%.lua"), "/fnl/", "/lua/")
+        else
+            return nil
+        end
     end
+    return (_2_())
 end
---[[ (get-associated-file) ]]
-local function cmd_on_associated_file(cmd)
-    return vim.cmd((cmd .. " " .. get_associated_file()))
+--[[ (M.get-associated-file) ]]
+M["cmd-on-associated-file"] = function(cmd)
+    return vim.cmd((cmd .. " " .. M["get-associated-file"]()))
 end
---[[ (cmd-on-associated-file "edit") ]]
-return { ["cmd-on-associated-file"] = cmd_on_associated_file }
+--[[ (M.cmd-on-associated-file "edit") ]]
+return M

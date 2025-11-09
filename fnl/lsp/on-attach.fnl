@@ -1,6 +1,7 @@
-(import-macros {: require-and-call : with-require} :macros)
+(import-macros {: define : require-and-call : with-require} :macros)
+(define M :lsp.on_attach)
 
-(fn [client bufnr]
+(fn M.attach [client bufnr]
   (vim.diagnostic.config {:virtual_lines {:current_line true}
                           :signs {:text {vim.diagnostic.severity.ERROR ""
                                          vim.diagnostic.severity.WARN ""
@@ -55,3 +56,5 @@
     (nmap :<leader>ws
           #(require-and-call :telescope.builtin :lsp_dynamic_workspace_symbols)
           "[W]orkspace [S]ymbols")))
+
+M

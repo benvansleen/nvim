@@ -1,5 +1,6 @@
 -- [nfnl] fnl/lib/treesitter.fnl
-local function nearest_parent_of_type(node_type, node)
+local M = require("nfnl.module").define("lib.treesitter")
+M["nearest-parent-of-type"] = function(node_type, node)
     local function climb_tree(node0)
         if not node0 or (node0:type() == node_type) then
             return node0
@@ -14,4 +15,4 @@ local function nearest_parent_of_type(node_type, node)
     end
     return climb_tree(or_2_)
 end
-return { ["nearest-parent-of-type"] = nearest_parent_of_type }
+return M

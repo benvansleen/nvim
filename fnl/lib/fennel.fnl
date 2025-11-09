@@ -1,21 +1,24 @@
-(fn get-associated-file []
-  (case (vim.fn.expand "%:e")
-    :lua (-> "%:p"
-             vim.fn.expand
-             (string.gsub "%.lua" "%.fnl")
-             (string.gsub :/lua/ :/fnl/))
-    :fnl (-> "%:p"
-             vim.fn.expand
-             (string.gsub "%.fnl" "%.lua")
-             (string.gsub :/fnl/ :/lua/))))
+(import-macros {: define} :macros)
+(define M :lib.fennel)
 
-(comment (get-associated-file))
+(fn M.get-associated-file []
+  (pick-values 1 (case (vim.fn.expand "%:e")
+                   :lua (-> "%:p"
+                            vim.fn.expand
+                            (string.gsub "%.lua" "%.fnl")
+                            (string.gsub :/lua/ :/fnl/))
+                   :fnl (-> "%:p"
+                            vim.fn.expand
+                            (string.gsub "%.fnl" "%.lua")
+                            (string.gsub :/fnl/ :/lua/)))))
 
-(fn cmd-on-associated-file [cmd]
-  (-> (get-associated-file)
+(comment (M.get-associated-file))
+
+(fn M.cmd-on-associated-file [cmd]
+  (-> (M.get-associated-file)
       (->> (.. cmd " "))
       vim.cmd))
 
-(comment (cmd-on-associated-file :edit))
+(comment (M.cmd-on-associated-file :edit))
 
-{: cmd-on-associated-file}
+M

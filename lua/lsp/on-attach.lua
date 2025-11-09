@@ -1,5 +1,6 @@
--- [nfnl] fnl/lsp/on_attach.fnl
-local function _1_(client, bufnr)
+-- [nfnl] fnl/lsp/on-attach.fnl
+local M = require("nfnl.module").define("lsp.on_attach")
+M.attach = function(client, bufnr)
     vim.diagnostic.config({
         virtual_lines = { current_line = true },
         signs = {
@@ -20,13 +21,13 @@ local function _1_(client, bufnr)
         vim.wo.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end
     local function map(mode, keys, func, desc)
-        local _2_
+        local _1_
         if desc then
-            _2_ = ("LSP: " .. desc)
+            _1_ = ("LSP: " .. desc)
         else
-            _2_ = ""
+            _1_ = ""
         end
-        return vim.keymap.set(mode, keys, func, { buffer = bufnr, noremap = true, desc = _2_ })
+        return vim.keymap.set(mode, keys, func, { buffer = bufnr, noremap = true, desc = _1_ })
     end
     local function nmap(...)
         return map("n", ...)
@@ -43,42 +44,42 @@ local function _1_(client, bufnr)
     nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
     nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-    local function _4_()
+    local function _3_()
         return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end
-    nmap("<leader>wl", _4_, "[W]orkspace [L]ist Folders")
-    local function _5_(_)
+    nmap("<leader>wl", _3_, "[W]orkspace [L]ist Folders")
+    local function _4_(_)
         return vim.lsp.buf.format()
     end
-    vim.api.nvim_buf_create_user_command(bufnr, "Format", _5_, { desc = "Format current buffer with LSP" })
+    vim.api.nvim_buf_create_user_command(bufnr, "Format", _4_, { desc = "Format current buffer with LSP" })
     if nixCats("general.telescope") then
-        local function _6_()
+        local function _5_()
             local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_6_auto.lsp_definitions()
         end
-        nmap("gd", _6_, "[G]oto [D]efinitions")
-        local function _7_()
+        nmap("gd", _5_, "[G]oto [D]efinitions")
+        local function _6_()
             local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_6_auto.lsp_references()
         end
-        nmap("gr", _7_, "[G]oto [R]eferences")
-        local function _8_()
+        nmap("gr", _6_, "[G]oto [R]eferences")
+        local function _7_()
             local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_6_auto.lsp_implementations()
         end
-        nmap("gI", _8_, "[G]oto [I]mplementation")
-        local function _9_()
+        nmap("gI", _7_, "[G]oto [I]mplementation")
+        local function _8_()
             local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_6_auto.lsp_document_symbols()
         end
-        nmap("<leader>ds", _9_, "[D]ocument [S]ymbols")
-        local function _10_()
+        nmap("<leader>ds", _8_, "[D]ocument [S]ymbols")
+        local function _9_()
             local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_6_auto.lsp_dynamic_workspace_symbols()
         end
-        return nmap("<leader>ws", _10_, "[W]orkspace [S]ymbols")
+        return nmap("<leader>ws", _9_, "[W]orkspace [S]ymbols")
     else
         return nil
     end
 end
-return _1_
+return M

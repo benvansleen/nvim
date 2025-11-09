@@ -1,4 +1,5 @@
 -- [nfnl] fnl/lsp/init.fnl
+local on_attach = require("nfnl.module").autoload("lsp.on-attach")
 local lze = require("nfnl.module").autoload("lze")
 local old_ft_fallback = lze.h.lsp.get_ft_fallback()
 local _1_
@@ -43,7 +44,7 @@ do
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
         local function _11_()
-            return vim.lsp.config("*", { on_attach = require("lsp.on_attach"), root_markers = { ".git" } })
+            return vim.lsp.config("*", { on_attach = on_attach.attach, root_markers = { ".git" } })
         end
         local function _12_(plugin)
             vim.lsp.config(plugin.name, (plugin.lsp or {}))
@@ -206,7 +207,7 @@ do
                         },
                     },
                 },
-                on_attach = require("lsp.on_attach"),
+                on_attach = on_attach.attach,
             },
         })
     end
@@ -224,7 +225,7 @@ do
             lsp = {
                 filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
                 settings = {},
-                on_attach = require("lsp.on_attach"),
+                on_attach = on_attach.attach,
             },
         })
     end
@@ -242,7 +243,7 @@ local function _28_(...)
                 filetypes = { "rust" },
                 cmd = { "rust-analyzer" },
                 settings = { diagnostic = { enable = true }, checkOnSave = { command = "clippy" } },
-                on_attach = require("lsp.on_attach"),
+                on_attach = on_attach.attach,
             },
         })
     end
