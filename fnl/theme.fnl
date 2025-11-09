@@ -1,6 +1,5 @@
-(import-macros {: setup : with-require} :macros)
-(local {: autoload} (require :nfnl.module))
-(local core (autoload :nfnl.core))
+(import-macros {: autoload : setup : with-require} :macros)
+(autoload core :nfnl.core)
 
 (fn update-hl [group opts]
   (let [cur-hl (vim.api.nvim_get_hl 0 {:name group})]

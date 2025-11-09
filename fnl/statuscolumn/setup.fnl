@@ -1,5 +1,4 @@
-(import-macros {: cfg : require-and-call} :macros)
-
+(import-macros {: cfg} :macros)
 (local statuscolumn (require :statuscolumn.statuscolumn))
 
 (fn force-statuscolumn-redraw []

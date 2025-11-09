@@ -1,8 +1,8 @@
-(import-macros {: require-and-call} :macros)
-(local {: autoload : define} (require :nfnl.module))
-(local core (autoload :nfnl.core))
+(import-macros {: autoload : require-and-call} :macros)
+(local {: define} (require :nfnl.module))
+(autoload core :nfnl.core)
 
-(local M (define :statuscolumn))
+(local M (define :statuscolumn.statuscolumn))
 
 (macro disable-for-fts [ft disabled-fts & body]
   `(if (core.contains? ,disabled-fts ,ft)

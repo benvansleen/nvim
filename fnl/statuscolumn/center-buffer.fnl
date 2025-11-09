@@ -1,28 +1,24 @@
-(local {: autoload} (require :nfnl.module))
-(local core (autoload :nfnl.core))
+(import-macros {: autoload} :macros)
+(autoload core :nfnl.core)
+
+(macro starts-with [s pattern]
+  `(= ,pattern (string.sub ,s 1 ,(string.len pattern))))
 
 (fn get-buf-ft [win]
   (vim.api.nvim_get_option_value :filetype
                                  {:buf (vim.api.nvim_win_get_buf win)}))
 
-(local disabled-ft [:blink-cmp-documentation
-                    :blink-cmp-menu
-                    :blink-cmp-signature
-                    :dashboard
-                    :fidget
-                    :flash_prompt
-                    :markdown
-                    :NeogitPopup
-                    :smear-cursor
-                    :startuptime
-                    :TelescopePrompt
-                    :TelescopeResults
-                    :wk])
+(local disabled-ft [])
 
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)
-        ft (get-buf-ft win)]
-    (and (not cfg.external) (not= ft "") (not (core.contains? disabled-ft ft)))))
+        buf-ft (get-buf-ft win)
+        floating? (-> cfg
+                      (core.get :zindex)
+                      type
+                      (= :number))]
+    (and (not cfg.external) (not= buf-ft "")
+         (not (core.contains? disabled-ft buf-ft)) (not floating?))))
 
 (fn count-windows []
   (let [windows (core.filter real-window? (vim.api.nvim_tabpage_list_wins 0))]

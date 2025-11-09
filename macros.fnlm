@@ -13,6 +13,9 @@
           args)
         args)))
 
+(fn autoload [name m]
+  `(local ,name ((. (require :nfnl.module) :autoload) ,m)))
+
 (fn when-let [[sym expr] & body]
   `(let [,sym ,expr]
      (when ,sym
@@ -144,7 +147,8 @@
 (fn when-nix [...]
   (check-nix true ...))
 
-{: cfg
+{: autoload
+ : cfg
  : dot-repeatable
  : is-nix
  : require-and-call

@@ -1,8 +1,8 @@
 -- [nfnl] fnl/statuscolumn/init.fnl
-local _6_
+local _1_
 do
     local column = require("nfnl.module").autoload("statuscolumn.setup")
-    _6_ = column.activate
+    _1_ = column.activate
 end
-vim.opt["statuscolumn"] = _6_
+vim.opt["statuscolumn"] = _1_
 return { { nil } }
