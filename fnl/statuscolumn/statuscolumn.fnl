@@ -1,8 +1,6 @@
-(import-macros {: autoload : require-and-call} :macros)
-(local {: define} (require :nfnl.module))
+(import-macros {: autoload : define : require-and-call} :macros)
 (autoload core :nfnl.core)
-
-(local M (define :statuscolumn.statuscolumn))
+(define M :statuscolumn.statuscolumn)
 
 (macro disable-for-fts [ft disabled-fts & body]
   `(if (core.contains? ,disabled-fts ,ft)
@@ -20,15 +18,6 @@
                            :toggleterm
                            :TelescopePrompt]
                    (require-and-call :statuscolumn.border :border)))
-
-(fn M.number [_]
-  (let [linenum (if vim.wo.relativenumber
-                    (or (and (= vim.v.relnum 0) vim.v.lnum) vim.v.relnum)
-                    (if vim.wo.number
-                        vim.v.lnum
-                        nil))]
-    (if (not= linenum nil)
-        (string.format "%4d" linenum) "")))
 
 (fn M.center-buffer [buf-ft]
   (disable-for-fts buf-ft [:TelescopePrompt]
@@ -52,7 +41,7 @@
     (or (table.concat [(M.center-buffer buf-ft)
                        (M.signs buf-ft)
                        (M.folds buf-ft)
-                       "%l"
+                       (disable-for-fts buf-ft [:TelescopePrompt] "%l")
                        (M.border buf-ft)
                        " "]) "")))
 

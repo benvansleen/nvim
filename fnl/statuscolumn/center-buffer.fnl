@@ -1,5 +1,6 @@
-(import-macros {: autoload} :macros)
+(import-macros {: autoload : define} :macros)
 (autoload core :nfnl.core)
+(define M :statuscolumn.center-buffer)
 
 (macro starts-with [s pattern]
   `(= ,pattern (string.sub ,s 1 ,(string.len pattern))))
@@ -17,8 +18,8 @@
                       (core.get :zindex)
                       type
                       (= :number))]
-    (and (not cfg.external) (not= buf-ft "")
-         (not (core.contains? disabled-ft buf-ft)) (not floating?))))
+    (and (not cfg.external) (not= buf-ft "") (not floating?)
+         (not (core.contains? disabled-ft buf-ft)))))
 
 (fn count-windows []
   (let [windows (core.filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
@@ -29,15 +30,12 @@
           0
           len))))
 
-(fn center-buffer [buf-ft]
+(fn M.center-buffer [_]
   (let [factor 3
-        buf-specific-adjustment (case buf-ft
-                                  _ 0)
-        screen-width (+ vim.g.my_center_buffer_screen_width
-                        buf-specific-adjustment)]
+        screen-width vim.g.my_center_buffer_screen_width]
     (if (and vim.g.my_center_buffer (= (count-windows) 1)
              (> vim.o.columns (/ screen-width factor)))
         (string.rep " " (/ (- screen-width 88) factor))
         " ")))
 
-{: center-buffer}
+M

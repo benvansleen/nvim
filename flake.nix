@@ -470,7 +470,6 @@
             # enable the categories you want from categoryDefinitions
             categories = {
               markdown = false;
-              number-toggle = true;
               general = true;
               debug = true;
               lint = true;

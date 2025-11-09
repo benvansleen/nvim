@@ -1,6 +1,14 @@
 -- [nfnl] ftdetect/fnlm.fnl
-local function _1_()
+local group = vim.api.nvim_create_augroup("fnlm", { clear = true })
+local function _38_()
     vim.bo["filetype"] = "fennel"
     return { { nil } }
 end
-return { { vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = "*.fnlm", callback = _1_ }) } }
+return {
+    {
+        vim.api.nvim_create_autocmd(
+            { "BufRead", "BufNewFile" },
+            { pattern = "*.fnlm", group = group, callback = _38_ }
+        ),
+    },
+}

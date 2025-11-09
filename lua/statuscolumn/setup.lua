@@ -12,6 +12,7 @@ local function update_screen_width()
     vim.g.my_center_buffer_screen_width = vim.o.columns
     return nil
 end
+local group = vim.api.nvim_create_augroup("center-buffer", { clear = true })
 vim.g["my_center_buffer"] = true
 vim.g["my_center_buffer_screen_width"] = vim.o.columns
 vim.g["_debug_my_center_buffer"] = false
@@ -37,8 +38,14 @@ do
             vim.keymap.set("n", "<leader>tC", _3_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true }),
         },
         {
-            vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, { callback = force_statuscolumn_redraw }),
-            vim.api.nvim_create_autocmd({ "WinNew", "WinEnter", "WinResized", "VimResized" }, { callback = _4_ }),
+            vim.api.nvim_create_autocmd(
+                { "BufWinEnter", "BufWinLeave" },
+                { group = group, callback = force_statuscolumn_redraw }
+            ),
+            vim.api.nvim_create_autocmd(
+                { "WinNew", "WinEnter", "WinResized", "VimResized" },
+                { group = group, callback = _4_ }
+            ),
         },
     }
 end

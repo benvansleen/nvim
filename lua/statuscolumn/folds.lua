@@ -1,8 +1,9 @@
 -- [nfnl] fnl/statuscolumn/folds.fnl
+local M = require("nfnl.module").define("statuscolumn.folds")
 _G.click_handler = function()
     return vim.cmd("normal! za")
 end
-local function folds()
+M.folds = function()
     local foldlevel = vim.fn.foldlevel(vim.v.lnum)
     local foldlevel_before = vim.fn.foldlevel(((((vim.v.lnum - 1) >= 1) and (vim.v.lnum - 1)) or (vim.v.lnum - 1)))
     local foldlevel_after =
@@ -28,4 +29,4 @@ local function folds()
     end
     return ("%@v:lua.click_handler@" .. _1_)
 end
-return { folds = folds }
+return M

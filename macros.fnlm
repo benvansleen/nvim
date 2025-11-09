@@ -16,6 +16,9 @@
 (fn autoload [name m]
   `(local ,name ((. (require :nfnl.module) :autoload) ,m)))
 
+(fn define [name m default]
+  `(local ,name ((. (require :nfnl.module) :define) ,m ,default)))
+
 (fn when-let [[sym expr] & body]
   `(let [,sym ,expr]
      (when ,sym
@@ -148,6 +151,7 @@
   (check-nix true ...))
 
 {: autoload
+ : define
  : cfg
  : dot-repeatable
  : is-nix

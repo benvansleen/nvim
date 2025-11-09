@@ -12,12 +12,12 @@ do
     end
     edit_associated_file = _2_
 end
-local function _3_()
+local function _37_()
     return utils["cmd-on-associated-file"]("vsplit")
 end
 return {
     {
         vim.keymap.set("n", "<leader>do", edit_associated_file, { desc = "Toggle to parent fnl file", noremap = true }),
-        vim.keymap.set("n", "<leader>dO", _3_, { desc = "Toggle to parent fnl file in split", noremap = true }),
+        vim.keymap.set("n", "<leader>dO", _37_, { desc = "Toggle to parent fnl file in split", noremap = true }),
     },
 }

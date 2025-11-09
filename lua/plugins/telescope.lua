@@ -201,6 +201,10 @@ do
     end
     local function _28_()
         local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
+        return mod_6_auto.builtin()
+    end
+    local function _29_()
+        local mod_6_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_6_auto.lsp_references()
     end
     _2_ = {
@@ -231,6 +235,7 @@ do
             keymap_19_auto.set("n", "<leader>fr", _25_, { desc = "[F]ind [R]esume", noremap = true }),
             keymap_19_auto.set("n", "<leader>fk", _26_, { desc = "[F]ind [K]eymap", noremap = true }),
             keymap_19_auto.set("n", "<leader>fH", _27_, { desc = "[F]ind [H]elp", noremap = true }),
+            keymap_19_auto.set("n", "<leader>ft", _28_, { desc = "[F]ind [T]elescope", noremap = true }),
             keymap_19_auto.set(
                 "n",
                 "<leader>fM",
@@ -243,15 +248,15 @@ do
                 "<cmd>Telescope zoxide list<cr>",
                 { desc = "[C]hange [D]irectory", noremap = true }
             ),
-            keymap_19_auto.set("n", "<leader>gr", _28_, { desc = "[G]o to [R]eferences", noremap = true }),
+            keymap_19_auto.set("n", "<leader>gr", _29_, { desc = "[G]o to [R]eferences", noremap = true }),
         },
     }
 end
-local function _30_(...)
+local function _31_(...)
     local keymap_19_auto
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
-        local function _29_()
+        local function _30_()
             do
                 local p_7_auto = require("project")
                 p_7_auto.setup({
@@ -269,7 +274,7 @@ local function _30_(...)
         end
         keymap_19_auto = mod_6_auto.keymap({
             "project.nvim",
-            after = _29_,
+            after = _30_,
             cmd = {
                 "Project",
                 "ProjectAdd",
@@ -295,4 +300,4 @@ local function _30_(...)
         },
     }
 end
-return { { _2_, _30_(...) } }
+return { { _2_, _31_(...) } }

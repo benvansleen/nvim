@@ -1,7 +1,10 @@
+(import-macros {: define} :macros)
+(define M :statuscolumn.folds)
+
 (fn _G.click_handler []
   (vim.cmd "normal! za"))
 
-(fn folds []
+(fn M.folds []
   (let [foldlevel (vim.fn.foldlevel vim.v.lnum)
         foldlevel-before (vim.fn.foldlevel (or (and (>= (- vim.v.lnum 1) 1)
                                                     (- vim.v.lnum 1))
@@ -19,4 +22,4 @@
                 (if (> foldlevel foldlevel-before) "▽"
                     (if (> foldlevel foldlevel-after) "╰" "│")))))))
 
-{: folds}
+M

@@ -94,7 +94,7 @@ do
             require("plugins.treesitter"),
         },
         { _1_, _3_, _5_(...) },
-        { require("clipboard"), require("lsp"), require("statuscolumn"), require("theme") },
+        { require("clipboard"), require("lsp"), require("number-toggle"), require("statuscolumn"), require("theme") },
         {
             nil,
             nil,
@@ -164,16 +164,12 @@ do
         },
     }
 end
-if nixCats("number-toggle") then
-    require("number-toggle")
-else
-end
-local _11_
+local _10_
 do
     local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _11_ = cats_31_auto.isNixCats
+    _10_ = cats_31_auto.isNixCats
 end
-if false == _11_ then
+if false == _10_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

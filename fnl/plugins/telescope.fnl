@@ -116,6 +116,8 @@
                                                                          :keymaps)
                       ["[F]ind [H]elp" :<leader>fH] #(require-and-call :telescope.builtin
                                                                        :help_tags)
+                      ["[F]ind [T]elescope" :<leader>ft] #(require-and-call :telescope.builtin
+                                                                            :builtin)
                       ["[F]ind [M]essage" :<leader>fM] "<cmd>Telescope notify<cr>"
                       ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"
                       ["[G]o to [R]eferences" :<leader>gr] #(require-and-call :telescope.builtin

@@ -13,7 +13,7 @@
      (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
                        :oil :telescope :terminal :tmux :treesitter)
      (requires-plugins-when-enabled :debug :lint :format)
-     (requires :clipboard :lsp :statuscolumn :theme)
+     (requires :clipboard :lsp :number-toggle :statuscolumn :theme)
      (opt {autoindent true
            breakindent true
            expandtab true
@@ -69,9 +69,6 @@
                                                                     {})
                                 :pattern "*"
                                 :callback (fn [] (vim.highlight.on_yank))}}))
-
-(when (nixCats :number-toggle)
-  (require :number-toggle))
 
 (unless-nix (cfg (nmap {["Scroll Up" :<up>] :<C-u>
                         ["Scroll Down" :<down>] :<C-d>})))

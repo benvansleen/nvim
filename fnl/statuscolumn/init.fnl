@@ -1,4 +1,4 @@
-(import-macros {: cfg : with-require} :macros)
+(import-macros {: autoload : cfg : with-require} :macros)
+(autoload column :statuscolumn.setup)
 
-(cfg (opt {statuscolumn (with-require {column :statuscolumn.setup}
-                          column.activate)}))
+(cfg (opt {statuscolumn column.activate}))
