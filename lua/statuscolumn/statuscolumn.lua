@@ -62,9 +62,7 @@ M.init = function()
     else
         _6_ = "%l"
     end
-    return (
-        table.concat({ M["center-buffer"](buf_ft), M.signs(buf_ft), M.folds(buf_ft), _6_, M.border(buf_ft), " " }) or ""
-    )
+    return (table.concat({ M["center-buffer"](buf_ft), M.signs(buf_ft), M.folds(buf_ft), _6_, " " }) or "")
 end
 M.activate = "%!v:lua.require('statuscolumn.setup').init()"
 return M

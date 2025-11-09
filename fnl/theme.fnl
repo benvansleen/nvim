@@ -30,11 +30,13 @@
         :background {:transparent false}
         :customize (partial customize-colors palette)})
 
-(let [italic-nontext (update-hl :NonText {:italic true})]
+(let [{: bg0} palette
+      italic-nontext (update-hl :NonText {:italic true})]
   (hl :WinBar (update-hl :NonText italic-nontext))
   (hl :WinBarNC (update-hl :NonText italic-nontext))
-  (hl :StatusLine {:bg palette.bg0})
-  (hl :StatusLineNC {:bg palette.bg0}))
+  (hl :StatusLine {:bg bg0})
+  (hl :StatusLineNC {:bg bg0})
+  (hl :CursorLine {:bg bg0}))
 
 (fn set-telescope-highlights []
   (let [{: bg4 : blue : green} palette

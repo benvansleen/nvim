@@ -16,6 +16,7 @@
      (requires :clipboard :lsp :number-toggle :statuscolumn :theme)
      (opt {autoindent true
            breakindent true
+           cursorline true
            expandtab true
            fillchars {:eob " "}
            hlsearch true

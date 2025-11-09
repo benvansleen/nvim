@@ -45,7 +45,6 @@
                        (M.signs buf-ft)
                        (M.folds buf-ft)
                        (disable-for-fts buf-ft [:TelescopePrompt] "%l")
-                       (M.border buf-ft)
                        " "]) "")))
 
 (set M.activate "%!v:lua.require('statuscolumn.setup').init()")

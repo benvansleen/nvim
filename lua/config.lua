@@ -33,6 +33,7 @@ local function _5_(...)
 end
 vim.opt["autoindent"] = true
 vim.opt["breakindent"] = true
+vim.opt["cursorline"] = true
 vim.opt["expandtab"] = true
 vim.opt["fillchars"] = { eob = " " }
 vim.opt["hlsearch"] = true
@@ -96,6 +97,7 @@ do
         { _1_, _3_, _5_(...) },
         { require("clipboard"), require("lsp"), require("number-toggle"), require("statuscolumn"), require("theme") },
         {
+            nil,
             nil,
             nil,
             nil,

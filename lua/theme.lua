@@ -44,11 +44,13 @@ do
     })
 end
 do
+    local bg0 = palette.bg0
     local italic_nontext = update_hl("NonText", { italic = true })
     hl("WinBar", update_hl("NonText", italic_nontext))
     hl("WinBarNC", update_hl("NonText", italic_nontext))
-    hl("StatusLine", { bg = palette.bg0 })
-    hl("StatusLineNC", { bg = palette.bg0 })
+    hl("StatusLine", { bg = bg0 })
+    hl("StatusLineNC", { bg = bg0 })
+    hl("CursorLine", { bg = bg0 })
 end
 local function set_telescope_highlights()
     local bg4 = palette.bg4
