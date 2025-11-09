@@ -15,7 +15,8 @@
                                 :integrations {:telescope true :diffview true}
                                 :signs {:hunk ["" ""]
                                         :item ["" ""]
-                                        :section ["" ""]}})}
+                                        :section ["" ""]}
+                                :commit_editor {:staged_diff_split_kind :auto}})}
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"

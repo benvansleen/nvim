@@ -15,6 +15,7 @@ do
                 mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
                 integrations = { telescope = true, diffview = true },
                 signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
+                commit_editor = { staged_diff_split_kind = "auto" },
             })
         end
         keymap_19_auto =
