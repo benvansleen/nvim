@@ -336,7 +336,6 @@
                 dial-nvim
                 fidget-nvim
                 focus-nvim
-                helpview-nvim
                 indent-blankline-nvim
                 oil-nvim
                 nvim-highlight-colors

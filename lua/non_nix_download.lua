@@ -9,7 +9,6 @@ require("nixCatsUtils.catPacker").setup({
     { "nvim-tree/nvim-web-devicons" },
     { "nvimdev/dashboard-nvim" },
     { "sphamba/smear-cursor.nvim", opt = true },
-    { "OXY2DEV/helpview.nvim", opt = true },
     { "brenoprata10/nvim-highlight-colors", opt = true },
 
     -- general editor

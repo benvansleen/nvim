@@ -89,24 +89,11 @@ do
     end
     _3_ = {}
 end
-local _5_
-do
+local function _8_(...)
     local keymap_19_auto
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
-        local function _6_()
-            local p_7_auto = require("helpview")
-            return p_7_auto.setup({ preview = { enable = true, splitview_winopts = { split = "right" } } })
-        end
-        keymap_19_auto = mod_6_auto.keymap({ "helpview.nvim", after = _6_, for_cat = "general.extra" })
-    end
-    _5_ = {}
-end
-local function _10_(...)
-    local keymap_19_auto
-    do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
-        local function _7_()
+        local function _5_()
             local focus = require("nfnl.module").autoload("focus")
             focus.setup({
                 enable = true,
@@ -118,11 +105,11 @@ local function _10_(...)
             local ignore_filetypes = { "TelescopePrompt", "TelescopeResults", "dap-repl", "dap-view", "dap-view-term" }
             local ignore_buftypes = { "prompt", "popup" }
             local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-            local function _8_(_)
+            local function _6_(_)
                 vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
                 return nil
             end
-            local function _9_(_)
+            local function _7_(_)
                 vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
                 return nil
             end
@@ -130,22 +117,22 @@ local function _10_(...)
                 {
                     vim.api.nvim_create_autocmd(
                         "WinEnter",
-                        { desc = "Disable focus autoresize for BufType", callback = _8_, group = augroup }
+                        { desc = "Disable focus autoresize for BufType", callback = _6_, group = augroup }
                     ),
                     vim.api.nvim_create_autocmd(
                         "FileType",
-                        { desc = "Disable focus autoresize for FileType", callback = _9_, group = augroup }
+                        { desc = "Disable focus autoresize for FileType", callback = _7_, group = augroup }
                     ),
                 },
             }
         end
         keymap_19_auto =
-            mod_6_auto.keymap({ "focus.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_6_auto.keymap({ "focus.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
-    local function _11_()
+    local function _9_()
         local mod_6_auto = require("nfnl.module").autoload("focus")
         return mod_6_auto.split_nicely()
     end
-    return { { keymap_19_auto.set("n", "<leader>s", _11_, { desc = "Open [S]plit", noremap = true }) } }
+    return { { keymap_19_auto.set("n", "<leader>s", _9_, { desc = "Open [S]plit", noremap = true }) } }
 end
-return { { _1_, _3_, _5_, _10_(...) } }
+return { { _1_, _3_, _8_(...) } }
