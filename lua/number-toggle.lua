@@ -16,14 +16,14 @@ local function disable_relative_number()
     end
 end
 local group = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
-local function _25_()
+local function _3_()
     local cur = vim.wo.nu
     vim.wo.number = not cur
     vim.wo.relativenumber = not cur
     return nil
 end
 return {
-    { vim.keymap.set("n", "<leader>tn", _25_, { desc = "[T]oggle [n]umbertoggle", noremap = true }) },
+    { vim.keymap.set("n", "<leader>tn", _3_, { desc = "[T]oggle [n]umbertoggle", noremap = true }) },
     {
         vim.api.nvim_create_autocmd(
             { "InsertLeave", "CmdlineLeave" },

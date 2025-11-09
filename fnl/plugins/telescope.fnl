@@ -20,12 +20,10 @@
                         (vim.cmd.packadd :telescope-file-browser.nvim)
                         (vim.cmd.packadd :telescope-fzf-native.nvim)
                         (vim.cmd.packadd :telescope-ui-select.nvim)
+                        (vim.cmd.packadd :telescope-undo.nvim)
                         (when-nix (vim.cmd.packadd :telescope-zf-native.nvim))
                         (vim.cmd.packadd :telescope-zoxide))
                 :after #(with-require {: telescope}
-                          (cfg (autocmd {[:User] {:pattern :TelescopeFindPre
-                                                  :callback #(set vim.g._start_buf
-                                                                  (vim.api.nvim_get_current_buf))}}))
                           (telescope.setup {:defaults {:border true
                                                        :layout_config {:horizontal {:prompt_position :top
                                                                                     :width {:padding 5}
@@ -76,21 +74,15 @@
                                                                :override_file_sorter (not (is-nix))
                                                                :case_mode :smart_case}
                                                          :zf-native {:file {:enable (is-nix)}
-                                                                     ; :initial_sort #(let [pattern (-> vim.g._start_buf
-                                                                     ;                                  vim.api.nvim_buf_get_name
-                                                                     ;                                  (vim.fn.fnamemodify ":e")
-                                                                     ;                                  (#(.. "%."
-                                                                     ;                                        $1
-                                                                     ;                                        "$")))]
-                                                                     ;                  (if ($1:match pattern)
-                                                                     ;                      0
-                                                                     ;                      1))}
-                                                                     :generic {:enable false}}}})
+                                                                     :generic {:enable false}}
+                                                         :undo {:mappings {:i {:<cr> (. (require :telescope-undo.actions)
+                                                                                        :restore)}}}}})
                           (telescope.load_extension :cmdline)
                           (telescope.load_extension :egrepify)
                           (telescope.load_extension :file_browser)
                           (telescope.load_extension :fzf)
                           (telescope.load_extension :ui-select)
+                          (telescope.load_extension :undo)
                           (when-nix (telescope.load_extension :zf-native))
                           (telescope.load_extension :zoxide)
                           (require-and-call :theme :set-telescope-highlights)
@@ -119,6 +111,7 @@
                       ["[F]ind [T]elescope" :<leader>ft] #(require-and-call :telescope.builtin
                                                                             :builtin)
                       ["[F]ind [M]essage" :<leader>fM] "<cmd>Telescope notify<cr>"
+                      ["[F]ind [U]ndo" :<leader>fu] "<cmd>Telescope undo<cr>"
                       ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"
                       ["[G]o to [R]eferences" :<leader>gr] #(require-and-call :telescope.builtin
                                                                               :lsp_references)})]

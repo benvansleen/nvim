@@ -314,6 +314,7 @@
                 telescope-fzf-native-nvim
                 telescope-nvim
                 telescope-ui-select-nvim
+                telescope-undo-nvim
                 telescope-zf-native-nvim
                 telescope-zoxide
               ];
