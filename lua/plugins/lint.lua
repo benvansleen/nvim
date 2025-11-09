@@ -1,5 +1,5 @@
 -- [nfnl] fnl/plugins/lint.fnl
-local function _3_(...)
+local function _4_(...)
     local keymap_19_auto
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
@@ -13,7 +13,11 @@ local function _3_(...)
             }
             local function _2_()
                 lint.try_lint()
-                return lint.try_lint("typos")
+                if vim.fn.executable("typos") == 1 then
+                    return lint.try_lint("typos")
+                else
+                    return nil
+                end
             end
             return { { vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _2_ }) } }
         end
@@ -26,4 +30,4 @@ local function _3_(...)
     end
     return {}
 end
-return { { _3_(...) } }
+return { { _4_(...) } }

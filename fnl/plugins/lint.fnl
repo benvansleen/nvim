@@ -9,6 +9,8 @@
                                 :nix [:deadnix :nix :statix]
                                 :rust [:clippy]
                                 :python [:ruff]})
-                          (cfg (autocmd {[:BufWritePost] {:callback (fn []
-                                                                      (lint.try_lint)
-                                                                      (lint.try_lint :typos))}})))}]))
+                          (cfg (autocmd {[:BufWritePost] {:callback #(do
+                                                                       (lint.try_lint)
+                                                                       (when (= (vim.fn.executable :typos)
+                                                                                1)
+                                                                         (lint.try_lint :typos)))}})))}]))

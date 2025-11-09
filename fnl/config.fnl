@@ -5,7 +5,7 @@
   (lze.register_handlers lzextras.lsp))
 
 (cfg (g {mapleader " "
-         maplocalleader " "
+         maplocalleader ","
          my_center_buffer true
          _debug_my_center_buffer false
          netrw_liststyle 0

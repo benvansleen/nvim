@@ -7,7 +7,7 @@ do
     lze.register_handlers(lzextras.lsp)
 end
 vim.g["mapleader"] = " "
-vim.g["maplocalleader"] = " "
+vim.g["maplocalleader"] = ","
 vim.g["my_center_buffer"] = true
 vim.g["netrw_liststyle"] = 0
 vim.g["netrw_banner"] = 0

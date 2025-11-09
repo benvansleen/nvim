@@ -1,16 +1,22 @@
 -- [nfnl] fnl/plugins/lisp.fnl
-local _local_1_ = require("nfnl.module")
-local autoload = _local_1_.autoload
-local theme = autoload("theme")
+local theme = require("nfnl.module").autoload("theme")
 local lisp_fts = { "fennel" }
-local _2_
+local _1_
 do
     local keymap_19_auto
     do
         local mod_6_auto = require("nfnl.module").autoload("lzextras")
-        keymap_19_auto = mod_6_auto.keymap({ "conjure", ft = "fennel" })
+        local function _2_()
+            vim.g["conjure#log#hud#border"] = "none"
+            vim.g["conjure#client#python#stdio#command"] = "uv run python -iq"
+            vim.g["conjure#client_on_load"] = false
+            vim.g["conjure#mapping#def_word"] = false
+            vim.g["conjure#mapping#doc_word"] = false
+            return { { nil, nil, nil, nil, nil } }
+        end
+        keymap_19_auto = mod_6_auto.keymap({ "conjure", before = _2_, ft = { "fennel", "python" } })
     end
-    _2_ = {}
+    _1_ = {}
 end
 local function _4_(...)
     local keymap_19_auto
@@ -40,4 +46,4 @@ local function _4_(...)
     end
     return {}
 end
-return { { _2_, _4_(...) } }
+return { { _1_, _4_(...) } }
