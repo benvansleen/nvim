@@ -25,7 +25,7 @@ do
                         shortcut = {
                             { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
                             { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
-                            { desc = "Find Word", group = "Warning", action = "Telescope live_grep", key = "w" },
+                            { desc = "Find Word", group = "Warning", action = "Telescope egrepify", key = "w" },
                             {
                                 desc = "Find Project",
                                 group = "@module",

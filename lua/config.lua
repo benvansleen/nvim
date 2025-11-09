@@ -94,7 +94,7 @@ do
             require("plugins.treesitter"),
         },
         { _1_, _3_, _5_(...) },
-        { require("clipboard"), require("lsp"), require("lib"), require("statuscolumn"), require("theme") },
+        { require("clipboard"), require("lsp"), require("statuscolumn"), require("theme") },
         {
             nil,
             nil,

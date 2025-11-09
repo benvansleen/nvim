@@ -1,32 +1,28 @@
 -- [nfnl] after/ftplugin/fennel.fnl
-local function get_associated_filepath()
-    return string.gsub(string.gsub(vim.fn.expand("%:p"), "%.fnl", "%.lua"), "/fnl/", "/lua/")
-end
-local _1_
+local utils = require("nfnl.module").autoload("lib.fennel")
+local edit_associated_file
 do
-    local cmd_2_auto = ("edit" .. " " .. get_associated_filepath())
+    local function _1_()
+        return utils["cmd-on-associated-file"]("edit")
+    end
+    _G["__edit_associated_file"] = _1_
     local function _2_()
-        return vim.cmd(cmd_2_auto)
+        vim.o["operatorfunc"] = "v:lua.__edit_associated_file"
+        return vim.cmd.normal("g@l")
     end
-    _1_ = _2_
+    edit_associated_file = _2_
 end
-vim.keymap.set(
-    "n",
-    "<leader>do",
-    _1_,
-    { buffer = true, desc = "Toggle to compiled lua file", noremap = true, silent = true }
-)
-local _3_
-do
-    local cmd_2_auto = ("vsplit" .. " " .. get_associated_filepath())
-    local function _4_()
-        return vim.cmd(cmd_2_auto)
-    end
-    _3_ = _4_
+local function _3_()
+    return utils["cmd-on-associated-file"]("vsplit")
 end
-return vim.keymap.set(
-    "n",
-    "<leader>dO",
-    _3_,
-    { buffer = true, desc = "Toggle to compiled lua file in split", noremap = true, silent = true }
-)
+return {
+    {
+        vim.keymap.set(
+            "n",
+            "<leader>do",
+            edit_associated_file,
+            { desc = "Toggle to compiled lua file", noremap = true }
+        ),
+        vim.keymap.set("n", "<leader>dO", _3_, { desc = "Toggle to compiled lua file in split", noremap = true }),
+    },
+}

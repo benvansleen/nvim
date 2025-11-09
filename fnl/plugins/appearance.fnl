@@ -26,7 +26,7 @@
                                                        :key :r}
                                                       {:desc "Find Word"
                                                        :group :Warning
-                                                       :action "Telescope live_grep"
+                                                       :action "Telescope egrepify"
                                                        :key :w}
                                                       {:desc "Find Project"
                                                        :group "@module"
