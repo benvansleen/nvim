@@ -1,5 +1,34 @@
 -- [nfnl] fnl/theme.fnl
-local core = require("nfnl.module").autoload("nfnl.core")
+local core
+do
+    local res_3_auto = { ["module-key"] = false }
+    local ensure_4_auto
+    local function _1_()
+        local or_2_ = res_3_auto["module-key"]
+        if not or_2_ then
+            local m_5_auto = require("nfnl.core")
+            res_3_auto["module-key"] = m_5_auto
+            or_2_ = m_5_auto
+        end
+        return or_2_
+    end
+    ensure_4_auto = _1_
+    local function _4_(_t_6_auto, ...)
+        return ensure_4_auto()(...)
+    end
+    local function _5_(_t_6_auto, k_7_auto)
+        local inner_8_auto = {}
+        local function _6_(_t_6_auto0, ...)
+            return ensure_4_auto()[k_7_auto](...)
+        end
+        return setmetatable(inner_8_auto, { __call = _6_ })
+    end
+    local function _7_(_t_6_auto, k_7_auto, v_9_auto)
+        ensure_4_auto()[k_7_auto] = v_9_auto
+        return nil
+    end
+    core = setmetatable(res_3_auto, { __call = _4_, __index = _5_, __newindex = _7_ })
+end
 local function update_hl(group, opts)
     local cur_hl = vim.api.nvim_get_hl(0, { name = group })
     if cur_hl.link then
@@ -9,10 +38,10 @@ local function update_hl(group, opts)
     end
 end
 local hl
-local function _2_(...)
+local function _9_(...)
     return vim.api.nvim_set_hl(0, ...)
 end
-hl = _2_
+hl = _9_
 local theme_name = "gruvbox-material"
 local contrast = "medium"
 local palette
@@ -20,8 +49,8 @@ do
     local colors = require("nfnl.module").autoload("gruvbox-material.colors")
     palette = colors.get(vim.o.background, contrast)
 end
-local function customize_colors(_3_, g, o)
-    local bg0 = _3_.bg0
+local function customize_colors(_10_, g, o)
+    local bg0 = _10_.bg0
     if (g == "GreenSign") or (g == "RedSign") or (g == "BlueSign") or (g == "Folded") or (g == "FoldColumn") then
         o.bg = bg0
         return o
@@ -31,16 +60,16 @@ local function customize_colors(_3_, g, o)
     end
 end
 do
-    local p_7_auto = require(theme_name)
-    local function _5_(...)
+    local p_14_auto = require(theme_name)
+    local function _12_(...)
         return customize_colors(palette, ...)
     end
-    p_7_auto.setup({
+    p_14_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },
         background = { transparent = false },
-        customize = _5_,
+        customize = _12_,
     })
 end
 do
@@ -56,12 +85,12 @@ local function set_telescope_highlights()
     local bg4 = palette.bg4
     local blue = palette.blue
     local bg_yellow = palette.bg_yellow
-    local function _6_()
+    local function _13_()
         local colors = require("nfnl.module").autoload("gruvbox-material.colors")
         return colors.get(vim.o.background, "hard")
     end
-    local _let_7_ = _6_()
-    local dark_hard_bg0 = _let_7_.bg0
+    local _let_14_ = _13_()
+    local dark_hard_bg0 = _let_14_.bg0
     hl("TelescopePromptNormal", { bg = bg4, link = nil })
     hl("TelescopePromptBorder", { fg = bg4, bg = bg4, link = nil })
     hl("TelescopeNormal", { bg = dark_hard_bg0, link = nil })

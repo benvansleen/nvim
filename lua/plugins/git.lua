@@ -1,12 +1,12 @@
 -- [nfnl] fnl/plugins/git.fnl
 local _1_
 do
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _2_()
-            local p_7_auto = require("neogit")
-            return p_7_auto.setup({
+            local p_14_auto = require("neogit")
+            return p_14_auto.setup({
                 auto_refresh = true,
                 filewatcher = { enabled = true, interval = 1000 },
                 disable_hint = true,
@@ -18,22 +18,27 @@ do
                 commit_editor = { staged_diff_split_kind = "auto" },
             })
         end
-        keymap_19_auto =
-            mod_6_auto.keymap({ "neogit", after = _2_, cmd = "Neogit", for_cat = "general.git", on_require = "neogit" })
+        keymap_26_auto = mod_13_auto.keymap({
+            "neogit",
+            after = _2_,
+            cmd = "Neogit",
+            for_cat = "general.git",
+            on_require = "neogit",
+        })
     end
     local function _3_()
-        local mod_6_auto = require("nfnl.module").autoload("neogit")
-        return mod_6_auto.open({ cwd = "%:p:h", kind = "replace" })
+        local mod_13_auto = require("nfnl.module").autoload("neogit")
+        return mod_13_auto.open({ cwd = "%:p:h", kind = "replace" })
     end
-    _1_ = { { keymap_19_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true }) } }
+    _1_ = { { keymap_26_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true }) } }
 end
 local function _5_(...)
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _4_()
-            local p_7_auto = require("gitsigns")
-            return p_7_auto.setup({
+            local p_14_auto = require("gitsigns")
+            return p_14_auto.setup({
                 signs = {
                     add = { text = "\226\148\130" },
                     change = { text = "\226\148\130" },
@@ -75,26 +80,26 @@ local function _5_(...)
                 word_diff = false,
             })
         end
-        keymap_19_auto =
-            mod_6_auto.keymap({ "gitsigns.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.git" })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "gitsigns.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.git" })
     end
     local function _6_()
-        local mod_6_auto = require("nfnl.module").autoload("gitsigns")
-        return mod_6_auto.stage_hunk()
+        local mod_13_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_13_auto.stage_hunk()
     end
     local function _7_()
-        local mod_6_auto = require("nfnl.module").autoload("gitsigns")
-        return mod_6_auto.reset_hunk()
+        local mod_13_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_13_auto.reset_hunk()
     end
     local function _8_()
-        local mod_6_auto = require("nfnl.module").autoload("gitsigns")
-        return mod_6_auto.preview_hunk_inline()
+        local mod_13_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_13_auto.preview_hunk_inline()
     end
     return {
         {
-            keymap_19_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true }),
-            keymap_19_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true }),
-            keymap_19_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true }),
+            keymap_26_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true }),
+            keymap_26_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true }),
+            keymap_26_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true }),
         },
     }
 end

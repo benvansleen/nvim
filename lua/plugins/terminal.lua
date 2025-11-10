@@ -1,10 +1,10 @@
 -- [nfnl] fnl/plugins/terminal.fnl
 local function _5_(...)
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
-            local p_7_auto = require("toggleterm")
+            local p_14_auto = require("toggleterm")
             local function _3_(_2_)
                 local direction = _2_.direction
                 if direction == "horizontal" then
@@ -15,7 +15,7 @@ local function _5_(...)
                     return nil
                 end
             end
-            return p_7_auto.setup({
+            return p_14_auto.setup({
                 open_mapping = "<M-t>",
                 direction = "vertical",
                 persist_size = true,
@@ -23,13 +23,13 @@ local function _5_(...)
                 shade_terminals = false,
             })
         end
-        keymap_19_auto =
-            mod_6_auto.keymap({ "toggleterm.nvim", after = _1_, for_cat = "general.extra", on_require = "toggleterm" })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "toggleterm.nvim", after = _1_, for_cat = "general.extra", on_require = "toggleterm" })
     end
     local function _6_()
-        local mod_6_auto = require("nfnl.module").autoload("toggleterm")
-        return mod_6_auto.toggle_command()
+        local mod_13_auto = require("nfnl.module").autoload("toggleterm")
+        return mod_13_auto.toggle_command()
     end
-    return { { keymap_19_auto.set("n", "<M-t>", _6_, { desc = "Toggle Terminal", noremap = true }) } }
+    return { { keymap_26_auto.set("n", "<M-t>", _6_, { desc = "Toggle Terminal", noremap = true }) } }
 end
 return { { _5_(...) } }

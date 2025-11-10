@@ -1,6 +1,13 @@
 (import-macros {: autoload : define} :macros)
+(autoload core :nfnl.core)
 (autoload str :nfnl.string)
 (define M :lib.utils)
+
+(fn M.all [pred xs]
+  (core.reduce (fn [acc x] (and acc (pred x))) true xs))
+
+(comment (M.all #(> $1 0) [1 2 3])
+  (M.all #(> $1 0) [1 -2 3]))
 
 (fn M.reversed [arr]
   (fn reverse [arr i]
@@ -21,5 +28,7 @@
         indent (or (line:match "^(%s*)") "")]
     (vim.api.nvim_set_current_line (.. (str.trimr before) (or chars "")))
     (vim.api.nvim_buf_set_lines 0 row row true [(.. indent after)])))
+
+(comment (M.insert-line-break-same-indent ")"))
 
 M

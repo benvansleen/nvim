@@ -1,5 +1,5 @@
 (import-macros {: autoload : cfg : is-nix : setup : tb : with-require} :macros)
-(autoload on-attach :lsp.on-attach)
+(local {: on_attach} (require :lsp.on-attach))
 
 (with-require {: lze}
   (let [old_ft_fallback (lze.h.lsp.get_ft_fallback)]
@@ -37,7 +37,7 @@
                            (vim.lsp.config plugin.name (or plugin.lsp {}))
                            (vim.lsp.enable plugin.name))
                     :before #(vim.lsp.config "*"
-                                             {:on_attach on-attach.attach
+                                             {: on_attach
                                               :root_markers [:.git]})}]
                   [:lazydev.nvim
                    {:for_cat :neonixdev
@@ -95,7 +95,7 @@
                                                                             :genericTypes true}
                                                                :autoImportCompletions true
                                                                :diagnosticSeverityOverrides {:reportMissingTypeStubs false}}}}
-                          :on_attach on-attach.attach}}]
+                          : on_attach}}]
                   [:ts_ls
                    {:enabled (or (nixCats :typescript) false)
                     :ft [:typescript]
@@ -104,7 +104,7 @@
                                       :typescript
                                       :typescriptreact]
                           :settings {}
-                          :on_attach on-attach.attach}}]
+                          : on_attach}}]
                   [:rust-analyzer
                    {:enabled true
                     :ft [:rust]
@@ -112,4 +112,4 @@
                           :cmd [:rust-analyzer]
                           :settings {:diagnostic {:enable true}
                                      :checkOnSave {:command :clippy}}
-                          :on_attach on-attach.attach}}]))))
+                          : on_attach}}]))))

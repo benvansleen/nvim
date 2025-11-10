@@ -47,6 +47,7 @@
                        (disable-for-fts buf-ft [:TelescopePrompt] "%l")
                        " "]) "")))
 
-(set M.activate "%!v:lua.require('statuscolumn.setup').init()")
+(fn M.activate []
+  "%!v:lua.require('statuscolumn.setup').init()")
 
 M

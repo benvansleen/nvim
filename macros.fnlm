@@ -13,8 +13,31 @@
           args)
         args)))
 
+(fn tap [val]
+  `(do
+     (-> ,val
+         vim.inspect
+         print)
+     ,val))
+
 (fn autoload [name m]
-  `(local ,name ((. (require :nfnl.module) :autoload) ,m)))
+  `(local ,name
+          (let [res# {:module-key false}
+                ensure# #(or (. res# :module-key)
+                             (let [m# (require ,m)]
+                               (set res#.module-key m#)
+                               m#))]
+            (setmetatable res#
+                          {:__call (fn [_t# ...]
+                                     ((ensure#) ...))
+                           :__index (fn [_t# k#]
+                                      (let [inner# {}]
+                                        (setmetatable inner#
+                                                      {:__call (fn [_t# ...]
+                                                                 ((. (ensure#)
+                                                                     k#) ...))})))
+                           :__newindex (fn [_t# k# v#]
+                                         (tset (ensure#) k# v#))}))))
 
 (fn define [name m default]
   `(local ,name ((. (require :nfnl.module) :define) ,m ,default)))
@@ -157,6 +180,7 @@
  : is-nix
  : require-and-call
  : setup
+ : tap
  : tb
  : unless-nix
  : when-let

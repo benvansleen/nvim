@@ -20,8 +20,8 @@
                         (vim.cmd.packadd :telescope-file-browser.nvim)
                         (vim.cmd.packadd :telescope-fzf-native.nvim)
                         (vim.cmd.packadd :telescope-ui-select.nvim)
-                        (vim.cmd.packadd :telescope-undo.nvim)
-                        (when-nix (vim.cmd.packadd :telescope-zf-native.nvim))
+                        (when-nix (vim.cmd.packadd :telescope-undo.nvim)
+                                  (vim.cmd.packadd :telescope-zf-native.nvim))
                         (vim.cmd.packadd :telescope-zoxide))
                 :after #(with-require {: telescope}
                           (telescope.setup {:defaults {:border true
@@ -75,20 +75,23 @@
                                                                :case_mode :smart_case}
                                                          :zf-native {:file {:enable (is-nix)}
                                                                      :generic {:enable false}}
-                                                         :undo {:mappings {:i {:<cr> (. (require :telescope-undo.actions)
-                                                                                        :restore)}}}}})
+                                                         :undo {:mappings {:i {:<cr> (when-nix (. (require :telescope-undo.actions)
+                                                                                                  :restore))}}}}})
                           (telescope.load_extension :cmdline)
                           (telescope.load_extension :egrepify)
                           (telescope.load_extension :file_browser)
                           (telescope.load_extension :fzf)
                           (telescope.load_extension :ui-select)
-                          (telescope.load_extension :undo)
-                          (when-nix (telescope.load_extension :zf-native))
-                          (telescope.load_extension :zoxide)
-                          (require-and-call :theme :set-telescope-highlights)
-                          (require-and-call :theme :set-telescope-highlights)
-                          (telescope.load_extension :zoxide)
-                          (require-and-call :theme :set-telescope-highlights))}
+                          (when-nix (telescope.load_extension :undo)
+                                    (telescope.load_extension :zf-native))
+                          (telescope.load_extension :zoxide
+                                                    (require-and-call :theme
+                                                                      :set-telescope-highlights)
+                                                    (require-and-call :theme
+                                                                      :set-telescope-highlights)
+                                                    (telescope.load_extension :zoxide)
+                                                    (require-and-call :theme
+                                                                      :set-telescope-highlights)))}
                (nmap {["Execute extended command" ";"] "<cmd>Telescope cmdline<cr>"
                       ["[F]ind [F]ile" :<leader>ff] "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>"
                       ["Find [P]roject [F]ile" :<leader>pf] #(require-and-call :telescope.builtin
@@ -140,4 +143,4 @@
                                   :silent_chdir true})
                           (require-and-call :telescope :load_extension
                                             :projects))}
-               (nmap {["[P]roject [S]witch" :<leader>ps] "<cmd>Telescope projects theme=dropdown"})]))
+               (nmap {["[P]roject [S]witch" :<leader>ps] "<cmd>Telescope projects theme=dropdown<cr>"})]))

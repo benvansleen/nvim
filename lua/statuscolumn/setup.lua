@@ -2,7 +2,7 @@
 local statuscolumn = require("statuscolumn.statuscolumn")
 local function force_statuscolumn_redraw()
     if vim.bo.filetype ~= "dashboard" then
-        vim.wo.statuscolumn = statuscolumn.activate
+        vim.wo.statuscolumn = statuscolumn.activate()
         return nil
     else
         return nil

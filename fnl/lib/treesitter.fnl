@@ -1,5 +1,5 @@
 (import-macros {: autoload : define} :macros)
-(autoload ts-utils :nvim-treesitter.ts_utils)
+(autoload {: get_node_at_cursor : get_vim_range} :nvim-treesitter.ts_utils)
 (define M :lib.treesitter)
 
 (fn M.nearest-parent-of-type [node-type node]
@@ -8,10 +8,10 @@
         node
         (tail! (climb-tree (node:parent)))))
 
-  (climb-tree (or node (ts-utils.get_node_at_cursor))))
+  (climb-tree (or node (get_node_at_cursor))))
 
 (fn M.range-of-node [node]
-  (ts-utils.get_vim_range [(node:range)]))
+  (get_vim_range [(node:range)]))
 
 (fn M.goto-node [end? node]
   (let [(srow scol erow ecol) (M.range-of-node node)]

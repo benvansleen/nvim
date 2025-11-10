@@ -168,8 +168,8 @@ do
 end
 local _10_
 do
-    local cats_31_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _10_ = cats_31_auto.isNixCats
+    local cats_38_auto = require("nfnl.module").autoload("nixCatsUtils")
+    _10_ = cats_38_auto.isNixCats
 end
 if false == _10_ then
     return {

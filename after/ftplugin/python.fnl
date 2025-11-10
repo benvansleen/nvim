@@ -7,7 +7,7 @@
 
 (autoload str :nfnl.string)
 (autoload lib :lib.treesitter)
-(autoload utils :lib.utils)
+(autoload {: insert-line-break-same-indent : reversed} :lib.utils)
 
 (fn toggle-fstring []
   (with-preserve-position [_ cursor]
@@ -31,7 +31,7 @@
   (let [node (lib.nearest-parent-of-type :let_form)
         children (icollect [child (node:iter_children)]
                    child)
-        reversed-children (icollect [_ child (utils.reversed children)]
+        reversed-children (icollect [_ child (reversed children)]
                             child)]
     (print (. children 1))
     (print (vim.inspect reversed-children))
@@ -39,7 +39,7 @@
 
 (fn expand-args [node]
   (let [children (icollect [child (node:iter_children)] child)]
-    (each [i child (utils.reversed children)]
+    (each [i child (reversed children)]
       (case (child:type)
         "," nil
         "(" (do
@@ -48,15 +48,15 @@
               (vim.cmd.normal "g@l"))
         ")" (do
               (lib.goto-node-end child)
-              (utils.insert-line-break-same-indent (if (= ","
-                                                          (-> children
-                                                              (. (- i 1))
-                                                              (: :type)))
-                                                       ""
-                                                       ",")))
+              (insert-line-break-same-indent (if (= ","
+                                                    (-> children
+                                                        (. (- i 1))
+                                                        (: :type)))
+                                                 ""
+                                                 ",")))
         _ (do
             (lib.goto-node-start child)
-            (utils.insert-line-break-same-indent))))))
+            (insert-line-break-same-indent))))))
 
 (fn collapse-args [srow erow]
   (let [lines (vim.api.nvim_buf_get_lines 0 (- srow 1) erow false)

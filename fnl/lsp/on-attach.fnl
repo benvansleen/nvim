@@ -1,7 +1,7 @@
 (import-macros {: define : require-and-call : with-require} :macros)
-(define M :lsp.on_attach)
+(define M :lsp.on-attach)
 
-(fn M.attach [client bufnr]
+(fn M.on_attach [client bufnr]
   (vim.diagnostic.config {:virtual_lines {:current_line true}
                           :signs {:text {vim.diagnostic.severity.ERROR ""
                                          vim.diagnostic.severity.WARN ""

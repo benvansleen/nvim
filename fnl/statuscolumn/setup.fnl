@@ -3,7 +3,7 @@
 
 (fn force-statuscolumn-redraw []
   (when (not= vim.bo.filetype :dashboard)
-    (set vim.wo.statuscolumn statuscolumn.activate)))
+    (set vim.wo.statuscolumn (statuscolumn.activate))))
 
 (fn update-screen-width []
   (set vim.g.my_center_buffer_screen_width vim.o.columns))

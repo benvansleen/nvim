@@ -1,12 +1,12 @@
 -- [nfnl] fnl/plugins/misc.fnl
 local _1_
 do
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _2_()
-            local p_7_auto = require("nvim-highlight-colors")
-            return p_7_auto.setup({
+            local p_14_auto = require("nvim-highlight-colors")
+            return p_14_auto.setup({
                 render = "virtual",
                 virtual_symbol = "\226\150\160",
                 virtual_symbol_prefix = " ",
@@ -14,7 +14,7 @@ do
                 virtual_symbol_position = "inline",
             })
         end
-        keymap_19_auto = mod_6_auto.keymap({
+        keymap_26_auto = mod_13_auto.keymap({
             "nvim-highlight-colors",
             after = _2_,
             event = "DeferredUIEnter",
@@ -25,24 +25,24 @@ do
 end
 local _3_
 do
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _4_()
             vim.g["startuptime_event_width"] = 0
             vim.g["startuptime_tries"] = 10
             vim.g["startuptime_exe_path"] = nixCats.packageBinPath
             return { { nil, nil, nil } }
         end
-        keymap_19_auto =
-            mod_6_auto.keymap({ "vim-startuptime", before = _4_, cmd = { "StartupTime" }, for_cat = "general.extra" })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "vim-startuptime", before = _4_, cmd = { "StartupTime" }, for_cat = "general.extra" })
     end
     _3_ = {}
 end
 local function _6_(...)
-    local keymap_19_auto
+    local keymap_26_auto
     do
-        local mod_6_auto = require("nfnl.module").autoload("lzextras")
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _5_()
             local which_key = require("nfnl.module").autoload("which-key")
             which_key.setup({ preset = "helix", delay = 500 })
@@ -65,8 +65,8 @@ local function _6_(...)
                 { "<leader>w_", hidden = true },
             })
         end
-        keymap_19_auto =
-            mod_6_auto.keymap({ "which-key.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "which-key.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
     return {}
 end
