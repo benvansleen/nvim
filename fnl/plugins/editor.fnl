@@ -55,7 +55,10 @@
                 :event :DeferredUIEnter
                 :after #(setup :ibl
                                {:exclude {:filetypes [:dashboard :fennel]}
-                                :scope {:enabled true}
+                                :scope {:enabled true
+                                        :show_exact_scope false
+                                        :show_start true
+                                        :show_end true}
                                 :indent {:char "│"}})}]
               [:flash.nvim
                {:for_cat :general.always

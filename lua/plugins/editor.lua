@@ -133,7 +133,7 @@ do
             local p_14_auto = require("ibl")
             return p_14_auto.setup({
                 exclude = { filetypes = { "dashboard", "fennel" } },
-                scope = { enabled = true },
+                scope = { enabled = true, show_start = true, show_end = true, show_exact_scope = false },
                 indent = { char = "\226\148\130" },
             })
         end
