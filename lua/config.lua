@@ -72,9 +72,12 @@ local function _7_()
     return print(vim.api.nvim_buf_get_name(0))
 end
 local function _8_()
-    return vim.api.nvim_buf_delete(0, {})
+    return vim.cmd("bdelete")
 end
 local function _9_()
+    return vim.cmd("bdelete!")
+end
+local function _10_()
     return vim.highlight.on_yank()
 end
 do
@@ -141,6 +144,7 @@ do
             vim.keymap.set("n", "<leader>te", _6_, { desc = "[T]oggle virtual lines", noremap = true }),
             vim.keymap.set("n", "<leader>wtf", _7_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
             vim.keymap.set("n", "<leader>q", _8_, { desc = "[Q]uit buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>Q", _9_, { desc = "Forcefully [Q]uit buffer", noremap = true }),
             vim.keymap.set(
                 "n",
                 "<leader>huc",
@@ -161,17 +165,17 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _10_ }
             ),
         },
     }
 end
-local _10_
+local _11_
 do
     local cats_38_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _10_ = cats_38_auto.isNixCats
+    _11_ = cats_38_auto.isNixCats
 end
-if false == _10_ then
+if false == _11_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

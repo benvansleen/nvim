@@ -1,4 +1,8 @@
-(import-macros {: cfg : require-and-call : setup : with-require} :macros)
+(import-macros {: autoload : cfg : require-and-call : setup : with-require}
+               :macros)
+
+(autoload {: blank?} :nfnl.string)
+(autoload {: all} :lib.utils)
 
 (cfg (plugins [:dashboard-nvim
                {:for_cat :general.extra
@@ -95,4 +99,23 @@
                                                                                          vim.bo.filetype)))
                                                       :group augroup}}))))}
                (nmap {["Open [S]plit" :<leader>s] #(require-and-call :focus
-                                                                     :split_nicely)})]))
+                                                                     :split_nicely)})])
+     (autocmd {[:BufDelete] {:group (vim.api.nvim_create_augroup :BufDeletePostSetup
+                                                                 {:clear true})
+                             :nested true
+                             :callback #(vim.schedule #(vim.api.nvim_exec_autocmds :User
+                                                                                   {:pattern :BufDeletePost}))}
+               [:User] {:pattern :BufDeletePost
+                        :group (vim.api.nvim_create_augroup :BufDeletePost
+                                                            {:clear true})
+                        :callback (fn [{: buf}]
+                                    (let [deleted-name (vim.api.nvim_buf_get_name buf)
+                                          deleted-ft (vim.api.nvim_get_option_value :filetype
+                                                                                    {: buf})
+                                          deleted-bt (vim.api.nvim_get_option_value :buftype
+                                                                                    {: buf})]
+                                      (when (all blank?
+                                                 [deleted-name
+                                                  deleted-ft
+                                                  deleted-bt])
+                                        (vim.cmd :Dashboard))))}}))

@@ -57,8 +57,8 @@
                                                        (vim.diagnostic.config {:virtual_lines (not vt)})))
             ["[W]hat's [T]his [F]ile?" :<leader>wtf] (fn []
                                                        (print (vim.api.nvim_buf_get_name 0)))
-            ["[Q]uit buffer" :<leader>q] (fn []
-                                           (vim.api.nvim_buf_delete 0 {}))
+            ["[Q]uit buffer" :<leader>q] #(vim.cmd :bdelete)
+            ["Forcefully [Q]uit buffer" :<leader>Q] #(vim.cmd :bdelete!)
             ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>})
      (imap {["Exit Insert Mode" :jj] :<Esc>})
      (vmap {["Move lines down" :J] ":m '>+1<CR>gv=gv"
