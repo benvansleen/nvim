@@ -1,5 +1,8 @@
-(import-macros {: autoload : define : require-and-call} :macros)
+(import-macros {: autoload : define} :macros)
 (autoload core :nfnl.core)
+(autoload {: border} :statuscolumn.border)
+(autoload {: center-buffer} :statuscolumn.center-buffer)
+(autoload {: folds} :statuscolumn.folds)
 (define M :statuscolumn.statuscolumn)
 
 (macro disable-for-fts [ft disabled-fts & body]
@@ -15,28 +18,29 @@
                            :dap-view-term
                            :NeogitStatus
                            :startuptime
-                           :toggleterm]
-                   (require-and-call :statuscolumn.border :border)))
+                           :toggleterm] (border)))
 
 (fn M.center-buffer [buf-ft]
-  (disable-for-fts buf-ft [:NeogitStatus :NeogitPopup]
-                   (require-and-call :statuscolumn.center-buffer :center-buffer
-                                     buf-ft)))
+  (disable-for-fts buf-ft [:NeogitStatus :NeogitPopup] (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
   (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]
-                   (require-and-call :statuscolumn.folds :folds)))
+                   (folds buf-ft)))
 
 (fn M.signs [buf-ft]
   (disable-for-fts buf-ft [] "%s"))
 
+(fn M.lines [buf-ft]
+  (disable-for-fts buf-ft [] "%l"))
+
+(fn M.spacing [buf-ft]
+  (disable-for-fts buf-ft [] " "))
+
 (fn M.init []
   (fn config [buf-ft]
-    (table.concat [(M.center-buffer buf-ft)
-                   (M.signs buf-ft)
-                   (M.folds buf-ft)
-                   "%l"
-                   " "]))
+    (->> [M.center-buffer M.signs M.folds M.lines M.spacing]
+         (core.map #($1 buf-ft))
+         table.concat))
 
   (let [buf-ft (-> (vim.api.nvim_get_current_buf)
                    (#(vim.api.nvim_get_option_value :filetype {:buf $1})))]
