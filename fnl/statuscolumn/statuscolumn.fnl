@@ -21,7 +21,8 @@
                            :toggleterm] (border)))
 
 (fn M.center-buffer [buf-ft]
-  (disable-for-fts buf-ft [:NeogitStatus :NeogitPopup] (center-buffer buf-ft)))
+  (disable-for-fts buf-ft [:NeogitCommitView :NeogitStatus :NeogitPopup]
+                   (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
   (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]

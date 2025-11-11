@@ -8,6 +8,7 @@ do
             local p_14_auto = require("neogit")
             return p_14_auto.setup({
                 auto_refresh = true,
+                console_timeout = 750,
                 filewatcher = { enabled = true, interval = 1000 },
                 disable_hint = true,
                 graph_style = "unicode",
@@ -16,6 +17,7 @@ do
                 integrations = { telescope = true, diffview = true },
                 signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
                 commit_editor = { staged_diff_split_kind = "auto" },
+                sections = { recent = { folded = false } },
             })
         end
         local function _3_()

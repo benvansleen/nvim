@@ -7,6 +7,7 @@
                 :before #(vim.cmd.packadd :diffview.nvim)
                 :after #(setup :neogit
                                {:auto_refresh true
+                                :console_timeout 750
                                 :filewatcher {:enabled true :interval 1000}
                                 :disable_hint true
                                 :graph_style :unicode
@@ -17,7 +18,8 @@
                                 :signs {:hunk ["" ""]
                                         :item ["" ""]
                                         :section ["" ""]}
-                                :commit_editor {:staged_diff_split_kind :auto}})}
+                                :commit_editor {:staged_diff_split_kind :auto}
+                                :sections {:recent {:folded false}}})}
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"
