@@ -32,66 +32,54 @@ end
 local M = require("nfnl.module").define("statuscolumn.statuscolumn")
 M.border = function(buf_ft)
     if
-        core["contains?"]({
-            "dashboard",
-            "dap-repl",
-            "dap-view",
-            "dap-view-term",
-            "gitcommit",
-            "NeogitStatus",
-            "NeogitDiffView",
-            "startuptime",
-            "toggleterm",
-            "TelescopePrompt",
-        }, buf_ft)
+        core["contains?"](
+            { "dashboard", "dap-repl", "dap-view", "dap-view-term", "NeogitStatus", "startuptime", "toggleterm" },
+            buf_ft
+        )
     then
-        return " "
+        return ""
     else
         local mod_13_auto = require("nfnl.module").autoload("statuscolumn.border")
         return mod_13_auto.border()
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "NeogitDiffView", "NeogitStatus", "NeogitPopup", "TelescopePrompt" }, buf_ft) then
-        return " "
+    if core["contains?"]({ "NeogitStatus", "NeogitPopup" }, buf_ft) then
+        return ""
     else
         local mod_13_auto = require("nfnl.module").autoload("statuscolumn.center-buffer")
         return mod_13_auto["center-buffer"](buf_ft)
     end
 end
 M.folds = function(buf_ft)
-    if
-        core["contains?"](
-            { "dap-repl", "dap-view", "dap-view-term", "NeogitDiffView", "TelescopePrompt", "startuptime" },
-            buf_ft
-        )
-    then
-        return " "
+    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime" }, buf_ft) then
+        return ""
     else
         local mod_13_auto = require("nfnl.module").autoload("statuscolumn.folds")
         return mod_13_auto.folds()
     end
 end
 M.signs = function(buf_ft)
-    if core["contains?"]({ "TelescopePrompt" }, buf_ft) then
-        return " "
+    if core["contains?"]({}, buf_ft) then
+        return ""
     else
         return "%s"
     end
 end
 M.init = function()
+    local function config(buf_ft)
+        return table.concat({ M["center-buffer"](buf_ft), M.signs(buf_ft), M.folds(buf_ft), "%l", " " })
+    end
     local buf_ft
     local function _12_(_241)
         return vim.api.nvim_get_option_value("filetype", { buf = _241 })
     end
     buf_ft = _12_(vim.api.nvim_get_current_buf())
-    local _13_
-    if core["contains?"]({ "TelescopePrompt" }, buf_ft) then
-        _13_ = " "
+    if core["contains?"]({ "gitcommit", "TelescopePrompt", "NeogitDiffView" }, buf_ft) then
+        return ""
     else
-        _13_ = "%l"
+        return (config(buf_ft) or "")
     end
-    return (table.concat({ M["center-buffer"](buf_ft), M.signs(buf_ft), M.folds(buf_ft), _13_, " " }) or "")
 end
 M.activate = function()
     return "%!v:lua.require('statuscolumn.setup').init()"

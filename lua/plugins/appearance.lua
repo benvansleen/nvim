@@ -164,8 +164,16 @@ local function _26_(...)
                 split = { bufnew = false, tmux = false },
                 ui = { cursorline = false, signcolumn = false, winhighlight = false },
             })
-            local ignore_filetypes =
-                { "TelescopePrompt", "TelescopeResults", "dap-repl", "dap-view", "dap-view-term", "DiffviewFiles" }
+            local ignore_filetypes = {
+                "TelescopePrompt",
+                "TelescopeResults",
+                "dap-repl",
+                "dap-view",
+                "dap-view-term",
+                "DiffviewFiles",
+                "NeogitStatus",
+                "NeogitDiffView",
+            }
             local ignore_buftypes = { "prompt", "popup" }
             local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
             local function _24_(_)
