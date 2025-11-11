@@ -1,9 +1,12 @@
-(import-macros {: cfg
+(import-macros {: autoload
+                : cfg
                 : is-nix
                 : require-and-call
                 : setup
                 : when-nix
                 : with-require} :macros)
+
+(autoload {: pick-tab} :lib.telescope)
 
 ;; telescope-egrepify-nvim relies on vim.tbl_flatten, which will be
 ;; deprecated in nvim 0.13. Silence this warning for now.
@@ -101,6 +104,7 @@
                                                                                   :oldfiles)
                       ["[F]ind [B]uffer" :<leader>fb] #(require-and-call :telescope.builtin
                                                                          :buffers)
+                      ["[F]ind [T]ab" :<leader>ft] #(pick-tab)
                       ["[F]ind [L]ine" :<leader>fl] #(require-and-call :telescope.builtin
                                                                        :current_buffer_fuzzy_find)
                       ["[F]ind [D]iagnostic" :<leader>fd] #(require-and-call :telescope.builtin
@@ -111,7 +115,7 @@
                                                                          :keymaps)
                       ["[F]ind [H]elp" :<leader>fH] #(require-and-call :telescope.builtin
                                                                        :help_tags)
-                      ["[F]ind [T]elescope" :<leader>ft] #(require-and-call :telescope.builtin
+                      ["[F]ind [T]elescope" :<leader>fT] #(require-and-call :telescope.builtin
                                                                             :builtin)
                       ["[F]ind [M]essage" :<leader>fM] "<cmd>Telescope notify<cr>"
                       ["[F]ind [U]ndo" :<leader>fu] "<cmd>Telescope undo<cr>"
