@@ -74,6 +74,7 @@ require("nixCatsUtils.catPacker").setup({
     -- git
     { "lewis6991/gitsigns.nvim", opt = true },
     { "NeogitOrg/neogit", opt = true },
+    { "sindrets/diffview.nvim", opt = true },
 
     { "mbbill/undotree", opt = true },
     { "folke/which-key.nvim", opt = true },

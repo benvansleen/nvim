@@ -72,12 +72,17 @@ local function _7_()
     return print(vim.api.nvim_buf_get_name(0))
 end
 local function _8_()
-    return vim.cmd("bdelete")
-end
-local function _9_()
-    return vim.cmd("bdelete!")
+    local diffview = require("nfnl.module").autoload("diffview.lib")
+    if diffview.get_current_view() then
+        return vim.cmd.DiffviewClose()
+    else
+        return vim.cmd.bdelete()
+    end
 end
 local function _10_()
+    return vim.cmd("bdelete!")
+end
+local function _11_()
     return vim.highlight.on_yank()
 end
 do
@@ -144,7 +149,7 @@ do
             vim.keymap.set("n", "<leader>te", _6_, { desc = "[T]oggle virtual lines", noremap = true }),
             vim.keymap.set("n", "<leader>wtf", _7_, { desc = "[W]hat's [T]his [F]ile?", noremap = true }),
             vim.keymap.set("n", "<leader>q", _8_, { desc = "[Q]uit buffer", noremap = true }),
-            vim.keymap.set("n", "<leader>Q", _9_, { desc = "Forcefully [Q]uit buffer", noremap = true }),
+            vim.keymap.set("n", "<leader>Q", _10_, { desc = "Forcefully [Q]uit buffer", noremap = true }),
             vim.keymap.set(
                 "n",
                 "<leader>huc",
@@ -165,17 +170,17 @@ do
             }),
             vim.api.nvim_create_autocmd(
                 { "TextYankPost" },
-                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _10_ }
+                { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _11_ }
             ),
         },
     }
 end
-local _11_
+local _12_
 do
     local cats_38_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _11_ = cats_38_auto.isNixCats
+    _12_ = cats_38_auto.isNixCats
 end
-if false == _11_ then
+if false == _12_ then
     return {
         {
             vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true }),

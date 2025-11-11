@@ -1,9 +1,10 @@
-(import-macros {: cfg : require-and-call : setup} :macros)
+(import-macros {: cfg : require-and-call : setup : with-require} :macros)
 
 (cfg (plugins [:neogit
                {:for_cat :general.git
                 :cmd :Neogit
                 :on_require :neogit
+                :before #(vim.cmd.packadd :diffview.nvim)
                 :after #(setup :neogit
                                {:auto_refresh true
                                 :filewatcher {:enabled true :interval 1000}
@@ -21,6 +22,10 @@
                                                                             :open
                                                                             {:cwd "%:p:h"
                                                                              :kind :replace})})]
+              [:diffview.nvim
+               {:for_cat :general.git
+                :on_require :diffview
+                :after #(setup :diffview)}]
               [:gitsigns.nvim
                {:for_cat :general.git
                 :event :DeferredUIEnter

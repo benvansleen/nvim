@@ -82,7 +82,8 @@
                                                   :TelescopeResults
                                                   :dap-repl
                                                   :dap-view
-                                                  :dap-view-term]
+                                                  :dap-view-term
+                                                  :DiffviewFiles]
                                 ignore-buftypes [:prompt :popup]
                                 augroup (vim.api.nvim_create_augroup :FocusDisable
                                                                      {:clear true})]

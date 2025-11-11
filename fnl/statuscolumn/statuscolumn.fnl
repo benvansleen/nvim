@@ -22,7 +22,10 @@
                    (require-and-call :statuscolumn.border :border)))
 
 (fn M.center-buffer [buf-ft]
-  (disable-for-fts buf-ft [:NeogitStatus :NeogitDiffView :TelescopePrompt]
+  (disable-for-fts buf-ft [:NeogitDiffView
+                           :NeogitStatus
+                           :NeogitPopup
+                           :TelescopePrompt]
                    (require-and-call :statuscolumn.center-buffer :center-buffer
                                      buf-ft)))
 

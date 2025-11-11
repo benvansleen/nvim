@@ -57,7 +57,10 @@
                                                        (vim.diagnostic.config {:virtual_lines (not vt)})))
             ["[W]hat's [T]his [F]ile?" :<leader>wtf] (fn []
                                                        (print (vim.api.nvim_buf_get_name 0)))
-            ["[Q]uit buffer" :<leader>q] #(vim.cmd :bdelete)
+            ["[Q]uit buffer" :<leader>q] #(with-require {diffview :diffview.lib}
+                                            (if (diffview.get_current_view)
+                                                (vim.cmd.DiffviewClose)
+                                                (vim.cmd.bdelete)))
             ["Forcefully [Q]uit buffer" :<leader>Q] #(vim.cmd :bdelete!)
             ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>})
      (imap {["Exit Insert Mode" :jj] :<Esc>})
