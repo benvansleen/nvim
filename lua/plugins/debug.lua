@@ -230,27 +230,32 @@ local function _22_(...)
     end
     return {
         {
-            keymap_26_auto.set("n", "<leader>dc", continue, { desc = "Debug: Start/Continue", noremap = true }),
-            keymap_26_auto.set("n", "<leader>dR", _23_, { desc = "Debug: Restart", noremap = true }),
-            keymap_26_auto.set("n", "<leader>dq", _24_, { desc = "Debug: Quit", noremap = true }),
-            keymap_26_auto.set("n", "<leader>dn", step_over, { desc = "Debug: Step Over", noremap = true }),
-            keymap_26_auto.set("n", "<leader>di", step_into, { desc = "Debug: Step Into", noremap = true }),
-            keymap_26_auto.set("n", "<leader>do", step_out, { desc = "Debug: Step Out", noremap = true }),
-            keymap_26_auto.set("n", "<leader>dC", _25_, { desc = "Debug: Clear Breakpoints", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dc", continue, { desc = "Debug: Start/Continue", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dR", _23_, { desc = "Debug: Restart", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dq", _24_, { desc = "Debug: Quit", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dn", step_over, { desc = "Debug: Step Over", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>di", step_into, { desc = "Debug: Step Into", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>do", step_out, { desc = "Debug: Step Out", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dC", _25_, { desc = "Debug: Clear Breakpoints", noremap = true }),
             keymap_26_auto.set(
                 "n",
-                "<leader>db",
+                "<localleader>db",
                 toggle_breakpoint,
                 { desc = "Debug: Toggle Breakpoint", noremap = true }
             ),
-            keymap_26_auto.set("n", "<leader>dB", _26_, { desc = "Debug: Set Conditional Breakpoint", noremap = true }),
             keymap_26_auto.set(
                 "n",
-                "<leader>dw",
+                "<localleader>dB",
+                _26_,
+                { desc = "Debug: Set Conditional Breakpoint", noremap = true }
+            ),
+            keymap_26_auto.set(
+                "n",
+                "<localleader>dw",
                 "<cmd>DapViewWatch<cr>",
                 { desc = "Debug: Set Watch", noremap = true }
             ),
-            keymap_26_auto.set("n", "<leader>dt", _27_, { desc = "Debug: Open dap-view", noremap = true }),
+            keymap_26_auto.set("n", "<localleader>dt", _27_, { desc = "Debug: Open dap-view", noremap = true }),
         },
     }
 end

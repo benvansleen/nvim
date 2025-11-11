@@ -131,21 +131,21 @@
                                                        1)
                                                     :inline
                                                     :eol)}))}
-               (nmap {["Debug: Start/Continue" :<leader>dc] continue
-                      ["Debug: Restart" :<leader>dR] #(require-and-call :dap
-                                                                        :restart)
-                      ["Debug: Quit" :<leader>dq] #(require-and-call :dap
-                                                                     :close)
-                      ["Debug: Step Over" :<leader>dn] step-over
-                      ["Debug: Step Into" :<leader>di] step-into
-                      ["Debug: Step Out" :<leader>do] step-out
-                      ["Debug: Clear Breakpoints" :<leader>dC] #(require-and-call :dap.breakpoints
-                                                                                  :clear)
-                      ["Debug: Toggle Breakpoint" :<leader>db] toggle-breakpoint
-                      ["Debug: Set Conditional Breakpoint" :<leader>dB] #(with-require {: dap}
-                                                                           (-> "Breakpoint condition: "
-                                                                               vim.fn.input
-                                                                               dap.set_breakpoint))
-                      ["Debug: Set Watch" :<leader>dw] :<cmd>DapViewWatch<cr>
-                      ["Debug: Open dap-view" :<leader>dt] #(require-and-call :dap-view
-                                                                              :toggle)})]))
+               (nmap {["Debug: Start/Continue" :<localleader>dc] continue
+                      ["Debug: Restart" :<localleader>dR] #(require-and-call :dap
+                                                                             :restart)
+                      ["Debug: Quit" :<localleader>dq] #(require-and-call :dap
+                                                                          :close)
+                      ["Debug: Step Over" :<localleader>dn] step-over
+                      ["Debug: Step Into" :<localleader>di] step-into
+                      ["Debug: Step Out" :<localleader>do] step-out
+                      ["Debug: Clear Breakpoints" :<localleader>dC] #(require-and-call :dap.breakpoints
+                                                                                       :clear)
+                      ["Debug: Toggle Breakpoint" :<localleader>db] toggle-breakpoint
+                      ["Debug: Set Conditional Breakpoint" :<localleader>dB] #(with-require {: dap}
+                                                                                (-> "Breakpoint condition: "
+                                                                                    vim.fn.input
+                                                                                    dap.set_breakpoint))
+                      ["Debug: Set Watch" :<localleader>dw] :<cmd>DapViewWatch<cr>
+                      ["Debug: Open dap-view" :<localleader>dt] #(require-and-call :dap-view
+                                                                                   :toggle)})]))
