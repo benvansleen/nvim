@@ -204,16 +204,24 @@ local function _26_(...)
         local mod_13_auto = require("nfnl.module").autoload("focus")
         return mod_13_auto.split_nicely()
     end
-    return { { keymap_26_auto.set("n", "<leader>s", _27_, { desc = "Open [S]plit", noremap = true }) } }
+    local function _28_()
+        return vim.cmd.close()
+    end
+    return {
+        {
+            keymap_26_auto.set("n", "<leader>s", _27_, { desc = "Open [S]plit", noremap = true }),
+            keymap_26_auto.set("n", "<leader>S", _28_, { desc = "Close [S]plt", noremap = true }),
+        },
+    }
 end
-local function _28_()
-    local function _29_()
+local function _29_()
+    local function _30_()
         return vim.api.nvim_exec_autocmds("User", { pattern = "BufDeletePost" })
     end
-    return vim.schedule(_29_)
+    return vim.schedule(_30_)
 end
-local function _31_(_30_)
-    local buf = _30_.buf
+local function _32_(_31_)
+    local buf = _31_.buf
     local deleted_name = vim.api.nvim_buf_get_name(buf)
     local deleted_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
     local deleted_bt = vim.api.nvim_get_option_value("buftype", { buf = buf })
@@ -229,12 +237,12 @@ return {
         vim.api.nvim_create_autocmd({ "BufDelete" }, {
             group = vim.api.nvim_create_augroup("BufDeletePostSetup", { clear = true }),
             nested = true,
-            callback = _28_,
+            callback = _29_,
         }),
         vim.api.nvim_create_autocmd({ "User" }, {
             pattern = "BufDeletePost",
             group = vim.api.nvim_create_augroup("BufDeletePost", { clear = true }),
-            callback = _31_,
+            callback = _32_,
         }),
     },
 }

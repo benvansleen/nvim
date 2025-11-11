@@ -102,7 +102,8 @@
                                                                                          vim.bo.filetype)))
                                                       :group augroup}}))))}
                (nmap {["Open [S]plit" :<leader>s] #(require-and-call :focus
-                                                                     :split_nicely)})])
+                                                                     :split_nicely)
+                      ["Close [S]plt" :<leader>S] #(vim.cmd.close)})])
      (autocmd {[:BufDelete] {:group (vim.api.nvim_create_augroup :BufDeletePostSetup
                                                                  {:clear true})
                              :nested true
