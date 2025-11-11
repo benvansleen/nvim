@@ -21,7 +21,10 @@
                            :toggleterm] (border)))
 
 (fn M.center-buffer [buf-ft]
-  (disable-for-fts buf-ft [:NeogitCommitView :NeogitStatus :NeogitPopup]
+  (disable-for-fts buf-ft [:NeogitCommitView
+                           :NeogitGitCommandHistory
+                           :NeogitStatus
+                           :NeogitPopup]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
