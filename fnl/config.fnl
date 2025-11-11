@@ -1,4 +1,4 @@
-(import-macros {: cfg : with-require : unless-nix} :macros)
+(import-macros {: autoload : cfg : with-require : unless-nix} :macros)
 
 (with-require {: lze : lzextras lzUtils :nixCatsUtils.lzUtils}
   (lze.register_handlers lzUtils.for_cat)
@@ -13,7 +13,7 @@
      (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
                        :oil :telescope :terminal :tmux :treesitter)
      (requires-plugins-when-enabled :debug :lint :format)
-     (requires :clipboard :lsp :number-toggle :statuscolumn :theme)
+     (requires :clipboard :lsp :statuscolumn :theme)
      (opt {autoindent true
            breakindent true
            cursorline true
@@ -51,12 +51,10 @@
      (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>zz
            [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
-            ["[T]oggle virtual lines" :<leader>te] (fn []
-                                                     (let [vt (. (vim.diagnostic.config)
-                                                                 :virtual_lines)]
-                                                       (vim.diagnostic.config {:virtual_lines (not vt)})))
-            ["[W]hat's [T]his [F]ile?" :<leader>wtf] (fn []
-                                                       (print (vim.api.nvim_buf_get_name 0)))
+            ["[T]oggle virtual lines" :<leader>te] #(let [vt (. (vim.diagnostic.config)
+                                                                :virtual_lines)]
+                                                      (vim.diagnostic.config {:virtual_lines (not vt)}))
+            ["[W]hat's [T]his [F]ile?" :<leader>wtf] #(print (vim.api.nvim_buf_get_name 0))
             ["[Q]uit buffer" :<leader>q] #(with-require {diffview :diffview.lib}
                                             (if (diffview.get_current_view)
                                                 (vim.cmd.DiffviewClose)
@@ -73,6 +71,15 @@
                                                                     {})
                                 :pattern "*"
                                 :callback (fn [] (vim.highlight.on_yank))}}))
+
+(with-require {number-toggle :lib.number-toggle}
+  (cfg (nmap {["[T]oggle [n]umbertoggle" :<leader>tn] number-toggle.toggle})
+       (autocmd {number-toggle.autocmd-toggle-on {:pattern "*"
+                                                  :group number-toggle.group
+                                                  :callback number-toggle.activate-relative-number}
+                 number-toggle.autocmd-toggle-off {:pattern "*"
+                                                   :group number-toggle.group
+                                                   :callback number-toggle.disable-relative-number}})))
 
 (unless-nix (cfg (nmap {["Scroll Up" :<up>] :<C-u>
                         ["Scroll Down" :<down>] :<C-d>})))

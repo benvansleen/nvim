@@ -1,7 +1,7 @@
 -- [nfnl] init.fnl
 local function _1_()
     require("non_nix_download")
-    return vim.cmd("PaqSync")
+    return vim.cmd.PaqSync()
 end
 do
     local _ = { { vim.keymap.set("n", " LP", _1_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true }) } }

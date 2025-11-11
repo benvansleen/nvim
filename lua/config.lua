@@ -103,7 +103,7 @@ do
             require("plugins.treesitter"),
         },
         { _1_, _3_, _5_(...) },
-        { require("clipboard"), require("lsp"), require("number-toggle"), require("statuscolumn"), require("theme") },
+        { require("clipboard"), require("lsp"), require("statuscolumn"), require("theme") },
         {
             nil,
             nil,
@@ -174,6 +174,31 @@ do
             ),
         },
     }
+end
+do
+    local number_toggle = require("nfnl.module").autoload("lib.number-toggle")
+    do
+        local _ = {
+            {
+                vim.keymap.set(
+                    "n",
+                    "<leader>tn",
+                    number_toggle.toggle,
+                    { desc = "[T]oggle [n]umbertoggle", noremap = true }
+                ),
+            },
+            {
+                vim.api.nvim_create_autocmd(
+                    number_toggle["autocmd-toggle-on"],
+                    { pattern = "*", group = number_toggle.group, callback = number_toggle["activate-relative-number"] }
+                ),
+                vim.api.nvim_create_autocmd(
+                    number_toggle["autocmd-toggle-off"],
+                    { pattern = "*", group = number_toggle.group, callback = number_toggle["disable-relative-number"] }
+                ),
+            },
+        }
+    end
 end
 local _12_
 do
