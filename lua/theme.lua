@@ -29,10 +29,11 @@ do
     end
     core = setmetatable(res_3_auto, { __call = _4_, __index = _5_, __newindex = _7_ })
 end
-local function update_hl(group, opts)
+local M = require("nfnl.module").define("theme")
+M["update-hl"] = function(group, opts)
     local cur_hl = vim.api.nvim_get_hl(0, { name = group })
     if cur_hl.link then
-        return update_hl(cur_hl.link, opts)
+        return M["update-hl"](cur_hl.link, opts)
     else
         return core.merge(cur_hl, opts)
     end
@@ -44,10 +45,9 @@ end
 hl = _9_
 local theme_name = "gruvbox-material"
 local contrast = "medium"
-local palette
 do
     local colors = require("nfnl.module").autoload("gruvbox-material.colors")
-    palette = colors.get(vim.o.background, contrast)
+    M.palette = colors.get(vim.o.background, contrast)
 end
 local function customize_colors(_10_, g, o)
     local bg0 = _10_.bg0
@@ -61,45 +61,64 @@ local function customize_colors(_10_, g, o)
 end
 do
     local p_14_auto = require(theme_name)
-    local function _12_(...)
-        return customize_colors(palette, ...)
+    local _13_
+    do
+        local partial_12_ = M.palette
+        local function _14_(...)
+            return customize_colors(partial_12_, ...)
+        end
+        _13_ = _14_
     end
     p_14_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },
         background = { transparent = false },
-        customize = _12_,
+        customize = _13_,
     })
 end
 do
-    local bg0 = palette.bg0
-    local italic_nontext = update_hl("NonText", { italic = true })
-    hl("WinBar", update_hl("NonText", italic_nontext))
-    hl("WinBarNC", update_hl("NonText", italic_nontext))
+    local bg0 = M.palette.bg0
+    local italic_nontext = M["update-hl"]("NonText", { italic = true })
+    hl("WinBar", M["update-hl"]("NonText", italic_nontext))
+    hl("WinBarNC", M["update-hl"]("NonText", italic_nontext))
     hl("StatusLine", { bg = bg0 })
     hl("StatusLineNC", { bg = bg0 })
     hl("CursorLine", { bg = bg0 })
+    local function _15_()
+        return hl("CursorLine", { bg = bg0 })
+    end
+    do
+        local _ = {
+            {
+                vim.api.nvim_create_autocmd({ "User" }, {
+                    pattern = "TelescopeFindPre",
+                    group = vim.api.nvim_create_augroup("reset-cursorline-bg", { clear = true }),
+                    callback = _15_,
+                }),
+            },
+        }
+    end
 end
-local function set_telescope_highlights()
-    local bg4 = palette.bg4
-    local blue = palette.blue
-    local bg_yellow = palette.bg_yellow
-    local function _13_()
+M["set-telescope-highlights"] = function()
+    local bg4 = M.palette.bg4
+    local blue = M.palette.blue
+    local bg_yellow = M.palette.bg_yellow
+    local function _16_()
         local colors = require("nfnl.module").autoload("gruvbox-material.colors")
         return colors.get(vim.o.background, "hard")
     end
-    local _let_14_ = _13_()
-    local dark_hard_bg0 = _let_14_.bg0
-    hl("TelescopePromptNormal", { bg = bg4, link = nil })
-    hl("TelescopePromptBorder", { fg = bg4, bg = bg4, link = nil })
-    hl("TelescopeNormal", { bg = dark_hard_bg0, link = nil })
-    hl("TelescopeResultsNormal", { bg = dark_hard_bg0, link = nil })
-    hl("TelescopePreviewNormal", { bg = dark_hard_bg0, link = nil })
-    hl("TelescopeSelection", { bold = true, bg = bg4, link = nil })
-    hl("TelescopeBorder", { fg = dark_hard_bg0, bg = dark_hard_bg0, link = nil })
-    hl("TelescopePromptTitle", { fg = bg4, bg = bg_yellow, link = nil })
-    hl("TelescopeResultsTitle", { fg = bg4, bg = blue, link = nil })
+    local _let_17_ = _16_()
+    local dark_hard_bg0 = _let_17_.bg0
+    hl("TelescopePromptNormal", { bg = bg4 })
+    hl("TelescopeNormal", { bg = dark_hard_bg0 })
+    hl("TelescopePromptBorder", M["update-hl"]("TelescopePromptNormal", { fg = bg4 }))
+    hl("TelescopeBorder", M["update-hl"]("TelescopeNormal", { fg = dark_hard_bg0 }))
+    hl("TelescopeResultsNormal", M["update-hl"]("TelescopeNormal", {}))
+    hl("TelescopePreviewNormal", { link = "TelescopeResultsNormal" })
+    hl("TelescopeSelection", M["update-hl"]("TelescopePromptNormal", { bold = true }))
+    hl("TelescopePromptTitle", { fg = bg4, bg = bg_yellow })
+    hl("TelescopeResultsTitle", { fg = bg4, bg = blue })
     return hl("TelescopePreviewTitle", { link = "TelescopeResultsTitle" })
 end
-return { ["set-telescope-highlights"] = set_telescope_highlights, ["update-hl"] = update_hl }
+return M

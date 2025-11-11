@@ -1,16 +1,17 @@
-(import-macros {: autoload : setup : with-require} :macros)
+(import-macros {: autoload : cfg : define : setup : with-require} :macros)
 (autoload core :nfnl.core)
+(define M :theme)
 
-(fn update-hl [group opts]
+(fn M.update-hl [group opts]
   (let [cur-hl (vim.api.nvim_get_hl 0 {:name group})]
     (if cur-hl.link
-        (tail! (update-hl cur-hl.link opts))
+        (tail! (M.update-hl cur-hl.link opts))
         (core.merge cur-hl opts))))
 
 (local hl (partial vim.api.nvim_set_hl 0))
 (local theme-name :gruvbox-material)
 (local contrast :medium)
-(local palette (with-require {colors :gruvbox-material.colors}
+(set M.palette (with-require {colors :gruvbox-material.colors}
                  (colors.get vim.o.background contrast)))
 
 ;; fnlfmt: skip
@@ -28,29 +29,33 @@
         : contrast
         :comments {:italics true}
         :background {:transparent false}
-        :customize (partial customize-colors palette)})
+        :customize (partial customize-colors M.palette)})
 
-(let [{: bg0} palette
-      italic-nontext (update-hl :NonText {:italic true})]
-  (hl :WinBar (update-hl :NonText italic-nontext))
-  (hl :WinBarNC (update-hl :NonText italic-nontext))
+(let [{: bg0} M.palette
+      italic-nontext (M.update-hl :NonText {:italic true})]
+  (hl :WinBar (M.update-hl :NonText italic-nontext))
+  (hl :WinBarNC (M.update-hl :NonText italic-nontext))
   (hl :StatusLine {:bg bg0})
   (hl :StatusLineNC {:bg bg0})
-  (hl :CursorLine {:bg bg0}))
+  (hl :CursorLine {:bg bg0})
+  (cfg (autocmd {[:User] {:pattern :TelescopeFindPre
+                          :group (vim.api.nvim_create_augroup :reset-cursorline-bg
+                                                              {:clear true})
+                          :callback #(hl :CursorLine {:bg bg0})}})))
 
-(fn set-telescope-highlights []
-  (let [{: bg4 : blue : bg_yellow} palette
+(fn M.set-telescope-highlights []
+  (let [{: bg4 : blue : bg_yellow} M.palette
         {:bg0 dark-hard-bg0} (with-require {colors :gruvbox-material.colors}
                                (colors.get vim.o.background :hard))]
-    (hl :TelescopePromptNormal {:bg bg4 :link nil})
-    (hl :TelescopePromptBorder {:fg bg4 :bg bg4 :link nil})
-    (hl :TelescopeNormal {:bg dark-hard-bg0 :link nil})
-    (hl :TelescopeResultsNormal {:bg dark-hard-bg0 :link nil})
-    (hl :TelescopePreviewNormal {:bg dark-hard-bg0 :link nil})
-    (hl :TelescopeSelection {:bold true :bg bg4 :link nil})
-    (hl :TelescopeBorder {:fg dark-hard-bg0 :bg dark-hard-bg0 :link nil})
-    (hl :TelescopePromptTitle {:fg bg4 :bg bg_yellow :link nil})
-    (hl :TelescopeResultsTitle {:fg bg4 :bg blue :link nil})
+    (hl :TelescopePromptNormal {:bg bg4})
+    (hl :TelescopeNormal {:bg dark-hard-bg0})
+    (hl :TelescopePromptBorder (M.update-hl :TelescopePromptNormal {:fg bg4}))
+    (hl :TelescopeBorder (M.update-hl :TelescopeNormal {:fg dark-hard-bg0}))
+    (hl :TelescopeResultsNormal (M.update-hl :TelescopeNormal {}))
+    (hl :TelescopePreviewNormal {:link :TelescopeResultsNormal})
+    (hl :TelescopeSelection (M.update-hl :TelescopePromptNormal {:bold true}))
+    (hl :TelescopePromptTitle {:fg bg4 :bg bg_yellow})
+    (hl :TelescopeResultsTitle {:fg bg4 :bg blue})
     (hl :TelescopePreviewTitle {:link :TelescopeResultsTitle})))
 
-{: set-telescope-highlights : update-hl}
+M

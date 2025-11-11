@@ -52,7 +52,7 @@ M.border = function(buf_ft)
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "NeogitDiffView", "TelescopePrompt" }, buf_ft) then
+    if core["contains?"]({ "NeogitStatus", "NeogitDiffView", "TelescopePrompt" }, buf_ft) then
         return " "
     else
         local mod_13_auto = require("nfnl.module").autoload("statuscolumn.center-buffer")
