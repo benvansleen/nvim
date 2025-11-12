@@ -49,10 +49,11 @@
         (where (or ")" "]" "}"))
         (do
           (lib.goto-node-end child)
-          (insert-line-break-same-indent (if (= "," (-> children (. (- i 1)) (: :type)))
-                                             ""
-                                             ",")))
-
+          (insert-line-break-same-indent
+            (let [prev-node-type (-> children (. (- i 1)) (: :type))]
+              (if (any (partial = prev-node-type) ["," :for_in_clause :if_clause])
+                  ""
+                  ","))))
         _ (do
             (lib.goto-node-start child)
             (insert-line-break-same-indent))))))
@@ -64,13 +65,20 @@
         cleaned (-> text
                     (: :gsub "[%s]+" " ")
                     (: :gsub "%(%s" "(")
-                    (: :gsub ",%s%)" ")")
-                    (: :gsub ",%s%]" "]")
-                    (: :gsub ",%s%}" "}"))
+                    (: :gsub ",?%s%)" ")")
+                    (: :gsub ",?%s%]" "]")
+                    (: :gsub ",?%s%}" "}"))
         final (.. (str.trimr hd) (str.triml cleaned))]
     (vim.api.nvim_buf_set_lines 0 (- srow 1) erow false [final])))
 
-(local expandable-types [:list :dictionary :tuple :argument_list])
+(local expandable-types [:list
+                         :dictionary
+                         :tuple
+                         :list_comprehension
+                         :dictionary_comprehension
+                         :set_comprehension
+                         :generator_expression
+                         :argument_list])
 
 ;; fnlfmt: skip
 (fn M.toggle-expand-args []

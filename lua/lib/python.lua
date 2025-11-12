@@ -153,7 +153,11 @@ M["expand-args"] = function(node)
             elseif (case_29_ == ")") or (case_29_ == "]") or (case_29_ == "}") then
                 lib["goto-node-end"](child)
                 local function _32_()
-                    if "," == children[(i - 1)]:type() then
+                    local prev_node_type = children[(i - 1)]:type()
+                    local function _33_(...)
+                        return (prev_node_type == ...)
+                    end
+                    if any(_33_, { ",", "for_in_clause", "if_clause" }) then
                         return ""
                     else
                         return ","
@@ -178,21 +182,31 @@ M["collapse-args"] = function(srow, erow)
         end)(t, k)
     end)(lines, 2)
     local text = table.concat(tl, " ")
-    local cleaned = text:gsub("[%s]+", " "):gsub("%(%s", "("):gsub(",%s%)", ")"):gsub(",%s%]", "]"):gsub(",%s%}", "}")
+    local cleaned =
+        text:gsub("[%s]+", " "):gsub("%(%s", "("):gsub(",?%s%)", ")"):gsub(",?%s%]", "]"):gsub(",?%s%}", "}")
     local final = (str.trimr(hd) .. str.triml(cleaned))
     return vim.api.nvim_buf_set_lines(0, (srow - 1), erow, false, { final })
 end
-local expandable_types = { "list", "dictionary", "tuple", "argument_list" }
+local expandable_types = {
+    "list",
+    "dictionary",
+    "tuple",
+    "list_comprehension",
+    "dictionary_comprehension",
+    "set_comprehension",
+    "generator_expression",
+    "argument_list",
+}
 M["toggle-expand-args"] = function()
     local node
-    local function _34_(_241)
+    local function _36_(_241)
         local node_type = _241:type()
-        local function _35_(...)
+        local function _37_(...)
             return (node_type == ...)
         end
-        return any(_35_, expandable_types)
+        return any(_37_, expandable_types)
     end
-    node = lib["nearest-parent-until"](_34_)
+    node = lib["nearest-parent-until"](_36_)
     if node then
         local srow, _scol, erow, _ecol = lib["range-of-node"](node)
         lib["goto-node-start"](node)
