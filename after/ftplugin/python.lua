@@ -64,7 +64,7 @@ do
     repeatable_toggle_fstring = _15_
 end
 vim.g["python_indent"] = {
-    continue = "shiftwidth() * 2",
+    continue = "shiftwidth()",
     open_paren = "shiftwidth()",
     nested_paren = "shiftwidth()",
     closed_paren_align_last_line = false,

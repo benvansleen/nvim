@@ -196,6 +196,7 @@ local expandable_types = {
     "set_comprehension",
     "generator_expression",
     "argument_list",
+    "parameters",
 }
 M["toggle-expand-args"] = function()
     local node

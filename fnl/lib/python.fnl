@@ -78,7 +78,8 @@
                          :dictionary_comprehension
                          :set_comprehension
                          :generator_expression
-                         :argument_list])
+                         :argument_list
+                         :parameters])
 
 ;; fnlfmt: skip
 (fn M.toggle-expand-args []
