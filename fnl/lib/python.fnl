@@ -37,26 +37,27 @@
 ;; fnlfmt: skip
 (fn M.expand-args [node]
   (let [children (icollect [child (node:iter_children)] child)]
-    (each [i child (reversed children)]
-      (case (child:type)
-        "," nil
+    (when (> (length children) 2)
+      (each [i child (reversed children)]
+        (case (child:type)
+          "," nil
 
-        (where opening (or (= opening "(") (= opening "[") (= opening "{")))
-        (do
-          (lib.goto-node-end child)
-          (vim.cmd.normal (.. :=i opening)))
+          (where opening (or (= opening "(") (= opening "[") (= opening "{")))
+          (do
+            (lib.goto-node-end child)
+            (vim.cmd.normal (.. :=i opening)))
 
-        (where (or ")" "]" "}"))
-        (do
-          (lib.goto-node-end child)
-          (insert-line-break-same-indent
-            (let [prev-node-type (-> children (. (- i 1)) (: :type))]
-              (if (any (partial = prev-node-type) ["," :for_in_clause :if_clause])
-                  ""
-                  ","))))
-        _ (do
-            (lib.goto-node-start child)
-            (insert-line-break-same-indent))))))
+          (where (or ")" "]" "}"))
+          (do
+            (lib.goto-node-end child)
+            (insert-line-break-same-indent
+              (let [prev-node-type (-> children (. (- i 1)) (: :type))]
+                (if (any (partial = prev-node-type) ["," :for_in_clause :if_clause])
+                    ""
+                    ","))))
+          _ (do
+              (lib.goto-node-start child)
+              (insert-line-break-same-indent)))))))
 
 (fn M.collapse-args [srow erow]
   (let [lines (vim.api.nvim_buf_get_lines 0 (- srow 1) erow false)

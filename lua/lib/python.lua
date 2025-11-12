@@ -137,41 +137,45 @@ M["expand-args"] = function(node)
         end
         children = tbl_26_
     end
-    for i, child in reversed(children) do
-        local case_29_ = child:type()
-        if case_29_ == "," then
-        else
-            local and_30_ = (nil ~= case_29_)
-            if and_30_ then
-                local opening = case_29_
-                and_30_ = ((opening == "(") or (opening == "[") or (opening == "{"))
-            end
-            if and_30_ then
-                local opening = case_29_
-                lib["goto-node-end"](child)
-                vim.cmd.normal(("=i" .. opening))
-            elseif (case_29_ == ")") or (case_29_ == "]") or (case_29_ == "}") then
-                lib["goto-node-end"](child)
-                local function _32_()
-                    local prev_node_type = children[(i - 1)]:type()
-                    local function _33_(...)
-                        return (prev_node_type == ...)
-                    end
-                    if any(_33_, { ",", "for_in_clause", "if_clause" }) then
-                        return ""
-                    else
-                        return ","
-                    end
-                end
-                insert_line_break_same_indent(_32_())
+    if #children > 2 then
+        for i, child in reversed(children) do
+            local case_29_ = child:type()
+            if case_29_ == "," then
             else
-                local _ = case_29_
-                lib["goto-node-start"](child)
-                insert_line_break_same_indent()
+                local and_30_ = (nil ~= case_29_)
+                if and_30_ then
+                    local opening = case_29_
+                    and_30_ = ((opening == "(") or (opening == "[") or (opening == "{"))
+                end
+                if and_30_ then
+                    local opening = case_29_
+                    lib["goto-node-end"](child)
+                    vim.cmd.normal(("=i" .. opening))
+                elseif (case_29_ == ")") or (case_29_ == "]") or (case_29_ == "}") then
+                    lib["goto-node-end"](child)
+                    local function _32_()
+                        local prev_node_type = children[(i - 1)]:type()
+                        local function _33_(...)
+                            return (prev_node_type == ...)
+                        end
+                        if any(_33_, { ",", "for_in_clause", "if_clause" }) then
+                            return ""
+                        else
+                            return ","
+                        end
+                    end
+                    insert_line_break_same_indent(_32_())
+                else
+                    local _ = case_29_
+                    lib["goto-node-start"](child)
+                    insert_line_break_same_indent()
+                end
             end
         end
+        return nil
+    else
+        return nil
     end
-    return nil
 end
 M["collapse-args"] = function(srow, erow)
     local lines = vim.api.nvim_buf_get_lines(0, (srow - 1), erow, false)
@@ -200,14 +204,14 @@ local expandable_types = {
 }
 M["toggle-expand-args"] = function()
     local node
-    local function _36_(_241)
+    local function _37_(_241)
         local node_type = _241:type()
-        local function _37_(...)
+        local function _38_(...)
             return (node_type == ...)
         end
-        return any(_37_, expandable_types)
+        return any(_38_, expandable_types)
     end
-    node = lib["nearest-parent-until"](_36_)
+    node = lib["nearest-parent-until"](_37_)
     if node then
         local srow, _scol, erow, _ecol = lib["range-of-node"](node)
         lib["goto-node-start"](node)
