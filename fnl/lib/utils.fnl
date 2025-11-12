@@ -6,8 +6,12 @@
 (fn M.all [pred xs]
   (core.reduce (fn [acc x] (and acc (pred x))) true xs))
 
+(fn M.any [pred xs]
+  (core.reduce (fn [acc x] (or acc (pred x))) false xs))
+
 (comment (M.all #(> $1 0) [1 2 3])
-  (M.all #(> $1 0) [1 -2 3]))
+  (M.all #(> $1 0) [1 -2 3])
+  (M.any (partial = 0) [0 2 3]))
 
 (fn M.reversed [arr]
   (fn reverse [arr i]

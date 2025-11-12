@@ -32,16 +32,20 @@ end
 local edit_associated_file
 do
     local function _8_()
-        return utils["cmd-on-associated-file"]("edit")
+        local function _9_()
+            return utils["cmd-on-associated-file"]("edit")
+        end
+        _9_()
+        return vim.fn["repeat#set"]("g@l", -1)
     end
     _G["__edit_associated_file"] = _8_
-    local function _9_()
+    local function _10_()
         vim.o["operatorfunc"] = "v:lua.__edit_associated_file"
         return vim.cmd.normal("g@l")
     end
-    edit_associated_file = _9_
+    edit_associated_file = _10_
 end
-local function _10_()
+local function _11_()
     return utils["cmd-on-associated-file"]("vsplit")
 end
 return {
@@ -52,6 +56,6 @@ return {
             edit_associated_file,
             { desc = "Toggle to compiled lua file", noremap = true }
         ),
-        vim.keymap.set("n", "<leader>dO", _10_, { desc = "Toggle to compiled lua file in split", noremap = true }),
+        vim.keymap.set("n", "<leader>dO", _11_, { desc = "Toggle to compiled lua file in split", noremap = true }),
     },
 }

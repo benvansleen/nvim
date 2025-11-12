@@ -33,21 +33,25 @@ local cmd_on_associated_file = _local_9_["cmd-on-associated-file"]
 local edit_associated_file
 do
     local function _10_()
-        return cmd_on_associated_file("edit")
+        local function _11_()
+            return cmd_on_associated_file("edit")
+        end
+        _11_()
+        return vim.fn["repeat#set"]("g@l", -1)
     end
     _G["__edit_associated_file"] = _10_
-    local function _11_()
+    local function _12_()
         vim.o["operatorfunc"] = "v:lua.__edit_associated_file"
         return vim.cmd.normal("g@l")
     end
-    edit_associated_file = _11_
+    edit_associated_file = _12_
 end
-local function _12_()
+local function _13_()
     return cmd_on_associated_file("vsplit")
 end
 return {
     {
         vim.keymap.set("n", "<leader>do", edit_associated_file, { desc = "Toggle to parent fnl file", noremap = true }),
-        vim.keymap.set("n", "<leader>dO", _12_, { desc = "Toggle to parent fnl file in split", noremap = true }),
+        vim.keymap.set("n", "<leader>dO", _13_, { desc = "Toggle to parent fnl file in split", noremap = true }),
     },
 }

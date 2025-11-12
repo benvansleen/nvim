@@ -2,13 +2,16 @@
 (autoload {: get_node_at_cursor : get_vim_range} :nvim-treesitter.ts_utils)
 (define M :lib.treesitter)
 
-(fn M.nearest-parent-of-type [node-type node]
+(fn M.nearest-parent-until [p-fn node]
   (fn climb-tree [node]
-    (if (or (not node) (= (node:type) node-type))
+    (if (or (not node) (p-fn node))
         node
         (tail! (climb-tree (node:parent)))))
 
   (climb-tree (or node (get_node_at_cursor))))
+
+(fn M.nearest-parent-of-type [node-type node]
+  (M.nearest-parent-until #(= ($1:type) node-type) node))
 
 (fn M.range-of-node [node]
   (get_vim_range [(node:range)]))

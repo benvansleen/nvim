@@ -150,7 +150,10 @@
                   (->> (.. "__")))
         luaname (.. "v:lua." name#)]
     `(local ,name (do
-                    (tset _G ,name# ,f)
+                    (tset _G ,name#
+                          (fn []
+                            (,f)
+                            ((. vim.fn "repeat#set") "g@l" -1)))
                     (fn []
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))

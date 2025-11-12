@@ -66,7 +66,13 @@ M.all = function(pred, xs)
     end
     return core.reduce(_15_, true, xs)
 end
---[[ (M.all (hashfn (> $1 0)) [1 2 3]) (M.all (hashfn (> $1 0)) [1 -2 3]) ]]
+M.any = function(pred, xs)
+    local function _16_(acc, x)
+        return (acc or pred(x))
+    end
+    return core.reduce(_16_, false, xs)
+end
+--[[ (M.all (hashfn (> $1 0)) [1 2 3]) (M.all (hashfn (> $1 0)) [1 -2 3]) (M.any (partial = 0) [0 2 3]) ]]
 M.reversed = function(arr)
     local function reverse(arr0, i)
         local i0 = (i - 1)
@@ -81,9 +87,9 @@ end
 --[[ (icollect [x (M.reversed [1 2 3 4])] x) ]]
 M["insert-line-break-same-indent"] = function(chars)
     local line = vim.api.nvim_get_current_line()
-    local _let_17_ = vim.api.nvim_win_get_cursor(0)
-    local row = _let_17_[1]
-    local col = _let_17_[2]
+    local _let_18_ = vim.api.nvim_win_get_cursor(0)
+    local row = _let_18_[1]
+    local col = _let_18_[2]
     local before = line:sub(1, col)
     local after = line:sub((col + 1))
     local indent = (line:match("^(%s*)") or "")

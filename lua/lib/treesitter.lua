@@ -32,9 +32,9 @@ local _local_9_ = _4_(...)
 local get_node_at_cursor = _local_9_.get_node_at_cursor
 local get_vim_range = _local_9_.get_vim_range
 local M = require("nfnl.module").define("lib.treesitter")
-M["nearest-parent-of-type"] = function(node_type, node)
+M["nearest-parent-until"] = function(p_fn, node)
     local function climb_tree(node0)
-        if not node0 or (node0:type() == node_type) then
+        if not node0 or p_fn(node0) then
             return node0
         else
             return climb_tree(node0:parent())
@@ -42,28 +42,34 @@ M["nearest-parent-of-type"] = function(node_type, node)
     end
     return climb_tree((node or get_node_at_cursor()))
 end
+M["nearest-parent-of-type"] = function(node_type, node)
+    local function _11_(_241)
+        return (_241:type() == node_type)
+    end
+    return M["nearest-parent-until"](_11_, node)
+end
 M["range-of-node"] = function(node)
     return get_vim_range({ node:range() })
 end
 M["goto-node"] = function(end_3f, node)
     local srow, scol, erow, ecol = M["range-of-node"](node)
-    local function _11_()
+    local function _12_()
         if end_3f then
             return { erow, ecol }
         else
             return { srow, scol }
         end
     end
-    vim.fn.setcursorcharpos(_11_())
+    vim.fn.setcursorcharpos(_12_())
     return srow, scol, ecol, erow
 end
-local function _12_(...)
+local function _13_(...)
     return M["goto-node"](false, ...)
 end
-M["goto-node-start"] = _12_
-local function _13_(...)
+M["goto-node-start"] = _13_
+local function _14_(...)
     return M["goto-node"](true, ...)
 end
-M["goto-node-end"] = _13_
+M["goto-node-end"] = _14_
 --[[ (vim.inspect (getmetatable (M.nearest-parent-of-type "string"))) (let [node (M.nearest-parent-of-type "let_form") (srow scol _ecol _erow) (M.range-of-node node)] (vim.fn.setcursorcharpos [srow scol])) (let [node (M.nearest-parent-of-type "let_form")] (M.goto-node-end node)) (let [node (M.nearest-parent-of-type "let_form")] (icollect [child (node:iter_children)] child)) ]]
 return M
