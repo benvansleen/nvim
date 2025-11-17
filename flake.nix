@@ -273,6 +273,7 @@
                 cmp-cmdline
                 blink-cmp
                 blink-compat
+                blink-pairs
                 blink-ripgrep-nvim
                 colorful-menu-nvim
               ];
@@ -321,7 +322,6 @@
               always = with pkgs.vimPlugins; [
                 comment-nvim
                 flash-nvim
-                nvim-autopairs
                 nvim-lspconfig
                 nvim-surround
               ];

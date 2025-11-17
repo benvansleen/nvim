@@ -1,6 +1,19 @@
 (import-macros {: cfg : require-and-call : setup : with-require} :macros)
 
-(cfg (plugins [:comment.nvim
+(cfg (plugins [:blink.pairs
+               {:for_cat :general.blink
+                :event :InsertEnter
+                :after #(setup :blink.pairs
+                               {:mappings {:enabled true
+                                           :cmdline true
+                                           :disabled_filetypes []}
+                                :highlights {:enabled true
+                                             :cmdline true
+                                             :groups [:NonText]
+                                             :matchparen {:enabled true
+                                                          :cmdline false
+                                                          :include_surrounding true}}})}]
+              [:comment.nvim
                {:for_cat :general.extra
                 :event :CursorMoved
                 :after #(setup :Comment)}]
@@ -101,14 +114,6 @@
                                                                       :jump)
                      [[:n :x :o] "Flash up to previous" :T] #(require-and-call :flash.plugins.char
                                                                                :jump)})]
-              [:nvim-autopairs
-               {:for_cat :general.always
-                :event :InsertEnter
-                :after #(setup :nvim-autopairs
-                               {:check_ts true
-                                :disable_filetype [:TelescopePrompt]
-                                :disable_in_macro true
-                                :enable_check_bracket_line true})}]
               [:nvim-surround
                {:for_cat :general.always
                 :event :CursorMoved

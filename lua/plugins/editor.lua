@@ -5,11 +5,19 @@ do
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _2_()
-            local p_14_auto = require("Comment")
-            return p_14_auto.setup()
+            local p_14_auto = require("blink.pairs")
+            return p_14_auto.setup({
+                mappings = { enabled = true, cmdline = true, disabled_filetypes = {} },
+                highlights = {
+                    enabled = true,
+                    cmdline = true,
+                    groups = { "NonText" },
+                    matchparen = { enabled = true, include_surrounding = true, cmdline = false },
+                },
+            })
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "comment.nvim", after = _2_, event = "CursorMoved", for_cat = "general.extra" })
+            mod_13_auto.keymap({ "blink.pairs", after = _2_, event = "InsertEnter", for_cat = "general.blink" })
     end
     _1_ = {}
 end
@@ -18,93 +26,93 @@ do
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        keymap_26_auto = mod_13_auto.keymap({ "dial.nvim", for_cat = "general.extra", on_require = "dial" })
+        local function _4_()
+            local p_14_auto = require("Comment")
+            return p_14_auto.setup()
+        end
+        keymap_26_auto =
+            mod_13_auto.keymap({ "comment.nvim", after = _4_, event = "CursorMoved", for_cat = "general.extra" })
     end
-    local function _4_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipuluate("increment", "normal")
-    end
-    local function _5_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("decrement", "normal")
-    end
-    local function _6_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("increment", "gnormal")
-    end
-    local function _7_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("decrement", "gnormal")
-    end
-    local function _8_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipuluate("increment", "visual")
-    end
-    local function _9_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("decrement", "visual")
-    end
-    local function _10_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("increment", "gvisual")
-    end
-    local function _11_()
-        local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipulate("decrement", "gvisual")
-    end
-    _3_ = {
-        {
-            keymap_26_auto.set("n", "<C-a>", _4_, { desc = "Increment", noremap = true }),
-            keymap_26_auto.set("n", "<C-x>", _5_, { desc = "Decrement", noremap = true }),
-            keymap_26_auto.set("n", "g<C-a>", _6_, { desc = "Increment", noremap = true }),
-            keymap_26_auto.set("n", "g<C-x>", _7_, { desc = "Decrement", noremap = true }),
-        },
-        {
-            keymap_26_auto.set("v", "<C-a>", _8_, { desc = "Increment", noremap = true }),
-            keymap_26_auto.set("v", "<C-x>", _9_, { desc = "Decrement", noremap = true }),
-            keymap_26_auto.set("v", "g<C-a>", _10_, { desc = "Increment", noremap = true }),
-            keymap_26_auto.set("v", "g<C-x>", _11_, { desc = "Decrement", noremap = true }),
-        },
-    }
+    _3_ = {}
 end
-local _12_
+local _5_
 do
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _13_()
+        keymap_26_auto = mod_13_auto.keymap({ "dial.nvim", for_cat = "general.extra", on_require = "dial" })
+    end
+    local function _6_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipuluate("increment", "normal")
+    end
+    local function _7_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("decrement", "normal")
+    end
+    local function _8_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("increment", "gnormal")
+    end
+    local function _9_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("decrement", "gnormal")
+    end
+    local function _10_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipuluate("increment", "visual")
+    end
+    local function _11_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("decrement", "visual")
+    end
+    local function _12_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("increment", "gvisual")
+    end
+    local function _13_()
+        local dial = require("nfnl.module").autoload("dial.map")
+        return dial.manipulate("decrement", "gvisual")
+    end
+    _5_ = {
+        {
+            keymap_26_auto.set("n", "<C-a>", _6_, { desc = "Increment", noremap = true }),
+            keymap_26_auto.set("n", "<C-x>", _7_, { desc = "Decrement", noremap = true }),
+            keymap_26_auto.set("n", "g<C-a>", _8_, { desc = "Increment", noremap = true }),
+            keymap_26_auto.set("n", "g<C-x>", _9_, { desc = "Decrement", noremap = true }),
+        },
+        {
+            keymap_26_auto.set("v", "<C-a>", _10_, { desc = "Increment", noremap = true }),
+            keymap_26_auto.set("v", "<C-x>", _11_, { desc = "Decrement", noremap = true }),
+            keymap_26_auto.set("v", "g<C-a>", _12_, { desc = "Increment", noremap = true }),
+            keymap_26_auto.set("v", "g<C-x>", _13_, { desc = "Decrement", noremap = true }),
+        },
+    }
+end
+local _14_
+do
+    local keymap_26_auto
+    do
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
+        local function _15_()
             if vim.fn.executable("direnv") == 1 then
                 local p_14_auto = require("direnv-nvim")
-                local function _14_()
+                local function _16_()
                     if vim.fn.exists(":LspStart") > 0 then
                         return vim.cmd("LspStart")
                     else
                         return nil
                     end
                 end
-                return p_14_auto.setup({ async = true, on_direnv_finished = _14_, type = "buffer" })
+                return p_14_auto.setup({ async = true, on_direnv_finished = _16_, type = "buffer" })
             else
                 return nil
             end
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "direnv-nvim", after = _13_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_13_auto.keymap({ "direnv-nvim", after = _15_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
-    _12_ = {}
-end
-local _17_
-do
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _18_()
-            local p_14_auto = require("fidget")
-            return p_14_auto.setup()
-        end
-        keymap_26_auto =
-            mod_13_auto.keymap({ "fidget.nvim", after = _18_, event = "DeferredUIEnter", for_cat = "general.extra" })
-    end
-    _17_ = {}
+    _14_ = {}
 end
 local _19_
 do
@@ -112,15 +120,11 @@ do
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _20_()
-            do
-                local p_14_auto = require("foldtext")
-                p_14_auto.setup()
-            end
-            vim.opt["fillchars"] = { eob = " ", fold = " " }
-            return { { nil } }
+            local p_14_auto = require("fidget")
+            return p_14_auto.setup()
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "foldtext-nvim", after = _20_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_13_auto.keymap({ "fidget.nvim", after = _20_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
     _19_ = {}
 end
@@ -130,19 +134,15 @@ do
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _22_()
-            local p_14_auto = require("ibl")
-            return p_14_auto.setup({
-                exclude = { filetypes = { "dashboard", "fennel" } },
-                scope = { enabled = true, show_start = true, show_end = true, show_exact_scope = false },
-                indent = { char = "\226\148\130" },
-            })
+            do
+                local p_14_auto = require("foldtext")
+                p_14_auto.setup()
+            end
+            vim.opt["fillchars"] = { eob = " ", fold = " " }
+            return { { nil } }
         end
-        keymap_26_auto = mod_13_auto.keymap({
-            "indent-blankline.nvim",
-            after = _22_,
-            event = "DeferredUIEnter",
-            for_cat = "general.extra",
-        })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "foldtext-nvim", after = _22_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
     _21_ = {}
 end
@@ -152,8 +152,30 @@ do
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _24_()
+            local p_14_auto = require("ibl")
+            return p_14_auto.setup({
+                exclude = { filetypes = { "dashboard", "fennel" } },
+                scope = { enabled = true, show_start = true, show_end = true, show_exact_scope = false },
+                indent = { char = "\226\148\130" },
+            })
+        end
+        keymap_26_auto = mod_13_auto.keymap({
+            "indent-blankline.nvim",
+            after = _24_,
+            event = "DeferredUIEnter",
+            for_cat = "general.extra",
+        })
+    end
+    _23_ = {}
+end
+local _25_
+do
+    local keymap_26_auto
+    do
+        local mod_13_auto = require("nfnl.module").autoload("lzextras")
+        local function _26_()
             local p_14_auto = require("flash")
-            local function _25_()
+            local function _27_()
                 return { f = "right", t = "right", F = "left", T = "left" }
             end
             return p_14_auto.setup({
@@ -171,7 +193,7 @@ do
                         enabled = true,
                         autohide = true,
                         jump_labels = true,
-                        char_actions = _25_,
+                        char_actions = _27_,
                         multi_line = false,
                     },
                     search = { enabled = false },
@@ -184,31 +206,23 @@ do
             })
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "flash.nvim", after = _24_, for_cat = "general.always", on_require = "flash" })
-    end
-    local function _26_()
-        local mod_13_auto = require("nfnl.module").autoload("flash")
-        return mod_13_auto.jump()
-    end
-    local function _27_()
-        local mod_13_auto = require("nfnl.module").autoload("flash")
-        return mod_13_auto.treesitter()
+            mod_13_auto.keymap({ "flash.nvim", after = _26_, for_cat = "general.always", on_require = "flash" })
     end
     local function _28_()
         local mod_13_auto = require("nfnl.module").autoload("flash")
-        return mod_13_auto.remote()
+        return mod_13_auto.jump()
     end
     local function _29_()
         local mod_13_auto = require("nfnl.module").autoload("flash")
-        return mod_13_auto.treesitter_search()
+        return mod_13_auto.treesitter()
     end
     local function _30_()
-        local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
-        return mod_13_auto.jump()
+        local mod_13_auto = require("nfnl.module").autoload("flash")
+        return mod_13_auto.remote()
     end
     local function _31_()
-        local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
-        return mod_13_auto.jump()
+        local mod_13_auto = require("nfnl.module").autoload("flash")
+        return mod_13_auto.treesitter_search()
     end
     local function _32_()
         local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
@@ -218,37 +232,26 @@ do
         local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
         return mod_13_auto.jump()
     end
-    _23_ = {
+    local function _34_()
+        local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
+        return mod_13_auto.jump()
+    end
+    local function _35_()
+        local mod_13_auto = require("nfnl.module").autoload("flash.plugins.char")
+        return mod_13_auto.jump()
+    end
+    _25_ = {
         {
-            keymap_26_auto.set({ "n", "x", "o" }, "s", _26_, { desc = "Jump", noremap = true }),
-            keymap_26_auto.set({ "n", "x", "o" }, "S", _27_, { desc = "Jump treesitter", noremap = true }),
-            keymap_26_auto.set({ "o" }, "r", _28_, { desc = "Flash remote", noremap = true }),
-            keymap_26_auto.set({ "x", "o" }, "R", _29_, { desc = "Flash treesitter search", noremap = true }),
-            keymap_26_auto.set({ "n", "x", "o" }, "f", _30_, { desc = "Flash find next", noremap = true }),
-            keymap_26_auto.set({ "n", "x", "o" }, "F", _31_, { desc = "Flash find previous", noremap = true }),
-            keymap_26_auto.set({ "n", "x", "o" }, "t", _32_, { desc = "Flash up to", noremap = true }),
-            keymap_26_auto.set({ "n", "x", "o" }, "T", _33_, { desc = "Flash up to previous", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "s", _28_, { desc = "Jump", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "S", _29_, { desc = "Jump treesitter", noremap = true }),
+            keymap_26_auto.set({ "o" }, "r", _30_, { desc = "Flash remote", noremap = true }),
+            keymap_26_auto.set({ "x", "o" }, "R", _31_, { desc = "Flash treesitter search", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "f", _32_, { desc = "Flash find next", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "F", _33_, { desc = "Flash find previous", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "t", _34_, { desc = "Flash up to", noremap = true }),
+            keymap_26_auto.set({ "n", "x", "o" }, "T", _35_, { desc = "Flash up to previous", noremap = true }),
         },
     }
-end
-local _34_
-do
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _35_()
-            local p_14_auto = require("nvim-autopairs")
-            return p_14_auto.setup({
-                check_ts = true,
-                disable_filetype = { "TelescopePrompt" },
-                disable_in_macro = true,
-                enable_check_bracket_line = true,
-            })
-        end
-        keymap_26_auto =
-            mod_13_auto.keymap({ "nvim-autopairs", after = _35_, event = "InsertEnter", for_cat = "general.always" })
-    end
-    _34_ = {}
 end
 local _36_
 do
@@ -278,4 +281,4 @@ local function _38_(...)
         { keymap_26_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
     }
 end
-return { { _1_, _3_, _12_, _17_, _19_, _21_, _23_, _34_, _36_, _38_(...) } }
+return { { _1_, _3_, _5_, _14_, _19_, _21_, _23_, _25_, _36_, _38_(...) } }
