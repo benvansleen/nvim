@@ -3,7 +3,7 @@
 (if (is-nix)
     (cfg (plugins [:blink.pairs
                    {:for_cat :general.blink
-                    :event :InsertEnter
+                    :event :DeferredUIEnter
                     :after #(setup :blink.pairs
                                    {:mappings {:enabled true
                                                :cmdline true

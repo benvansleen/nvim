@@ -22,7 +22,7 @@ if _1_ then
                 })
             end
             keymap_26_auto =
-                mod_13_auto.keymap({ "blink.pairs", after = _3_, event = "InsertEnter", for_cat = "general.blink" })
+                mod_13_auto.keymap({ "blink.pairs", after = _3_, event = "DeferredUIEnter", for_cat = "general.blink" })
         end
         return {}
     end
