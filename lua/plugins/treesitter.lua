@@ -1,10 +1,9 @@
 -- [nfnl] fnl/plugins/treesitter.fnl
-local _1_
 do
-    local keymap_26_auto
+    local keymap_30_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _2_()
+        local function _1_()
             local p_14_auto = require("nvim-treesitter.configs")
             return p_14_auto.setup({
                 highlight = { enable = true, additional_vim_regex_highlighting = false },
@@ -20,39 +19,30 @@ do
                 },
             })
         end
-        local function _3_(name)
+        local function _2_(name)
             vim.cmd.packadd(name)
             vim.cmd.packadd("nvim-treesitter-textobjects")
             vim.wo["foldlevel"] = 4
             vim.wo["foldmethod"] = "expr"
             vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
-            return { { nil, nil, nil } }
+            return nil
         end
-        keymap_26_auto = mod_13_auto.keymap({
+        keymap_30_auto = mod_13_auto.keymap({
             "nvim-treesitter",
-            after = _2_,
+            after = _1_,
             event = "DeferredUIEnter",
             for_cat = "general.treesitter",
-            load = _3_,
+            load = _2_,
         })
     end
-    _1_ = {}
 end
-local function _5_(...)
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _4_()
-            local p_14_auto = require("hlargs")
-            return p_14_auto.setup()
-        end
-        keymap_26_auto = mod_13_auto.keymap({
-            "hlargs.nvim",
-            after = _4_,
-            event = "DeferredUIEnter",
-            for_cat = "general.treesitter",
-        })
+local keymap_30_auto
+do
+    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local function _3_()
+        local p_14_auto = require("hlargs")
+        return p_14_auto.setup()
     end
-    return {}
+    keymap_30_auto =
+        mod_13_auto.keymap({ "hlargs.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
 end
-return { { _1_, _5_(...) } }

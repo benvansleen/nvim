@@ -46,30 +46,22 @@ local function run_linters(_10_)
         return nil
     end
 end
-local function _16_(...)
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _14_()
-            local lint = require("nfnl.module").autoload("lint")
-            lint.linters_by_ft = {
-                fennel = { "fennel" },
-                nix = { "deadnix", "nix", "statix" },
-                rust = { "clippy" },
-                python = { "ruff" },
-            }
-            local function _15_()
-                return run_linters(lint)
-            end
-            return { { vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _15_ }) } }
+local keymap_30_auto
+do
+    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local function _14_()
+        local lint = require("nfnl.module").autoload("lint")
+        lint.linters_by_ft =
+            { fennel = { "fennel" }, nix = { "deadnix", "nix", "statix" }, rust = { "clippy" }, python = { "ruff" } }
+        local function _15_()
+            return run_linters(lint)
         end
-        keymap_26_auto = mod_13_auto.keymap({
-            "nvim-lint",
-            after = _14_,
-            event = "BufWritePre",
-            for_cat = { cat = "lint", default = false },
-        })
+        return vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _15_ })
     end
-    return {}
+    keymap_30_auto = mod_13_auto.keymap({
+        "nvim-lint",
+        after = _14_,
+        event = "BufWritePre",
+        for_cat = { cat = "lint", default = false },
+    })
 end
-return { { _16_(...) } }

@@ -1,48 +1,38 @@
 -- [nfnl] fnl/plugins/oil.fnl
-vim.g["loaded_netrwPlugin"] = 1
-local function _2_(...)
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _1_()
-            local p_14_auto = require("oil")
-            return p_14_auto.setup({
-                default_file_explorer = true,
-                view_options = { show_hidden = true },
-                columns = { "icon", "permissions", "size" },
-                keymaps = {
-                    ["g?"] = "actions.show_help",
-                    ["<CR>"] = "actions.select",
-                    ["<C-s>"] = "actions.select_vsplit",
-                    ["<C-h>"] = "actions.select_split",
-                    ["<C-t>"] = "actions.select_tab",
-                    ["<C-p>"] = "actions.preview",
-                    ["<C-c>"] = "actions.close",
-                    q = "actions.close",
-                    ["<C-l>"] = "actions.refresh",
-                    ["-"] = "actions.parent",
-                    _ = "actions.open_cwd",
-                    ["`"] = "actions.cd",
-                    ["~"] = "actions.tcd",
-                    gs = "actions.change_sort",
-                    gx = "actions.open_external",
-                    ["g."] = "actions.toggle_hidden",
-                    ["g\\"] = "actions.toggle_trash",
-                },
-            })
-        end
-        keymap_26_auto = mod_13_auto.keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
-    end
-    return {
-        {
-            keymap_26_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true }),
-            keymap_26_auto.set(
-                "n",
-                "<leader>-",
-                "<cmd>Oil .<cr>",
-                { desc = "Open nvim root directory", noremap = true }
-            ),
-        },
-    }
+do
+    vim.g["loaded_netrwPlugin"] = 1
 end
-return { { nil }, { _2_(...) } }
+local keymap_30_auto
+do
+    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local function _1_()
+        local p_14_auto = require("oil")
+        return p_14_auto.setup({
+            default_file_explorer = true,
+            view_options = { show_hidden = true },
+            columns = { "icon", "permissions", "size" },
+            keymaps = {
+                ["g?"] = "actions.show_help",
+                ["<CR>"] = "actions.select",
+                ["<C-s>"] = "actions.select_vsplit",
+                ["<C-h>"] = "actions.select_split",
+                ["<C-t>"] = "actions.select_tab",
+                ["<C-p>"] = "actions.preview",
+                ["<C-c>"] = "actions.close",
+                q = "actions.close",
+                ["<C-l>"] = "actions.refresh",
+                ["-"] = "actions.parent",
+                _ = "actions.open_cwd",
+                ["`"] = "actions.cd",
+                ["~"] = "actions.tcd",
+                gs = "actions.change_sort",
+                gx = "actions.open_external",
+                ["g."] = "actions.toggle_hidden",
+                ["g\\"] = "actions.toggle_trash",
+            },
+        })
+    end
+    keymap_30_auto = mod_13_auto.keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
+end
+keymap_30_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true })
+return keymap_30_auto.set("n", "<leader>-", "<cmd>Oil .<cr>", { desc = "Open nvim root directory", noremap = true })

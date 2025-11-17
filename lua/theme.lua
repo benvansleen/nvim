@@ -88,17 +88,11 @@ do
     local function _15_()
         return hl("CursorLine", { bg = bg0 })
     end
-    do
-        local _ = {
-            {
-                vim.api.nvim_create_autocmd({ "User" }, {
-                    pattern = "TelescopeFindPre",
-                    group = vim.api.nvim_create_augroup("reset-cursorline-bg", { clear = true }),
-                    callback = _15_,
-                }),
-            },
-        }
-    end
+    vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = "TelescopeFindPre",
+        group = vim.api.nvim_create_augroup("reset-cursorline-bg", { clear = true }),
+        callback = _15_,
+    })
 end
 M["set-telescope-highlights"] = function()
     local bg4 = M.palette.bg4

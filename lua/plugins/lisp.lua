@@ -41,29 +41,23 @@ do
     vim.api.nvim_set_hl(0, "@function.call.query", update_hl("@function.call", { italic = true }))
     vim.api.nvim_set_hl(0, "@module.builtin.query", update_hl("@module.builtin", { bold = true }))
 end
-local _10_
 do
-    local keymap_26_auto
+    local keymap_30_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _11_()
+        local function _10_()
             vim.g["conjure#log#hud#border"] = "none"
             vim.g["conjure#client#python#stdio#command"] = "uv run python -iq"
             vim.g["conjure#client_on_load"] = false
             vim.g["conjure#mapping#def_word"] = false
             vim.g["conjure#mapping#doc_word"] = false
-            return { { nil, nil, nil, nil, nil } }
+            return nil
         end
-        keymap_26_auto = mod_13_auto.keymap({ "conjure", before = _11_, ft = { "fennel", "python" } })
+        keymap_30_auto = mod_13_auto.keymap({ "conjure", before = _10_, ft = { "fennel", "python" } })
     end
-    _10_ = {}
 end
-local function _12_(...)
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        keymap_26_auto = mod_13_auto.keymap({ "nvim-parinfer", for_cat = "lisp", ft = "fennel" })
-    end
-    return {}
+local keymap_30_auto
+do
+    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    keymap_30_auto = mod_13_auto.keymap({ "nvim-parinfer", for_cat = "lisp", ft = "fennel" })
 end
-return { { _10_, _12_(...) } }

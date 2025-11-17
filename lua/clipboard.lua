@@ -1,10 +1,9 @@
 -- [nfnl] fnl/clipboard.fnl
-vim.opt["clipboard"] = ""
 do
-    local _ = { { nil } }
+    vim.opt["clipboard"] = ""
 end
 local function _1_()
     vim.opt["clipboard"] = "unnamedplus"
-    return { { nil } }
+    return nil
 end
 return vim.schedule(_1_)

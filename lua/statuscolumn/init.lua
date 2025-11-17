@@ -30,4 +30,4 @@ do
     column = setmetatable(res_3_auto, { __call = _4_, __index = _5_, __newindex = _7_ })
 end
 vim.opt["statuscolumn"] = column.activate()
-return { { nil } }
+return nil

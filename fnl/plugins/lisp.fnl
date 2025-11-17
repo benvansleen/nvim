@@ -4,13 +4,14 @@
 (vim.filetype.add {:extension {:fnlm :fennel}})
 
 (macro update-hl-for-fts [fts hls]
-  (let [hl-ft #(icollect [group opts (pairs hls)]
-                 `(vim.api.nvim_set_hl 0 ,(.. group "." $1)
-                                       (update-hl ,group ,opts)))]
+  (fn splice [...]
     `(do
-       ,(unpack (icollect [_ ft (ipairs fts)]
-                  `(do
-                     ,(unpack (hl-ft ft))))))))
+       ,(unpack ...)))
+
+  (splice (icollect [_ ft (ipairs fts)]
+            (splice (icollect [group opts (pairs hls)]
+                      `(vim.api.nvim_set_hl 0 ,(.. group "." ft)
+                                            (update-hl ,group ,opts)))))))
 
 (update-hl-for-fts [:fennel :query]
                    {"@punctuation.bracket" {:link :NonText}

@@ -61,101 +61,93 @@ local function _13_(...)
 end
 local _local_18_ = _13_(...)
 local all = _local_18_.all
-local _19_
 do
-    local keymap_26_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _20_()
-            do
-                local p_14_auto = require("dashboard")
-                p_14_auto.setup({
-                    theme = "hyper",
-                    change_to_root_vcs = true,
-                    config = {
-                        header = {
-                            "                                 __                 ",
-                            "  ___     ___    ___   __  __ /\\_\\    ___ ___   ",
-                            " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ ",
-                            "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\",
-                            " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\",
-                            "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/",
-                            "",
+        local keymap_30_auto
+        do
+            local mod_13_auto = require("nfnl.module").autoload("lzextras")
+            local function _19_()
+                do
+                    local p_14_auto = require("dashboard")
+                    p_14_auto.setup({
+                        theme = "hyper",
+                        change_to_root_vcs = true,
+                        config = {
+                            header = {
+                                "                                 __                 ",
+                                "  ___     ___    ___   __  __ /\\_\\    ___ ___   ",
+                                " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\ ",
+                                "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\",
+                                " \\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\",
+                                "  \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/",
+                                "",
+                            },
+                            footer = {},
+                            packages = { enable = false },
+                            shortcut = {
+                                { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
+                                { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
+                                { desc = "Find Word", group = "Warning", action = "Telescope egrepify", key = "w" },
+                                {
+                                    desc = "Find Project",
+                                    group = "@module",
+                                    action = "Telescope projects theme=dropdown",
+                                    key = "p",
+                                },
+                                { desc = "Git", group = "@property", action = "Neogit", key = "g" },
+                                {
+                                    desc = "Change Directory",
+                                    group = "@constant",
+                                    action = "Telescope zoxide list",
+                                    key = "c",
+                                },
+                                {
+                                    desc = "Dotfiles",
+                                    group = "Number",
+                                    action = "Telescope find_files cwd=~/.config",
+                                    key = "d",
+                                },
+                            },
+                            week_header = { enable = false },
                         },
-                        footer = {},
-                        packages = { enable = false },
-                        shortcut = {
-                            { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
-                            { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "r" },
-                            { desc = "Find Word", group = "Warning", action = "Telescope egrepify", key = "w" },
-                            {
-                                desc = "Find Project",
-                                group = "@module",
-                                action = "Telescope projects theme=dropdown",
-                                key = "p",
-                            },
-                            { desc = "Git", group = "@property", action = "Neogit", key = "g" },
-                            {
-                                desc = "Change Directory",
-                                group = "@constant",
-                                action = "Telescope zoxide list",
-                                key = "c",
-                            },
-                            {
-                                desc = "Dotfiles",
-                                group = "Number",
-                                action = "Telescope find_files cwd=~/.config",
-                                key = "d",
-                            },
-                        },
-                        week_header = { enable = false },
-                    },
+                    })
+                end
+                vim.api.nvim_set_hl(0, "DashboardHeader", { link = "Blue" })
+                vim.api.nvim_set_hl(0, "DashboardFiles", { link = "@comment" })
+                vim.api.nvim_set_hl(0, "DashboardProjectTitle", { link = "Purple" })
+                vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
+                return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
+            end
+            keymap_30_auto =
+                mod_13_auto.keymap({ "dashboard-nvim", after = _19_, event = "VimEnter", for_cat = "general.extra" })
+        end
+        keymap_30_auto.set("n", "<leader><leader>d", "<cmd>Dashboard<cr>", { desc = "Open Dashboard", noremap = true })
+    end
+    do
+        local keymap_30_auto
+        do
+            local mod_13_auto = require("nfnl.module").autoload("lzextras")
+            local function _20_()
+                local p_14_auto = require("smear_cursor")
+                return p_14_auto.setup({
+                    smear_between_buffers = true,
+                    smear_between_neighbor_lines = true,
+                    scroll_buffer_space = true,
+                    smear_insert_mode = true,
                 })
             end
-            vim.api.nvim_set_hl(0, "DashboardHeader", { link = "Blue" })
-            vim.api.nvim_set_hl(0, "DashboardFiles", { link = "@comment" })
-            vim.api.nvim_set_hl(0, "DashboardProjectTitle", { link = "Purple" })
-            vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
-            return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
-        end
-        keymap_26_auto =
-            mod_13_auto.keymap({ "dashboard-nvim", after = _20_, event = "VimEnter", for_cat = "general.extra" })
-    end
-    _19_ = {
-        {
-            keymap_26_auto.set(
-                "n",
-                "<leader><leader>d",
-                "<cmd>Dashboard<cr>",
-                { desc = "Open Dashboard", noremap = true }
-            ),
-        },
-    }
-end
-local _21_
-do
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _22_()
-            local p_14_auto = require("smear_cursor")
-            return p_14_auto.setup({
-                smear_between_buffers = true,
-                smear_between_neighbor_lines = true,
-                scroll_buffer_space = true,
-                smear_insert_mode = true,
+            keymap_30_auto = mod_13_auto.keymap({
+                "smear-cursor.nvim",
+                after = _20_,
+                event = "CursorMoved",
+                for_cat = "general.extra",
             })
         end
-        keymap_26_auto =
-            mod_13_auto.keymap({ "smear-cursor.nvim", after = _22_, event = "CursorMoved", for_cat = "general.extra" })
     end
-    _21_ = {}
-end
-local function _26_(...)
-    local keymap_26_auto
+    local keymap_30_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _23_()
+        local function _21_()
             local focus = require("nfnl.module").autoload("focus")
             focus.setup({
                 enable = true,
@@ -176,52 +168,48 @@ local function _26_(...)
             }
             local ignore_buftypes = { "prompt", "popup" }
             local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-            local function _24_(_)
+            local function _22_(_)
                 vim.w.focus_disable = vim.tbl_contains(ignore_buftypes, vim.bo.buftype)
                 return nil
             end
-            local function _25_(_)
+            vim.api.nvim_create_autocmd(
+                "WinEnter",
+                { desc = "Disable focus autoresize for BufType", callback = _22_, group = augroup }
+            )
+            local function _23_(_)
                 vim.b.focus_disable = vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
                 return nil
             end
-            return {
-                {
-                    vim.api.nvim_create_autocmd(
-                        "WinEnter",
-                        { desc = "Disable focus autoresize for BufType", callback = _24_, group = augroup }
-                    ),
-                    vim.api.nvim_create_autocmd(
-                        "FileType",
-                        { desc = "Disable focus autoresize for FileType", callback = _25_, group = augroup }
-                    ),
-                },
-            }
+            return vim.api.nvim_create_autocmd(
+                "FileType",
+                { desc = "Disable focus autoresize for FileType", callback = _23_, group = augroup }
+            )
         end
-        keymap_26_auto =
-            mod_13_auto.keymap({ "focus.nvim", after = _23_, event = "DeferredUIEnter", for_cat = "general.extra" })
+        keymap_30_auto =
+            mod_13_auto.keymap({ "focus.nvim", after = _21_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
-    local function _27_()
+    local function _24_()
         local mod_13_auto = require("nfnl.module").autoload("focus")
         return mod_13_auto.split_nicely()
     end
-    local function _28_()
+    keymap_30_auto.set("n", "<leader>s", _24_, { desc = "Open [S]plit", noremap = true })
+    local function _25_()
         return vim.cmd.close()
     end
-    return {
-        {
-            keymap_26_auto.set("n", "<leader>s", _27_, { desc = "Open [S]plit", noremap = true }),
-            keymap_26_auto.set("n", "<leader>S", _28_, { desc = "Close [S]plt", noremap = true }),
-        },
-    }
+    keymap_30_auto.set("n", "<leader>S", _25_, { desc = "Close [S]plt", noremap = true })
 end
-local function _29_()
-    local function _30_()
+local function _26_()
+    local function _27_()
         return vim.api.nvim_exec_autocmds("User", { pattern = "BufDeletePost" })
     end
-    return vim.schedule(_30_)
+    return vim.schedule(_27_)
 end
-local function _32_(_31_)
-    local buf = _31_.buf
+vim.api.nvim_create_autocmd(
+    { "BufDelete" },
+    { group = vim.api.nvim_create_augroup("BufDeletePostSetup", { clear = true }), nested = true, callback = _26_ }
+)
+local function _29_(_28_)
+    local buf = _28_.buf
     local deleted_name = vim.api.nvim_buf_get_name(buf)
     local deleted_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
     local deleted_bt = vim.api.nvim_get_option_value("buftype", { buf = buf })
@@ -231,18 +219,8 @@ local function _32_(_31_)
         return nil
     end
 end
-return {
-    { _19_, _21_, _26_(...) },
-    {
-        vim.api.nvim_create_autocmd({ "BufDelete" }, {
-            group = vim.api.nvim_create_augroup("BufDeletePostSetup", { clear = true }),
-            nested = true,
-            callback = _29_,
-        }),
-        vim.api.nvim_create_autocmd({ "User" }, {
-            pattern = "BufDeletePost",
-            group = vim.api.nvim_create_augroup("BufDeletePost", { clear = true }),
-            callback = _32_,
-        }),
-    },
-}
+return vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = "BufDeletePost",
+    group = vim.api.nvim_create_augroup("BufDeletePost", { clear = true }),
+    callback = _29_,
+})

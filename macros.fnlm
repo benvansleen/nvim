@@ -55,8 +55,7 @@
                                    `((. (require :nfnl.module) :autoload) ,(tostring mod)))
                      l))]
     `(let ,bindings
-       (do
-         ,(unpack body)))))
+       ,(unpack body))))
 
 (fn with-preserve-position [[window cursor] & body]
   `(let [,window (vim.api.nvim_get_current_win)
@@ -76,33 +75,37 @@
 
 (fn cfg [& body]
   (fn set-require [opts]
-    (icollect [_ req (pairs opts)]
-      `(require ,req)))
+    `(do
+       ,(unpack (icollect [_ req (pairs opts)]
+                  `(require ,req)))))
 
   (fn require-plugins [plugins]
     (set-require (icollect [_ p (ipairs plugins)]
                    (.. :plugins. p))))
 
   (fn set-opt [t opts]
-    (icollect [k v (pairs opts)]
-      (let [k (tostring k)
-            kind (string.sub k -1)]
-        (case kind
-          "+" `(: (. ,t ,(string.sub k 1 -2)) :append ,v)
-          _ `(tset ,t ,k ,v)))))
+    `(do
+       ,(unpack (icollect [k v (pairs opts)]
+                  (let [k (tostring k)
+                        kind (string.sub k -1)]
+                    (case kind
+                      "+" `(: (. ,t ,(string.sub k 1 -2)) :append ,v)
+                      _ `(tset ,t ,k ,v)))))))
 
   (fn set-mappings [keymap mode mappings]
     (fn set-map [keymap mode kb action desc]
       `((. ,keymap :set) ,mode ,kb ,action {:noremap true :desc ,desc}))
 
-    (icollect [key action (pairs mappings)]
-      (if mode
-          (set-map keymap mode (. key 2) action (. key 1))
-          (set-map keymap (. key 1) (. key 3) action (. key 2)))))
+    `(do
+       ,(unpack (icollect [key action (pairs mappings)]
+                  (if mode
+                      (set-map keymap mode (. key 2) action (. key 1))
+                      (set-map keymap (. key 1) (. key 3) action (. key 2)))))))
 
   (fn set-autocmds [cmds]
-    (icollect [events cfg (pairs cmds)]
-      `(vim.api.nvim_create_autocmd ,events ,cfg)))
+    `(do
+       ,(unpack (icollect [events cfg (pairs cmds)]
+                  `(vim.api.nvim_create_autocmd ,events ,cfg)))))
 
   (fn keys [t]
     (icollect [k _ (pairs t)] k))
@@ -115,33 +118,38 @@
                     (import-macros {: require-and-call : tb} :macros)
                     (require-and-call :lzextras :keymap (tb ,name ,spec#)))]
       `(let [keymap# ,keymap]
-         ,(icollect [_ [kw mapping] (ipairs mappings)]
-            (let [mode (case (tostring kw)
-                         :nmap :n
-                         :imap :i
-                         :vmap :v
-                         :map nil)]
-              (set-mappings `keymap# mode mapping))))))
+         (do
+           ,(unpack (icollect [_ [kw mapping] (ipairs mappings)]
+                      (let [mode (case (tostring kw)
+                                   :nmap :n
+                                   :imap :i
+                                   :vmap :v
+                                   :map nil)]
+                        (set-mappings `keymap# mode mapping))))))))
 
-  (icollect [_ [kw & body] (ipairs body)]
-    (case (tostring kw)
-      :requires (set-require body)
-      :requires-plugins (require-plugins body)
-      :requires-plugins-when-enabled (icollect [_ p (ipairs body)]
-                                       `(when (nixCats ,p)
-                                          (require ,(.. :plugins. p))))
-      :g (set-opt `vim.g (unpack body))
-      :opt (set-opt `vim.opt (unpack body))
-      :wo (set-opt `vim.wo (unpack body))
-      :bo (set-opt `vim.bo (unpack body))
-      :map (set-mappings `vim.keymap nil (unpack body))
-      :nmap (set-mappings `vim.keymap :n (unpack body))
-      :imap (set-mappings `vim.keymap :i (unpack body))
-      :vmap (set-mappings `vim.keymap :v (unpack body))
-      :autocmd (set-autocmds (unpack body))
-      :plugins (icollect [_ p (ipairs body)]
-                 (configure-plugin p))
-      _ (error (.. "Unknown config form: " (view kw))))))
+  `(do
+     ,(unpack (icollect [_ [kw & body] (ipairs body)]
+                (case (tostring kw)
+                  :requires (set-require body)
+                  :requires-plugins (require-plugins body)
+                  :requires-plugins-when-enabled `(do
+                                                    ,(unpack (icollect [_ p (ipairs body)]
+                                                               `(when (nixCats ,p)
+                                                                  (require ,(.. :plugins.
+                                                                                p))))))
+                  :g (set-opt `vim.g (unpack body))
+                  :opt (set-opt `vim.opt (unpack body))
+                  :wo (set-opt `vim.wo (unpack body))
+                  :bo (set-opt `vim.bo (unpack body))
+                  :map (set-mappings `vim.keymap nil (unpack body))
+                  :nmap (set-mappings `vim.keymap :n (unpack body))
+                  :imap (set-mappings `vim.keymap :i (unpack body))
+                  :vmap (set-mappings `vim.keymap :v (unpack body))
+                  :autocmd (set-autocmds (unpack body))
+                  :plugins `(do
+                              ,(unpack (icollect [_ p (ipairs body)]
+                                         (configure-plugin p))))
+                  _ (error (.. "Unknown config form: " (view kw))))))))
 
 (fn dot-repeatable [name f]
   (let [name# (-> name

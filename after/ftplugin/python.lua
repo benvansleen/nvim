@@ -63,35 +63,30 @@ do
     end
     repeatable_toggle_fstring = _15_
 end
-vim.g["python_indent"] = {
-    continue = "shiftwidth()",
-    open_paren = "shiftwidth()",
-    nested_paren = "shiftwidth()",
-    closed_paren_align_last_line = false,
-}
-vim.bo["expandtab"] = true
-vim.bo["shiftwidth"] = 4
-vim.bo["softtabstop"] = 4
-vim.bo["tabstop"] = 4
-local function _1_()
+do
+    vim.g["python_indent"] = {
+        continue = "shiftwidth()",
+        open_paren = "shiftwidth()",
+        nested_paren = "shiftwidth()",
+        closed_paren_align_last_line = false,
+    }
+end
+do
+    vim.bo["expandtab"] = true
+    vim.bo["shiftwidth"] = 4
+    vim.bo["softtabstop"] = 4
+    vim.bo["tabstop"] = 4
+end
+do
+    vim.keymap.set("n", "<localleader>tf", repeatable_toggle_fstring, { desc = "[T]oggle [f]-string", noremap = true })
+    vim.keymap.set(
+        "n",
+        "<localleader>ta",
+        repeatable_toggle_expand_args,
+        { desc = "[T]oggle expanded [A]rguments", noremap = true }
+    )
+end
+local function _16_()
     return toggle_fstring()
 end
-return {
-    { nil },
-    { nil, nil, nil, nil },
-    {
-        vim.keymap.set(
-            "n",
-            "<localleader>tf",
-            repeatable_toggle_fstring,
-            { desc = "[T]oggle [f]-string", noremap = true }
-        ),
-        vim.keymap.set(
-            "n",
-            "<localleader>ta",
-            repeatable_toggle_expand_args,
-            { desc = "[T]oggle expanded [A]rguments", noremap = true }
-        ),
-    },
-    { vim.keymap.set("i", "<M-f>", _1_, { desc = "Toggle [f]-string", noremap = true }) },
-}
+return vim.keymap.set("i", "<M-f>", _16_, { desc = "Toggle [f]-string", noremap = true })

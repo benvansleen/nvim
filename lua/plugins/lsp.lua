@@ -18,36 +18,30 @@ local function text_format(symbol)
     end
     return (table.concat(fragments, ", ") .. stacked_functions)
 end
-local _4_
 do
-    local keymap_26_auto
+    local keymap_30_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _5_()
+        local function _4_()
             local p_14_auto = require("symbol-usage")
             return p_14_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
         end
-        keymap_26_auto = mod_13_auto.keymap({ "symbol-usage.nvim", after = _5_, event = "LspAttach", for_cat = "lsp" })
+        keymap_30_auto = mod_13_auto.keymap({ "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" })
     end
-    _4_ = {}
 end
-local function _8_(...)
-    local keymap_26_auto
-    do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _6_()
-            do
-                local p_14_auto = require("nvim-navic")
-                p_14_auto.setup({ click = true, lsp = { auto_attach = false } })
-            end
-            local function _7_()
-                vim.wo.winbar = ""
-                return nil
-            end
-            return { { vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _7_ }) } }
+local keymap_30_auto
+do
+    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local function _5_()
+        do
+            local p_14_auto = require("nvim-navic")
+            p_14_auto.setup({ click = true, lsp = { auto_attach = false } })
         end
-        keymap_26_auto = mod_13_auto.keymap({ "nvim-navic", after = _6_, for_cat = "lsp", on_require = "nvim-navic" })
+        local function _6_()
+            vim.wo.winbar = ""
+            return nil
+        end
+        return vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ })
     end
-    return {}
+    keymap_30_auto = mod_13_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
 end
-return { { _4_, _8_(...) } }
