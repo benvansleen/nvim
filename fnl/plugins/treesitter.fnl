@@ -6,7 +6,6 @@
                 :load (fn [name]
                         (vim.cmd.packadd name)
                         (vim.cmd.packadd :nvim-treesitter-textobjects)
-                        (vim.cmd.packadd :nvim-treesitter-textsubjects)
                         (cfg (wo {foldlevel 4
                                   foldmethod :expr
                                   foldexpr "v:lua.vim.treesitter.foldexpr()"})))
