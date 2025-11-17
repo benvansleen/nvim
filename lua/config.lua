@@ -157,8 +157,8 @@ do
 end
 local _10_
 do
-    local cats_45_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _10_ = cats_45_auto.isNixCats
+    local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
+    _10_ = cats_44_auto.isNixCats
 end
 if false == _10_ then
     vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true })

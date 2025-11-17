@@ -1,11 +1,11 @@
 -- [nfnl] fnl/plugins/treesitter.fnl
 do
-    local keymap_30_auto
+    local keymap_29_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
-            local p_14_auto = require("nvim-treesitter.configs")
-            return p_14_auto.setup({
+            local p_13_auto = require("nvim-treesitter.configs")
+            return p_13_auto.setup({
                 highlight = { enable = true, additional_vim_regex_highlighting = false },
                 indent = { enable = false },
                 incremental_selection = {
@@ -27,7 +27,7 @@ do
             vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
             return nil
         end
-        keymap_30_auto = mod_13_auto.keymap({
+        keymap_29_auto = mod_12_auto.keymap({
             "nvim-treesitter",
             after = _1_,
             event = "DeferredUIEnter",
@@ -36,13 +36,13 @@ do
         })
     end
 end
-local keymap_30_auto
+local keymap_29_auto
 do
-    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _3_()
-        local p_14_auto = require("hlargs")
-        return p_14_auto.setup()
+        local p_13_auto = require("hlargs")
+        return p_13_auto.setup()
     end
-    keymap_30_auto =
-        mod_13_auto.keymap({ "hlargs.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
+    keymap_29_auto =
+        mod_12_auto.keymap({ "hlargs.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
 end

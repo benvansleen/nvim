@@ -1,5 +1,4 @@
-(import-macros {: autoload : define : when-let : with-preserve-position}
-               :macros)
+(import-macros {: autoload : define : with-preserve-position} :macros)
 
 (autoload str :nfnl.string)
 (autoload lib :lib.treesitter)

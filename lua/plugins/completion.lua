@@ -1,10 +1,10 @@
 -- [nfnl] fnl/plugins/completion.fnl
 do
-    local keymap_30_auto
+    local keymap_29_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
-            local p_14_auto = require("blink.cmp")
+            local p_13_auto = require("blink.cmp")
             local function _2_(cmp)
                 local _3_
                 do
@@ -29,25 +29,25 @@ do
                 return _2410.show({ providers = { "ripgrep" } })
             end
             local function _9_(ctx)
-                local mod_13_auto0 = require("nfnl.module").autoload("colorful-menu")
-                return mod_13_auto0.blink_components_text(ctx)
+                local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
+                return mod_12_auto0.blink_components_text(ctx)
             end
             local function _10_(ctx)
-                local mod_13_auto0 = require("nfnl.module").autoload("colorful-menu")
-                return mod_13_auto0.blink_components_highlight(ctx)
+                local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
+                return mod_12_auto0.blink_components_highlight(ctx)
             end
             local _11_
             local _12_
             do
-                local cats_45_auto = require("nfnl.module").autoload("nixCatsUtils")
-                _12_ = cats_45_auto.isNixCats
+                local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
+                _12_ = cats_44_auto.isNixCats
             end
             if _12_ then
                 _11_ = "prefer_rust"
             else
                 _11_ = "lua"
             end
-            return p_14_auto.setup({
+            return p_13_auto.setup({
                 keymap = {
                     preset = "none",
                     ["<Tab>"] = { _2_, "fallback" },
@@ -100,33 +100,33 @@ do
                 },
             })
         end
-        keymap_30_auto =
-            mod_13_auto.keymap({ "blink.cmp", after = _1_, event = "InsertEnter", for_cat = "general.blink" })
+        keymap_29_auto =
+            mod_12_auto.keymap({ "blink.cmp", after = _1_, event = "InsertEnter", for_cat = "general.blink" })
     end
 end
 do
-    local keymap_30_auto
+    local keymap_29_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto = mod_13_auto.keymap({ "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_29_auto = mod_12_auto.keymap({ "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
     end
 end
 do
-    local keymap_30_auto
+    local keymap_29_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto =
-            mod_13_auto.keymap({ "blink-ripgrep.nvim", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_29_auto =
+            mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
     end
 end
-local keymap_30_auto
+local keymap_29_auto
 do
-    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _15_()
-        local p_14_auto = require("colorful-menu")
-        return p_14_auto.setup({})
+        local p_13_auto = require("colorful-menu")
+        return p_13_auto.setup({})
     end
-    keymap_30_auto = mod_13_auto.keymap({
+    keymap_29_auto = mod_12_auto.keymap({
         "colorful-menu.nvim",
         after = _15_,
         for_cat = "general.blink",

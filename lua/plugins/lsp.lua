@@ -19,23 +19,23 @@ local function text_format(symbol)
     return (table.concat(fragments, ", ") .. stacked_functions)
 end
 do
-    local keymap_30_auto
+    local keymap_29_auto
     do
-        local mod_13_auto = require("nfnl.module").autoload("lzextras")
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _4_()
-            local p_14_auto = require("symbol-usage")
-            return p_14_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
+            local p_13_auto = require("symbol-usage")
+            return p_13_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
         end
-        keymap_30_auto = mod_13_auto.keymap({ "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" })
+        keymap_29_auto = mod_12_auto.keymap({ "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" })
     end
 end
-local keymap_30_auto
+local keymap_29_auto
 do
-    local mod_13_auto = require("nfnl.module").autoload("lzextras")
+    local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _5_()
         do
-            local p_14_auto = require("nvim-navic")
-            p_14_auto.setup({ click = true, lsp = { auto_attach = false } })
+            local p_13_auto = require("nvim-navic")
+            p_13_auto.setup({ click = true, lsp = { auto_attach = false } })
         end
         local function _6_()
             vim.wo.winbar = ""
@@ -43,5 +43,5 @@ do
         end
         return vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ })
     end
-    keymap_30_auto = mod_13_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
+    keymap_29_auto = mod_12_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
 end

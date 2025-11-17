@@ -54,28 +54,28 @@ M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, "Format", _4_, { desc = "Format current buffer with LSP" })
     if nixCats("general.telescope") then
         local function _5_()
-            local mod_13_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_13_auto.lsp_definitions()
+            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
+            return mod_12_auto.lsp_definitions()
         end
         nmap("gd", _5_, "[G]oto [D]efinitions")
         local function _6_()
-            local mod_13_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_13_auto.lsp_references()
+            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
+            return mod_12_auto.lsp_references()
         end
         nmap("gr", _6_, "[G]oto [R]eferences")
         local function _7_()
-            local mod_13_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_13_auto.lsp_implementations()
+            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
+            return mod_12_auto.lsp_implementations()
         end
         nmap("gI", _7_, "[G]oto [I]mplementation")
         local function _8_()
-            local mod_13_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_13_auto.lsp_document_symbols()
+            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
+            return mod_12_auto.lsp_document_symbols()
         end
         nmap("<leader>ds", _8_, "[D]ocument [S]ymbols")
         local function _9_()
-            local mod_13_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_13_auto.lsp_dynamic_workspace_symbols()
+            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
+            return mod_12_auto.lsp_dynamic_workspace_symbols()
         end
         return nmap("<leader>ws", _9_, "[W]orkspace [S]ymbols")
     else

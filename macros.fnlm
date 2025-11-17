@@ -42,11 +42,6 @@
 (fn define [name m default]
   `(local ,name ((. (require :nfnl.module) :define) ,m ,default)))
 
-(fn when-let [[sym expr] & body]
-  `(let [,sym ,expr]
-     (when ,sym
-       ,(unpack body))))
-
 (fn with-require [bindings & body]
   (let [bindings (accumulate [l [] sym mod (pairs bindings)]
                    (do
@@ -194,7 +189,6 @@
  : tap
  : tb
  : unless-nix
- : when-let
  : when-nix
  : with-preserve-position
  : with-require}

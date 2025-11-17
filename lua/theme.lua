@@ -60,7 +60,7 @@ local function customize_colors(_10_, g, o)
     end
 end
 do
-    local p_14_auto = require(theme_name)
+    local p_13_auto = require(theme_name)
     local _13_
     do
         local partial_12_ = M.palette
@@ -69,7 +69,7 @@ do
         end
         _13_ = _14_
     end
-    p_14_auto.setup({
+    p_13_auto.setup({
         italics = true,
         contrast = contrast,
         comments = { italics = true },

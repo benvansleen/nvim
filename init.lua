@@ -9,8 +9,8 @@ end
 do
     local _2_
     do
-        local cats_45_auto = require("nfnl.module").autoload("nixCatsUtils")
-        _2_ = cats_45_auto.isNixCats
+        local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
+        _2_ = cats_44_auto.isNixCats
     end
     if true == _2_ then
         vim.loader.enable()
@@ -18,7 +18,7 @@ do
     end
 end
 do
-    local p_14_auto = require("nixCatsUtils")
-    p_14_auto.setup({ non_nix_value = true })
+    local p_13_auto = require("nixCatsUtils")
+    p_13_auto.setup({ non_nix_value = true })
 end
 return require("config")
