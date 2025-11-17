@@ -128,7 +128,11 @@
                                                       (m.gen_animation.linear {:duration 10}))}
                                   :options {:try_as_border false}})
                           (vim.api.nvim_set_hl 0 :MiniIndentscopeSymbol
-                                               {:link :NonText}))}]
+                                               {:link :NonText})
+                          (cfg (autocmd {[:TermEnter] {:group (vim.api.nvim_create_augroup :disable-indentscope
+                                                                                           {:clear true})
+                                                       :callback #(set vim.b.miniindentscope_disable
+                                                                       true)}})))}]
               [:nvim-surround
                {:for_cat :general.always
                 :event :CursorMoved

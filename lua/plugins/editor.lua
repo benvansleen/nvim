@@ -280,7 +280,19 @@ do
                     options = { try_as_border = false },
                 })
             end
-            return vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
+            vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
+            local function _40_()
+                vim.b.miniindentscope_disable = true
+                return nil
+            end
+            return {
+                {
+                    vim.api.nvim_create_autocmd({ "TermEnter" }, {
+                        group = vim.api.nvim_create_augroup("disable-indentscope", { clear = true }),
+                        callback = _40_,
+                    }),
+                },
+            }
         end
         keymap_26_auto = mod_13_auto.keymap({
             "mini.indentscope",
@@ -291,38 +303,38 @@ do
     end
     _37_ = {}
 end
-local _40_
+local _41_
 do
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _41_()
+        local function _42_()
             local p_14_auto = require("nvim-surround")
-            local function _42_()
+            local function _43_()
                 return { { "(" }, { ")" } }
             end
-            local function _43_()
+            local function _44_()
                 return { { "[" }, { "]" } }
             end
-            local function _44_()
+            local function _45_()
                 return { { "{" }, { "}" } }
             end
             return p_14_auto.setup({
                 surrounds = {
-                    ["("] = { add = _42_ },
-                    ["["] = { add = _43_ },
+                    ["("] = { add = _43_ },
+                    ["["] = { add = _44_ },
                     ["{"] = {
-                        add = _44_,
+                        add = _45_,
                     },
                 },
             })
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "nvim-surround", after = _41_, event = "CursorMoved", for_cat = "general.always" })
+            mod_13_auto.keymap({ "nvim-surround", after = _42_, event = "CursorMoved", for_cat = "general.always" })
     end
-    _40_ = {}
+    _41_ = {}
 end
-local function _45_(...)
+local function _46_(...)
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
@@ -336,4 +348,4 @@ local function _45_(...)
         { keymap_26_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
     }
 end
-return { { _1_, _3_, _5_, _14_, _19_, _21_, _23_, _34_, _37_, _40_, _45_(...) } }
+return { { _1_, _3_, _5_, _14_, _19_, _21_, _23_, _34_, _37_, _41_, _46_(...) } }
