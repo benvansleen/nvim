@@ -1,19 +1,6 @@
 (import-macros {: cfg : require-and-call : setup : with-require} :macros)
 
-(cfg (plugins [:blink.pairs
-               {:for_cat :general.blink
-                :event :InsertEnter
-                :after #(setup :blink.pairs
-                               {:mappings {:enabled true
-                                           :cmdline true
-                                           :disabled_filetypes []}
-                                :highlights {:enabled true
-                                             :cmdline true
-                                             :groups [:NonText]
-                                             :matchparen {:enabled true
-                                                          :cmdline false
-                                                          :include_surrounding true}}})}]
-              [:comment.nvim
+(cfg (plugins [:comment.nvim
                {:for_cat :general.extra
                 :event :CursorMoved
                 :after #(setup :Comment)}]
