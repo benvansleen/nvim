@@ -64,11 +64,9 @@
         [hd & tl] lines
         text (table.concat tl " ")
         cleaned (-> text
-                    (: :gsub "[%s]+" " ")
-                    (: :gsub "%(%s" "(")
-                    (: :gsub ",?%s%)" ")")
-                    (: :gsub ",?%s%]" "]")
-                    (: :gsub ",?%s%}" "}"))
+                    (: :gsub "%s+" " ")
+                    (: :gsub "([%(%[%{])%s" "%1")
+                    (: :gsub ",?%s([%)%]%}])" "%1"))
         final (.. (str.trimr hd) (str.triml cleaned))]
     (vim.api.nvim_buf_set_lines 0 (- srow 1) erow false [final])))
 

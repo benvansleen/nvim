@@ -186,8 +186,7 @@ M["collapse-args"] = function(srow, erow)
         end)(t, k)
     end)(lines, 2)
     local text = table.concat(tl, " ")
-    local cleaned =
-        text:gsub("[%s]+", " "):gsub("%(%s", "("):gsub(",?%s%)", ")"):gsub(",?%s%]", "]"):gsub(",?%s%}", "}")
+    local cleaned = text:gsub("%s+", " "):gsub("([%(%[%{])%s", "%1"):gsub(",?%s([%)%]%}])", "%1")
     local final = (str.trimr(hd) .. str.triml(cleaned))
     return vim.api.nvim_buf_set_lines(0, (srow - 1), erow, false, { final })
 end
