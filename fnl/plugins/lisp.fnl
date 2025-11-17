@@ -1,12 +1,22 @@
 (import-macros {: autoload : cfg} :macros)
-(autoload theme :theme)
+(autoload {: update-hl} :theme)
 
 (vim.filetype.add {:extension {:fnlm :fennel}})
 
-(macro set-hl [group update-from opts]
-  `(vim.api.nvim_set_hl 0 ,group (theme.update-hl ,update-from ,opts)))
+(macro update-hl-for-fts [fts hls]
+  (let [hl-ft #(icollect [group opts (pairs hls)]
+                 `(vim.api.nvim_set_hl 0 ,(.. group "." $1)
+                                       (update-hl ,group ,opts)))]
+    `(do
+       ,(unpack (icollect [_ ft (ipairs fts)]
+                  `(do
+                     ,(unpack (hl-ft ft))))))))
 
-(local lisp-fts [:fennel :query])
+(update-hl-for-fts [:fennel :query]
+                   {"@punctuation.bracket" {:link :NonText}
+                    "@function.call" {:italic true}
+                    "@module.builtin" {:bold true}})
+
 (cfg (plugins [:conjure
                {:ft [:fennel :python]
                 :before #(cfg (g {conjure#log#hud#border :none
@@ -14,13 +24,4 @@
                                   conjure#mapping#def_word false
                                   conjure#mapping#doc_word false
                                   conjure#client#python#stdio#command "uv run python -iq"}))}]
-              [:nvim-parinfer
-               {:ft lisp-fts
-                :for_cat :lisp
-                :after #(each [_ ft (ipairs lisp-fts)]
-                          (set-hl (.. "@punctuation.bracket." ft)
-                                  "@punctuation.bracket" {:link :NonText})
-                          (set-hl (.. "@function.call." ft) "@function.call"
-                                  {:italic true})
-                          (set-hl (.. "@module.builtin." ft) "@module.builtin"
-                                  {:bold true}))}]))
+              [:nvim-parinfer {:ft :fennel :for_cat :lisp}]))
