@@ -138,7 +138,7 @@
                                  {:telescope {:prefer_file_browser false
                                               :disable_file_picker false}
                                   :allow_different_owners true
-                                  :detection_methods [:pattern]
+                                  :use_lsp true
                                   :exclude_dirs [:/nix/*
                                                  :node_modules/*
                                                  :.venv/*]

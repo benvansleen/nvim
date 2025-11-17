@@ -314,7 +314,7 @@ local function _49_(...)
                 p_14_auto.setup({
                     telescope = { disable_file_picker = false, prefer_file_browser = false },
                     allow_different_owners = true,
-                    detection_methods = { "pattern" },
+                    use_lsp = true,
                     exclude_dirs = { "/nix/*", "node_modules/*", ".venv/*" },
                     scope_chdir = "global",
                     silent_chdir = true,
