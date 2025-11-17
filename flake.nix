@@ -319,7 +319,6 @@
                 telescope-zoxide
               ];
               always = with pkgs.vimPlugins; [
-                comment-nvim
                 flash-nvim
                 nvim-lspconfig
                 nvim-surround
