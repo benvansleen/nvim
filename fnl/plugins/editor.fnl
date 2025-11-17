@@ -104,6 +104,20 @@
                                                                       :jump)
                      [[:n :x :o] "Flash up to previous" :T] #(require-and-call :flash.plugins.char
                                                                                :jump)})]
+              [:mini.ai
+               {:for_cat :general.extra
+                :event :CursorMoved
+                :after #(setup :mini.ai
+                               {:mappings {:around :a
+                                           :inside :i
+                                           :around_next :an
+                                           :inside_next :in
+                                           :around_last :al
+                                           :inside_last :il}
+                                :custom_textobjects {:F (with-require {m :mini.ai}
+                                                          (m.gen_spec.treesitter {:a "@function.outer"
+                                                                                  :i "@function.inner"}))}
+                                :silent false})}]
               [:mini.indentscope
                {:for_cat :general.extra
                 :event :DeferredUIEnter

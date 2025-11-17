@@ -279,8 +279,6 @@
               ];
               treesitter = with pkgs.vimPlugins; [
                 hlargs-nvim
-                nvim-treesitter-textobjects
-                nvim-treesitter-textsubjects
                 (nvim-treesitter.overrideAttrs {
                   passthru.dependencies = nvim-treesitter.withAllGrammars.passthru.dependencies ++ [
                     (pkgs.neovimUtils.grammarToPlugin (
@@ -337,6 +335,7 @@
                 dial-nvim
                 fidget-nvim
                 focus-nvim
+                mini-ai
                 mini-indentscope
                 oil-nvim
                 nvim-highlight-colors
