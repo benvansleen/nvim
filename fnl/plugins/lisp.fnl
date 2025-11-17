@@ -1,11 +1,12 @@
 (import-macros {: autoload : cfg} :macros)
 (autoload theme :theme)
 
+(vim.filetype.add {:extension {:fnlm :fennel}})
+
 (macro set-hl [group update-from opts]
   `(vim.api.nvim_set_hl 0 ,group (theme.update-hl ,update-from ,opts)))
 
-(local lisp-fts [:fennel])
-
+(local lisp-fts [:fennel :query])
 (cfg (plugins [:conjure
                {:ft [:fennel :python]
                 :before #(cfg (g {conjure#log#hud#border :none

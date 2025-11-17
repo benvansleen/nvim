@@ -29,7 +29,8 @@ do
     end
     theme = setmetatable(res_3_auto, { __call = _4_, __index = _5_, __newindex = _7_ })
 end
-local lisp_fts = { "fennel" }
+vim.filetype.add({ extension = { fnlm = "fennel" } })
+local lisp_fts = { "fennel", "query" }
 local _8_
 do
     local keymap_26_auto
