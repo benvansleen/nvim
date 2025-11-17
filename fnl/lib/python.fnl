@@ -35,7 +35,7 @@
     (core.map #($1:type) reversed-children)))
 
 ;; fnlfmt: skip
-(fn M.expand-args [node]
+(fn expand-args [node]
   (let [children (icollect [child (node:iter_children)] child)]
     (when (> (length children) 2)
       (each [i child (reversed children)]
@@ -45,7 +45,8 @@
           (where opening (or (= opening "(") (= opening "[") (= opening "{")))
           (do
             (lib.goto-node-end child)
-            (vim.cmd.normal (.. :=i opening)))
+            (vim.cmd.normal (.. :=i opening))
+            (print "")) ;; clear "... lines indented" message
 
           (where (or ")" "]" "}"))
           (do
@@ -59,15 +60,16 @@
               (lib.goto-node-start child)
               (insert-line-break-same-indent)))))))
 
-(fn M.collapse-args [srow erow]
+(fn collapse-args [srow erow]
   (let [lines (vim.api.nvim_buf_get_lines 0 (- srow 1) erow false)
         [hd & tl] lines
-        text (table.concat tl " ")
-        cleaned (-> text
+        cleaned (-> tl
+                    (table.concat " ")
                     (: :gsub "%s+" " ")
                     (: :gsub "([%(%[%{])%s" "%1")
-                    (: :gsub ",?%s([%)%]%}])" "%1"))
-        final (.. (str.trimr hd) (str.triml cleaned))]
+                    (: :gsub ",?%s([%)%]%}])" "%1")
+                    str.triml)
+        final (.. (str.trimr hd) cleaned)]
     (vim.api.nvim_buf_set_lines 0 (- srow 1) erow false [final])))
 
 (local expandable-types [:list
@@ -80,17 +82,13 @@
                          :argument_list
                          :parameters])
 
-;; fnlfmt: skip
 (fn M.toggle-expand-args []
-  (when-let [node
-             (lib.nearest-parent-until #(let [node-type ($1:type)]
-                                          (any (partial = node-type)
-                                               expandable-types)))]
-    (let [(srow _scol erow _ecol) (lib.range-of-node node)]
-      (lib.goto-node-start node)
-      (with-preserve-position [_win _cursor]
-        (if (= srow erow)
-            (M.expand-args node)
-            (M.collapse-args srow erow))))))
+  (case (lib.nearest-parent-until #(any (partial = ($1:type)) expandable-types))
+    node (let [(srow _scol erow _ecol) (lib.range-of-node node)]
+           (lib.goto-node-start node)
+           (with-preserve-position [_win _cursor]
+             (if (= srow erow)
+                 (expand-args node)
+                 (collapse-args srow erow))))))
 
 M

@@ -122,7 +122,7 @@ M["toggle-fstring"] = function()
     return vim.api.nvim_win_set_cursor(_, cursor)
 end
 --[[ (autoload core "nfnl.core") (let [node (lib.nearest-parent-of-type "let_form") children (icollect [child (node:iter_children)] child) reversed-children (icollect [_ child (reversed children)] child)] (print (. children 1)) (print (vim.inspect reversed-children)) (core.map (hashfn ($1:type)) reversed-children)) ]]
-M["expand-args"] = function(node)
+local function expand_args(node)
     local children
     do
         local tbl_26_ = {}
@@ -151,6 +151,7 @@ M["expand-args"] = function(node)
                     local opening = case_29_
                     lib["goto-node-end"](child)
                     vim.cmd.normal(("=i" .. opening))
+                    print("")
                 elseif (case_29_ == ")") or (case_29_ == "]") or (case_29_ == "}") then
                     lib["goto-node-end"](child)
                     local function _32_()
@@ -177,7 +178,7 @@ M["expand-args"] = function(node)
         return nil
     end
 end
-M["collapse-args"] = function(srow, erow)
+local function collapse_args(srow, erow)
     local lines = vim.api.nvim_buf_get_lines(0, (srow - 1), erow, false)
     local hd = lines[1]
     local tl = (function(t, k)
@@ -185,9 +186,9 @@ M["collapse-args"] = function(srow, erow)
             return { (table.unpack or unpack)(t, k) }
         end)(t, k)
     end)(lines, 2)
-    local text = table.concat(tl, " ")
-    local cleaned = text:gsub("%s+", " "):gsub("([%(%[%{])%s", "%1"):gsub(",?%s([%)%]%}])", "%1")
-    local final = (str.trimr(hd) .. str.triml(cleaned))
+    local cleaned =
+        str.triml(table.concat(tl, " "):gsub("%s+", " "):gsub("([%(%[%{])%s", "%1"):gsub(",?%s([%)%]%}])", "%1"))
+    local final = (str.trimr(hd) .. cleaned)
     return vim.api.nvim_buf_set_lines(0, (srow - 1), erow, false, { final })
 end
 local expandable_types = {
@@ -202,24 +203,29 @@ local expandable_types = {
     "parameters",
 }
 M["toggle-expand-args"] = function()
-    local node
-    local function _37_(_241)
-        local node_type = _241:type()
-        local function _38_(...)
-            return (node_type == ...)
+    local case_37_
+    local function _38_(_241)
+        local _40_
+        do
+            local partial_39_ = _241:type()
+            local function _41_(...)
+                return (partial_39_ == ...)
+            end
+            _40_ = _41_
         end
-        return any(_38_, expandable_types)
+        return any(_40_, expandable_types)
     end
-    node = lib["nearest-parent-until"](_37_)
-    if node then
+    case_37_ = lib["nearest-parent-until"](_38_)
+    if nil ~= case_37_ then
+        local node = case_37_
         local srow, _scol, erow, _ecol = lib["range-of-node"](node)
         lib["goto-node-start"](node)
         local _win = vim.api.nvim_get_current_win()
         local _cursor = vim.api.nvim_win_get_cursor(_win)
         if srow == erow then
-            M["expand-args"](node)
+            expand_args(node)
         else
-            M["collapse-args"](srow, erow)
+            collapse_args(srow, erow)
         end
         return vim.api.nvim_win_set_cursor(_win, _cursor)
     else
