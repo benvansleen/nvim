@@ -96,6 +96,7 @@ do
             require("plugins.lisp"),
             require("plugins.lsp"),
             require("plugins.misc"),
+            require("plugins.pairs"),
             require("plugins.oil"),
             require("plugins.telescope"),
             require("plugins.terminal"),

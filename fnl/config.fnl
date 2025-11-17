@@ -11,7 +11,7 @@
          netrw_liststyle 0
          netrw_banner 0})
      (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
-                       :oil :telescope :terminal :tmux :treesitter)
+                       :pairs :oil :telescope :terminal :tmux :treesitter)
      (requires-plugins-when-enabled :debug :lint :format)
      (requires :clipboard :lsp :statuscolumn :theme)
      (opt {autoindent true
