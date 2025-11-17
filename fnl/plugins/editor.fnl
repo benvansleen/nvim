@@ -63,16 +63,6 @@
                 :after #(do
                           (setup :foldtext)
                           (cfg (opt {fillchars {:eob " " :fold " "}})))}]
-              [:indent-blankline.nvim
-               {:for_cat :general.extra
-                :event :DeferredUIEnter
-                :after #(setup :ibl
-                               {:exclude {:filetypes [:dashboard :fennel]}
-                                :scope {:enabled true
-                                        :show_exact_scope false
-                                        :show_start true
-                                        :show_end true}
-                                :indent {:char "│"}})}]
               [:flash.nvim
                {:for_cat :general.always
                 :on_require :flash
@@ -114,6 +104,17 @@
                                                                       :jump)
                      [[:n :x :o] "Flash up to previous" :T] #(require-and-call :flash.plugins.char
                                                                                :jump)})]
+              [:mini.indentscope
+               {:for_cat :general.extra
+                :event :DeferredUIEnter
+                :after #(do
+                          (setup :mini.indentscope
+                                 {:symbol "│"
+                                  :draw {:animation (with-require {m :mini.indentscope}
+                                                      (m.gen_animation.linear {:duration 10}))}
+                                  :options {:try_as_border false}})
+                          (vim.api.nvim_set_hl 0 :MiniIndentscopeSymbol
+                                               {:link :NonText}))}]
               [:nvim-surround
                {:for_cat :general.always
                 :event :CursorMoved

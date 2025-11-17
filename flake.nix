@@ -337,7 +337,7 @@
                 dial-nvim
                 fidget-nvim
                 focus-nvim
-                indent-blankline-nvim
+                mini-indentscope
                 oil-nvim
                 nvim-highlight-colors
                 pkgs.neovimPlugins.direnv-nvim

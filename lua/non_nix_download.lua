@@ -17,7 +17,7 @@ require("nixCatsUtils.catPacker").setup({
     { "gpanders/nvim-parinfer", opt = true },
     { "OXY2DEV/foldtext.nvim", opt = true, as = "foldtext-nvim" },
     { "windwp/nvim-autopairs", opt = true },
-    { "lukas-reineke/indent-blankline.nvim", opt = true },
+    { "nvim-mini/mini.indentscope", opt = true },
     { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
     { "kylechui/nvim-surround", opt = true },
     { "monaqa/dial.nvim", opt = true },
