@@ -117,7 +117,10 @@
               [:nvim-surround
                {:for_cat :general.always
                 :event :CursorMoved
-                :after #(setup :nvim-surround)}]
+                :after #(setup :nvim-surround
+                               {:surrounds {"(" {:add #[["("] [")"]]}
+                                            "[" {:add #[["["] ["]"]]}
+                                            "{" {:add #[["{"] ["}"]]}}})}]
               [:undotree
                {:for_cat :general.extra
                 :cmd [:UndotreeToggle

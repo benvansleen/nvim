@@ -260,14 +260,31 @@ do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
         local function _37_()
             local p_14_auto = require("nvim-surround")
-            return p_14_auto.setup()
+            local function _38_()
+                return { { "(" }, { ")" } }
+            end
+            local function _39_()
+                return { { "[" }, { "]" } }
+            end
+            local function _40_()
+                return { { "{" }, { "}" } }
+            end
+            return p_14_auto.setup({
+                surrounds = {
+                    ["("] = { add = _38_ },
+                    ["["] = { add = _39_ },
+                    ["{"] = {
+                        add = _40_,
+                    },
+                },
+            })
         end
         keymap_26_auto =
             mod_13_auto.keymap({ "nvim-surround", after = _37_, event = "CursorMoved", for_cat = "general.always" })
     end
     _36_ = {}
 end
-local function _38_(...)
+local function _41_(...)
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
@@ -281,4 +298,4 @@ local function _38_(...)
         { keymap_26_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
     }
 end
-return { { _1_, _3_, _5_, _14_, _19_, _21_, _23_, _25_, _36_, _38_(...) } }
+return { { _1_, _3_, _5_, _14_, _19_, _21_, _23_, _25_, _36_, _41_(...) } }
