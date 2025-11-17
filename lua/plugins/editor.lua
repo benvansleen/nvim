@@ -222,6 +222,7 @@ do
                     inside_last = "il",
                 },
                 custom_textobjects = { F = _32_, C = _33_ },
+                search_method = "cover",
                 silent = false,
             })
         end

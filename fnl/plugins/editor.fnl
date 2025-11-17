@@ -103,6 +103,7 @@
                                                      :C (with-require {m :mini.ai}
                                                           (m.gen_spec.treesitter {:a "@class.outer"
                                                                                   :i "@class.inner"}))}
+                                :search_method :cover
                                 :silent false})}]
               [:mini.indentscope
                {:for_cat :general.extra
