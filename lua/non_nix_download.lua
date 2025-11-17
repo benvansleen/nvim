@@ -18,7 +18,6 @@ require("nixCatsUtils.catPacker").setup({
     { "OXY2DEV/foldtext.nvim", opt = true, as = "foldtext-nvim" },
     { "windwp/nvim-autopairs", opt = true },
     { "nvim-mini/mini.indentscope", opt = true },
-    { "numToStr/Comment.nvim", opt = true, as = "comment.nvim" },
     { "kylechui/nvim-surround", opt = true },
     { "monaqa/dial.nvim", opt = true },
 

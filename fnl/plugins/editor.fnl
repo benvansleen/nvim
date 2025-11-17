@@ -1,10 +1,6 @@
 (import-macros {: cfg : require-and-call : setup : with-require} :macros)
 
-(cfg (plugins [:comment.nvim
-               {:for_cat :general.extra
-                :event :CursorMoved
-                :after #(setup :Comment)}]
-              [:dial.nvim
+(cfg (plugins [:dial.nvim
                {:for_cat :general.extra :on_require :dial}
                (nmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
                                              (dial.manipuluate :increment
