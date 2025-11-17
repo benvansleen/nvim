@@ -272,12 +272,8 @@ do
                 },
             }
         end
-        keymap_26_auto = mod_13_auto.keymap({
-            "mini.indentscope",
-            after = _36_,
-            event = "DeferredUIEnter",
-            for_cat = "general.extra",
-        })
+        keymap_26_auto =
+            mod_13_auto.keymap({ "mini.indentscope", after = _36_, event = "CursorMoved", for_cat = "general.extra" })
     end
     _35_ = {}
 end

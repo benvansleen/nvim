@@ -107,7 +107,7 @@
                                 :silent false})}]
               [:mini.indentscope
                {:for_cat :general.extra
-                :event :DeferredUIEnter
+                :event :CursorMoved
                 :after #(do
                           (setup :mini.indentscope
                                  {:symbol "│"
