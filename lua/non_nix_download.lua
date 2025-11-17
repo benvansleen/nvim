@@ -28,8 +28,7 @@ require("nixCatsUtils.catPacker").setup({
 
     -- treesitter
     { "m-demare/hlargs.nvim", opt = true },
-    { "RRethy/nvim-treesitter-textsubjects", opt = true },
-    { "nvim-treesitter/nvim-treesitter-textobjects", opt = true },
+    { "nvim-mini/mini.ai", opt = true },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
 
     -- telescope
