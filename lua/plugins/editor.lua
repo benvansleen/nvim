@@ -207,6 +207,11 @@ do
                 local m = require("nfnl.module").autoload("mini.ai")
                 _32_ = m.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
             end
+            local _33_
+            do
+                local m = require("nfnl.module").autoload("mini.ai")
+                _33_ = m.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
+            end
             return p_14_auto.setup({
                 mappings = {
                     around = "a",
@@ -216,7 +221,7 @@ do
                     around_last = "al",
                     inside_last = "il",
                 },
-                custom_textobjects = { F = _32_ },
+                custom_textobjects = { F = _32_, C = _33_ },
                 silent = false,
             })
         end
@@ -225,27 +230,27 @@ do
     end
     _30_ = {}
 end
-local _33_
+local _34_
 do
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _34_()
+        local function _35_()
             do
                 local p_14_auto = require("mini.indentscope")
-                local _35_
+                local _36_
                 do
                     local m = require("nfnl.module").autoload("mini.indentscope")
-                    _35_ = m.gen_animation.linear({ duration = 10 })
+                    _36_ = m.gen_animation.linear({ duration = 10 })
                 end
                 p_14_auto.setup({
                     symbol = "\226\148\130",
-                    draw = { animation = _35_ },
+                    draw = { animation = _36_ },
                     options = { try_as_border = false },
                 })
             end
             vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
-            local function _36_()
+            local function _37_()
                 vim.b.miniindentscope_disable = true
                 return nil
             end
@@ -253,48 +258,48 @@ do
                 {
                     vim.api.nvim_create_autocmd({ "TermEnter" }, {
                         group = vim.api.nvim_create_augroup("disable-indentscope", { clear = true }),
-                        callback = _36_,
+                        callback = _37_,
                     }),
                 },
             }
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "mini.indentscope", after = _34_, event = "CursorMoved", for_cat = "general.extra" })
+            mod_13_auto.keymap({ "mini.indentscope", after = _35_, event = "CursorMoved", for_cat = "general.extra" })
     end
-    _33_ = {}
+    _34_ = {}
 end
-local _37_
+local _38_
 do
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
-        local function _38_()
+        local function _39_()
             local p_14_auto = require("nvim-surround")
-            local function _39_()
+            local function _40_()
                 return { { "(" }, { ")" } }
             end
-            local function _40_()
+            local function _41_()
                 return { { "[" }, { "]" } }
             end
-            local function _41_()
+            local function _42_()
                 return { { "{" }, { "}" } }
             end
             return p_14_auto.setup({
                 surrounds = {
-                    ["("] = { add = _39_ },
-                    ["["] = { add = _40_ },
+                    ["("] = { add = _40_ },
+                    ["["] = { add = _41_ },
                     ["{"] = {
-                        add = _41_,
+                        add = _42_,
                     },
                 },
             })
         end
         keymap_26_auto =
-            mod_13_auto.keymap({ "nvim-surround", after = _38_, event = "CursorMoved", for_cat = "general.always" })
+            mod_13_auto.keymap({ "nvim-surround", after = _39_, event = "CursorMoved", for_cat = "general.always" })
     end
-    _37_ = {}
+    _38_ = {}
 end
-local function _42_(...)
+local function _43_(...)
     local keymap_26_auto
     do
         local mod_13_auto = require("nfnl.module").autoload("lzextras")
@@ -308,4 +313,4 @@ local function _42_(...)
         { keymap_26_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true }) },
     }
 end
-return { { _1_, _10_, _15_, _17_, _19_, _30_, _33_, _37_, _42_(...) } }
+return { { _1_, _10_, _15_, _17_, _19_, _30_, _34_, _38_, _43_(...) } }

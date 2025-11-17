@@ -99,7 +99,10 @@
                                            :inside_last :il}
                                 :custom_textobjects {:F (with-require {m :mini.ai}
                                                           (m.gen_spec.treesitter {:a "@function.outer"
-                                                                                  :i "@function.inner"}))}
+                                                                                  :i "@function.inner"}))
+                                                     :C (with-require {m :mini.ai}
+                                                          (m.gen_spec.treesitter {:a "@class.outer"
+                                                                                  :i "@class.inner"}))}
                                 :silent false})}]
               [:mini.indentscope
                {:for_cat :general.extra
