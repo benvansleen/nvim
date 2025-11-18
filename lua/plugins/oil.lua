@@ -2,7 +2,7 @@
 do
     vim.g["loaded_netrwPlugin"] = 1
 end
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _1_()
@@ -32,7 +32,7 @@ do
             },
         })
     end
-    keymap_29_auto = mod_12_auto.keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
+    keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _1_, cmd = "Oil", for_cat = "general.extra" })
 end
-keymap_29_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true })
-return keymap_29_auto.set("n", "<leader>-", "<cmd>Oil .<cr>", { desc = "Open nvim root directory", noremap = true })
+keymap_30_auto.set("n", "-", "<cmd>Oil<cr>", { desc = "Open Parent Directory", noremap = true })
+return keymap_30_auto.set("n", "<leader>-", "<cmd>Oil .<cr>", { desc = "Open nvim root directory", noremap = true })

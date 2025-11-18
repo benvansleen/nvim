@@ -42,7 +42,7 @@ do
     vim.api.nvim_set_hl(0, "@module.builtin.query", update_hl("@module.builtin", { bold = true }))
 end
 do
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _10_()
@@ -53,11 +53,11 @@ do
             vim.g["conjure#mapping#doc_word"] = false
             return nil
         end
-        keymap_29_auto = mod_12_auto.keymap({ "conjure", before = _10_, ft = { "fennel", "python" } })
+        keymap_30_auto = mod_12_auto.keymap({ "conjure", before = _10_, ft = { "fennel", "python" } })
     end
 end
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    keymap_29_auto = mod_12_auto.keymap({ "nvim-parinfer", for_cat = "lisp", ft = "fennel" })
+    keymap_30_auto = mod_12_auto.keymap({ "nvim-parinfer", for_cat = "lisp", ft = "fennel" })
 end

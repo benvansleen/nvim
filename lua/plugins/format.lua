@@ -1,5 +1,5 @@
 -- [nfnl] fnl/plugins/format.fnl
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _1_()
@@ -37,7 +37,7 @@ do
         end
         return vim.api.nvim_create_user_command("FormatToggle", _6_, { desc = "Toggle autoformat-on-save" })
     end
-    keymap_29_auto = mod_12_auto.keymap({
+    keymap_30_auto = mod_12_auto.keymap({
         "conform.nvim",
         after = _1_,
         cmd = { "ConformInfo", "FormatToggle", "FormatEnable", "FormatDisable" },
@@ -50,4 +50,4 @@ local function _7_()
     local mod_12_auto = require("nfnl.module").autoload("conform")
     return mod_12_auto.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
-return keymap_29_auto.set("n", "<leader>FF", _7_, { desc = "[F]ormat [F]ile", noremap = true })
+return keymap_30_auto.set("n", "<leader>FF", _7_, { desc = "[F]ormat [F]ile", noremap = true })

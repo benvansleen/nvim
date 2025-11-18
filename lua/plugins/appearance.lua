@@ -63,7 +63,7 @@ local _local_18_ = _13_(...)
 local all = _local_18_.all
 do
     do
-        local keymap_29_auto
+        local keymap_30_auto
         do
             local mod_12_auto = require("nfnl.module").autoload("lzextras")
             local function _19_()
@@ -118,13 +118,13 @@ do
                 vim.api.nvim_set_hl(0, "DashboardMruTitle", { link = "Red" })
                 return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
             end
-            keymap_29_auto =
+            keymap_30_auto =
                 mod_12_auto.keymap({ "dashboard-nvim", after = _19_, event = "VimEnter", for_cat = "general.extra" })
         end
-        keymap_29_auto.set("n", "<leader><leader>d", "<cmd>Dashboard<cr>", { desc = "Open Dashboard", noremap = true })
+        keymap_30_auto.set("n", "<leader><leader>d", "<cmd>Dashboard<cr>", { desc = "Open Dashboard", noremap = true })
     end
     do
-        local keymap_29_auto
+        local keymap_30_auto
         do
             local mod_12_auto = require("nfnl.module").autoload("lzextras")
             local function _20_()
@@ -136,7 +136,7 @@ do
                     smear_insert_mode = true,
                 })
             end
-            keymap_29_auto = mod_12_auto.keymap({
+            keymap_30_auto = mod_12_auto.keymap({
                 "smear-cursor.nvim",
                 after = _20_,
                 event = "CursorMoved",
@@ -144,7 +144,7 @@ do
             })
         end
     end
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _21_()
@@ -185,18 +185,18 @@ do
                 { desc = "Disable focus autoresize for FileType", callback = _23_, group = augroup }
             )
         end
-        keymap_29_auto =
+        keymap_30_auto =
             mod_12_auto.keymap({ "focus.nvim", after = _21_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
     local function _24_()
         local mod_12_auto = require("nfnl.module").autoload("focus")
         return mod_12_auto.split_nicely()
     end
-    keymap_29_auto.set("n", "<leader>s", _24_, { desc = "Open [S]plit", noremap = true })
+    keymap_30_auto.set("n", "<leader>s", _24_, { desc = "Open [S]plit", noremap = true })
     local function _25_()
         return vim.cmd.close()
     end
-    keymap_29_auto.set("n", "<leader>S", _25_, { desc = "Close [S]plt", noremap = true })
+    keymap_30_auto.set("n", "<leader>S", _25_, { desc = "Close [S]plt", noremap = true })
 end
 local function _26_()
     local function _27_()

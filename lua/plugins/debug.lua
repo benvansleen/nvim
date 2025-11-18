@@ -84,7 +84,7 @@ do
     end
     toggle_breakpoint = _15_
 end
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _16_(_)
@@ -219,7 +219,7 @@ do
         vim.cmd.packadd("nvim-dap-python")
         return vim.cmd.packadd("nvim-dap-repl-highlights")
     end
-    keymap_29_auto = mod_12_auto.keymap({
+    keymap_30_auto = mod_12_auto.keymap({
         "nvim-dap",
         after = _16_,
         for_cat = { cat = "debug", default = true },
@@ -227,34 +227,34 @@ do
         on_require = "dap",
     })
 end
-keymap_29_auto.set("n", "<localleader>dc", continue, { desc = "Debug: Start/Continue", noremap = true })
+keymap_30_auto.set("n", "<localleader>dc", continue, { desc = "Debug: Start/Continue", noremap = true })
 local function _27_()
     local mod_12_auto = require("nfnl.module").autoload("dap")
     return mod_12_auto.restart()
 end
-keymap_29_auto.set("n", "<localleader>dR", _27_, { desc = "Debug: Restart", noremap = true })
+keymap_30_auto.set("n", "<localleader>dR", _27_, { desc = "Debug: Restart", noremap = true })
 local function _28_()
     local mod_12_auto = require("nfnl.module").autoload("dap")
     return mod_12_auto.close()
 end
-keymap_29_auto.set("n", "<localleader>dq", _28_, { desc = "Debug: Quit", noremap = true })
-keymap_29_auto.set("n", "<localleader>dn", step_over, { desc = "Debug: Step Over", noremap = true })
-keymap_29_auto.set("n", "<localleader>di", step_into, { desc = "Debug: Step Into", noremap = true })
-keymap_29_auto.set("n", "<localleader>do", step_out, { desc = "Debug: Step Out", noremap = true })
+keymap_30_auto.set("n", "<localleader>dq", _28_, { desc = "Debug: Quit", noremap = true })
+keymap_30_auto.set("n", "<localleader>dn", step_over, { desc = "Debug: Step Over", noremap = true })
+keymap_30_auto.set("n", "<localleader>di", step_into, { desc = "Debug: Step Into", noremap = true })
+keymap_30_auto.set("n", "<localleader>do", step_out, { desc = "Debug: Step Out", noremap = true })
 local function _29_()
     local mod_12_auto = require("nfnl.module").autoload("dap.breakpoints")
     return mod_12_auto.clear()
 end
-keymap_29_auto.set("n", "<localleader>dC", _29_, { desc = "Debug: Clear Breakpoints", noremap = true })
-keymap_29_auto.set("n", "<localleader>db", toggle_breakpoint, { desc = "Debug: Toggle Breakpoint", noremap = true })
+keymap_30_auto.set("n", "<localleader>dC", _29_, { desc = "Debug: Clear Breakpoints", noremap = true })
+keymap_30_auto.set("n", "<localleader>db", toggle_breakpoint, { desc = "Debug: Toggle Breakpoint", noremap = true })
 local function _30_()
     local dap = require("nfnl.module").autoload("dap")
     return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end
-keymap_29_auto.set("n", "<localleader>dB", _30_, { desc = "Debug: Set Conditional Breakpoint", noremap = true })
-keymap_29_auto.set("n", "<localleader>dw", "<cmd>DapViewWatch<cr>", { desc = "Debug: Set Watch", noremap = true })
+keymap_30_auto.set("n", "<localleader>dB", _30_, { desc = "Debug: Set Conditional Breakpoint", noremap = true })
+keymap_30_auto.set("n", "<localleader>dw", "<cmd>DapViewWatch<cr>", { desc = "Debug: Set Watch", noremap = true })
 local function _31_()
     local mod_12_auto = require("nfnl.module").autoload("dap-view")
     return mod_12_auto.toggle()
 end
-return keymap_29_auto.set("n", "<localleader>dt", _31_, { desc = "Debug: Open dap-view", noremap = true })
+return keymap_30_auto.set("n", "<localleader>dt", _31_, { desc = "Debug: Open dap-view", noremap = true })

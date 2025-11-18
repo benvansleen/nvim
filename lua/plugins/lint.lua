@@ -46,7 +46,7 @@ local function run_linters(_10_)
         return nil
     end
 end
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _14_()
@@ -58,7 +58,7 @@ do
         end
         return vim.api.nvim_create_autocmd({ "BufWritePost" }, { callback = _15_ })
     end
-    keymap_29_auto = mod_12_auto.keymap({
+    keymap_30_auto = mod_12_auto.keymap({
         "nvim-lint",
         after = _14_,
         event = "BufWritePre",

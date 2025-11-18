@@ -1,6 +1,6 @@
 -- [nfnl] fnl/plugins/git.fnl
 do
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
@@ -22,7 +22,7 @@ do
         local function _2_()
             return vim.cmd.packadd("diffview.nvim")
         end
-        keymap_29_auto = mod_12_auto.keymap({
+        keymap_30_auto = mod_12_auto.keymap({
             "neogit",
             after = _1_,
             before = _2_,
@@ -35,21 +35,21 @@ do
         local mod_12_auto = require("nfnl.module").autoload("neogit")
         return mod_12_auto.open({ cwd = "%:p:h", kind = "replace" })
     end
-    keymap_29_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true })
+    keymap_30_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true })
 end
 do
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _4_()
             local p_13_auto = require("diffview")
             return p_13_auto.setup()
         end
-        keymap_29_auto =
+        keymap_30_auto =
             mod_12_auto.keymap({ "diffview.nvim", after = _4_, for_cat = "general.git", on_require = "diffview" })
     end
 end
-local keymap_29_auto
+local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     local function _5_()
@@ -96,21 +96,21 @@ do
             word_diff = false,
         })
     end
-    keymap_29_auto =
+    keymap_30_auto =
         mod_12_auto.keymap({ "gitsigns.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.git" })
 end
 local function _6_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.stage_hunk()
 end
-keymap_29_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true })
+keymap_30_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true })
 local function _7_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.reset_hunk()
 end
-keymap_29_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true })
+keymap_30_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true })
 local function _8_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.preview_hunk_inline()
 end
-return keymap_29_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true })
+return keymap_30_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true })

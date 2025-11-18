@@ -5,7 +5,7 @@ do
     _1_ = cats_44_auto.isNixCats
 end
 if _1_ then
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _3_()
@@ -20,11 +20,11 @@ if _1_ then
                 },
             })
         end
-        keymap_29_auto =
+        keymap_30_auto =
             mod_12_auto.keymap({ "blink.pairs", after = _3_, event = "DeferredUIEnter", for_cat = "general.blink" })
     end
 else
-    local keymap_29_auto
+    local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _4_()
@@ -36,7 +36,7 @@ else
                 enable_check_bracket_line = true,
             })
         end
-        keymap_29_auto =
+        keymap_30_auto =
             mod_12_auto.keymap({ "nvim-autopairs", after = _4_, event = "InsertEnter", for_cat = "general.always" })
     end
 end
