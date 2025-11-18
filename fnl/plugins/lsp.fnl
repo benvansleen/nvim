@@ -33,7 +33,7 @@
                 :event :DeferredUIEnter
                 :after #(do
                           (setup :tiny-inline-diagnostic
-                                 {:preset :powerline
+                                 {:preset :modern
                                   :transparent_bg false
                                   :options {:show_source {:enabled true
                                                           :if_many true}

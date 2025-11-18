@@ -54,7 +54,7 @@ do
         do
             local p_13_auto = require("tiny-inline-diagnostic")
             p_13_auto.setup({
-                preset = "powerline",
+                preset = "modern",
                 options = {
                     show_source = { enabled = true, if_many = true },
                     set_arrow_to_diag_color = true,
