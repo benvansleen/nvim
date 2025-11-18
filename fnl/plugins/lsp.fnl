@@ -30,7 +30,7 @@
                           (cfg (autocmd {[:LspDetach] {:callback #(cfg (wo {winbar ""}))}})))}]
               [:tiny-inline-diagnostic.nvim
                {:for_cat :lsp
-                :event :DeferredUIEnter
+                :event :LspAttach
                 :after #(do
                           (setup :tiny-inline-diagnostic
                                  {:preset :modern

@@ -69,7 +69,7 @@ do
         return vim.diagnostic.config({ virtual_text = false })
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "tiny-inline-diagnostic.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "lsp" })
+        mod_12_auto.keymap({ "tiny-inline-diagnostic.nvim", after = _7_, event = "LspAttach", for_cat = "lsp" })
 end
 local function _8_()
     local mod_12_auto = require("nfnl.module").autoload("tiny-inline-diagnostic")
