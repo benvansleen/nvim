@@ -127,6 +127,9 @@ do
         vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move lines down", noremap = true })
         vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move lines up", noremap = true })
     end
+    do
+        vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal Insert Mode", noremap = true })
+    end
     vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
         desc = "return cursor to where it was last time file was closed",
         pattern = "*",

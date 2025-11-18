@@ -137,6 +137,7 @@
         :nmap (set-mappings `vim.keymap :n (unpack body))
         :imap (set-mappings `vim.keymap :i (unpack body))
         :vmap (set-mappings `vim.keymap :v (unpack body))
+        :tmap (set-mappings `vim.keymap :t (unpack body))
         :autocmd (set-autocmds (unpack body))
         :plugins (splice (icollect [_ p (ipairs body)]
                            (configure-plugin p)))

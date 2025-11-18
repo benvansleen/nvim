@@ -62,6 +62,7 @@
      (imap {["Exit Insert Mode" :jj] :<Esc>})
      (vmap {["Move lines down" :J] ":m '>+1<CR>gv=gv"
             ["Move lines up" :K] ":m '>-2<CR>gv=gv"})
+     (tmap {["Exit Terminal Insert Mode" :<Esc>] "<C-\\><C-n>"})
      (autocmd {[:BufWinEnter] {:desc "return cursor to where it was last time file was closed"
                                :pattern "*"
                                :command "silent! normal! g`\"zv"}
