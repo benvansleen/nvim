@@ -50,6 +50,7 @@ require("nixCatsUtils.catPacker").setup({
     { "SmiteshP/nvim-navic", opt = true },
     { "neovim/nvim-lspconfig", opt = true },
     { "Wansmer/symbol-usage.nvim", opt = true },
+    { "rachartier/tiny-inline-diagnostic.nvim", opt = true },
 
     { "folke/lazydev.nvim", opt = true },
 

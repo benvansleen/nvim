@@ -2,7 +2,6 @@
 local M = require("nfnl.module").define("lsp.on-attach")
 M.on_attach = function(client, bufnr)
     vim.diagnostic.config({
-        virtual_lines = { current_line = true },
         signs = {
             text = {
                 [vim.diagnostic.severity.ERROR] = "",
@@ -10,15 +9,14 @@ M.on_attach = function(client, bufnr)
                 [vim.diagnostic.severity.INFO] = "",
                 [vim.diagnostic.severity.HINT] = "",
             },
-            linehl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg" },
-            numhl = { [vim.diagnostic.severity.WARN] = "WarningMsg" },
+            numhl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg", [vim.diagnostic.severity.WARN] = "WarningMsg" },
         },
     })
     vim.lsp.inlay_hint.enable(true, nil, bufnr)
     do
         local nvim_navic = require("nfnl.module").autoload("nvim-navic")
         nvim_navic.attach(client, bufnr)
-        vim.wo.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+        vim.wo["winbar"] = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end
     local function map(mode, keys, func, desc)
         local _1_

@@ -1,18 +1,17 @@
-(import-macros {: define : require-and-call : with-require} :macros)
+(import-macros {: cfg : define : require-and-call : with-require} :macros)
 (define M :lsp.on-attach)
 
 (fn M.on_attach [client bufnr]
-  (vim.diagnostic.config {:virtual_lines {:current_line true}
-                          :signs {:text {vim.diagnostic.severity.ERROR ""
+  (vim.diagnostic.config {:signs {:text {vim.diagnostic.severity.ERROR ""
                                          vim.diagnostic.severity.WARN ""
                                          vim.diagnostic.severity.INFO ""
                                          vim.diagnostic.severity.HINT ""}
-                                  :linehl {vim.diagnostic.severity.ERROR :ErrorMsg}
-                                  :numhl {vim.diagnostic.severity.WARN :WarningMsg}}})
+                                  :numhl {vim.diagnostic.severity.ERROR :ErrorMsg
+                                          vim.diagnostic.severity.WARN :WarningMsg}}})
   (vim.lsp.inlay_hint.enable true nil bufnr)
   (with-require {: nvim-navic}
     (nvim-navic.attach client bufnr)
-    (set vim.wo.winbar "%{%v:lua.require'nvim-navic'.get_location()%}"))
+    (cfg (wo {winbar "%{%v:lua.require'nvim-navic'.get_location()%}"})))
 
   (fn map [mode keys func desc]
     (vim.keymap.set mode keys func

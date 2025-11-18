@@ -29,19 +29,50 @@ do
         keymap_30_auto = mod_12_auto.keymap({ "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _5_()
+            do
+                local p_13_auto = require("nvim-navic")
+                p_13_auto.setup({ click = true, lsp = { auto_attach = false } })
+            end
+            local function _6_()
+                vim.wo["winbar"] = ""
+                return nil
+            end
+            return vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ })
+        end
+        keymap_30_auto = mod_12_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _5_()
+    local function _7_()
         do
-            local p_13_auto = require("nvim-navic")
-            p_13_auto.setup({ click = true, lsp = { auto_attach = false } })
+            local p_13_auto = require("tiny-inline-diagnostic")
+            p_13_auto.setup({
+                preset = "powerline",
+                options = {
+                    show_source = { enabled = true, if_many = true },
+                    set_arrow_to_diag_color = true,
+                    multilines = { enabled = true, always_show = true },
+                    add_messages = { display_count = true },
+                    break_line = { enabled = true, after = 28 },
+                    show_diags_only_under_cursor = false,
+                },
+                transparent_bg = false,
+            })
         end
-        local function _6_()
-            vim.wo.winbar = ""
-            return nil
-        end
-        return vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ })
+        return vim.diagnostic.config({ virtual_text = false })
     end
-    keymap_30_auto = mod_12_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
+    keymap_30_auto =
+        mod_12_auto.keymap({ "tiny-inline-diagnostic.nvim", after = _7_, event = "DeferredUIEnter", for_cat = "lsp" })
 end
+local function _8_()
+    local mod_12_auto = require("nfnl.module").autoload("tiny-inline-diagnostic")
+    return mod_12_auto.toggle()
+end
+return keymap_30_auto.set("n", "<leader>te", _8_, { desc = "Toggle diagnostics", noremap = true })

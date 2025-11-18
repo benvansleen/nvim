@@ -93,15 +93,10 @@ do
     do
         vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true })
         local function _4_()
-            local vt = vim.diagnostic.config().virtual_lines
-            return vim.diagnostic.config({ virtual_lines = not vt })
-        end
-        vim.keymap.set("n", "<leader>te", _4_, { desc = "[T]oggle virtual lines", noremap = true })
-        local function _5_()
             return print(vim.api.nvim_buf_get_name(0))
         end
-        vim.keymap.set("n", "<leader>wtf", _5_, { desc = "[W]hat's [T]his [F]ile?", noremap = true })
-        local function _6_()
+        vim.keymap.set("n", "<leader>wtf", _4_, { desc = "[W]hat's [T]his [F]ile?", noremap = true })
+        local function _5_()
             local diffview = require("nfnl.module").autoload("diffview.lib")
             if diffview.get_current_view() then
                 return vim.cmd.DiffviewClose()
@@ -109,11 +104,11 @@ do
                 return vim.cmd.bdelete()
             end
         end
-        vim.keymap.set("n", "<leader>q", _6_, { desc = "[Q]uit buffer", noremap = true })
-        local function _8_()
+        vim.keymap.set("n", "<leader>q", _5_, { desc = "[Q]uit buffer", noremap = true })
+        local function _7_()
             return vim.cmd("bdelete!")
         end
-        vim.keymap.set("n", "<leader>Q", _8_, { desc = "Forcefully [Q]uit buffer", noremap = true })
+        vim.keymap.set("n", "<leader>Q", _7_, { desc = "Forcefully [Q]uit buffer", noremap = true })
         vim.keymap.set(
             "n",
             "<leader>huc",
@@ -133,12 +128,12 @@ do
         pattern = "*",
         command = 'silent! normal! g`"zv',
     })
-    local function _9_()
+    local function _8_()
         return vim.highlight.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },
-        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
+        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _8_ }
     )
 end
 do
@@ -155,12 +150,12 @@ do
         { pattern = "*", group = number_toggle.group, callback = number_toggle["disable-relative-number"] }
     )
 end
-local _10_
+local _9_
 do
     local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _10_ = cats_44_auto.isNixCats
+    _9_ = cats_44_auto.isNixCats
 end
-if false == _10_ then
+if false == _9_ then
     vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true })
     return vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", noremap = true })
 else

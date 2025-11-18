@@ -254,6 +254,7 @@
             lsp = with pkgs.vimPlugins; [
               nvim-navic
               symbol-usage-nvim
+              tiny-inline-diagnostic-nvim
             ];
             lisp = with pkgs.vimPlugins; [
               conjure

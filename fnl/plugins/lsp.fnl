@@ -1,4 +1,4 @@
-(import-macros {: cfg : setup} :macros)
+(import-macros {: cfg : require-and-call : setup} :macros)
 
 (fn text_format [symbol]
   (let [fragments []
@@ -27,5 +27,23 @@
                 :after #(do
                           (setup :nvim-navic
                                  {:click true :lsp {:auto_attach false}})
-                          (cfg (autocmd {[:LspDetach] {:callback #(set vim.wo.winbar
-                                                                       "")}})))}]))
+                          (cfg (autocmd {[:LspDetach] {:callback #(cfg (wo {winbar ""}))}})))}]
+              [:tiny-inline-diagnostic.nvim
+               {:for_cat :lsp
+                :event :DeferredUIEnter
+                :after #(do
+                          (setup :tiny-inline-diagnostic
+                                 {:preset :powerline
+                                  :transparent_bg false
+                                  :options {:show_source {:enabled true
+                                                          :if_many true}
+                                            :set_arrow_to_diag_color true
+                                            :show_diags_only_under_cursor false
+                                            :multilines {:enabled true
+                                                         :always_show true}
+                                            :add_messages {:display_count true}
+                                            :break_line {:enabled true
+                                                         :after 28}}})
+                          (vim.diagnostic.config {:virtual_text false}))}
+               (nmap {["Toggle diagnostics" :<leader>te] #(require-and-call :tiny-inline-diagnostic
+                                                                            :toggle)})]))

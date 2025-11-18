@@ -51,9 +51,6 @@
      (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>zz
            [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
-            ["[T]oggle virtual lines" :<leader>te] #(let [vt (. (vim.diagnostic.config)
-                                                                :virtual_lines)]
-                                                      (vim.diagnostic.config {:virtual_lines (not vt)}))
             ["[W]hat's [T]his [F]ile?" :<leader>wtf] #(print (vim.api.nvim_buf_get_name 0))
             ["[Q]uit buffer" :<leader>q] #(with-require {diffview :diffview.lib}
                                             (if (diffview.get_current_view)
