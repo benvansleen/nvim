@@ -54,8 +54,10 @@
                                 :jump {:autojump false}
                                 :label {:uppercase false
                                         :style :inline
+                                        :current true
                                         :after false
                                         :before true
+                                        :reuse :none
                                         :rainbow {:enabled true}}
                                 :modes {:char {:enabled true
                                                :autohide true
@@ -64,7 +66,9 @@
                                                :char_actions #{:f :right
                                                                :t :right
                                                                :F :left
-                                                               :T :left}}
+                                                               :T :left
+                                                               ";" :next
+                                                               "," :prev}}
                                         :search {:enabled false}
                                         :treesitter {:label {:before true
                                                              :after false
@@ -113,7 +117,8 @@
                                  {:symbol "│"
                                   :draw {:animation (with-require {m :mini.indentscope}
                                                       (m.gen_animation.linear {:duration 10}))}
-                                  :options {:try_as_border false}})
+                                  :options {:try_as_border false
+                                            :indent_at_cursor false}})
                           (vim.api.nvim_set_hl 0 :MiniIndentscopeSymbol
                                                {:link :NonText})
                           (cfg (autocmd {[:TermEnter] {:group (vim.api.nvim_create_augroup :disable-indentscope

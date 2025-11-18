@@ -106,14 +106,16 @@ do
         local function _15_()
             local p_13_auto = require("flash")
             local function _16_()
-                return { f = "right", t = "right", F = "left", T = "left" }
+                return { f = "right", t = "right", F = "left", T = "left", [";"] = "next", [","] = "prev" }
             end
             return p_13_auto.setup({
                 labels = "asdfghjklqwertyuiop",
                 jump = { autojump = false },
                 label = {
                     style = "inline",
+                    current = true,
                     before = true,
+                    reuse = "none",
                     rainbow = { enabled = true },
                     after = false,
                     uppercase = false,
@@ -228,7 +230,7 @@ do
                 p_13_auto.setup({
                     symbol = "\226\148\130",
                     draw = { animation = _29_ },
-                    options = { try_as_border = false },
+                    options = { indent_at_cursor = false, try_as_border = false },
                 })
             end
             vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
