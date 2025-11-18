@@ -144,28 +144,31 @@ local function expand_args(node)
             else
                 local and_30_ = (nil ~= case_29_)
                 if and_30_ then
-                    local opening = case_29_
-                    and_30_ = ((opening == "(") or (opening == "[") or (opening == "{"))
+                    local opening_char = case_29_
+                    local function _32_(...)
+                        return (opening_char == ...)
+                    end
+                    and_30_ = any(_32_, { "(", "[", "{" })
                 end
                 if and_30_ then
-                    local opening = case_29_
+                    local opening_char = case_29_
                     lib["goto-node-end"](child)
-                    vim.cmd.normal(("=i" .. opening))
+                    vim.cmd.normal(("=i" .. opening_char))
                     print("")
                 elseif (case_29_ == ")") or (case_29_ == "]") or (case_29_ == "}") then
                     lib["goto-node-end"](child)
-                    local function _32_()
+                    local function _33_()
                         local prev_node_type = children[(i - 1)]:type()
-                        local function _33_(...)
+                        local function _34_(...)
                             return (prev_node_type == ...)
                         end
-                        if any(_33_, { ",", "for_in_clause", "if_clause" }) then
+                        if any(_34_, { ",", "for_in_clause", "if_clause" }) then
                             return ""
                         else
                             return ","
                         end
                     end
-                    insert_line_break_same_indent(_32_())
+                    insert_line_break_same_indent(_33_())
                 else
                     local _ = case_29_
                     lib["goto-node-start"](child)
@@ -203,21 +206,21 @@ local expandable_types = {
     "parameters",
 }
 M["toggle-expand-args"] = function()
-    local case_37_
-    local function _38_(_241)
-        local _40_
+    local case_38_
+    local function _39_(_241)
+        local _41_
         do
-            local partial_39_ = _241:type()
-            local function _41_(...)
-                return (partial_39_ == ...)
+            local partial_40_ = _241:type()
+            local function _42_(...)
+                return (partial_40_ == ...)
             end
-            _40_ = _41_
+            _41_ = _42_
         end
-        return any(_40_, expandable_types)
+        return any(_41_, expandable_types)
     end
-    case_37_ = lib["nearest-parent-until"](_38_)
-    if nil ~= case_37_ then
-        local node = case_37_
+    case_38_ = lib["nearest-parent-until"](_39_)
+    if nil ~= case_38_ then
+        local node = case_38_
         local srow, _scol, erow, _ecol = lib["range-of-node"](node)
         lib["goto-node-start"](node)
         local _win = vim.api.nvim_get_current_win()

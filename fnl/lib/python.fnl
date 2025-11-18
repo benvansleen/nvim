@@ -41,10 +41,10 @@
         (case (child:type)
           "," nil
 
-          (where opening (or (= opening "(") (= opening "[") (= opening "{")))
+          (where opening-char (any (partial = opening-char) ["(" "[" "{"]))
           (do
             (lib.goto-node-end child)
-            (vim.cmd.normal (.. :=i opening))
+            (vim.cmd.normal (.. :=i opening-char))
             (print "")) ;; clear "... lines indented" message
 
           (where (or ")" "]" "}"))
