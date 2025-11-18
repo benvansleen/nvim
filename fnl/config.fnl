@@ -57,7 +57,8 @@
                                                 (vim.cmd.DiffviewClose)
                                                 (vim.cmd.bdelete)))
             ["Forcefully [Q]uit buffer" :<leader>Q] #(vim.cmd :bdelete!)
-            ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>})
+            ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>
+            ["Comment line" :<M-/>] #(vim.cmd.normal :gcc)})
      (imap {["Exit Insert Mode" :jj] :<Esc>})
      (vmap {["Move lines down" :J] ":m '>+1<CR>gv=gv"
             ["Move lines up" :K] ":m '>-2<CR>gv=gv"})

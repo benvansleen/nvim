@@ -115,6 +115,10 @@ do
             "<cmd>Inspect<CR>",
             { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
         )
+        local function _8_()
+            return vim.cmd.normal("gcc")
+        end
+        vim.keymap.set("n", "<M-/>", _8_, { desc = "Comment line", noremap = true })
     end
     do
         vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true })
@@ -128,12 +132,12 @@ do
         pattern = "*",
         command = 'silent! normal! g`"zv',
     })
-    local function _8_()
+    local function _9_()
         return vim.highlight.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },
-        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _8_ }
+        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
     )
 end
 do
@@ -150,12 +154,12 @@ do
         { pattern = "*", group = number_toggle.group, callback = number_toggle["disable-relative-number"] }
     )
 end
-local _9_
+local _10_
 do
     local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _9_ = cats_44_auto.isNixCats
+    _10_ = cats_44_auto.isNixCats
 end
-if false == _9_ then
+if false == _10_ then
     vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true })
     return vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", noremap = true })
 else
