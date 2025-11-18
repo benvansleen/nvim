@@ -2,14 +2,14 @@
 local statuscolumn = require("statuscolumn.statuscolumn")
 local function force_statuscolumn_redraw()
     if vim.bo.filetype ~= "dashboard" then
-        vim.wo.statuscolumn = statuscolumn.activate()
+        vim.wo["statuscolumn"] = statuscolumn.activate()
         return nil
     else
         return nil
     end
 end
 local function update_screen_width()
-    vim.g.my_center_buffer_screen_width = vim.o.columns
+    vim.g["my_center_buffer_screen_width"] = vim.o.columns
     return nil
 end
 local group = vim.api.nvim_create_augroup("center-buffer", { clear = true })

@@ -2,6 +2,7 @@
                :macros)
 
 (autoload {: blank?} :nfnl.string)
+(autoload {: contains?} :nfnl.core)
 (autoload {: all} :lib.utils)
 
 (cfg (plugins [:dashboard-nvim
@@ -87,23 +88,21 @@
                                                   :NeogitStatus
                                                   :NeogitDiffView]
                                 ignore-buftypes [:prompt :popup]
-                                augroup (vim.api.nvim_create_augroup :FocusDisable
-                                                                     {:clear true})]
+                                group (vim.api.nvim_create_augroup :FocusDisable
+                                                                   {:clear true})]
                             (cfg (autocmd {:WinEnter {:desc "Disable focus autoresize for BufType"
-                                                      :callback (fn [_]
-                                                                  (set vim.w.focus_disable
-                                                                       (vim.tbl_contains ignore-buftypes
-                                                                                         vim.bo.buftype)))
-                                                      :group augroup}
+                                                      : group
+                                                      :callback #(set vim.w.focus_disable
+                                                                      (contains? ignore-buftypes
+                                                                                 vim.bo.buftype))}
                                            :FileType {:desc "Disable focus autoresize for FileType"
-                                                      :callback (fn [_]
-                                                                  (set vim.b.focus_disable
-                                                                       (vim.tbl_contains ignore-filetypes
-                                                                                         vim.bo.filetype)))
-                                                      :group augroup}}))))}
+                                                      : group
+                                                      :callback #(set vim.b.focus_disable
+                                                                      (contains? ignore-filetypes
+                                                                                 vim.bo.filetype))}}))))}
                (nmap {["Open [S]plit" :<leader>s] #(require-and-call :focus
                                                                      :split_nicely)
-                      ["Close [S]plt" :<leader>S] #(vim.cmd.close)})])
+                      ["Close [S]plit" :<leader>S] #(vim.cmd.close)})])
      (autocmd {[:BufDelete] {:group (vim.api.nvim_create_augroup :BufDeletePostSetup
                                                                  {:clear true})
                              :nested true
