@@ -112,4 +112,8 @@
                           :cmd [:rust-analyzer]
                           :settings {:diagnostic {:enable true}
                                      :checkOnSave {:command :clippy}}
-                          : on_attach}}]))))
+                          : on_attach}}]
+                  [:nu_ls
+                   {:enabled true
+                    :ft [:nu]
+                    :lsp {:filetypes [:nu] :cmd [:nu :--lsp] : on_attach}}]))))
