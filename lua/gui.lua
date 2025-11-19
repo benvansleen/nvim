@@ -2,6 +2,7 @@
 if vim.g.neovide then
     do
         vim.g["neovide_scroll_animation_length"] = 0.1
+        vim.g["neovide_cursor_trail_size"] = 0.5
         vim.g["terminal_color_0"] = "#202020"
         vim.g["terminal_color_1"] = "#ea6962"
         vim.g["terminal_color_2"] = "#e78a4e"

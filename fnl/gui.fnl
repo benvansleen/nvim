@@ -2,6 +2,7 @@
 
 (when vim.g.neovide
   (cfg (g {neovide_scroll_animation_length 0.1
+           neovide_cursor_trail_size 0.5
            terminal_color_0 "#202020"
            terminal_color_1 "#ea6962"
            terminal_color_2 "#e78a4e"
