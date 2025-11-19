@@ -63,11 +63,12 @@
               [:smear-cursor.nvim
                {:for_cat :general.extra
                 :event :CursorMoved
-                :after #(setup :smear_cursor
-                               {:smear_between_buffers true
-                                :smear_between_neighbor_lines true
-                                :scroll_buffer_space true
-                                :smear_insert_mode true})}]
+                :after #(when (not vim.g.neovide)
+                          (setup :smear_cursor
+                                 {:smear_between_buffers true
+                                  :smear_between_neighbor_lines true
+                                  :scroll_buffer_space true
+                                  :smear_insert_mode true}))}]
               [:focus.nvim
                {:for_cat :general.extra
                 :event :DeferredUIEnter

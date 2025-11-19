@@ -159,13 +159,17 @@ do
         do
             local mod_12_auto = require("nfnl.module").autoload("lzextras")
             local function _29_()
-                local p_13_auto = require("smear_cursor")
-                return p_13_auto.setup({
-                    smear_between_buffers = true,
-                    smear_between_neighbor_lines = true,
-                    scroll_buffer_space = true,
-                    smear_insert_mode = true,
-                })
+                if not vim.g.neovide then
+                    local p_13_auto = require("smear_cursor")
+                    return p_13_auto.setup({
+                        smear_between_buffers = true,
+                        smear_between_neighbor_lines = true,
+                        scroll_buffer_space = true,
+                        smear_insert_mode = true,
+                    })
+                else
+                    return nil
+                end
             end
             keymap_30_auto = mod_12_auto.keymap({
                 "smear-cursor.nvim",
@@ -178,7 +182,7 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _30_()
+        local function _31_()
             local focus = require("nfnl.module").autoload("focus")
             focus.setup({
                 enable = true,
@@ -199,48 +203,48 @@ do
             }
             local ignore_buftypes = { "prompt", "popup" }
             local group = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-            local function _31_()
+            local function _32_()
                 vim.w.focus_disable = contains_3f(ignore_buftypes, vim.bo.buftype)
                 return nil
             end
             vim.api.nvim_create_autocmd(
                 "WinEnter",
-                { desc = "Disable focus autoresize for BufType", group = group, callback = _31_ }
+                { desc = "Disable focus autoresize for BufType", group = group, callback = _32_ }
             )
-            local function _32_()
+            local function _33_()
                 vim.b.focus_disable = contains_3f(ignore_filetypes, vim.bo.filetype)
                 return nil
             end
             return vim.api.nvim_create_autocmd(
                 "FileType",
-                { desc = "Disable focus autoresize for FileType", group = group, callback = _32_ }
+                { desc = "Disable focus autoresize for FileType", group = group, callback = _33_ }
             )
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "focus.nvim", after = _30_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "focus.nvim", after = _31_, event = "DeferredUIEnter", for_cat = "general.extra" })
     end
-    local function _33_()
+    local function _34_()
         local mod_12_auto = require("nfnl.module").autoload("focus")
         return mod_12_auto.split_nicely()
     end
-    keymap_30_auto.set("n", "<leader>s", _33_, { desc = "Open [S]plit", noremap = true })
-    local function _34_()
+    keymap_30_auto.set("n", "<leader>s", _34_, { desc = "Open [S]plit", noremap = true })
+    local function _35_()
         return vim.cmd.close()
     end
-    keymap_30_auto.set("n", "<leader>S", _34_, { desc = "Close [S]plit", noremap = true })
+    keymap_30_auto.set("n", "<leader>S", _35_, { desc = "Close [S]plit", noremap = true })
 end
-local function _35_()
-    local function _36_()
+local function _36_()
+    local function _37_()
         return vim.api.nvim_exec_autocmds("User", { pattern = "BufDeletePost" })
     end
-    return vim.schedule(_36_)
+    return vim.schedule(_37_)
 end
 vim.api.nvim_create_autocmd(
     { "BufDelete" },
-    { group = vim.api.nvim_create_augroup("BufDeletePostSetup", { clear = true }), nested = true, callback = _35_ }
+    { group = vim.api.nvim_create_augroup("BufDeletePostSetup", { clear = true }), nested = true, callback = _36_ }
 )
-local function _38_(_37_)
-    local buf = _37_.buf
+local function _39_(_38_)
+    local buf = _38_.buf
     local deleted_name = vim.api.nvim_buf_get_name(buf)
     local deleted_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
     local deleted_bt = vim.api.nvim_get_option_value("buftype", { buf = buf })
@@ -253,5 +257,5 @@ end
 return vim.api.nvim_create_autocmd({ "User" }, {
     pattern = "BufDeletePost",
     group = vim.api.nvim_create_augroup("BufDeletePost", { clear = true }),
-    callback = _38_,
+    callback = _39_,
 })

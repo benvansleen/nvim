@@ -46,6 +46,7 @@ do
     end
     do
         require("clipboard")
+        require("gui")
         require("lsp")
         require("statuscolumn")
         require("theme")

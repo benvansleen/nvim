@@ -13,7 +13,7 @@
      (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
                        :pairs :oil :telescope :terminal :tmux :treesitter)
      (requires-plugins-when-enabled :debug :lint :format)
-     (requires :clipboard :lsp :statuscolumn :theme)
+     (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            breakindent true
            cursorline true
