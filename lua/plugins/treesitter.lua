@@ -1,5 +1,10 @@
 -- [nfnl] fnl/plugins/treesitter.fnl
 do
+    vim.wo["foldlevel"] = 4
+    vim.wo["foldmethod"] = "expr"
+    vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
+end
+do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
@@ -21,11 +26,7 @@ do
         end
         local function _2_(name)
             vim.cmd.packadd(name)
-            vim.cmd.packadd("nvim-treesitter-textobjects")
-            vim.wo["foldlevel"] = 4
-            vim.wo["foldmethod"] = "expr"
-            vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
-            return nil
+            return vim.cmd.packadd("nvim-treesitter-textobjects")
         end
         keymap_30_auto = mod_12_auto.keymap({
             "nvim-treesitter",

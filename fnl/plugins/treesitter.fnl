@@ -1,14 +1,14 @@
 (import-macros {: cfg : require-and-call : setup} :macros)
 
-(cfg (plugins [:nvim-treesitter
+(cfg (wo {foldlevel 4
+          foldmethod :expr
+          foldexpr "v:lua.vim.treesitter.foldexpr()"})
+     (plugins [:nvim-treesitter
                {:for_cat :general.treesitter
                 :event :DeferredUIEnter
                 :load (fn [name]
                         (vim.cmd.packadd name)
-                        (vim.cmd.packadd :nvim-treesitter-textobjects)
-                        (cfg (wo {foldlevel 4
-                                  foldmethod :expr
-                                  foldexpr "v:lua.vim.treesitter.foldexpr()"})))
+                        (vim.cmd.packadd :nvim-treesitter-textobjects))
                 :after #(setup :nvim-treesitter.configs
                                {:highlight {:enable true
                                             :additional_vim_regex_highlighting false}
