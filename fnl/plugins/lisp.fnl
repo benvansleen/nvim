@@ -24,5 +24,5 @@
                                   conjure#client_on_load false
                                   conjure#mapping#def_word false
                                   conjure#mapping#doc_word false
-                                  conjure#client#python#stdio#command "uv run python -iq"}))}]
+                                  conjure#client#python#stdio#command "python -iq"}))}]
               [:nvim-parinfer {:ft :fennel :for_cat :lisp}]))

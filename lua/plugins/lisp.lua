@@ -47,7 +47,7 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _10_()
             vim.g["conjure#log#hud#border"] = "none"
-            vim.g["conjure#client#python#stdio#command"] = "uv run python -iq"
+            vim.g["conjure#client#python#stdio#command"] = "python -iq"
             vim.g["conjure#client_on_load"] = false
             vim.g["conjure#mapping#def_word"] = false
             vim.g["conjure#mapping#doc_word"] = false

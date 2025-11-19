@@ -85,8 +85,14 @@ do
         repeatable_toggle_expand_args,
         { desc = "[T]oggle expanded [A]rguments", noremap = true }
     )
+    local function _16_()
+        vim.g["conjure#client#python#stdio#command"] =
+            vim.fn.input("Python repl: ", vim.g["conjure#client#python#stdio#command"])
+        return nil
+    end
+    vim.keymap.set("n", "<localleader>cp", _16_, { desc = "Set python repl", noremap = true })
 end
-local function _16_()
+local function _17_()
     return toggle_fstring()
 end
-return vim.keymap.set("i", "<M-f>", _16_, { desc = "Toggle [f]-string", noremap = true })
+return vim.keymap.set("i", "<M-f>", _17_, { desc = "Toggle [f]-string", noremap = true })

@@ -11,5 +11,8 @@
                         :closed_paren_align_last_line false}})
      (bo {expandtab true shiftwidth 4 softtabstop 4 tabstop 4})
      (nmap {["[T]oggle [f]-string" :<localleader>tf] repeatable-toggle-fstring
-            ["[T]oggle expanded [A]rguments" :<localleader>ta] repeatable-toggle-expand-args})
+            ["[T]oggle expanded [A]rguments" :<localleader>ta] repeatable-toggle-expand-args
+            ["Set python repl" :<localleader>cp] #(set vim.g.conjure#client#python#stdio#command
+                                                       (vim.fn.input "Python repl: "
+                                                                     vim.g.conjure#client#python#stdio#command))})
      (imap {["Toggle [f]-string" :<M-f>] #(toggle-fstring)}))
