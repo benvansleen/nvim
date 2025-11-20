@@ -143,14 +143,14 @@ M["center-buffer"] = function(buf_ft)
     end
 end
 M.folds = function(buf_ft)
-    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime" }, buf_ft) then
+    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime", "toggleterm" }, buf_ft) then
         return ""
     else
         return folds(buf_ft)
     end
 end
 M.signs = function(buf_ft)
-    if core["contains?"]({}, buf_ft) then
+    if core["contains?"]({ "toggleterm" }, buf_ft) then
         return ""
     else
         return "%s"
@@ -177,11 +177,7 @@ M.init = function()
         end
         return table.concat(core.map(_41_, { M["center-buffer"], M.signs, M.folds, M.lines, M.spacing }))
     end
-    local buf_ft
-    local function _42_(_241)
-        return vim.api.nvim_get_option_value("filetype", { buf = _241 })
-    end
-    buf_ft = _42_(vim.api.nvim_get_current_buf())
+    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = tonumber(vim.g.actual_curbuf) })
     if core["contains?"]({ "gitcommit", "TelescopePrompt", "NeogitDiffView" }, buf_ft) then
         return ""
     else
@@ -189,6 +185,6 @@ M.init = function()
     end
 end
 M.activate = function()
-    return "%!v:lua.require('statuscolumn.setup').init()"
+    return "%{%v:lua.require('statuscolumn.setup').init()%}"
 end
 return M

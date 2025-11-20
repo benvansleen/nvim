@@ -28,11 +28,15 @@
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
-  (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]
+  (disable-for-fts buf-ft [:dap-repl
+                           :dap-view
+                           :dap-view-term
+                           :startuptime
+                           :toggleterm]
                    (folds buf-ft)))
 
 (fn M.signs [buf-ft]
-  (disable-for-fts buf-ft [] "%s"))
+  (disable-for-fts buf-ft [:toggleterm] "%s"))
 
 (fn M.lines [buf-ft]
   (disable-for-fts buf-ft [] "%l"))
@@ -46,12 +50,12 @@
          (core.map #($1 buf-ft))
          table.concat))
 
-  (let [buf-ft (-> (vim.api.nvim_get_current_buf)
-                   (#(vim.api.nvim_get_option_value :filetype {:buf $1})))]
+  (let [buf-ft (vim.api.nvim_get_option_value :filetype
+                                              {:buf (tonumber vim.g.actual_curbuf)})]
     (disable-for-fts buf-ft [:gitcommit :TelescopePrompt :NeogitDiffView]
                      (or (config buf-ft) ""))))
 
 (fn M.activate []
-  "%!v:lua.require('statuscolumn.setup').init()")
+  "%{%v:lua.require('statuscolumn.setup').init()%}")
 
 M
