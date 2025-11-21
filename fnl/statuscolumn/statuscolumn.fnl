@@ -17,26 +17,20 @@
                            :dap-view
                            :dap-view-term
                            :NeogitStatus
-                           :startuptime
-                           :toggleterm] (border)))
+                           :startuptime] (border)))
 
 (fn M.center-buffer [buf-ft]
   (disable-for-fts buf-ft [:NeogitCommitView
                            :NeogitGitCommandHistory
-                           :NeogitStatus
                            :NeogitPopup]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
-  (disable-for-fts buf-ft [:dap-repl
-                           :dap-view
-                           :dap-view-term
-                           :startuptime
-                           :toggleterm]
+  (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]
                    (folds buf-ft)))
 
 (fn M.signs [buf-ft]
-  (disable-for-fts buf-ft [:toggleterm] "%s"))
+  (disable-for-fts buf-ft [] "%s"))
 
 (fn M.lines [buf-ft]
   (disable-for-fts buf-ft [] "%l"))

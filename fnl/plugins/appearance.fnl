@@ -87,7 +87,8 @@
                                                   :dap-view-term
                                                   :DiffviewFiles
                                                   :NeogitStatus
-                                                  :NeogitDiffView]
+                                                  :NeogitDiffView
+                                                  :toggleterm]
                                 ignore-buftypes [:prompt :popup]
                                 group (vim.api.nvim_create_augroup :FocusDisable
                                                                    {:clear true})]

@@ -33,7 +33,7 @@ do
     end
     local function _3_()
         local mod_12_auto = require("nfnl.module").autoload("neogit")
-        return mod_12_auto.open({ cwd = "%:p:h", kind = "replace" })
+        return mod_12_auto.open({ cwd = "%:p:h", kind = "auto" })
     end
     keymap_30_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true })
 end

@@ -23,7 +23,7 @@
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"
-                                                                             :kind :replace})})]
+                                                                             :kind :auto})})]
               [:diffview.nvim
                {:for_cat :general.git
                 :on_require :diffview

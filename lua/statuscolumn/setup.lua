@@ -1,12 +1,58 @@
 -- [nfnl] fnl/statuscolumn/setup.fnl
 local statuscolumn = require("statuscolumn.statuscolumn")
-local function force_statuscolumn_redraw()
-    if vim.bo.filetype ~= "dashboard" then
-        vim.wo["statuscolumn"] = statuscolumn.activate()
-        return nil
-    else
-        return nil
+local function force_window_relayout(win)
+    do
+        local opts = { "number", "relativenumber", "foldcolumn", "signcolumn" }
+        local success = nil
+        for _, opt in ipairs(opts) do
+            local case_1_, case_2_ = pcall(vim.api.nvim_win_get_option, win, opt)
+            local and_3_ = ((case_1_ == true) and (nil ~= case_2_))
+            if and_3_ then
+                local cur = case_2_
+                and_3_ = not success
+            end
+            if and_3_ then
+                local cur = case_2_
+                if type(cur) == "boolean" then
+                    success = pcall(vim.api.nvim_win_set_option, win, opt, not cur)
+                    if success then
+                        pcall(vim.api.nvim_win_set_option, win, opt, cur)
+                    else
+                    end
+                else
+                    local alt
+                    if (cur == "") or (cur == "0") then
+                        alt = "1"
+                    else
+                        alt = ""
+                    end
+                    success = pcall(vim.api.nvim_win_set_option, win, opt, alt)
+                    if success then
+                        pcall(vim.api.nvim_win_set_option, win, opt, cur)
+                    else
+                    end
+                end
+            else
+            end
+        end
     end
+    return false
+end
+local function refresh_nonfloating_windows()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local case_10_, case_11_ = pcall(vim.api.nvim_win_get_config, win)
+        local and_12_ = ((case_10_ == true) and (nil ~= case_11_))
+        if and_12_ then
+            local config = case_11_
+            and_12_ = ((config.relative == "") or (config.relative == nil))
+        end
+        if and_12_ then
+            local config = case_11_
+            pcall(force_window_relayout, win)
+        else
+        end
+    end
+    return nil
 end
 local function update_screen_width()
     vim.g["my_center_buffer_screen_width"] = vim.o.columns
@@ -20,27 +66,36 @@ do
         vim.g["_debug_my_center_buffer"] = false
     end
     do
-        local function _2_()
+        local function _15_()
             vim.g.my_center_buffer = not vim.g.my_center_buffer
-            update_screen_width()
-            return force_statuscolumn_redraw()
+            return update_screen_width()
         end
-        vim.keymap.set("n", "<leader>tc", _2_, { desc = "[T]oggle [c]enter-buffer", noremap = true })
-        local function _3_()
+        vim.keymap.set("n", "<leader>tc", _15_, { desc = "[T]oggle [c]enter-buffer", noremap = true })
+        local function _16_()
             vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
-            update_screen_width()
-            return force_statuscolumn_redraw()
+            return update_screen_width()
         end
-        vim.keymap.set("n", "<leader>tC", _3_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true })
+        vim.keymap.set("n", "<leader>tC", _16_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true })
     end
     vim.api.nvim_create_autocmd(
-        { "BufWinEnter", "BufWinLeave" },
-        { group = group, callback = force_statuscolumn_redraw }
+        { "WinEnter", "WinResized", "VimResized" },
+        { group = group, callback = update_screen_width }
     )
-    local function _4_()
-        update_screen_width()
-        return force_statuscolumn_redraw()
+    local function _17_(_241)
+        local win = (tonumber(_241.match) or 0)
+        local case_18_, case_19_ = pcall(vim.api.nvim_win_get_config, win)
+        local and_20_ = ((case_18_ == true) and (nil ~= case_19_))
+        if and_20_ then
+            local config = case_19_
+            and_20_ = (config and (config.relative == ""))
+        end
+        if and_20_ then
+            local config = case_19_
+            return refresh_nonfloating_windows()
+        else
+            return nil
+        end
     end
-    vim.api.nvim_create_autocmd({ "WinNew", "WinEnter", "WinResized", "VimResized" }, { group = group, callback = _4_ })
+    vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, { group = group, callback = _17_ })
 end
 return statuscolumn

@@ -126,7 +126,7 @@ local M = require("nfnl.module").define("statuscolumn.statuscolumn")
 M.border = function(buf_ft)
     if
         core["contains?"](
-            { "dashboard", "dap-repl", "dap-view", "dap-view-term", "NeogitStatus", "startuptime", "toggleterm" },
+            { "dashboard", "dap-repl", "dap-view", "dap-view-term", "NeogitStatus", "startuptime" },
             buf_ft
         )
     then
@@ -136,21 +136,21 @@ M.border = function(buf_ft)
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "NeogitCommitView", "NeogitGitCommandHistory", "NeogitStatus", "NeogitPopup" }, buf_ft) then
+    if core["contains?"]({ "NeogitCommitView", "NeogitGitCommandHistory", "NeogitPopup" }, buf_ft) then
         return ""
     else
         return center_buffer(buf_ft)
     end
 end
 M.folds = function(buf_ft)
-    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime", "toggleterm" }, buf_ft) then
+    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime" }, buf_ft) then
         return ""
     else
         return folds(buf_ft)
     end
 end
 M.signs = function(buf_ft)
-    if core["contains?"]({ "toggleterm" }, buf_ft) then
+    if core["contains?"]({}, buf_ft) then
         return ""
     else
         return "%s"

@@ -1,6 +1,5 @@
 -- [nfnl] fnl/statuscolumn/center-buffer.fnl
-local core
-do
+local function _4_(...)
     local res_3_auto = { ["module-key"] = false }
     local ensure_4_auto
     local function _1_()
@@ -13,22 +12,27 @@ do
         return or_2_
     end
     ensure_4_auto = _1_
-    local function _4_(_t_6_auto, ...)
+    local function _5_(_t_6_auto, ...)
         return ensure_4_auto()(...)
     end
-    local function _5_(_t_6_auto, k_7_auto)
+    local function _6_(_t_6_auto, k_7_auto)
         local inner_8_auto = {}
-        local function _6_(_t_6_auto0, ...)
+        local function _7_(_t_6_auto0, ...)
             return ensure_4_auto()[k_7_auto](...)
         end
-        return setmetatable(inner_8_auto, { __call = _6_ })
+        return setmetatable(inner_8_auto, { __call = _7_ })
     end
-    local function _7_(_t_6_auto, k_7_auto, v_9_auto)
+    local function _8_(_t_6_auto, k_7_auto, v_9_auto)
         ensure_4_auto()[k_7_auto] = v_9_auto
         return nil
     end
-    core = setmetatable(res_3_auto, { __call = _4_, __index = _5_, __newindex = _7_ })
+    return setmetatable(res_3_auto, { __call = _5_, __index = _6_, __newindex = _8_ })
 end
+local _local_9_ = _4_(...)
+local map = _local_9_.map
+local filter = _local_9_.filter
+local get = _local_9_.get
+local contains_3f = _local_9_["contains?"]
 local M = require("nfnl.module").define("statuscolumn.center-buffer")
 local function get_buf_ft(win)
     return vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(win) })
@@ -37,21 +41,20 @@ local disabled_ft = {}
 local function real_window_3f(win)
     local cfg = vim.api.nvim_win_get_config(win)
     local buf_ft = get_buf_ft(win)
-    local floating_3f = (type(core.get(cfg, "zindex")) == "number")
-    return (not cfg.external and (buf_ft ~= "") and not floating_3f and not core["contains?"](disabled_ft, buf_ft))
+    local floating_3f = (type(get(cfg, "zindex")) == "number")
+    return (not cfg.external and (buf_ft ~= "") and not floating_3f and not contains_3f(disabled_ft, buf_ft))
 end
 local function count_windows()
-    local windows = core.filter(real_window_3f, vim.api.nvim_tabpage_list_wins(0))
+    local windows = vim.api.nvim_tabpage_list_wins(0)
+    local real_windows = filter(real_window_3f, windows)
     if vim.g._debug_my_center_buffer then
-        print(vim.inspect(core.map(get_buf_ft, windows)))
+        local function _10_(...)
+            return ("smear-cursor" ~= ...)
+        end
+        print(vim.inspect(filter(_10_, map(get_buf_ft, windows))))
     else
     end
-    local len = #windows
-    if (len == 1) and ("toggleterm" == get_buf_ft(windows[1])) then
-        return 0
-    else
-        return len
-    end
+    return #real_windows
 end
 M["center-buffer"] = function(_)
     local factor = 3

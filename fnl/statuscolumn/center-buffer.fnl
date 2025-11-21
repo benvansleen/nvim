@@ -1,5 +1,5 @@
 (import-macros {: autoload : define} :macros)
-(autoload core :nfnl.core)
+(autoload {: map : filter : get : contains?} :nfnl.core)
 (define M :statuscolumn.center-buffer)
 
 (macro starts-with [s pattern]
@@ -15,20 +15,22 @@
   (let [cfg (vim.api.nvim_win_get_config win)
         buf-ft (get-buf-ft win)
         floating? (-> cfg
-                      (core.get :zindex)
+                      (get :zindex)
                       type
                       (= :number))]
     (and (not cfg.external) (not= buf-ft "") (not floating?)
-         (not (core.contains? disabled-ft buf-ft)))))
+         (not (contains? disabled-ft buf-ft)))))
 
 (fn count-windows []
-  (let [windows (core.filter real-window? (vim.api.nvim_tabpage_list_wins 0))]
+  (let [windows (vim.api.nvim_tabpage_list_wins 0)
+        real-windows (filter real-window? windows)]
     (when vim.g._debug_my_center_buffer
-      (print (vim.inspect (core.map get-buf-ft windows))))
-    (let [len (length windows)]
-      (if (and (= len 1) (= :toggleterm (get-buf-ft (. windows 1))))
-          0
-          len))))
+      (-> windows
+          (->> (map get-buf-ft)
+               (filter (partial not= :smear-cursor)))
+          vim.inspect
+          print))
+    (length real-windows)))
 
 (fn M.center-buffer [_]
   (let [factor 3
