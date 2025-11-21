@@ -198,9 +198,7 @@ do
                 "dap-view",
                 "dap-view-term",
                 "DiffviewFiles",
-                "NeogitStatus",
                 "NeogitDiffView",
-                "toggleterm",
             }
             local ignore_buftypes = { "prompt", "popup" }
             local group = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
