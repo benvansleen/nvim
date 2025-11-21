@@ -9,7 +9,7 @@ do
             if direction == "horizontal" then
                 return 15
             elseif direction == "vertical" then
-                return (vim.o.columns * 0.4)
+                return (vim.o.columns * 0.45)
             else
                 return nil
             end
@@ -17,8 +17,8 @@ do
         return p_13_auto.setup({
             open_mapping = "<M-t>",
             direction = "vertical",
-            persist_size = true,
             size = _3_,
+            persist_size = false,
             shade_terminals = false,
         })
     end

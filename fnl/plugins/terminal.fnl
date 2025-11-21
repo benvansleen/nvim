@@ -6,11 +6,11 @@
                 :after #(setup :toggleterm
                                {:open_mapping :<M-t>
                                 :direction :vertical
-                                :persist_size true
+                                :persist_size false
                                 :size (fn [{: direction}]
                                         (case direction
                                           :horizontal 15
-                                          :vertical (* vim.o.columns 0.4)))
+                                          :vertical (* vim.o.columns 0.45)))
                                 :shade_terminals false})}
                (nmap {["Toggle Terminal" :<M-t>] #(require-and-call :toggleterm
                                                                     :toggle_command)})]))
