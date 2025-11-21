@@ -7,7 +7,7 @@
 
 (macro disable-for-fts [ft disabled-fts & body]
   `(if (core.contains? ,disabled-fts ,ft)
-       ""
+       " "
        (do
          ,(unpack body))))
 
@@ -22,6 +22,7 @@
 (fn M.center-buffer [buf-ft]
   (disable-for-fts buf-ft [:NeogitCommitView
                            :NeogitGitCommandHistory
+                           :NeogitStatus
                            :NeogitPopup]
                    (center-buffer buf-ft)))
 

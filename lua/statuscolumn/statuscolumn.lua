@@ -130,42 +130,42 @@ M.border = function(buf_ft)
             buf_ft
         )
     then
-        return ""
+        return " "
     else
         return border()
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "NeogitCommitView", "NeogitGitCommandHistory", "NeogitPopup" }, buf_ft) then
-        return ""
+    if core["contains?"]({ "NeogitCommitView", "NeogitGitCommandHistory", "NeogitStatus", "NeogitPopup" }, buf_ft) then
+        return " "
     else
         return center_buffer(buf_ft)
     end
 end
 M.folds = function(buf_ft)
     if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime" }, buf_ft) then
-        return ""
+        return " "
     else
         return folds(buf_ft)
     end
 end
 M.signs = function(buf_ft)
     if core["contains?"]({}, buf_ft) then
-        return ""
+        return " "
     else
         return "%s"
     end
 end
 M.lines = function(buf_ft)
     if core["contains?"]({}, buf_ft) then
-        return ""
+        return " "
     else
         return "%l"
     end
 end
 M.spacing = function(buf_ft)
     if core["contains?"]({}, buf_ft) then
-        return ""
+        return " "
     else
         return " "
     end
@@ -179,7 +179,7 @@ M.init = function()
     end
     local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = tonumber(vim.g.actual_curbuf) })
     if core["contains?"]({ "gitcommit", "TelescopePrompt", "NeogitDiffView" }, buf_ft) then
-        return ""
+        return " "
     else
         return (config(buf_ft) or "")
     end
