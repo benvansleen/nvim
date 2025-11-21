@@ -35,8 +35,9 @@
       italic-nontext (M.update-hl :NonText {:italic true})]
   (hl :WinBar (M.update-hl :NonText italic-nontext))
   (hl :WinBarNC (M.update-hl :NonText italic-nontext))
-  (hl :StatusLine {:bg bg0})
-  (hl :StatusLineNC {:bg bg0})
+  (hl :StatusLine {:link :NonText})
+  (hl :StatusLineNC {:link :NonText})
+  (hl :WinSeparator {:link :NonText})
   (hl :CursorLine {:bg bg0})
   (cfg (autocmd {[:User] {:pattern :TelescopeFindPre
                           :group (vim.api.nvim_create_augroup :reset-cursorline-bg
