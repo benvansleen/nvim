@@ -116,4 +116,8 @@
                   [:nu_ls
                    {:enabled true
                     :ft [:nu]
-                    :lsp {:filetypes [:nu] :cmd [:nu :--lsp] : on_attach}}]))))
+                    :lsp {:filetypes [:nu] :cmd [:nu :--lsp] : on_attach}}]
+                  [:svelte
+                   {:enabled true
+                    :ft [:svelte]
+                    :lsp {:filetypes [:svelte] : on_attach}}]))))

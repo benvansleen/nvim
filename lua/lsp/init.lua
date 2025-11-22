@@ -233,13 +233,25 @@ do
         })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "nu_ls",
+            enabled = true,
+            ft = { "nu" },
+            lsp = { filetypes = { "nu" }, cmd = { "nu", "--lsp" }, on_attach = on_attach },
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     keymap_30_auto = mod_12_auto.keymap({
-        "nu_ls",
+        "svelte",
         enabled = true,
-        ft = { "nu" },
-        lsp = { filetypes = { "nu" }, cmd = { "nu", "--lsp" }, on_attach = on_attach },
+        ft = { "svelte" },
+        lsp = { filetypes = { "svelte" }, on_attach = on_attach },
     })
 end
