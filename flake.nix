@@ -280,6 +280,7 @@
               ];
               treesitter = with pkgs.vimPlugins; [
                 hlargs-nvim
+                nvim-ts-autotag
                 nvim-treesitter-textobjects
                 (nvim-treesitter.overrideAttrs {
                   passthru.dependencies = nvim-treesitter.withAllGrammars.passthru.dependencies ++ [

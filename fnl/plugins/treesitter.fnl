@@ -18,6 +18,13 @@
                                                                   :node_incremental :grn
                                                                   :scope_incremental :grc
                                                                   :node_decremental :grm}}})}]
+              [:nvim-ts-autotag
+               {:for_cat :general.treesitter
+                :event :InsertEnter
+                :after #(setup :nvim-ts-autotag
+                               {:opts {:enable_close true
+                                       :enable_rename true
+                                       :enable_close_on_slash true}})}]
               [:hlargs.nvim
                {:for_cat :general.treesitter
                 :event :DeferredUIEnter

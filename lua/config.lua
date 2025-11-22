@@ -66,7 +66,7 @@ do
         vim.opt["mouse"] = "a"
         vim.opt["scrolloff"] = 10
         vim.opt["shiftround"] = true
-        vim.opt["shiftwidth"] = 4
+        vim.opt["shiftwidth"] = 2
         vim.opt.shortmess:append("I")
         vim.opt["signcolumn"] = "yes"
         vim.opt["smartcase"] = true
@@ -75,7 +75,7 @@ do
         vim.opt["splitbelow"] = true
         vim.opt["splitright"] = true
         vim.opt["statusline"] = "%{repeat('\226\148\128',winwidth('.'))}"
-        vim.opt["tabstop"] = 4
+        vim.opt["tabstop"] = 2
         vim.opt["termguicolors"] = true
         vim.opt["timeoutlen"] = 300
         vim.opt["updatetime"] = 250

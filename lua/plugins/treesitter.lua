@@ -37,13 +37,31 @@ do
         })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _3_()
+            local p_13_auto = require("nvim-ts-autotag")
+            return p_13_auto.setup({
+                opts = { enable_close = true, enable_rename = true, enable_close_on_slash = true },
+            })
+        end
+        keymap_30_auto = mod_12_auto.keymap({
+            "nvim-ts-autotag",
+            after = _3_,
+            event = "InsertEnter",
+            for_cat = "general.treesitter",
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _3_()
+    local function _4_()
         local p_13_auto = require("hlargs")
         return p_13_auto.setup()
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "hlargs.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
+        mod_12_auto.keymap({ "hlargs.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
 end

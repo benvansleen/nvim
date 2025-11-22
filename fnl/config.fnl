@@ -31,7 +31,7 @@
            ruler false
            scrolloff 10
            shiftround true
-           shiftwidth 4
+           shiftwidth 2
            shortmess+ :I
            showcmd false
            showmode false
@@ -42,7 +42,7 @@
            splitbelow true
            splitright true
            statusline "%{repeat('─',winwidth('.'))}"
-           tabstop 4
+           tabstop 2
            termguicolors true
            timeoutlen 300
            updatetime 250
