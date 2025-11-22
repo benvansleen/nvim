@@ -136,7 +136,12 @@ M.border = function(buf_ft)
     end
 end
 M["center-buffer"] = function(buf_ft)
-    if core["contains?"]({ "NeogitCommitView", "NeogitGitCommandHistory", "NeogitStatus", "NeogitPopup" }, buf_ft) then
+    if
+        core["contains?"](
+            { "NeogitCommitView", "NeogitGitCommandHistory", "NeogitConsole", "NeogitStatus", "NeogitPopup" },
+            buf_ft
+        )
+    then
         return " "
     else
         return center_buffer(buf_ft)

@@ -22,6 +22,7 @@
 (fn M.center-buffer [buf-ft]
   (disable-for-fts buf-ft [:NeogitCommitView
                            :NeogitGitCommandHistory
+                           :NeogitConsole
                            :NeogitStatus
                            :NeogitPopup]
                    (center-buffer buf-ft)))
