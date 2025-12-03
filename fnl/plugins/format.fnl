@@ -10,7 +10,14 @@
                                  {:format_on_save #(when (not vim.g.disable_autoformat)
                                                      {:timeout_ms 1000
                                                       :lsp_fallback :fallback})
-                                  :formatters_by_ft {:fennel (tb :fnlfmt)
+                                  :formatters {:treefmt-nix {:command :treefmt
+                                                             :args [:--stdin
+                                                                    :$FILENAME]
+                                                             :cwd (require-and-call :conform.util
+                                                                                    :root_file
+                                                                                    [:treefmt.nix])}}
+                                  :formatters_by_ft {:* (tb :treefmt-nix)
+                                                     :fennel (tb :fnlfmt)
                                                      :lua (tb :stylua)
                                                      :python (tb :ruff_format
                                                                  :ruff_organize_imports)}})

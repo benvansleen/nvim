@@ -12,30 +12,37 @@ do
                     return nil
                 end
             end
+            local _4_
+            do
+                local mod_12_auto0 = require("nfnl.module").autoload("conform.util")
+                _4_ = mod_12_auto0.root_file({ "treefmt.nix" })
+            end
             p_13_auto.setup({
                 format_on_save = _2_,
+                formatters = { ["treefmt-nix"] = { command = "treefmt", args = { "--stdin", "$FILENAME" }, cwd = _4_ } },
                 formatters_by_ft = {
+                    ["*"] = { "treefmt-nix" },
                     fennel = { "fnlfmt" },
                     lua = { "stylua" },
                     python = { "ruff_format", "ruff_organize_imports" },
                 },
             })
         end
-        local function _4_()
+        local function _6_()
             vim.g.disable_autoformat = false
             return nil
         end
-        vim.api.nvim_create_user_command("FormatDisable", _4_, { desc = "Disable autoformat-on-save" })
-        local function _5_()
+        vim.api.nvim_create_user_command("FormatDisable", _6_, { desc = "Disable autoformat-on-save" })
+        local function _7_()
             vim.g.disable_autoformat = true
             return nil
         end
-        vim.api.nvim_create_user_command("FormatEnable", _5_, { desc = "Enable autoformat-on-save" })
-        local function _6_()
+        vim.api.nvim_create_user_command("FormatEnable", _7_, { desc = "Enable autoformat-on-save" })
+        local function _8_()
             vim.g.disable_autoformat = not vim.g.disable_autoformat
             return nil
         end
-        return vim.api.nvim_create_user_command("FormatToggle", _6_, { desc = "Toggle autoformat-on-save" })
+        return vim.api.nvim_create_user_command("FormatToggle", _8_, { desc = "Toggle autoformat-on-save" })
     end
     keymap_30_auto = mod_12_auto.keymap({
         "conform.nvim",
@@ -46,8 +53,8 @@ do
         on_require = "conform",
     })
 end
-local function _7_()
+local function _9_()
     local mod_12_auto = require("nfnl.module").autoload("conform")
     return mod_12_auto.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
-return keymap_30_auto.set("n", "<leader>FF", _7_, { desc = "[F]ormat [F]ile", noremap = true })
+return keymap_30_auto.set("n", "<leader>FF", _9_, { desc = "[F]ormat [F]ile", noremap = true })
