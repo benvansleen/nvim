@@ -55,7 +55,10 @@ local function refresh_nonfloating_windows()
     return nil
 end
 local function update_screen_width()
-    vim.g["my_center_buffer_screen_width"] = vim.o.columns
+    do
+        vim.g["my_center_buffer_screen_width"] = vim.o.columns
+    end
+    vim.wo["statuscolumn"] = statuscolumn.activate()
     return nil
 end
 local group = vim.api.nvim_create_augroup("center-buffer", { clear = true })
