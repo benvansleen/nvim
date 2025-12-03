@@ -29,8 +29,9 @@
       (pcall force-window-relayout win))))
 
 (fn update-screen-width []
-  (cfg (g {my_center_buffer_screen_width vim.o.columns})
-       (wo {statuscolumn (statuscolumn.activate)})))
+  (when (not= vim.bo.filetype :dashboard)
+    (cfg (g {my_center_buffer_screen_width vim.o.columns})
+         (wo {statuscolumn (statuscolumn.activate)}))))
 
 (macro toggle-mode- [toggle]
   `(fn []
