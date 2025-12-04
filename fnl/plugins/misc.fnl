@@ -31,6 +31,8 @@
                                           (tb :<leader>f_ {:hidden true})
                                           (tb :<leader>g {:group "[g]it"})
                                           (tb :<leader>g_ {:hidden true})
+                                          (tb :<leader>o {:group "[o]pencode"})
+                                          (tb :<leader>o_ {:hidden true})
                                           (tb :<leader>r {:group "[r]ename"})
                                           (tb :<leader>r_ {:hidden true})
                                           (tb :<leader>t {:group "[t]oggle"})

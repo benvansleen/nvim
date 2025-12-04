@@ -138,6 +138,7 @@
               universal-ctags
               ripgrep
               fd
+              lsof
             ];
             # these names are arbitrary.
             lint = with pkgs; [
@@ -341,6 +342,7 @@
                 mini-indentscope
                 oil-nvim
                 nvim-highlight-colors
+                opencode-nvim
                 pkgs.neovimPlugins.direnv-nvim
                 pkgs.neovimPlugins.foldtext-nvim
                 smear-cursor-nvim

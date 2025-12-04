@@ -23,6 +23,7 @@ do
         require("plugins.lisp")
         require("plugins.lsp")
         require("plugins.misc")
+        require("plugins.opencode")
         require("plugins.pairs")
         require("plugins.oil")
         require("plugins.telescope")
@@ -53,6 +54,7 @@ do
     end
     do
         vim.opt["autoindent"] = true
+        vim.opt["backupcopy"] = "yes"
         vim.opt["breakindent"] = true
         vim.opt["cursorline"] = true
         vim.opt["expandtab"] = true

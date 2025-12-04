@@ -11,10 +11,12 @@
          netrw_liststyle 0
          netrw_banner 0})
      (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
-                       :pairs :oil :telescope :terminal :tmux :treesitter)
+                       :opencode :pairs :oil :telescope :terminal :tmux
+                       :treesitter)
      (requires-plugins-when-enabled :debug :lint :format)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
+           backupcopy :yes
            breakindent true
            cursorline true
            expandtab true

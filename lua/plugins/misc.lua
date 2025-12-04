@@ -52,6 +52,8 @@ do
             { "<leader>f_", hidden = true },
             { "<leader>g", group = "[g]it" },
             { "<leader>g_", hidden = true },
+            { "<leader>o", group = "[o]pencode" },
+            { "<leader>o_", hidden = true },
             { "<leader>r", group = "[r]ename" },
             { "<leader>r_", hidden = true },
             { "<leader>t", group = "[t]oggle" },
