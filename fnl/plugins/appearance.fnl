@@ -28,7 +28,7 @@
                                                       {:desc "Recent Files"
                                                        :group :Error
                                                        :action "Telescope oldfiles"
-                                                       :key :r}
+                                                       :key :h}
                                                       {:desc "Find Word"
                                                        :group :Warning
                                                        :action "Telescope egrepify"

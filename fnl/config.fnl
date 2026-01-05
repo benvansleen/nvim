@@ -16,6 +16,7 @@
      (requires-plugins-when-enabled :debug :lint :format)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
+           autoread true
            backupcopy :yes
            breakindent true
            cursorline true
@@ -25,6 +26,7 @@
            ignorecase true
            inccommand :split
            laststatus 0
+           linebreak true
            list true
            listchars {:tab "» " :trail "·" :nbsp "␣"}
            mouse :a
