@@ -18,8 +18,7 @@
                         (vim.cmd.packadd name)
                         (vim.cmd.packadd :nvim-dap-view)
                         (vim.cmd.packadd :nvim-dap-virtual-text)
-                        (vim.cmd.packadd :nvim-dap-python)
-                        (vim.cmd.packadd :nvim-dap-repl-highlights))
+                        (vim.cmd.packadd :nvim-dap-python))
                 :after (fn [_]
                          (with-require {: dap}
                            (setup :dap-python :debugpy-adapter)
@@ -97,7 +96,6 @@
                                           :controls {:enabled true
                                                      :position :right}}
                                  :windows {:terminal {:position :right}}})
-                         (setup :nvim-dap-repl-highlights)
                          (setup :nvim-dap-virtual-text
                                 {:enabled true
                                  :enabled_commands true

@@ -170,10 +170,6 @@ do
                 auto_toggle = false,
             })
         end
-        do
-            local p_13_auto = require("nvim-dap-repl-highlights")
-            p_13_auto.setup()
-        end
         local p_13_auto = require("nvim-dap-virtual-text")
         local function _21_(variable, _buf, _stackframe, _node, options)
             local value
@@ -216,8 +212,7 @@ do
         vim.cmd.packadd(name)
         vim.cmd.packadd("nvim-dap-view")
         vim.cmd.packadd("nvim-dap-virtual-text")
-        vim.cmd.packadd("nvim-dap-python")
-        return vim.cmd.packadd("nvim-dap-repl-highlights")
+        return vim.cmd.packadd("nvim-dap-python")
     end
     keymap_30_auto = mod_12_auto.keymap({
         "nvim-dap",

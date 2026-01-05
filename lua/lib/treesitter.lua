@@ -1,36 +1,4 @@
 -- [nfnl] fnl/lib/treesitter.fnl
-local function _4_(...)
-    local res_3_auto = { ["module-key"] = false }
-    local ensure_4_auto
-    local function _1_()
-        local or_2_ = res_3_auto["module-key"]
-        if not or_2_ then
-            local m_5_auto = require("nvim-treesitter.ts_utils")
-            res_3_auto["module-key"] = m_5_auto
-            or_2_ = m_5_auto
-        end
-        return or_2_
-    end
-    ensure_4_auto = _1_
-    local function _5_(_t_6_auto, ...)
-        return ensure_4_auto()(...)
-    end
-    local function _6_(_t_6_auto, k_7_auto)
-        local inner_8_auto = {}
-        local function _7_(_t_6_auto0, ...)
-            return ensure_4_auto()[k_7_auto](...)
-        end
-        return setmetatable(inner_8_auto, { __call = _7_ })
-    end
-    local function _8_(_t_6_auto, k_7_auto, v_9_auto)
-        ensure_4_auto()[k_7_auto] = v_9_auto
-        return nil
-    end
-    return setmetatable(res_3_auto, { __call = _5_, __index = _6_, __newindex = _8_ })
-end
-local _local_9_ = _4_(...)
-local get_node_at_cursor = _local_9_.get_node_at_cursor
-local get_vim_range = _local_9_.get_vim_range
 local M = require("nfnl.module").define("lib.treesitter")
 M["nearest-parent-until"] = function(p_fn, node)
     local function climb_tree(node0)
@@ -40,36 +8,33 @@ M["nearest-parent-until"] = function(p_fn, node)
             return climb_tree(node0:parent())
         end
     end
-    return climb_tree((node or get_node_at_cursor()))
+    return climb_tree((node or vim.treesitter.get_node()))
 end
 M["nearest-parent-of-type"] = function(node_type, node)
-    local function _11_(_241)
+    local function _2_(_241)
         return (_241:type() == node_type)
     end
-    return M["nearest-parent-until"](_11_, node)
-end
-M["range-of-node"] = function(node)
-    return get_vim_range({ node:range() })
+    return M["nearest-parent-until"](_2_, node)
 end
 M["goto-node"] = function(end_3f, node)
-    local srow, scol, erow, ecol = M["range-of-node"](node)
-    local function _12_()
+    local srow, scol, erow, ecol = node:range()
+    local function _3_()
         if end_3f then
-            return { erow, ecol }
+            return { (erow + 1), ecol }
         else
-            return { srow, scol }
+            return { (srow + 1), (scol + 1) }
         end
     end
-    vim.fn.setcursorcharpos(_12_())
+    vim.fn.setcursorcharpos(_3_())
     return srow, scol, ecol, erow
 end
-local function _13_(...)
+local function _4_(...)
     return M["goto-node"](false, ...)
 end
-M["goto-node-start"] = _13_
-local function _14_(...)
+M["goto-node-start"] = _4_
+local function _5_(...)
     return M["goto-node"](true, ...)
 end
-M["goto-node-end"] = _14_
---[[ (vim.inspect (getmetatable (M.nearest-parent-of-type "string"))) (let [node (M.nearest-parent-of-type "let_form") (srow scol _ecol _erow) (M.range-of-node node)] (vim.fn.setcursorcharpos [srow scol])) (let [node (M.nearest-parent-of-type "let_form")] (M.goto-node-end node)) (let [node (M.nearest-parent-of-type "let_form")] (icollect [child (node:iter_children)] child)) ]]
+M["goto-node-end"] = _5_
+--[[ (vim.inspect (getmetatable (M.nearest-parent-of-type "string"))) (let [node (M.nearest-parent-of-type "let_form") (srow scol _ecol _erow) (node:range)] (print srow scol) (vim.fn.setcursorcharpos [(+ srow 1) (+ scol 1)])) (let [node (M.nearest-parent-of-type "let_form")] (M.goto-node-end node)) (let [node (M.nearest-parent-of-type "let_form")] (icollect [child (node:iter_children)] child)) ]]
 return M

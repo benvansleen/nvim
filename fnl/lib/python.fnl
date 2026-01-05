@@ -12,7 +12,7 @@
           (print "f-string-toggle: could not detect string at point")
           (let [(srow scol _ecol _erow) (lib.goto-node-start node)
                 line (vim.api.nvim_get_current_line)
-                char (line:sub scol scol)]
+                char (line:sub (+ scol 1) (+ scol 1))]
             (if (= char :f)
                 (do
                   (vim.cmd.normal :x)
@@ -83,11 +83,11 @@
 
 (fn M.toggle-expand-args []
   (case (lib.nearest-parent-until #(any (partial = ($1:type)) expandable-types))
-    node (let [(srow _scol erow _ecol) (lib.range-of-node node)]
+    node (let [(srow _scol erow _ecol) (node:range)]
            (lib.goto-node-start node)
            (with-preserve-position [_win _cursor]
              (if (= srow erow)
                  (expand-args node)
-                 (collapse-args srow erow))))))
+                 (collapse-args (+ srow 1) (+ erow 1)))))))
 
 M

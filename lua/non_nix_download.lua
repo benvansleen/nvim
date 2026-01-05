@@ -65,7 +65,6 @@ require("nixCatsUtils.catPacker").setup({
     { "stevearc/conform.nvim", opt = true },
 
     -- dap
-    { "LiadOz/nvim-dap-repl-highlights", opt = true },
     { "igorlfs/nvim-dap-view", opt = true },
     { "mfussenegger/nvim-dap-python", opt = true },
     { "theHamsta/nvim-dap-virtual-text", opt = true },

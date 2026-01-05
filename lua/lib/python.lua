@@ -103,7 +103,7 @@ M["toggle-fstring"] = function()
         else
             local srow, scol, _ecol, _erow = lib["goto-node-start"](node)
             local line = vim.api.nvim_get_current_line()
-            local char = line:sub(scol, scol)
+            local char = line:sub((scol + 1), (scol + 1))
             if char == "f" then
                 vim.cmd.normal("x")
                 if srow == cursor[1] then
@@ -221,14 +221,14 @@ M["toggle-expand-args"] = function()
     case_38_ = lib["nearest-parent-until"](_39_)
     if nil ~= case_38_ then
         local node = case_38_
-        local srow, _scol, erow, _ecol = lib["range-of-node"](node)
+        local srow, _scol, erow, _ecol = node:range()
         lib["goto-node-start"](node)
         local _win = vim.api.nvim_get_current_win()
         local _cursor = vim.api.nvim_win_get_cursor(_win)
         if srow == erow then
             expand_args(node)
         else
-            collapse_args(srow, erow)
+            collapse_args((srow + 1), (erow + 1))
         end
         return vim.api.nvim_win_set_cursor(_win, _cursor)
     else
