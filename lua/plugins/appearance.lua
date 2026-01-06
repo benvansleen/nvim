@@ -152,7 +152,12 @@ do
             keymap_30_auto =
                 mod_12_auto.keymap({ "dashboard-nvim", after = _28_, event = "VimEnter", for_cat = "general.extra" })
         end
-        keymap_30_auto.set("n", "<leader><leader>d", "<cmd>Dashboard<cr>", { desc = "Open Dashboard", noremap = true })
+        keymap_30_auto.set(
+            "n",
+            "<leader><leader>d",
+            "<cmd>Dashboard<cr>",
+            { desc = "Open Dashboard", expr = false, noremap = true }
+        )
     end
     do
         local keymap_30_auto
@@ -226,11 +231,11 @@ do
         local mod_12_auto = require("nfnl.module").autoload("focus")
         return mod_12_auto.split_nicely()
     end
-    keymap_30_auto.set("n", "<leader>s", _34_, { desc = "Open [S]plit", noremap = true })
+    keymap_30_auto.set("n", "<leader>s", _34_, { desc = "Open [S]plit", expr = false, noremap = true })
     local function _35_()
         return vim.cmd.close()
     end
-    keymap_30_auto.set("n", "<leader>S", _35_, { desc = "Close [S]plit", noremap = true })
+    keymap_30_auto.set("n", "<leader>S", _35_, { desc = "Close [S]plit", expr = false, noremap = true })
 end
 local function _36_()
     local function _37_()

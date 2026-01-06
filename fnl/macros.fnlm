@@ -90,13 +90,17 @@
                   _ `(tset ,t ,k ,v))))))
 
   (fn set-mappings [keymap mode mappings]
-    (fn set-map [keymap mode kb action desc]
-      `((. ,keymap :set) ,mode ,kb ,action {:noremap true :desc ,desc}))
+    (fn set-map [keymap mode kb action desc expr?]
+      `((. ,keymap :set) ,mode ,kb ,action
+                         {:noremap true
+                          :desc ,desc
+                          :expr ,(or (and expr? true) false)}))
 
     (splice (icollect [key action (pairs mappings)]
               (if mode
                   (set-map keymap mode (. key 2) action (. key 1))
-                  (set-map keymap (. key 1) (. key 3) action (. key 2))))))
+                  (set-map keymap (. key 1) (. key 3) action (. key 2)
+                           (. key 4))))))
 
   (fn set-autocmds [cmds]
     (splice (icollect [events cfg (pairs cmds)]

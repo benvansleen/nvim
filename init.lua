@@ -4,7 +4,7 @@ do
         require("non_nix_download")
         return vim.cmd.PaqSync()
     end
-    vim.keymap.set("n", " LP", _1_, { desc = "[L]oad non-nix [P]ackage manager", noremap = true })
+    vim.keymap.set("n", " LP", _1_, { desc = "[L]oad non-nix [P]ackage manager", expr = false, noremap = true })
 end
 do
     local _2_

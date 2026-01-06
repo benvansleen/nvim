@@ -13,19 +13,19 @@ local function _2_()
     local mod_12_auto = require("nfnl.module").autoload("Navigator")
     return mod_12_auto.up()
 end
-keymap_30_auto.set({ "n", "t" }, "<A-k>", _2_, { desc = "Navigate up", noremap = true })
+keymap_30_auto.set({ "n", "t" }, "<A-k>", _2_, { desc = "Navigate up", expr = false, noremap = true })
 local function _3_()
     local mod_12_auto = require("nfnl.module").autoload("Navigator")
     return mod_12_auto.down()
 end
-keymap_30_auto.set({ "n", "t" }, "<A-j>", _3_, { desc = "Navigate down", noremap = true })
+keymap_30_auto.set({ "n", "t" }, "<A-j>", _3_, { desc = "Navigate down", expr = false, noremap = true })
 local function _4_()
     local mod_12_auto = require("nfnl.module").autoload("Navigator")
     return mod_12_auto.left()
 end
-keymap_30_auto.set({ "n", "t" }, "<A-h>", _4_, { desc = "Navigate left", noremap = true })
+keymap_30_auto.set({ "n", "t" }, "<A-h>", _4_, { desc = "Navigate left", expr = false, noremap = true })
 local function _5_()
     local mod_12_auto = require("nfnl.module").autoload("Navigator")
     return mod_12_auto.right()
 end
-return keymap_30_auto.set({ "n", "t" }, "<A-l>", _5_, { desc = "Navigate right", noremap = true })
+return keymap_30_auto.set({ "n", "t" }, "<A-l>", _5_, { desc = "Navigate right", expr = false, noremap = true })

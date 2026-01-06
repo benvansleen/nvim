@@ -57,4 +57,4 @@ local function _9_()
     local mod_12_auto = require("nfnl.module").autoload("conform")
     return mod_12_auto.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
 end
-return keymap_30_auto.set("n", "<leader>FF", _9_, { desc = "[F]ormat [F]ile", noremap = true })
+return keymap_30_auto.set("n", "<leader>FF", _9_, { desc = "[F]ormat [F]ile", expr = false, noremap = true })

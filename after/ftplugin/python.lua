@@ -78,21 +78,26 @@ do
     vim.bo["tabstop"] = 4
 end
 do
-    vim.keymap.set("n", "<localleader>tf", repeatable_toggle_fstring, { desc = "[T]oggle [f]-string", noremap = true })
+    vim.keymap.set(
+        "n",
+        "<localleader>tf",
+        repeatable_toggle_fstring,
+        { desc = "[T]oggle [f]-string", expr = false, noremap = true }
+    )
     vim.keymap.set(
         "n",
         "<localleader>ta",
         repeatable_toggle_expand_args,
-        { desc = "[T]oggle expanded [A]rguments", noremap = true }
+        { desc = "[T]oggle expanded [A]rguments", expr = false, noremap = true }
     )
     local function _16_()
         vim.g["conjure#client#python#stdio#command"] =
             vim.fn.input("Python repl: ", vim.g["conjure#client#python#stdio#command"])
         return nil
     end
-    vim.keymap.set("n", "<localleader>cp", _16_, { desc = "Set python repl", noremap = true })
+    vim.keymap.set("n", "<localleader>cp", _16_, { desc = "Set python repl", expr = false, noremap = true })
 end
 local function _17_()
     return toggle_fstring()
 end
-return vim.keymap.set("i", "<M-f>", _17_, { desc = "Toggle [f]-string", noremap = true })
+return vim.keymap.set("i", "<M-f>", _17_, { desc = "Toggle [f]-string", expr = false, noremap = true })

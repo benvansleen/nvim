@@ -46,8 +46,18 @@ do
     end
     edit_associated_file = _12_
 end
-vim.keymap.set("n", "<leader>do", edit_associated_file, { desc = "Toggle to parent fnl file", noremap = true })
+vim.keymap.set(
+    "n",
+    "<leader>do",
+    edit_associated_file,
+    { desc = "Toggle to parent fnl file", expr = false, noremap = true }
+)
 local function _13_()
     return cmd_on_associated_file("vsplit")
 end
-return vim.keymap.set("n", "<leader>dO", _13_, { desc = "Toggle to parent fnl file in split", noremap = true })
+return vim.keymap.set(
+    "n",
+    "<leader>dO",
+    _13_,
+    { desc = "Toggle to parent fnl file in split", expr = false, noremap = true }
+)

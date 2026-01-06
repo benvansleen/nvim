@@ -85,8 +85,13 @@ do
         local mod_12_auto = require("nfnl.module").autoload("oil")
         return mod_12_auto.open((vim.g.__oil_last or vim.fn.expand("%:p:h")))
     end
-    keymap_30_auto.set("n", "-", _12_, { desc = "Open Parent Directory", noremap = true })
-    keymap_30_auto.set("n", "<leader>-", "<cmd>Oil .<cr>", { desc = "Open nvim root directory", noremap = true })
+    keymap_30_auto.set("n", "-", _12_, { desc = "Open Parent Directory", expr = false, noremap = true })
+    keymap_30_auto.set(
+        "n",
+        "<leader>-",
+        "<cmd>Oil .<cr>",
+        { desc = "Open nvim root directory", expr = false, noremap = true }
+    )
 end
 local function _13_()
     local _14_

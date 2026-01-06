@@ -29,4 +29,4 @@ local function _5_()
     local mod_12_auto = require("nfnl.module").autoload("toggleterm")
     return mod_12_auto.toggle_command()
 end
-return keymap_30_auto.set("n", "<M-t>", _5_, { desc = "Toggle Terminal", noremap = true })
+return keymap_30_auto.set("n", "<M-t>", _5_, { desc = "Toggle Terminal", expr = false, noremap = true })

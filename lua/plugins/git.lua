@@ -35,7 +35,7 @@ do
         local mod_12_auto = require("nfnl.module").autoload("neogit")
         return mod_12_auto.open({ cwd = "%:p:h", kind = "auto" })
     end
-    keymap_30_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", noremap = true })
+    keymap_30_auto.set("n", "<leader><leader>g", _3_, { desc = "Open Neogit", expr = false, noremap = true })
 end
 do
     local keymap_30_auto
@@ -103,14 +103,14 @@ local function _6_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.stage_hunk()
 end
-keymap_30_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", noremap = true })
+keymap_30_auto.set("n", "<leader>gs", _6_, { desc = "[G]it: [S]tage hunk", expr = false, noremap = true })
 local function _7_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.reset_hunk()
 end
-keymap_30_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", noremap = true })
+keymap_30_auto.set("n", "<leader>gR", _7_, { desc = "[G]it: [R]eset hunk", expr = false, noremap = true })
 local function _8_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.preview_hunk_inline()
 end
-return keymap_30_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", noremap = true })
+return keymap_30_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })

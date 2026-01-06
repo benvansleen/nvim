@@ -18,4 +18,9 @@
                       ["Scroll opencode up" :<leader>ok] #(with-require {: opencode}
                                                             (opencode.command :session.page.up))
                       ["Scroll opencode down" :<leader>oj] #(with-require {: opencode}
-                                                              (opencode.command :session.page.down))})]))
+                                                              (opencode.command :session.page.down))})
+               (map {[[:n :x] "Add range to opencode" :go :expr] #(with-require {: opencode}
+                                                                    (opencode.operator "@this "))
+                     [[:n] "Add line to opencode" :goo :expr] #(with-require {: opencode}
+                                                                 (.. (opencode.operator "@this ")
+                                                                     "_"))})]))

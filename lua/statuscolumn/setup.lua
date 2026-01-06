@@ -77,12 +77,17 @@ do
             vim.g.my_center_buffer = not vim.g.my_center_buffer
             return update_screen_width()
         end
-        vim.keymap.set("n", "<leader>tc", _16_, { desc = "[T]oggle [c]enter-buffer", noremap = true })
+        vim.keymap.set("n", "<leader>tc", _16_, { desc = "[T]oggle [c]enter-buffer", expr = false, noremap = true })
         local function _17_()
             vim.g._debug_my_center_buffer = not vim.g._debug_my_center_buffer
             return update_screen_width()
         end
-        vim.keymap.set("n", "<leader>tC", _17_, { desc = "[T]oggle [c]enter-buffer Debug Mode", noremap = true })
+        vim.keymap.set(
+            "n",
+            "<leader>tC",
+            _17_,
+            { desc = "[T]oggle [c]enter-buffer Debug Mode", expr = false, noremap = true }
+        )
     end
     vim.api.nvim_create_autocmd(
         { "WinEnter", "WinResized", "VimResized" },

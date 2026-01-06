@@ -45,8 +45,18 @@ do
     end
     edit_associated_file = _10_
 end
-vim.keymap.set("n", "<leader>do", edit_associated_file, { desc = "Toggle to compiled lua file", noremap = true })
+vim.keymap.set(
+    "n",
+    "<leader>do",
+    edit_associated_file,
+    { desc = "Toggle to compiled lua file", expr = false, noremap = true }
+)
 local function _11_()
     return utils["cmd-on-associated-file"]("vsplit")
 end
-return vim.keymap.set("n", "<leader>dO", _11_, { desc = "Toggle to compiled lua file in split", noremap = true })
+return vim.keymap.set(
+    "n",
+    "<leader>dO",
+    _11_,
+    { desc = "Toggle to compiled lua file in split", expr = false, noremap = true }
+)

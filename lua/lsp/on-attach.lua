@@ -20,35 +20,60 @@ M.on_attach = function(client, bufnr)
     end
     do
         do
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame", noremap = true })
-            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction", noremap = true })
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition", noremap = true })
-            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration", noremap = true })
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame", expr = false, noremap = true })
+            vim.keymap.set(
+                "n",
+                "<leader>ca",
+                vim.lsp.buf.code_action,
+                { desc = "[C]ode [A]ction", expr = false, noremap = true }
+            )
+            vim.keymap.set(
+                "n",
+                "gd",
+                vim.lsp.buf.definition,
+                { desc = "[G]oto [D]efinition", expr = false, noremap = true }
+            )
+            vim.keymap.set(
+                "n",
+                "gD",
+                vim.lsp.buf.declaration,
+                { desc = "[G]oto [D]eclaration", expr = false, noremap = true }
+            )
             vim.keymap.set(
                 "n",
                 "<leader>D",
                 vim.lsp.buf.type_definition,
-                { desc = "Type [D]efinition", noremap = true }
+                { desc = "Type [D]efinition", expr = false, noremap = true }
             )
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation", noremap = true })
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation", expr = false, noremap = true })
             vim.keymap.set(
                 "n",
                 "<leader>wa",
                 vim.lsp.buf.add_workspace_folder,
-                { desc = "[W]orkspace [A]dd Folder", noremap = true }
+                { desc = "[W]orkspace [A]dd Folder", expr = false, noremap = true }
             )
             vim.keymap.set(
                 "n",
                 "<leader>wr",
                 vim.lsp.buf.remove_workspace_folder,
-                { desc = "[W]orkspace [R]emove Folder", noremap = true }
+                { desc = "[W]orkspace [R]emove Folder", expr = false, noremap = true }
             )
             local function _1_()
                 return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end
-            vim.keymap.set("n", "<leader>wl", _1_, { desc = "[W]orkspace [L]ist Folders", noremap = true })
+            vim.keymap.set(
+                "n",
+                "<leader>wl",
+                _1_,
+                { desc = "[W]orkspace [L]ist Folders", expr = false, noremap = true }
+            )
         end
-        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", noremap = true })
+        vim.keymap.set(
+            "i",
+            "<C-k>",
+            vim.lsp.buf.signature_help,
+            { desc = "Signature Documentation", expr = false, noremap = true }
+        )
     end
     local function _2_()
         return vim.lsp.buf.format()
@@ -59,27 +84,27 @@ M.on_attach = function(client, bufnr)
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_definitions()
         end
-        vim.keymap.set("n", "gd", _3_, { desc = "[G]oto [D]efinitions", noremap = true })
+        vim.keymap.set("n", "gd", _3_, { desc = "[G]oto [D]efinitions", expr = false, noremap = true })
         local function _4_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_references()
         end
-        vim.keymap.set("n", "gr", _4_, { desc = "[G]oto [R]eferences", noremap = true })
+        vim.keymap.set("n", "gr", _4_, { desc = "[G]oto [R]eferences", expr = false, noremap = true })
         local function _5_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_implementations()
         end
-        vim.keymap.set("n", "gI", _5_, { desc = "[G]oto [I]mplementation", noremap = true })
+        vim.keymap.set("n", "gI", _5_, { desc = "[G]oto [I]mplementation", expr = false, noremap = true })
         local function _6_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_document_symbols()
         end
-        vim.keymap.set("n", "<leader>ds", _6_, { desc = "[D]ocument [S]ymbols", noremap = true })
+        vim.keymap.set("n", "<leader>ds", _6_, { desc = "[D]ocument [S]ymbols", expr = false, noremap = true })
         local function _7_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_dynamic_workspace_symbols()
         end
-        return vim.keymap.set("n", "<leader>ws", _7_, { desc = "[W]orkspace [S]ymbols", noremap = true })
+        return vim.keymap.set("n", "<leader>ws", _7_, { desc = "[W]orkspace [S]ymbols", expr = false, noremap = true })
     else
         return nil
     end

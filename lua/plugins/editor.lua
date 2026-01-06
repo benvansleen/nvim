@@ -10,43 +10,43 @@ do
             local dial = require("nfnl.module").autoload("dial.map")
             return dial.manipuluate("increment", "normal")
         end
-        keymap_30_auto.set("n", "<C-a>", _1_, { desc = "Increment", noremap = true })
+        keymap_30_auto.set("n", "<C-a>", _1_, { desc = "Increment", expr = false, noremap = true })
         local function _2_()
             local dial = require("nfnl.module").autoload("dial.map")
             return dial.manipulate("decrement", "normal")
         end
-        keymap_30_auto.set("n", "<C-x>", _2_, { desc = "Decrement", noremap = true })
+        keymap_30_auto.set("n", "<C-x>", _2_, { desc = "Decrement", expr = false, noremap = true })
         local function _3_()
             local dial = require("nfnl.module").autoload("dial.map")
             return dial.manipulate("increment", "gnormal")
         end
-        keymap_30_auto.set("n", "g<C-a>", _3_, { desc = "Increment", noremap = true })
+        keymap_30_auto.set("n", "g<C-a>", _3_, { desc = "Increment", expr = false, noremap = true })
         local function _4_()
             local dial = require("nfnl.module").autoload("dial.map")
             return dial.manipulate("decrement", "gnormal")
         end
-        keymap_30_auto.set("n", "g<C-x>", _4_, { desc = "Decrement", noremap = true })
+        keymap_30_auto.set("n", "g<C-x>", _4_, { desc = "Decrement", expr = false, noremap = true })
     end
     local function _5_()
         local dial = require("nfnl.module").autoload("dial.map")
         return dial.manipuluate("increment", "visual")
     end
-    keymap_30_auto.set("v", "<C-a>", _5_, { desc = "Increment", noremap = true })
+    keymap_30_auto.set("v", "<C-a>", _5_, { desc = "Increment", expr = false, noremap = true })
     local function _6_()
         local dial = require("nfnl.module").autoload("dial.map")
         return dial.manipulate("decrement", "visual")
     end
-    keymap_30_auto.set("v", "<C-x>", _6_, { desc = "Decrement", noremap = true })
+    keymap_30_auto.set("v", "<C-x>", _6_, { desc = "Decrement", expr = false, noremap = true })
     local function _7_()
         local dial = require("nfnl.module").autoload("dial.map")
         return dial.manipulate("increment", "gvisual")
     end
-    keymap_30_auto.set("v", "g<C-a>", _7_, { desc = "Increment", noremap = true })
+    keymap_30_auto.set("v", "g<C-a>", _7_, { desc = "Increment", expr = false, noremap = true })
     local function _8_()
         local dial = require("nfnl.module").autoload("dial.map")
         return dial.manipulate("decrement", "gvisual")
     end
-    keymap_30_auto.set("v", "g<C-x>", _8_, { desc = "Decrement", noremap = true })
+    keymap_30_auto.set("v", "g<C-x>", _8_, { desc = "Decrement", expr = false, noremap = true })
 end
 do
     local keymap_30_auto
@@ -144,42 +144,42 @@ do
         local mod_12_auto = require("nfnl.module").autoload("flash")
         return mod_12_auto.jump()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "s", _17_, { desc = "Jump", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "s", _17_, { desc = "Jump", expr = false, noremap = true })
     local function _18_()
         local mod_12_auto = require("nfnl.module").autoload("flash")
         return mod_12_auto.treesitter()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "S", _18_, { desc = "Jump treesitter", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "S", _18_, { desc = "Jump treesitter", expr = false, noremap = true })
     local function _19_()
         local mod_12_auto = require("nfnl.module").autoload("flash")
         return mod_12_auto.remote()
     end
-    keymap_30_auto.set({ "o" }, "r", _19_, { desc = "Flash remote", noremap = true })
+    keymap_30_auto.set({ "o" }, "r", _19_, { desc = "Flash remote", expr = false, noremap = true })
     local function _20_()
         local mod_12_auto = require("nfnl.module").autoload("flash")
         return mod_12_auto.treesitter_search()
     end
-    keymap_30_auto.set({ "x", "o" }, "R", _20_, { desc = "Flash treesitter search", noremap = true })
+    keymap_30_auto.set({ "x", "o" }, "R", _20_, { desc = "Flash treesitter search", expr = false, noremap = true })
     local function _21_()
         local mod_12_auto = require("nfnl.module").autoload("flash.plugins.char")
         return mod_12_auto.jump()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "f", _21_, { desc = "Flash find next", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "f", _21_, { desc = "Flash find next", expr = false, noremap = true })
     local function _22_()
         local mod_12_auto = require("nfnl.module").autoload("flash.plugins.char")
         return mod_12_auto.jump()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "F", _22_, { desc = "Flash find previous", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "F", _22_, { desc = "Flash find previous", expr = false, noremap = true })
     local function _23_()
         local mod_12_auto = require("nfnl.module").autoload("flash.plugins.char")
         return mod_12_auto.jump()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "t", _23_, { desc = "Flash up to", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "t", _23_, { desc = "Flash up to", expr = false, noremap = true })
     local function _24_()
         local mod_12_auto = require("nfnl.module").autoload("flash.plugins.char")
         return mod_12_auto.jump()
     end
-    keymap_30_auto.set({ "n", "x", "o" }, "T", _24_, { desc = "Flash up to previous", noremap = true })
+    keymap_30_auto.set({ "n", "x", "o" }, "T", _24_, { desc = "Flash up to previous", expr = false, noremap = true })
 end
 do
     local keymap_30_auto
@@ -285,4 +285,9 @@ do
         for_cat = "general.extra",
     })
 end
-return keymap_30_auto.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Undo Tree", noremap = true })
+return keymap_30_auto.set(
+    "n",
+    "<leader>u",
+    "<cmd>UndotreeToggle<cr>",
+    { desc = "Undo Tree", expr = false, noremap = true }
+)

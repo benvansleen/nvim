@@ -92,15 +92,15 @@ do
         vim.opt["showmode"] = false
     end
     do
-        vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>zz", { desc = "Scroll up", noremap = true })
-        vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>zz", { desc = "Scroll down", noremap = true })
+        vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>zz", { desc = "Scroll up", expr = false, noremap = true })
+        vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>zz", { desc = "Scroll down", expr = false, noremap = true })
     end
     do
-        vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", noremap = true })
+        vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", expr = false, noremap = true })
         local function _4_()
             return print(vim.api.nvim_buf_get_name(0))
         end
-        vim.keymap.set("n", "<leader>wtf", _4_, { desc = "[W]hat's [T]his [F]ile?", noremap = true })
+        vim.keymap.set("n", "<leader>wtf", _4_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
         local function _5_()
             local diffview = require("nfnl.module").autoload("diffview.lib")
             if diffview.get_current_view() then
@@ -109,31 +109,36 @@ do
                 return vim.cmd.bdelete()
             end
         end
-        vim.keymap.set("n", "<leader>q", _5_, { desc = "[Q]uit buffer", noremap = true })
+        vim.keymap.set("n", "<leader>q", _5_, { desc = "[Q]uit buffer", expr = false, noremap = true })
         local function _7_()
             return vim.cmd("bdelete!")
         end
-        vim.keymap.set("n", "<leader>Q", _7_, { desc = "Forcefully [Q]uit buffer", noremap = true })
+        vim.keymap.set("n", "<leader>Q", _7_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
         vim.keymap.set(
             "n",
             "<leader>huc",
             "<cmd>Inspect<CR>",
-            { desc = "[H]ighlight [U]nder [C]ursor", noremap = true }
+            { desc = "[H]ighlight [U]nder [C]ursor", expr = false, noremap = true }
         )
         local function _8_()
             return vim.cmd.normal("gcc")
         end
-        vim.keymap.set("n", "<M-/>", _8_, { desc = "Comment line", noremap = true })
+        vim.keymap.set("n", "<M-/>", _8_, { desc = "Comment line", expr = false, noremap = true })
     end
     do
-        vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", noremap = true })
+        vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", expr = false, noremap = true })
     end
     do
-        vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move lines down", noremap = true })
-        vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move lines up", noremap = true })
+        vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move lines down", expr = false, noremap = true })
+        vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move lines up", expr = false, noremap = true })
     end
     do
-        vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal Insert Mode", noremap = true })
+        vim.keymap.set(
+            "t",
+            "<Esc>",
+            "<C-\\><C-n>",
+            { desc = "Exit Terminal Insert Mode", expr = false, noremap = true }
+        )
     end
     vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
         desc = "return cursor to where it was last time file was closed",
@@ -151,7 +156,12 @@ end
 do
     local number_toggle = require("nfnl.module").autoload("lib.number-toggle")
     do
-        vim.keymap.set("n", "<leader>tn", number_toggle.toggle, { desc = "[T]oggle [n]umbertoggle", noremap = true })
+        vim.keymap.set(
+            "n",
+            "<leader>tn",
+            number_toggle.toggle,
+            { desc = "[T]oggle [n]umbertoggle", expr = false, noremap = true }
+        )
     end
     vim.api.nvim_create_autocmd(
         number_toggle["autocmd-toggle-on"],
@@ -168,8 +178,8 @@ do
     _10_ = cats_44_auto.isNixCats
 end
 if false == _10_ then
-    vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", noremap = true })
-    return vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", noremap = true })
+    vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", expr = false, noremap = true })
+    return vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", expr = false, noremap = true })
 else
     return nil
 end

@@ -75,4 +75,4 @@ local function _8_()
     local mod_12_auto = require("nfnl.module").autoload("tiny-inline-diagnostic")
     return mod_12_auto.toggle()
 end
-return keymap_30_auto.set("n", "<leader>te", _8_, { desc = "Toggle diagnostics", noremap = true })
+return keymap_30_auto.set("n", "<leader>te", _8_, { desc = "Toggle diagnostics", expr = false, noremap = true })
