@@ -33,4 +33,14 @@ local function _6_()
     local opencode = require("nfnl.module").autoload("opencode")
     return opencode.command("agent.cycle")
 end
-return keymap_30_auto.set("n", "<leader>o<tab>", _6_, { desc = "Cycle opencode agent", noremap = true })
+keymap_30_auto.set("n", "<leader>o<tab>", _6_, { desc = "Cycle opencode agent", noremap = true })
+local function _7_()
+    local opencode = require("nfnl.module").autoload("opencode")
+    return opencode.command("session.page.up")
+end
+keymap_30_auto.set("n", "<leader>ok", _7_, { desc = "Scroll opencode up", noremap = true })
+local function _8_()
+    local opencode = require("nfnl.module").autoload("opencode")
+    return opencode.command("session.page.down")
+end
+return keymap_30_auto.set("n", "<leader>oj", _8_, { desc = "Scroll opencode down", noremap = true })

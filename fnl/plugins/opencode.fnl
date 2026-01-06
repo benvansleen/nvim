@@ -14,4 +14,8 @@
                       ["[T]oggle opencode" :<leader>ot] #(require-and-call :opencode
                                                                            :toggle)
                       ["Cycle opencode agent" :<leader>o<tab>] #(with-require {: opencode}
-                                                                  (opencode.command :agent.cycle))})]))
+                                                                  (opencode.command :agent.cycle))
+                      ["Scroll opencode up" :<leader>ok] #(with-require {: opencode}
+                                                            (opencode.command :session.page.up))
+                      ["Scroll opencode down" :<leader>oj] #(with-require {: opencode}
+                                                              (opencode.command :session.page.down))})]))
