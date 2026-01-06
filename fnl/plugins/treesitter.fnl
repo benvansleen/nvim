@@ -22,16 +22,19 @@
                           (fn treesitter-attach [{: buf}]
                             (when (not (. vim.b buf :ts-attached))
                               (tset vim.b buf :ts-attached true)
-                              (let [ft (. vim.bo buf :filetype)]
-                                (when (contains? parsers ft)
-                                  (vim.treesitter.start)
+                              (let [ft (. vim.bo buf :filetype)
+                                    lang (vim.treesitter.language.get_lang ft)]
+                                (when (and lang (contains? parsers lang))
+                                  (vim.treesitter.start buf)
                                   (cfg (bo {indentexpr "v:lua.require'nvim-treesitter'.indentexpr()"}))))))
 
                           (vim.api.nvim_create_autocmd :FileType
                                                        {:group (vim.api.nvim_create_augroup :UserTreesitterAttach
                                                                                             {:clear true})
                                                         :callback treesitter-attach})
-                          (vim.api.nvim_exec_autocmds :FileType []))}]
+                          (each [_ buf (ipairs (vim.api.nvim_list_bufs))]
+                            (when (vim.api.nvim_buf_is_loaded buf)
+                              (treesitter-attach {: buf}))))}]
               [:nvim-ts-autotag
                {:for_cat :general.treesitter
                 :event :InsertEnter

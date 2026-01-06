@@ -85,8 +85,9 @@ do
                 if not vim.b[buf]["ts-attached"] then
                     vim.b[buf]["ts-attached"] = true
                     local ft = vim.bo[buf].filetype
-                    if contains_3f(parsers, ft) then
-                        vim.treesitter.start()
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    if lang and contains_3f(parsers, lang) then
+                        vim.treesitter.start(buf)
                         vim.bo["indentexpr"] = "v:lua.require'nvim-treesitter'.indentexpr()"
                         return nil
                     else
@@ -100,7 +101,13 @@ do
                 group = vim.api.nvim_create_augroup("UserTreesitterAttach", { clear = true }),
                 callback = treesitter_attach,
             })
-            return vim.api.nvim_exec_autocmds("FileType", {})
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                if vim.api.nvim_buf_is_loaded(buf) then
+                    treesitter_attach({ buf = buf })
+                else
+                end
+            end
+            return nil
         end
         keymap_30_auto = mod_12_auto.keymap({
             "nvim-treesitter",
@@ -114,7 +121,7 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _24_()
+        local function _25_()
             local p_13_auto = require("nvim-ts-autotag")
             return p_13_auto.setup({
                 opts = { enable_close = true, enable_rename = true, enable_close_on_slash = true },
@@ -122,7 +129,7 @@ do
         end
         keymap_30_auto = mod_12_auto.keymap({
             "nvim-ts-autotag",
-            after = _24_,
+            after = _25_,
             event = "InsertEnter",
             for_cat = "general.treesitter",
         })
@@ -131,10 +138,10 @@ end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _25_()
+    local function _26_()
         local p_13_auto = require("hlargs")
         return p_13_auto.setup()
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "hlargs.nvim", after = _25_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
+        mod_12_auto.keymap({ "hlargs.nvim", after = _26_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
 end
