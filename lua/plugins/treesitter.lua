@@ -75,7 +75,7 @@ do
             local nvim_treesitter = require("nfnl.module").autoload("nvim-treesitter")
             local install_dir = join_path({ vim.fn.stdpath("data"), "site" })
             local parsers = keys(require("nvim-treesitter.parsers"))
-            nvim_treesitter.setup({ ["install-dir"] = install_dir })
+            nvim_treesitter.setup({ install_dir = install_dir })
             if not vim.uv.fs_stat(install_dir) then
                 nvim_treesitter.install(parsers)
             else

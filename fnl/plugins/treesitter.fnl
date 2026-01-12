@@ -15,7 +15,7 @@
                                  (join-path [(vim.fn.stdpath :data) :site]))
                           (local parsers
                                  (keys (require :nvim-treesitter.parsers)))
-                          (nvim-treesitter.setup {: install-dir})
+                          (nvim-treesitter.setup {:install_dir install-dir})
                           (when (not (vim.uv.fs_stat install-dir))
                             (nvim-treesitter.install parsers))
 
