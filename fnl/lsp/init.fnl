@@ -85,7 +85,7 @@
                                      :formatting {:command [:nixfmt]}
                                      :diagnostic {:suppress [:sema-escaping-with]}}}}]
                   [:basedpyright
-                   {:enabled (or (nixCats :python) false)
+                   {:enabled false
                     :ft [:python]
                     :lsp {:filetypes [:python]
                           :settings {:basedpyright {:analysis {:useTypingExtensions true
@@ -96,6 +96,10 @@
                                                                :autoImportCompletions true
                                                                :diagnosticSeverityOverrides {:reportMissingTypeStubs false}}}}
                           : on_attach}}]
+                  [:ty
+                   {:enabled (or (nixCats :python) false)
+                    :ft [:python]
+                    :lsp {:filetypes [:python] :cmd [:ty :server] : on_attach}}]
                   [:ts_ls
                    {:enabled (or (nixCats :typescript) false)
                     :ft [:typescript]

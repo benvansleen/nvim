@@ -176,7 +176,7 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         keymap_30_auto = mod_12_auto.keymap({
             "basedpyright",
-            enabled = (nixCats("python") or false),
+            enabled = false,
             ft = { "python" },
             lsp = {
                 filetypes = { "python" },
@@ -197,6 +197,18 @@ do
                 },
                 on_attach = on_attach,
             },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "ty",
+            enabled = (nixCats("python") or false),
+            ft = { "python" },
+            lsp = { filetypes = { "python" }, cmd = { "ty", "server" }, on_attach = on_attach },
         })
     end
 end
