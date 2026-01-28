@@ -73,7 +73,7 @@
                                                                              :stage_hunk)
                       ["[G]it: [R]eset hunk" :<leader>gR] #(require-and-call :gitsigns
                                                                              :reset_hunk)
-                      ["[G]it: [P]review hunk" :<leader>gp] #(require-and-call :gitsigns
+                      ["[G]it: [P]review hunk" :<leader>gP] #(require-and-call :gitsigns
                                                                                :preview_hunk_inline)
                       ["[G]it: [N]ext hunk" :<leader>gn] #(require-and-call :gitsigns
                                                                             :next_hunk)

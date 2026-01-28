@@ -113,7 +113,7 @@ local function _8_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.preview_hunk_inline()
 end
-keymap_30_auto.set("n", "<leader>gp", _8_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
+keymap_30_auto.set("n", "<leader>gP", _8_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
 local function _9_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")
     return mod_12_auto.next_hunk()
