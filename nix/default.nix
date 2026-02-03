@@ -84,6 +84,21 @@ inputs:
         ];
       };
 
+      debug = {
+        after = [ "always" ];
+        lazy = true;
+        extraPackages = with pkgs; [
+          gdb
+          (python3.withPackages (pypkg: [ pypkg.debugpy ]))
+        ];
+        data = with pkgs.vimPlugins; [
+          nvim-dap
+          nvim-dap-view
+          nvim-dap-virtual-text
+          nvim-dap-python
+        ];
+      };
+
       treesitter = {
         after = [ "always" ];
         lazy = false;
@@ -178,6 +193,7 @@ inputs:
         ];
       };
 
+      ## Language dependencies
       lua = {
         after = [ "always" ];
         lazy = true;
