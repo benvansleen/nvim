@@ -93,7 +93,7 @@
         };
       };
 
-      homeModules = {
+      homeManagerModules = {
         default = self.homeModules.neovim;
         neovim = wrappers.lib.mkInstallModule {
           name = "neovim";
