@@ -37,13 +37,13 @@
                 :ft [:nix]
                 :lsp {:filetypes [:nix]
                       :cmd_env {:NIX_PATH "nixpkgs=flake:nixpkgs"}
-                      :settings {:nixd {:nixpkgs {:expr (or (nix-config :nixdExtras
-                                                                        :nixpkgs)
+                      :settings {:nixd {:nixpkgs {:expr (or (nix-config :settings
+                                                                        :nixdNixpkgsPath)
                                                             "import <nixpkgs> {}")}}
-                                 :options {:nixos {:expr (nix-config :nixdExtras
-                                                                     :nixos_options)}
-                                           :home-manager {:expr (nix-config :nixdExtras
-                                                                            :home_manager_options)}}
+                                 :options {:nixos {:expr (nix-config :settings
+                                                                     :nixdNixosPath)}
+                                           :home-manager {:expr (nix-config :settings
+                                                                            :nixdHomeManagerPath)}}
                                  :formatting {:command [:nixfmt]}
                                  :diagnostic {:suppress [:sema-escaping-with]}}}}]
               [:basedpyright

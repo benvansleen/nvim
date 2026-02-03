@@ -11,6 +11,21 @@ inputs:
     (lib.modules.importApply ./nix-wrapper-modules-setup.nix inputs)
   ];
 
+  options.settings = {
+    nixdNixpkgsPath = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+    };
+    nixdNixosPath = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+    };
+    nixdHomeManagerPath = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+    };
+  };
+
   config = {
     hosts.neovide.nvim-host.enable = true;
 

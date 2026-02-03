@@ -75,15 +75,15 @@ do
                     nixd = {
                         nixpkgs = {
                             expr = (
-                                require(vim.g.nix_info_plugin_name)(nil, "nixdExtras", "nixpkgs")
+                                require(vim.g.nix_info_plugin_name)(nil, "settings", "nixdNixpkgsPath")
                                 or "import <nixpkgs> {}"
                             ),
                         },
                     },
                     options = {
-                        nixos = { expr = require(vim.g.nix_info_plugin_name)(nil, "nixdExtras", "nixos_options") },
+                        nixos = { expr = require(vim.g.nix_info_plugin_name)(nil, "settings", "nixdNixosPath") },
                         ["home-manager"] = {
-                            expr = require(vim.g.nix_info_plugin_name)(nil, "nixdExtras", "home_manager_options"),
+                            expr = require(vim.g.nix_info_plugin_name)(nil, "settings", "nixdHomeManagerPath"),
                         },
                     },
                     formatting = { command = { "nixfmt" } },
