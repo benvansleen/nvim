@@ -3,7 +3,7 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto = mod_12_auto.keymap({ "dial.nvim", for_cat = "general.extra", on_require = "dial" })
+        keymap_30_auto = mod_12_auto.keymap({ "dial.nvim", for_cat = "general", on_require = "dial" })
     end
     do
         local function _1_()
@@ -68,7 +68,7 @@ do
             end
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "direnv-nvim", after = _9_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "direnv-nvim", after = _9_, event = "DeferredUIEnter", for_cat = "general" })
     end
 end
 do
@@ -80,7 +80,7 @@ do
             return p_13_auto.setup()
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "fidget.nvim", after = _13_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "fidget.nvim", after = _13_, event = "DeferredUIEnter", for_cat = "general" })
     end
 end
 do
@@ -96,7 +96,7 @@ do
             return nil
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "foldtext-nvim", after = _14_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "foldtext-nvim", after = _14_, event = "DeferredUIEnter", for_cat = "general" })
     end
 end
 do
@@ -137,8 +137,7 @@ do
                 },
             })
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "flash.nvim", after = _15_, for_cat = "general.always", on_require = "flash" })
+        keymap_30_auto = mod_12_auto.keymap({ "flash.nvim", after = _15_, for_cat = "general", on_require = "flash" })
     end
     local function _17_()
         local mod_12_auto = require("nfnl.module").autoload("flash")
@@ -211,8 +210,7 @@ do
                 silent = false,
             })
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "mini.ai", after = _25_, event = "CursorMoved", for_cat = "general.extra" })
+        keymap_30_auto = mod_12_auto.keymap({ "mini.ai", after = _25_, event = "CursorMoved", for_cat = "general" })
     end
 end
 do
@@ -244,7 +242,7 @@ do
             )
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "mini.indentscope", after = _28_, event = "CursorMoved", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "mini.indentscope", after = _28_, event = "CursorMoved", for_cat = "general" })
     end
 end
 do
@@ -273,7 +271,7 @@ do
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-surround", after = _31_, event = "CursorMoved", for_cat = "general.always" })
+            mod_12_auto.keymap({ "nvim-surround", after = _31_, event = "CursorMoved", for_cat = "general" })
     end
 end
 local keymap_30_auto
@@ -282,7 +280,7 @@ do
     keymap_30_auto = mod_12_auto.keymap({
         "undotree",
         cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotrPersistUndo" },
-        for_cat = "general.extra",
+        for_cat = "general",
     })
 end
 return keymap_30_auto.set(

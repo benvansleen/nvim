@@ -1,19 +1,14 @@
 (import-macros {: autoload : cfg : with-require : unless-nix} :macros)
 
-(with-require {: lze : lzextras lzUtils :nixCatsUtils.lzUtils}
-  (lze.register_handlers lzUtils.for_cat)
-  (lze.register_handlers lzextras.lsp))
-
 (cfg (g {mapleader " "
          maplocalleader ","
          my_center_buffer true
          _debug_my_center_buffer false
          netrw_liststyle 0
          netrw_banner 0})
-     (requires-plugins :appearance :completion :editor :git :lisp :lsp :misc
-                       :opencode :pairs :oil :telescope :terminal :tmux
-                       :treesitter)
-     (requires-plugins-when-enabled :debug :lint :format)
+     (requires-plugins :appearance :completion :debug :editor :format :git
+                       :lint :lisp :lsp :misc :opencode :pairs :oil :telescope
+                       :terminal :tmux :treesitter)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            autoread true

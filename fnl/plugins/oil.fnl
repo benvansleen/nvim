@@ -12,7 +12,7 @@
 
 (cfg (g {loaded_netrwPlugin 1})
      (plugins [:oil.nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :cmd :Oil
                 :after #(setup :oil
                                {:default_file_explorer true

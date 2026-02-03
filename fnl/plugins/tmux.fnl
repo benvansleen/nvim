@@ -1,7 +1,7 @@
 (import-macros {: cfg : require-and-call : setup} :macros)
 
 (cfg (plugins [:Navigator.nvim
-               {:for_cat :general.tmux
+               {:for_cat :tmux
                 :on_require :Navigator
                 :after #(setup :Navigator
                                {:auto_save nil :disable_on_zoom true})}

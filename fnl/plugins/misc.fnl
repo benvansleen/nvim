@@ -1,7 +1,7 @@
 (import-macros {: cfg : setup : tb : with-require} :macros)
 
 (cfg (plugins [:nvim-highlight-colors
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(setup :nvim-highlight-colors
                                {:render :virtual
@@ -10,13 +10,13 @@
                                 :virtual_symbol_suffix " "
                                 :virtual_symbol_position :inline})}]
               [:vim-startuptime
-               {:for_cat :general.extra
+               {:for_cat :general
                 :cmd [:StartupTime]
                 :before #(cfg (g {startuptime_event_width 0
                                   startuptime_tries 10
-                                  startuptime_exe_path nixCats.packageBinPath}))}]
+                                  startuptime_exe_path _G.nixInfo.progpath}))}]
               [:which-key.nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(with-require {: which-key}
                           (which-key.setup {:preset :helix :delay 500})

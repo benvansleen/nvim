@@ -8,7 +8,7 @@
           foldmethod :expr
           foldexpr "v:lua.vim.treesitter.foldexpr()"})
      (plugins [:nvim-treesitter
-               {:for_cat :general.treesitter
+               {:for_cat :treesitter
                 :event :DeferredUIEnter
                 :after #(with-require {: nvim-treesitter}
                           (local install-dir
@@ -36,13 +36,13 @@
                             (when (vim.api.nvim_buf_is_loaded buf)
                               (treesitter-attach {: buf}))))}]
               [:nvim-ts-autotag
-               {:for_cat :general.treesitter
+               {:for_cat :treesitter
                 :event :InsertEnter
                 :after #(setup :nvim-ts-autotag
                                {:opts {:enable_close true
                                        :enable_rename true
                                        :enable_close_on_slash true}})}]
               [:hlargs.nvim
-               {:for_cat :general.treesitter
+               {:for_cat :treesitter
                 :event :DeferredUIEnter
                 :after #(setup :hlargs)}]))

@@ -1,7 +1,7 @@
 (import-macros {: cfg : require-and-call : setup} :macros)
 
 (cfg (plugins [:toggleterm.nvim
-               {:for_cat :general.extra
+               {:for_cat :terminal
                 :on_require :toggleterm
                 :after #(setup :toggleterm
                                {:open_mapping :<M-t>

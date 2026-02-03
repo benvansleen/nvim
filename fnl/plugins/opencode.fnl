@@ -1,7 +1,7 @@
 (import-macros {: cfg : require-and-call : with-require} :macros)
 
 (cfg (plugins [:opencode.nvim
-               {:for_cat :general.extra :on_require :opencode}
+               {:for_cat :opencode :on_require :opencode}
                (nmap {["[A]sk opencode" :<leader>oa] #(with-require {: opencode}
                                                         (opencode.ask "@this: "
                                                                       {:submit true}))

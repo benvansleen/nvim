@@ -130,9 +130,6 @@
       (case (tostring kw)
         :requires (set-require body)
         :requires-plugins (require-plugins body)
-        :requires-plugins-when-enabled (splice (icollect [_ p (ipairs body)]
-                                                 `(when (nixCats ,p)
-                                                    (require ,(.. :plugins. p)))))
         :g (set-opt `vim.g (unpack body))
         :opt (set-opt `vim.opt (unpack body))
         :wo (set-opt `vim.wo (unpack body))
@@ -165,10 +162,7 @@
                       (vim.cmd.normal "g@l"))))))
 
 (fn is-nix []
-  `(do
-     (import-macros {: with-require} :macros)
-     (with-require {cats# :nixCatsUtils}
-       cats#.isNixCats)))
+  `_G.nixInfo.isNix)
 
 (fn check-nix [bool & body]
   `(do
@@ -182,11 +176,19 @@
 (fn when-nix [...]
   (check-nix true ...))
 
+(fn nix-config [...]
+  `((require vim.g.nix_info_plugin_name) nil ,...))
+
+(fn nix-enabled [name]
+  `(. _G.nixInfo.settings.cats ,name))
+
 {: autoload
  : define
  : cfg
  : dot-repeatable
  : is-nix
+ : nix-config
+ : nix-enabled
  : require-and-call
  : setup
  : tap

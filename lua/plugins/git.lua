@@ -27,7 +27,7 @@ do
             after = _1_,
             before = _2_,
             cmd = "Neogit",
-            for_cat = "general.git",
+            for_cat = "git",
             on_require = "neogit",
         })
     end
@@ -45,8 +45,7 @@ do
             local p_13_auto = require("diffview")
             return p_13_auto.setup()
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "diffview.nvim", after = _4_, for_cat = "general.git", on_require = "diffview" })
+        keymap_30_auto = mod_12_auto.keymap({ "diffview.nvim", after = _4_, for_cat = "git", on_require = "diffview" })
     end
 end
 local keymap_30_auto
@@ -96,8 +95,7 @@ do
             word_diff = false,
         })
     end
-    keymap_30_auto =
-        mod_12_auto.keymap({ "gitsigns.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "general.git" })
+    keymap_30_auto = mod_12_auto.keymap({ "gitsigns.nvim", after = _5_, event = "DeferredUIEnter", for_cat = "git" })
 end
 local function _6_()
     local mod_12_auto = require("nfnl.module").autoload("gitsigns")

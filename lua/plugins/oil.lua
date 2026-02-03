@@ -79,7 +79,7 @@ do
                 preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch" },
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _11_, cmd = "Oil", for_cat = "general.extra" })
+        keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _11_, cmd = "Oil", for_cat = "general" })
     end
     local function _12_()
         local mod_12_auto = require("nfnl.module").autoload("oil")

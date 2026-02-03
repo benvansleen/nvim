@@ -1,14 +1,9 @@
 -- [nfnl] fnl/plugins/pairs.fnl
-local _1_
-do
-    local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _1_ = cats_44_auto.isNixCats
-end
-if _1_ then
+if _G.nixInfo.isNix then
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _3_()
+        local function _1_()
             local p_13_auto = require("blink.pairs")
             return p_13_auto.setup({
                 mappings = { enabled = true, cmdline = true, disabled_filetypes = {} },
@@ -21,13 +16,13 @@ if _1_ then
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "blink.pairs", after = _3_, event = "DeferredUIEnter", for_cat = "general.blink" })
+            mod_12_auto.keymap({ "blink.pairs", after = _1_, event = "DeferredUIEnter", for_cat = "general.blink" })
     end
 else
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _4_()
+        local function _2_()
             local p_13_auto = require("nvim-autopairs")
             return p_13_auto.setup({
                 check_ts = true,
@@ -37,6 +32,6 @@ else
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-autopairs", after = _4_, event = "InsertEnter", for_cat = "general.always" })
+            mod_12_auto.keymap({ "nvim-autopairs", after = _2_, event = "InsertEnter", for_cat = "general.always" })
     end
 end

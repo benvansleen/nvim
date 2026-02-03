@@ -13,12 +13,8 @@ do
                 virtual_symbol_position = "inline",
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({
-            "nvim-highlight-colors",
-            after = _1_,
-            event = "DeferredUIEnter",
-            for_cat = "general.extra",
-        })
+        keymap_30_auto =
+            mod_12_auto.keymap({ "nvim-highlight-colors", after = _1_, event = "DeferredUIEnter", for_cat = "general" })
     end
 end
 do
@@ -28,11 +24,11 @@ do
         local function _2_()
             vim.g["startuptime_event_width"] = 0
             vim.g["startuptime_tries"] = 10
-            vim.g["startuptime_exe_path"] = nixCats.packageBinPath
+            vim.g["startuptime_exe_path"] = _G.nixInfo.progpath
             return nil
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "vim-startuptime", before = _2_, cmd = { "StartupTime" }, for_cat = "general.extra" })
+            mod_12_auto.keymap({ "vim-startuptime", before = _2_, cmd = { "StartupTime" }, for_cat = "general" })
     end
 end
 local keymap_30_auto
@@ -63,5 +59,5 @@ do
         })
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "which-key.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general.extra" })
+        mod_12_auto.keymap({ "which-key.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general" })
 end

@@ -6,7 +6,7 @@
 (autoload {: all} :lib.utils)
 
 (cfg (plugins [:dashboard-nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :VimEnter
                 :after #(do
                           (setup :dashboard
@@ -61,7 +61,7 @@
                                                {:link :Green}))}
                (nmap {["Open Dashboard" :<leader><leader>d] :<cmd>Dashboard<cr>})]
               [:smear-cursor.nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :CursorMoved
                 :after #(when (not vim.g.neovide)
                           (setup :smear_cursor
@@ -70,7 +70,7 @@
                                   :scroll_buffer_space true
                                   :smear_insert_mode true}))}]
               [:focus.nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(with-require {: focus}
                           (focus.setup {:enable true

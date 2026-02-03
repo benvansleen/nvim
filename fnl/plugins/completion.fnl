@@ -8,7 +8,7 @@
            (= (string.match (string.sub line# col# col#) "%s") nil)))))
 
 (cfg (plugins [:blink.cmp
-               {:for_cat :general.blink
+               {:for_cat :blink
                 :event :InsertEnter
                 :after #(setup :blink.cmp
                                {:keymap {:preset :none
