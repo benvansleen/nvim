@@ -102,15 +102,14 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto = mod_12_auto.keymap({ "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        keymap_30_auto = mod_12_auto.keymap({ "blink.compat", for_cat = "blink", on_plugin = { "blink.cmp" } })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto =
-            mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        keymap_30_auto = mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "blink", on_plugin = { "blink.cmp" } })
     end
 end
 local keymap_30_auto
@@ -120,10 +119,6 @@ do
         local p_13_auto = require("colorful-menu")
         return p_13_auto.setup({})
     end
-    keymap_30_auto = mod_12_auto.keymap({
-        "colorful-menu.nvim",
-        after = _13_,
-        for_cat = "general.blink",
-        on_plugin = { "blink.cmp" },
-    })
+    keymap_30_auto =
+        mod_12_auto.keymap({ "colorful-menu.nvim", after = _13_, for_cat = "blink", on_plugin = { "blink.cmp" } })
 end

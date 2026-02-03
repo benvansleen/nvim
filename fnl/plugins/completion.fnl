@@ -63,10 +63,9 @@
                                                        :ghost_text {:enabled true}
                                                        :list {:selection {:preselect false
                                                                           :auto_insert true}}}}})}]
-              [:blink.compat {:for_cat :general.blink :on_plugin [:blink.cmp]}]
-              [:blink-ripgrep.nvim
-               {:for_cat :general.blink :on_plugin [:blink.cmp]}]
+              [:blink.compat {:for_cat :blink :on_plugin [:blink.cmp]}]
+              [:blink-ripgrep.nvim {:for_cat :blink :on_plugin [:blink.cmp]}]
               [:colorful-menu.nvim
-               {:for_cat :general.blink
+               {:for_cat :blink
                 :on_plugin [:blink.cmp]
                 :after #(setup :colorful-menu {})}]))

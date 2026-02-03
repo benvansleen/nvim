@@ -58,9 +58,9 @@
             pkgs = nixpkgs.legacyPackages.${system};
           }
         );
-      module = lib.modules.importApply ./module.nix inputs;
+      module = lib.modules.importApply ./nix inputs;
       wrapper = wrappers.lib.evalModule module;
-      treefmtEval = pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      treefmtEval = pkgs: treefmt-nix.lib.evalModule pkgs ./nix/treefmt.nix;
     in
     {
       overlays = {

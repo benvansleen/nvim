@@ -16,7 +16,7 @@ if _G.nixInfo.isNix then
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "blink.pairs", after = _1_, event = "DeferredUIEnter", for_cat = "general.blink" })
+            mod_12_auto.keymap({ "blink.pairs", after = _1_, event = "DeferredUIEnter", for_cat = "blink" })
     end
 else
     local keymap_30_auto
@@ -32,6 +32,6 @@ else
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-autopairs", after = _2_, event = "InsertEnter", for_cat = "general.always" })
+            mod_12_auto.keymap({ "nvim-autopairs", after = _2_, event = "InsertEnter", for_cat = "always" })
     end
 end
