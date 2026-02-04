@@ -123,7 +123,7 @@ inputs:
         data = with pkgs.vimPlugins; [
           hlargs-nvim
           nvim-ts-autotag
-          nvim-treesitter.withAllGrammars
+          nvim-treesitter
         ];
       };
 
@@ -217,6 +217,15 @@ inputs:
           stylua
         ];
         data = [ ];
+      };
+      lisp = {
+        after = [ "always" ];
+        lazy = true;
+        extraPackages = with pkgs; [
+        ];
+        data = with pkgs.vimPlugins; [
+          nvim-parinfer
+        ];
       };
       fennel = {
         after = [ "always" ];
