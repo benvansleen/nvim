@@ -29,7 +29,7 @@ inputs:
   config = {
     hosts.neovide.nvim-host.enable = true;
 
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
     settings = {
       ## can also use an impure path; this will not be provisioned by nix -- allowing for normal quick-reload behavior
       ## `config.settings.config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')"`
