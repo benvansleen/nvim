@@ -86,4 +86,12 @@
               [:svelte
                {:enabled true
                 :ft [:svelte]
-                :lsp {:filetypes [:svelte] : on_attach}}]))
+                :lsp {:filetypes [:svelte] : on_attach}}]
+              [:gopls
+               {:enabled true :ft [:go] :lsp {:filetypes [:go] : on_attach}}]
+              [:terraform
+               {:enabled true
+                :ft [:terraform :tf]
+                :lsp {:cmd [:terraform-ls :serve]
+                      :filetypes [:terraform :tf]
+                      : on_attach}}]))

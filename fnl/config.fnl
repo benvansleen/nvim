@@ -23,7 +23,7 @@
            laststatus 0
            linebreak true
            list true
-           listchars {:tab "» " :trail "·" :nbsp "␣"}
+           listchars {:tab "  " :trail "·" :nbsp "␣"}
            mouse :a
            number false
            relativenumber false

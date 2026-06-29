@@ -25,22 +25,25 @@ do
             local function _7_(cmp)
                 return cmp.accept({ index = 1 })
             end
-            local function _8_(_2410)
-                return _2410.show({ providers = { "ripgrep" } })
+            local function _8_(cmp)
+                return cmp.accept({ index = 1 })
             end
-            local function _9_(ctx)
-                local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
-                return mod_12_auto0.blink_components_text(ctx)
+            local function _9_(_2410)
+                return _2410.show({ providers = { "ripgrep" } })
             end
             local function _10_(ctx)
                 local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
+                return mod_12_auto0.blink_components_text(ctx)
+            end
+            local function _11_(ctx)
+                local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
                 return mod_12_auto0.blink_components_highlight(ctx)
             end
-            local _11_
+            local _12_
             if _G.nixInfo.isNix then
-                _11_ = "prefer_rust"
+                _12_ = "prefer_rust"
             else
-                _11_ = "lua"
+                _12_ = "lua"
             end
             return p_13_auto.setup({
                 keymap = {
@@ -48,7 +51,8 @@ do
                     ["<Tab>"] = { _2_, "fallback" },
                     ["<S-Tab>"] = { "insert_prev" },
                     ["<M-;>"] = { _7_ },
-                    ["<C-n>"] = { _8_ },
+                    ["<D-;>"] = { _8_ },
+                    ["<C-n>"] = { _9_ },
                 },
                 appearance = { nerd_font_variant = "normal" },
                 signature = { enabled = true, trigger = { enabled = true }, window = { show_documentation = false } },
@@ -70,7 +74,7 @@ do
                         draw = {
                             align_to = "label",
                             columns = { { "kind_icon" }, { "label", gap = 1 } },
-                            components = { label = { text = _9_, highlight = _10_ } },
+                            components = { label = { text = _10_, highlight = _11_ } },
                         },
                         auto_show = false,
                     },
@@ -85,7 +89,7 @@ do
                         },
                     },
                 },
-                fuzzy = { implementation = _11_ },
+                fuzzy = { implementation = _12_ },
                 cmdline = {
                     completion = {
                         menu = { auto_show = true },
@@ -115,10 +119,10 @@ end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _13_()
+    local function _14_()
         local p_13_auto = require("colorful-menu")
         return p_13_auto.setup({})
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "colorful-menu.nvim", after = _13_, for_cat = "blink", on_plugin = { "blink.cmp" } })
+        mod_12_auto.keymap({ "colorful-menu.nvim", after = _14_, for_cat = "blink", on_plugin = { "blink.cmp" } })
 end

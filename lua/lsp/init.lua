@@ -180,13 +180,37 @@ do
         })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "svelte",
+            enabled = true,
+            ft = { "svelte" },
+            lsp = { filetypes = { "svelte" }, on_attach = on_attach },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "gopls",
+            enabled = true,
+            ft = { "go" },
+            lsp = { filetypes = { "go" }, on_attach = on_attach },
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     keymap_30_auto = mod_12_auto.keymap({
-        "svelte",
+        "terraform",
         enabled = true,
-        ft = { "svelte" },
-        lsp = { filetypes = { "svelte" }, on_attach = on_attach },
+        ft = { "terraform", "tf" },
+        lsp = { cmd = { "terraform-ls", "serve" }, filetypes = { "terraform", "tf" }, on_attach = on_attach },
     })
 end

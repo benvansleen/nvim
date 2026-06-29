@@ -41,6 +41,7 @@
 (local group (vim.api.nvim_create_augroup :center-buffer {:clear true}))
 (cfg (g {my_center_buffer true
          _debug_my_center_buffer false
+         my_center_buffer_factor 11
          my_center_buffer_screen_width vim.o.columns})
      (nmap {["[T]oggle [c]enter-buffer" :<leader>tc] (toggle-mode- vim.g.my_center_buffer)
             ["[T]oggle [c]enter-buffer Debug Mode" :<leader>tC] (toggle-mode- vim.g._debug_my_center_buffer)})

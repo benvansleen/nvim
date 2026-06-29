@@ -48,7 +48,7 @@ do
         vim.opt["laststatus"] = 0
         vim.opt["linebreak"] = true
         vim.opt["list"] = true
-        vim.opt["listchars"] = { tab = "\194\187 ", trail = "\194\183", nbsp = "\226\144\163" }
+        vim.opt["listchars"] = { tab = "  ", trail = "\194\183", nbsp = "\226\144\163" }
         vim.opt["mouse"] = "a"
         vim.opt["scrolloff"] = 10
         vim.opt["shiftround"] = true

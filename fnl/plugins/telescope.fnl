@@ -42,7 +42,11 @@
                                                        :prompt_prefix " "
                                                        :dynamic_preview_title true
                                                        :selection_caret "  "
-                                                       :sorting_strategy :ascending}
+                                                       :sorting_strategy :ascending
+                                                       :mappings {:i {:<C-j> (. (require :telescope.actions)
+                                                                                :move_selection_next)
+                                                                      :<C-k> (. (require :telescope.actions)
+                                                                                :move_selection_previous)}}}
                                             :extensions {:ui-select [(with-require {themes :telescope.themes}
                                                                        (themes.get_dropdown))]
                                                          :cmdline {:picker {:layout_strategy :vertical

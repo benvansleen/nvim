@@ -91,6 +91,12 @@ do
                     dynamic_preview_title = true,
                     selection_caret = " \239\129\148 ",
                     sorting_strategy = "ascending",
+                    mappings = {
+                        i = {
+                            ["<C-j>"] = require("telescope.actions").move_selection_next,
+                            ["<C-k>"] = require("telescope.actions").move_selection_previous,
+                        },
+                    },
                 },
                 extensions = {
                     ["ui-select"] = { _12_() },

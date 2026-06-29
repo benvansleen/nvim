@@ -10,6 +10,7 @@
                                          vim.diagnostic.severity.HINT ""}
                                   :numhl {vim.diagnostic.severity.ERROR :ErrorMsg
                                           vim.diagnostic.severity.WARN :WarningMsg}}})
+  ; :virtual_text {:format (fn [diagnostic] ;                          )}})
   (vim.lsp.inlay_hint.enable true nil bufnr)
   (with-require {: nvim-navic}
     (nvim-navic.attach client bufnr)

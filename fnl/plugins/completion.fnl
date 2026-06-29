@@ -20,6 +20,8 @@
                                          :<S-Tab> [:insert_prev]
                                          "<M-;>" [(fn [cmp]
                                                     (cmp.accept {:index 1}))]
+                                         "<D-;>" [(fn [cmp]
+                                                    (cmp.accept {:index 1}))]
                                          :<C-n> [#($1.show {:providers [:ripgrep]})]}
                                 :appearance {:nerd_font_variant :normal}
                                 :signature {:enabled true

@@ -25,6 +25,8 @@ do
                     fennel = { "fnlfmt" },
                     lua = { "stylua" },
                     python = { "ruff_format", "ruff_organize_imports" },
+                    terraform = { "terraform_fmt" },
+                    go = { "goimports", "gofmt" },
                 },
             })
         end
