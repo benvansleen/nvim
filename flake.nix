@@ -7,7 +7,15 @@
     };
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "nixpkgs";
+      };
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     pre-commit-hooks = {
@@ -26,6 +34,10 @@
     };
     "plugins-foldtext-nvim" = {
       url = "github:OXY2DEV/foldtext.nvim";
+      flake = false;
+    };
+    "plugins-lisette-nvim" = {
+      url = "github:ivov/lisette";
       flake = false;
     };
     "plugins-telescope-cmdline-nvim" = {
@@ -55,7 +67,11 @@
           system:
           f {
             inherit system;
-            pkgs = nixpkgs.legacyPackages.${system};
+            # pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "replace" ];
+            };
           }
         );
       module = lib.modules.importApply ./nix inputs;

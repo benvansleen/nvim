@@ -7,8 +7,8 @@
          netrw_liststyle 0
          netrw_banner 0})
      (requires-plugins :appearance :completion :debug :editor :format :git
-                       :lint :lisp :lsp :misc :opencode :pairs :oil :telescope
-                       :terminal :tmux :treesitter)
+                       :lint :lisp :lisette :lsp :misc :opencode :pairs :oil
+                       :telescope :terminal :tmux :treesitter)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            autoread true

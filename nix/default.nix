@@ -172,6 +172,18 @@ inputs:
         ];
       };
 
+      lisette = {
+        after = [ "always" ];
+        lazy = true;
+        extraPackages = with pkgs; [
+          gcc
+          lisette
+        ];
+        data = [
+          config.nvim-lib.neovimPlugins.lisette-nvim
+        ];
+      };
+
       telescope = {
         after = [ "always" ];
         lazy = true;
