@@ -2,7 +2,7 @@
 
 (if (is-nix)
     (cfg (plugins [:blink.pairs
-                   {:for_cat :general.blink
+                   {:for_cat :blink
                     :event :DeferredUIEnter
                     :after #(setup :blink.pairs
                                    {:mappings {:enabled true
@@ -15,7 +15,7 @@
                                                               :cmdline false
                                                               :include_surrounding true}}})}]))
     (cfg (plugins [:nvim-autopairs
-                   {:for_cat :general.always
+                   {:for_cat :always
                     :event :InsertEnter
                     :after #(setup :nvim-autopairs
                                    {:check_ts true

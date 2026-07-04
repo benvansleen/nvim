@@ -109,12 +109,8 @@ do
             end
             return nil
         end
-        keymap_30_auto = mod_12_auto.keymap({
-            "nvim-treesitter",
-            after = _19_,
-            event = "DeferredUIEnter",
-            for_cat = "general.treesitter",
-        })
+        keymap_30_auto =
+            mod_12_auto.keymap({ "nvim-treesitter", after = _19_, event = "DeferredUIEnter", for_cat = "treesitter" })
     end
 end
 do
@@ -127,12 +123,8 @@ do
                 opts = { enable_close = true, enable_rename = true, enable_close_on_slash = true },
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({
-            "nvim-ts-autotag",
-            after = _25_,
-            event = "InsertEnter",
-            for_cat = "general.treesitter",
-        })
+        keymap_30_auto =
+            mod_12_auto.keymap({ "nvim-ts-autotag", after = _25_, event = "InsertEnter", for_cat = "treesitter" })
     end
 end
 local keymap_30_auto
@@ -143,5 +135,5 @@ do
         return p_13_auto.setup()
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "hlargs.nvim", after = _26_, event = "DeferredUIEnter", for_cat = "general.treesitter" })
+        mod_12_auto.keymap({ "hlargs.nvim", after = _26_, event = "DeferredUIEnter", for_cat = "treesitter" })
 end

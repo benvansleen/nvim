@@ -2,7 +2,7 @@
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    keymap_30_auto = mod_12_auto.keymap({ "opencode.nvim", for_cat = "general.extra", on_require = "opencode" })
+    keymap_30_auto = mod_12_auto.keymap({ "opencode.nvim", for_cat = "opencode", on_require = "opencode" })
 end
 do
     local function _1_()

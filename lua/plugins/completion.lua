@@ -37,12 +37,7 @@ do
                 return mod_12_auto0.blink_components_highlight(ctx)
             end
             local _11_
-            local _12_
-            do
-                local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
-                _12_ = cats_44_auto.isNixCats
-            end
-            if _12_ then
+            if _G.nixInfo.isNix then
                 _11_ = "prefer_rust"
             else
                 _11_ = "lua"
@@ -100,36 +95,30 @@ do
                 },
             })
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "blink.cmp", after = _1_, event = "InsertEnter", for_cat = "general.blink" })
+        keymap_30_auto = mod_12_auto.keymap({ "blink.cmp", after = _1_, event = "InsertEnter", for_cat = "blink" })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto = mod_12_auto.keymap({ "blink.compat", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        keymap_30_auto = mod_12_auto.keymap({ "blink.compat", for_cat = "blink", on_plugin = { "blink.cmp" } })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        keymap_30_auto =
-            mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "general.blink", on_plugin = { "blink.cmp" } })
+        keymap_30_auto = mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "blink", on_plugin = { "blink.cmp" } })
     end
 end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _15_()
+    local function _13_()
         local p_13_auto = require("colorful-menu")
         return p_13_auto.setup({})
     end
-    keymap_30_auto = mod_12_auto.keymap({
-        "colorful-menu.nvim",
-        after = _15_,
-        for_cat = "general.blink",
-        on_plugin = { "blink.cmp" },
-    })
+    keymap_30_auto =
+        mod_12_auto.keymap({ "colorful-menu.nvim", after = _13_, for_cat = "blink", on_plugin = { "blink.cmp" } })
 end

@@ -23,7 +23,7 @@ do
         })
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "toggleterm.nvim", after = _1_, for_cat = "general.extra", on_require = "toggleterm" })
+        mod_12_auto.keymap({ "toggleterm.nvim", after = _1_, for_cat = "terminal", on_require = "toggleterm" })
 end
 local function _5_()
     local mod_12_auto = require("nfnl.module").autoload("toggleterm")

@@ -13,7 +13,7 @@
 (set vim.deprecate #nil)
 
 (cfg (plugins [:telescope.nvim
-               {:for_cat :general.telescope
+               {:for_cat :telescope
                 :cmd [:Telescope :LiveGrepGitRoot]
                 :on_require [:telescope]
                 :load (fn [name]
@@ -51,7 +51,8 @@
                                                                                             :width {:padding 0}}
                                                                             :prompt_title false
                                                                             :results_title false}
-                                                                   :mappings {:run_input :<M-CR>}
+                                                                   :mappings {:run_input :<M-CR>
+                                                                              :complete :<Tab>}
                                                                    :output_pane {:enabled true}}
                                                          :egrepify {:AND true
                                                                     :permutations true
@@ -123,7 +124,7 @@
                       ["[G]o to [R]eferences" :<leader>gr] #(require-and-call :telescope.builtin
                                                                               :lsp_references)})]
               [:project.nvim
-               {:for_cat :general.telescope
+               {:for_cat :telescope
                 :cmd [:Project
                       :ProjectAdd
                       :ProjectConfig
@@ -138,7 +139,7 @@
                                  {:telescope {:prefer_file_browser false
                                               :disable_file_picker false}
                                   :allow_different_owners true
-                                  :use_lsp true
+                                  :lsp {:enabled true}
                                   :exclude_dirs [:/nix/*
                                                  :node_modules/*
                                                  :.venv/*]

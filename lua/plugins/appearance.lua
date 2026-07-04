@@ -150,7 +150,7 @@ do
                 return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
             end
             keymap_30_auto =
-                mod_12_auto.keymap({ "dashboard-nvim", after = _28_, event = "VimEnter", for_cat = "general.extra" })
+                mod_12_auto.keymap({ "dashboard-nvim", after = _28_, event = "VimEnter", for_cat = "general" })
         end
         keymap_30_auto.set(
             "n",
@@ -176,12 +176,8 @@ do
                     return nil
                 end
             end
-            keymap_30_auto = mod_12_auto.keymap({
-                "smear-cursor.nvim",
-                after = _29_,
-                event = "CursorMoved",
-                for_cat = "general.extra",
-            })
+            keymap_30_auto =
+                mod_12_auto.keymap({ "smear-cursor.nvim", after = _29_, event = "CursorMoved", for_cat = "general" })
         end
     end
     local keymap_30_auto
@@ -225,7 +221,7 @@ do
             )
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "focus.nvim", after = _31_, event = "DeferredUIEnter", for_cat = "general.extra" })
+            mod_12_auto.keymap({ "focus.nvim", after = _31_, event = "DeferredUIEnter", for_cat = "general" })
     end
     local function _34_()
         local mod_12_auto = require("nfnl.module").autoload("focus")

@@ -79,7 +79,7 @@ M.on_attach = function(client, bufnr)
         return vim.lsp.buf.format()
     end
     vim.api.nvim_buf_create_user_command(bufnr, "Format", _2_, { desc = "Format current buffer with LSP" })
-    if nixCats("general.telescope") then
+    if _G.nixInfo.settings.cats.telescope then
         local function _3_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_definitions()

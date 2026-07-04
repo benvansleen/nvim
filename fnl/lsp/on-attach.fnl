@@ -1,4 +1,6 @@
-(import-macros {: cfg : define : require-and-call : with-require} :macros)
+(import-macros {: cfg : define : nix-enabled : require-and-call : with-require}
+               :macros)
+
 (define M :lsp.on-attach)
 
 (fn M.on_attach [client bufnr]
@@ -26,7 +28,7 @@
        (imap {["Signature Documentation" :<C-k>] vim.lsp.buf.signature_help}))
   (vim.api.nvim_buf_create_user_command bufnr :Format #(vim.lsp.buf.format)
                                         {:desc "Format current buffer with LSP"})
-  (when (nixCats :general.telescope)
+  (when (nix-enabled :telescope)
     (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
                                                                 :lsp_definitions)
                 ["[G]oto [R]eferences" :gr] #(require-and-call :telescope.builtin

@@ -6,8 +6,7 @@ do
         local p_13_auto = require("Navigator")
         return p_13_auto.setup({ auto_save = nil, disable_on_zoom = true })
     end
-    keymap_30_auto =
-        mod_12_auto.keymap({ "Navigator.nvim", after = _1_, for_cat = "general.tmux", on_require = "Navigator" })
+    keymap_30_auto = mod_12_auto.keymap({ "Navigator.nvim", after = _1_, for_cat = "tmux", on_require = "Navigator" })
 end
 local function _2_()
     local mod_12_auto = require("nfnl.module").autoload("Navigator")

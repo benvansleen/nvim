@@ -1,17 +1,6 @@
-(import-macros {: autoload : cfg} :macros)
-(autoload {: update-hl} :theme)
+(import-macros {: cfg : update-hl-for-fts} :macros)
 
 (vim.filetype.add {:extension {:fnlm :fennel}})
-
-(macro update-hl-for-fts [fts hls]
-  (fn splice [...]
-    `(do
-       ,(unpack ...)))
-
-  (splice (icollect [_ ft (ipairs fts)]
-            (splice (icollect [group opts (pairs hls)]
-                      `(vim.api.nvim_set_hl 0 ,(.. group "." ft)
-                                            (update-hl ,group ,opts)))))))
 
 (update-hl-for-fts [:fennel :query]
                    {"@punctuation.bracket" {:link :NonText}

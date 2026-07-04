@@ -1,12 +1,5 @@
 -- [nfnl] fnl/config.fnl
 do
-    local lze = require("nfnl.module").autoload("lze")
-    local lzextras = require("nfnl.module").autoload("lzextras")
-    local lzUtils = require("nfnl.module").autoload("nixCatsUtils.lzUtils")
-    lze.register_handlers(lzUtils.for_cat)
-    lze.register_handlers(lzextras.lsp)
-end
-do
     do
         vim.g["mapleader"] = " "
         vim.g["maplocalleader"] = ","
@@ -18,9 +11,13 @@ do
     do
         require("plugins.appearance")
         require("plugins.completion")
+        require("plugins.debug")
         require("plugins.editor")
+        require("plugins.format")
         require("plugins.git")
+        require("plugins.lint")
         require("plugins.lisp")
+        require("plugins.lisette")
         require("plugins.lsp")
         require("plugins.misc")
         require("plugins.opencode")
@@ -30,20 +27,6 @@ do
         require("plugins.terminal")
         require("plugins.tmux")
         require("plugins.treesitter")
-    end
-    do
-        if nixCats("debug") then
-            require("plugins.debug")
-        else
-        end
-        if nixCats("lint") then
-            require("plugins.lint")
-        else
-        end
-        if nixCats("format") then
-            require("plugins.format")
-        else
-        end
     end
     do
         require("clipboard")
@@ -97,11 +80,11 @@ do
     end
     do
         vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", expr = false, noremap = true })
-        local function _4_()
+        local function _1_()
             return print(vim.api.nvim_buf_get_name(0))
         end
-        vim.keymap.set("n", "<leader>wtf", _4_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
-        local function _5_()
+        vim.keymap.set("n", "<leader>wtf", _1_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
+        local function _2_()
             local diffview = require("nfnl.module").autoload("diffview.lib")
             if diffview.get_current_view() then
                 return vim.cmd.DiffviewClose()
@@ -109,21 +92,21 @@ do
                 return vim.cmd.bdelete()
             end
         end
-        vim.keymap.set("n", "<leader>q", _5_, { desc = "[Q]uit buffer", expr = false, noremap = true })
-        local function _7_()
+        vim.keymap.set("n", "<leader>q", _2_, { desc = "[Q]uit buffer", expr = false, noremap = true })
+        local function _4_()
             return vim.cmd("bdelete!")
         end
-        vim.keymap.set("n", "<leader>Q", _7_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
+        vim.keymap.set("n", "<leader>Q", _4_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
         vim.keymap.set(
             "n",
             "<leader>huc",
             "<cmd>Inspect<CR>",
             { desc = "[H]ighlight [U]nder [C]ursor", expr = false, noremap = true }
         )
-        local function _8_()
+        local function _5_()
             return vim.cmd.normal("gcc")
         end
-        vim.keymap.set("n", "<M-/>", _8_, { desc = "Comment line", expr = false, noremap = true })
+        vim.keymap.set("n", "<M-/>", _5_, { desc = "Comment line", expr = false, noremap = true })
     end
     do
         vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", expr = false, noremap = true })
@@ -145,12 +128,12 @@ do
         pattern = "*",
         command = 'silent! normal! g`"zv',
     })
-    local function _9_()
+    local function _6_()
         return vim.highlight.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },
-        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _9_ }
+        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _6_ }
     )
 end
 do
@@ -172,12 +155,7 @@ do
         { pattern = "*", group = number_toggle.group, callback = number_toggle["disable-relative-number"] }
     )
 end
-local _10_
-do
-    local cats_44_auto = require("nfnl.module").autoload("nixCatsUtils")
-    _10_ = cats_44_auto.isNixCats
-end
-if false == _10_ then
+if false == _G.nixInfo.isNix then
     vim.keymap.set("n", "<up>", "<C-u>", { desc = "Scroll Up", expr = false, noremap = true })
     return vim.keymap.set("n", "<down>", "<C-d>", { desc = "Scroll Down", expr = false, noremap = true })
 else

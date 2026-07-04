@@ -1,7 +1,7 @@
 (import-macros {: cfg : require-and-call : setup : with-require} :macros)
 
 (cfg (plugins [:dial.nvim
-               {:for_cat :general.extra :on_require :dial}
+               {:for_cat :general :on_require :dial}
                (nmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
                                              (dial.manipuluate :increment
                                                                :normal))
@@ -27,7 +27,7 @@
                                               (dial.manipulate :decrement
                                                                :gvisual))})]
               [:direnv-nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(when (= (vim.fn.executable :direnv) 1)
                           (setup :direnv-nvim
@@ -37,17 +37,17 @@
                                                          (vim.cmd :LspStart))
                                   :type :buffer}))}]
               [:fidget.nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(setup :fidget)}]
               [:foldtext-nvim
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(do
                           (setup :foldtext)
                           (cfg (opt {fillchars {:eob " " :fold " "}})))}]
               [:flash.nvim
-               {:for_cat :general.always
+               {:for_cat :general
                 :on_require :flash
                 :after #(setup :flash
                                {:labels :asdfghjklqwertyuiop
@@ -92,7 +92,7 @@
                      [[:n :x :o] "Flash up to previous" :T] #(require-and-call :flash.plugins.char
                                                                                :jump)})]
               [:mini.ai
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :CursorMoved
                 :after #(setup :mini.ai
                                {:mappings {:around :a
@@ -110,7 +110,7 @@
                                 :search_method :cover
                                 :silent false})}]
               [:mini.indentscope
-               {:for_cat :general.extra
+               {:for_cat :general
                 :event :CursorMoved
                 :after #(do
                           (setup :mini.indentscope
@@ -126,14 +126,14 @@
                                                        :callback #(set vim.b.miniindentscope_disable
                                                                        true)}})))}]
               [:nvim-surround
-               {:for_cat :general.always
+               {:for_cat :general
                 :event :CursorMoved
                 :after #(setup :nvim-surround
                                {:surrounds {"(" {:add #[["("] [")"]]}
                                             "[" {:add #[["["] ["]"]]}
                                             "{" {:add #[["{"] ["}"]]}}})}]
               [:undotree
-               {:for_cat :general.extra
+               {:for_cat :general
                 :cmd [:UndotreeToggle
                       :UndotreeHide
                       :UndotreeShow
