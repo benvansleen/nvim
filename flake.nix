@@ -148,9 +148,9 @@
 
       formatter = eachSystem ({ pkgs, ... }: (treefmtEval pkgs).config.build.wrapper);
       checks = eachSystem (
-        { pkgs, ... }:
+        { system, ... }:
         {
-          pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
               check-added-large-files.enable = true;
@@ -163,7 +163,7 @@
               trim-trailing-whitespace.enable = true;
               treefmt = {
                 enable = true;
-                packageOverrides.treefmt = self.outputs.formatter.${pkgs.system};
+                packageOverrides.treefmt = self.outputs.formatter.${system};
               };
             };
           };

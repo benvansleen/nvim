@@ -1,20 +1,17 @@
-(import-macros {: autoload : cfg : require-and-call : setup : with-require}
-               :macros)
-
-(autoload {: contains? : keys} :nfnl.core)
+(import-macros {: cfg : setup} :macros)
 
 (cfg (wo {foldlevel 4
           foldmethod :expr
           foldexpr "v:lua.vim.treesitter.foldexpr()"})
+     (autocmd {[:FileType] {:desc "activate treesitter"
+                            :group (vim.api.nvim_create_augroup :UserTreesitter
+                                                                {:clear true})
+                            :callback (fn [{: buf}]
+                                        (when (pcall vim.treesitter.start buf)
+                                          (tset (. vim.bo buf) :indentexpr
+                                                "v:lua.require'nvim-treesitter'.indentexpr()")))}})
      (plugins [:nvim-treesitter
-               {:for_cat :treesitter
-                :after #(with-require {: nvim-treesitter}
-                          (nvim-treesitter.setup {})
-                          (vim.api.nvim_create_autocmd :FileType
-                                                       {:group (vim.api.nvim_create_augroup :UserTreesitter
-                                                                                            {:clear true})
-                                                        :callback #(when (pcall vim.treesitter.start)
-                                                                     (cfg (bo {indentexpr "v:lua.require'nvim-treesitter'.indentexpr()"})))}))}]
+               {:for_cat :treesitter :after #(setup :nvim-treesitter)}]
               [:nvim-ts-autotag
                {:for_cat :treesitter
                 :event :InsertEnter

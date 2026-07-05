@@ -282,7 +282,7 @@ do
             local p_13_auto = require("project")
             p_13_auto.setup({
                 telescope = { disable_file_picker = false, prefer_file_browser = false },
-                allow_different_owners = true,
+                different_owners = { allow = true },
                 lsp = { enabled = true },
                 exclude_dirs = { "/nix/*", "node_modules/*", ".venv/*" },
                 scope_chdir = "global",

@@ -6,6 +6,14 @@ inputs:
   ...
 }:
 
+let
+  lisetteTreesitterGrammar = pkgs.tree-sitter.buildGrammar {
+    language = "lisette";
+    version = "0.1.0";
+    src = inputs."plugins-lisette-nvim" + "/editors/tree-sitter-lisette";
+    generate = false;
+  };
+in
 {
   imports = [
     (lib.modules.importApply ./nix-wrapper-modules-setup.nix inputs)
@@ -101,7 +109,7 @@ inputs:
       debug = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           gdb
           (python3.withPackages (pypkg: [ pypkg.debugpy ]))
         ];
@@ -116,13 +124,13 @@ inputs:
       treesitter = {
         after = [ "always" ];
         lazy = false;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           tree-sitter
         ];
         data = with pkgs.vimPlugins; [
           hlargs-nvim
           nvim-ts-autotag
-          nvim-treesitter.withAllGrammars
+          (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [ lisetteTreesitterGrammar ]))
         ];
       };
 
@@ -137,7 +145,7 @@ inputs:
       lint = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [ typos ];
+        runtimePkgs = with pkgs; [ typos ];
         data = with pkgs.vimPlugins; [
           nvim-lint
         ];
@@ -174,7 +182,7 @@ inputs:
       lisette = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           gcc
           lisette
         ];
@@ -223,7 +231,7 @@ inputs:
       lua = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           lua-language-server
           stylua
         ];
@@ -232,7 +240,7 @@ inputs:
       lisp = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
         ];
         data = with pkgs.vimPlugins; [
           nvim-parinfer
@@ -241,7 +249,7 @@ inputs:
       fennel = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           luaPackages.fennel
           fennel-ls
           fnlfmt
@@ -251,7 +259,7 @@ inputs:
       nix = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           deadnix
           nixd
           statix
@@ -261,7 +269,7 @@ inputs:
       python = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [
+        runtimePkgs = with pkgs; [
           ty
           ruff
         ];
@@ -270,7 +278,7 @@ inputs:
       typescript = {
         after = [ "always" ];
         lazy = true;
-        extraPackages = with pkgs; [ typescript-language-server ];
+        runtimePkgs = with pkgs; [ typescript-language-server ];
         data = [ ];
       };
     };
