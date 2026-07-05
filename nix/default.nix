@@ -35,7 +35,6 @@ inputs:
       ## `config.settings.config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')"`
       ## `config.settings.config_directory = "/home/<user>/.config/nvim"`
       config_directory = ../.;
-      # config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')";
 
       aliases = [
         "vi"
