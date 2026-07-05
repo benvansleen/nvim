@@ -123,7 +123,7 @@ inputs:
         data = with pkgs.vimPlugins; [
           hlargs-nvim
           nvim-ts-autotag
-          nvim-treesitter
+          nvim-treesitter.withAllGrammars
         ];
       };
 

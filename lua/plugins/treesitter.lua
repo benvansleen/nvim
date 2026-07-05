@@ -31,37 +31,6 @@ end
 local _local_9_ = _4_(...)
 local contains_3f = _local_9_["contains?"]
 local keys = _local_9_.keys
-local function _13_(...)
-    local res_3_auto = { ["module-key"] = false }
-    local ensure_4_auto
-    local function _10_()
-        local or_11_ = res_3_auto["module-key"]
-        if not or_11_ then
-            local m_5_auto = require("nfnl.fs")
-            res_3_auto["module-key"] = m_5_auto
-            or_11_ = m_5_auto
-        end
-        return or_11_
-    end
-    ensure_4_auto = _10_
-    local function _14_(_t_6_auto, ...)
-        return ensure_4_auto()(...)
-    end
-    local function _15_(_t_6_auto, k_7_auto)
-        local inner_8_auto = {}
-        local function _16_(_t_6_auto0, ...)
-            return ensure_4_auto()[k_7_auto](...)
-        end
-        return setmetatable(inner_8_auto, { __call = _16_ })
-    end
-    local function _17_(_t_6_auto, k_7_auto, v_9_auto)
-        ensure_4_auto()[k_7_auto] = v_9_auto
-        return nil
-    end
-    return setmetatable(res_3_auto, { __call = _14_, __index = _15_, __newindex = _17_ })
-end
-local _local_18_ = _13_(...)
-local join_path = _local_18_["join-path"]
 do
     vim.wo["foldlevel"] = 4
     vim.wo["foldmethod"] = "expr"
@@ -71,69 +40,46 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _19_()
+        local function _10_()
             local nvim_treesitter = require("nfnl.module").autoload("nvim-treesitter")
-            local install_dir = join_path({ vim.fn.stdpath("data"), "site" })
-            local parsers = keys(require("nvim-treesitter.parsers"))
-            nvim_treesitter.setup({ install_dir = install_dir })
-            if not vim.uv.fs_stat(install_dir) then
-                nvim_treesitter.install(parsers)
-            else
-            end
-            local function treesitter_attach(_21_)
-                local buf = _21_.buf
-                if not vim.b[buf]["ts-attached"] then
-                    vim.b[buf]["ts-attached"] = true
-                    local ft = vim.bo[buf].filetype
-                    local lang = vim.treesitter.language.get_lang(ft)
-                    if lang and contains_3f(parsers, lang) then
-                        vim.treesitter.start(buf)
-                        vim.bo["indentexpr"] = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        return nil
-                    else
-                        return nil
-                    end
+            nvim_treesitter.setup({})
+            local function _11_()
+                if pcall(vim.treesitter.start) then
+                    vim.bo["indentexpr"] = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    return nil
                 else
                     return nil
                 end
             end
-            vim.api.nvim_create_autocmd("FileType", {
-                group = vim.api.nvim_create_augroup("UserTreesitterAttach", { clear = true }),
-                callback = treesitter_attach,
-            })
-            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                if vim.api.nvim_buf_is_loaded(buf) then
-                    treesitter_attach({ buf = buf })
-                else
-                end
-            end
-            return nil
+            return vim.api.nvim_create_autocmd(
+                "FileType",
+                { group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }), callback = _11_ }
+            )
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-treesitter", after = _19_, event = "DeferredUIEnter", for_cat = "treesitter" })
+        keymap_30_auto = mod_12_auto.keymap({ "nvim-treesitter", after = _10_, for_cat = "treesitter" })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _25_()
+        local function _13_()
             local p_13_auto = require("nvim-ts-autotag")
             return p_13_auto.setup({
                 opts = { enable_close = true, enable_rename = true, enable_close_on_slash = true },
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-ts-autotag", after = _25_, event = "InsertEnter", for_cat = "treesitter" })
+            mod_12_auto.keymap({ "nvim-ts-autotag", after = _13_, event = "InsertEnter", for_cat = "treesitter" })
     end
 end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _26_()
+    local function _14_()
         local p_13_auto = require("hlargs")
         return p_13_auto.setup()
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "hlargs.nvim", after = _26_, event = "DeferredUIEnter", for_cat = "treesitter" })
+        mod_12_auto.keymap({ "hlargs.nvim", after = _14_, event = "DeferredUIEnter", for_cat = "treesitter" })
 end
