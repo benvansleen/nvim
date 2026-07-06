@@ -204,6 +204,19 @@ do
         })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "helm_ls",
+            enabled = true,
+            ft = { "helm", "helmfile" },
+            lsp = { cmd = { "helm_ls", "serve" }, filetypes = { "helm", "helmfile" }, rootPatterns = { "Chart.yaml" } },
+            on_attach = on_attach,
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")

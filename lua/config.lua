@@ -15,6 +15,7 @@ do
         require("plugins.editor")
         require("plugins.format")
         require("plugins.git")
+        require("plugins.helm")
         require("plugins.lint")
         require("plugins.lisp")
         require("plugins.lisette")

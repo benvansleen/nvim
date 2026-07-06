@@ -89,6 +89,13 @@
                 :lsp {:filetypes [:svelte] : on_attach}}]
               [:gopls
                {:enabled true :ft [:go] :lsp {:filetypes [:go] : on_attach}}]
+              [:helm_ls
+               {:enabled true
+                :ft [:helm :helmfile]
+                :lsp {:cmd [:helm_ls :serve]
+                      :filetypes [:helm :helmfile]
+                      :rootPatterns [:Chart.yaml]}
+                : on_attach}]
               [:terraform
                {:enabled true
                 :ft [:terraform :tf]

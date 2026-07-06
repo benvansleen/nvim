@@ -256,6 +256,14 @@ in
         ];
         data = [ ];
       };
+      helm = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          helm-ls
+        ];
+        data = [ ];
+      };
       nix = {
         after = [ "always" ];
         lazy = true;
