@@ -17,6 +17,7 @@ do
         require("plugins.git")
         require("plugins.lint")
         require("plugins.lisp")
+        require("plugins.lisette")
         require("plugins.lsp")
         require("plugins.misc")
         require("plugins.opencode")

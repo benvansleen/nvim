@@ -161,6 +161,17 @@
                       (tset vim.o :operatorfunc ,luaname)
                       (vim.cmd.normal "g@l"))))))
 
+(fn update-hl-for-fts [fts hls]
+  (fn splice [...]
+    `(do
+       ,(unpack ...)))
+
+  `(let [theme# (require :theme)]
+     ,(splice (icollect [_ ft (ipairs fts)]
+                (splice (icollect [group opts (pairs hls)]
+                          `(vim.api.nvim_set_hl 0 ,(.. group "." ft)
+                                                (theme#.update-hl ,group ,opts))))))))
+
 (fn is-nix []
   `_G.nixInfo.isNix)
 
@@ -194,6 +205,7 @@
  : tap
  : tb
  : unless-nix
+ : update-hl-for-fts
  : when-nix
  : with-preserve-position
  : with-require}

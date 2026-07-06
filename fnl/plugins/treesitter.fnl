@@ -1,40 +1,17 @@
-(import-macros {: autoload : cfg : require-and-call : setup : with-require}
-               :macros)
-
-(autoload {: contains? : keys} :nfnl.core)
-(autoload {: join-path} :nfnl.fs)
+(import-macros {: cfg : setup} :macros)
 
 (cfg (wo {foldlevel 4
           foldmethod :expr
           foldexpr "v:lua.vim.treesitter.foldexpr()"})
+     (autocmd {[:FileType] {:desc "activate treesitter"
+                            :group (vim.api.nvim_create_augroup :UserTreesitter
+                                                                {:clear true})
+                            :callback (fn [{: buf}]
+                                        (when (pcall vim.treesitter.start buf)
+                                          (tset (. vim.bo buf) :indentexpr
+                                                "v:lua.require'nvim-treesitter'.indentexpr()")))}})
      (plugins [:nvim-treesitter
-               {:for_cat :treesitter
-                :event :DeferredUIEnter
-                :after #(with-require {: nvim-treesitter}
-                          (local install-dir
-                                 (join-path [(vim.fn.stdpath :data) :site]))
-                          (local parsers
-                                 (keys (require :nvim-treesitter.parsers)))
-                          (nvim-treesitter.setup {:install_dir install-dir})
-                          (when (not (vim.uv.fs_stat install-dir))
-                            (nvim-treesitter.install parsers))
-
-                          (fn treesitter-attach [{: buf}]
-                            (when (not (. vim.b buf :ts-attached))
-                              (tset vim.b buf :ts-attached true)
-                              (let [ft (. vim.bo buf :filetype)
-                                    lang (vim.treesitter.language.get_lang ft)]
-                                (when (and lang (contains? parsers lang))
-                                  (vim.treesitter.start buf)
-                                  (cfg (bo {indentexpr "v:lua.require'nvim-treesitter'.indentexpr()"}))))))
-
-                          (vim.api.nvim_create_autocmd :FileType
-                                                       {:group (vim.api.nvim_create_augroup :UserTreesitterAttach
-                                                                                            {:clear true})
-                                                        :callback treesitter-attach})
-                          (each [_ buf (ipairs (vim.api.nvim_list_bufs))]
-                            (when (vim.api.nvim_buf_is_loaded buf)
-                              (treesitter-attach {: buf}))))}]
+               {:for_cat :treesitter :after #(setup :nvim-treesitter)}]
               [:nvim-ts-autotag
                {:for_cat :treesitter
                 :event :InsertEnter

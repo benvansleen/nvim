@@ -7,7 +7,15 @@
     };
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "nixpkgs";
+      };
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     pre-commit-hooks = {
@@ -26,6 +34,10 @@
     };
     "plugins-foldtext-nvim" = {
       url = "github:OXY2DEV/foldtext.nvim";
+      flake = false;
+    };
+    "plugins-lisette-nvim" = {
+      url = "github:ivov/lisette";
       flake = false;
     };
     "plugins-telescope-cmdline-nvim" = {
@@ -55,11 +67,23 @@
           system:
           f {
             inherit system;
-            pkgs = nixpkgs.legacyPackages.${system};
+            # pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "replace" ];
+            };
           }
         );
       module = lib.modules.importApply ./nix inputs;
       wrapper = wrappers.lib.evalModule module;
+      devWrapper = wrappers.lib.evalModules {
+        modules = [
+          module
+          ({ lib, ... }: {
+            settings.config_directory = lib.mkForce (lib.generators.mkLuaInline /* lua */ ''vim.fn.stdpath("config")'');
+          })
+        ];
+      };
       treefmtEval = pkgs: treefmt-nix.lib.evalModule pkgs ./nix/treefmt.nix;
     in
     {
@@ -107,13 +131,14 @@
 
       devShells = eachSystem (
         { system, pkgs }:
+        let
+          devNeovim = devWrapper.config.wrap { inherit pkgs; };
+        in
         {
           default = pkgs.mkShell {
-            packages = [
-              self.packages.${system}.default
-            ];
-            inputsFrom = [ self.packages.${system}.default ];
-            buildInputs = [
+            packages = [ devNeovim ];
+            inputsFrom = [ devNeovim ];
+            buildInputs = lib.flatten [
               self.checks.${system}.pre-commit-check.enabledPackages
             ];
             inherit (self.checks.${system}.pre-commit-check) shellHook;
@@ -123,9 +148,9 @@
 
       formatter = eachSystem ({ pkgs, ... }: (treefmtEval pkgs).config.build.wrapper);
       checks = eachSystem (
-        { pkgs, ... }:
+        { system, ... }:
         {
-          pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
               check-added-large-files.enable = true;
@@ -134,11 +159,11 @@
               detect-private-keys.enable = true;
               end-of-file-fixer.enable = true;
               ripsecrets.enable = true;
-              statix.enable = true;
+              statix.enable = false; # 7/6/26: build fails
               trim-trailing-whitespace.enable = true;
               treefmt = {
                 enable = true;
-                packageOverrides.treefmt = self.outputs.formatter.${pkgs.system};
+                packageOverrides.treefmt = self.outputs.formatter.${system};
               };
             };
           };
