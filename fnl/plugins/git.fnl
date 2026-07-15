@@ -4,28 +4,36 @@
                {:for_cat :git
                 :cmd :Neogit
                 :on_require :neogit
-                :before #(vim.cmd.packadd :diffview.nvim)
                 :after #(setup :neogit
                                {:auto_refresh true
                                 :console_timeout 750
                                 :filewatcher {:enabled true :interval 1000}
                                 :disable_hint true
-                                :graph_style :unicode
+                                :graph_style :kitty
                                 :process_spinner true
                                 :mappings {:status {:gr :RefreshBuffer}
                                            :popup {:p :PushPopup :F :PullPopup}}
-                                :integrations {:telescope true :diffview true}
+                                :integrations {:telescope true :codediff true}
                                 :signs {:hunk ["" ""]
                                         :item ["" ""]
                                         :section ["" ""]}
                                 :commit_editor {:staged_diff_split_kind :auto}
-                                :sections {:recent {:folded false}}})}
+                                :remember_settings true
+                                :sections {:recent {:folded false}}
+                                :treesitter_diff_highlight true
+                                :word_diff_highlight true})}
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"
                                                                              :kind :auto})})]
-              [:diffview.nvim
-               {:for_cat :git :on_require :diffview :after #(setup :diffview)}]
+              [:codediff.nvim
+               {:for_cat :git
+                :on_require :codediff
+                :after #(setup :codediff
+                               {:diff {:layout :inline}
+                                :highlights {:char_brightness 1.15}
+                                :keymaps {:view {:next_file :<tab>
+                                                 :prev_file :<s-tab>}}})}]
               [:gitsigns.nvim
                {:for_cat :git
                 :event :DeferredUIEnter
