@@ -88,4 +88,8 @@
                       ["[G]it: [N]ext hunk" :<leader>gn] #(require-and-call :gitsigns
                                                                             :next_hunk)
                       ["[G]it: [P]revious hunk" :<leader>gp] #(require-and-call :gitsigns
-                                                                                :prev_hunk)})]))
+                                                                                :prev_hunk)})]
+              [:octo.nvim
+               {:for_cat :git
+                :cmd :Octo
+                :after #(setup :octo {:picker :telescope :poll {:enabled true}})}]))

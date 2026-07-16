@@ -47,77 +47,89 @@ do
         keymap_30_auto = mod_12_auto.keymap({ "codediff.nvim", after = _3_, for_cat = "git", on_require = "codediff" })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _4_()
+            local p_13_auto = require("gitsigns")
+            return p_13_auto.setup({
+                signs = {
+                    add = { text = "\226\148\130" },
+                    change = { text = "\226\148\130" },
+                    delete = { text = "_" },
+                    topdelete = { text = "\226\128\190" },
+                    changedelete = { text = "~" },
+                    untracked = { text = "\226\148\134" },
+                },
+                signs_staged = {
+                    add = { text = "\226\148\130" },
+                    change = { text = "\226\148\130" },
+                    delete = { text = "_" },
+                    topdelete = { text = "\226\128\190" },
+                    changedelete = { text = "~" },
+                    untracked = { text = "\226\148\134" },
+                },
+                signcolumn = true,
+                watch_gitdir = { follow_files = true },
+                auto_attach = true,
+                current_line_blame = true,
+                current_line_blame_opts = {
+                    virt_text = true,
+                    virt_text_pos = "eol",
+                    delay = 1000,
+                    virt_text_priority = 100,
+                    use_focus = true,
+                    ignore_whitespace = false,
+                },
+                current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
+                sign_priority = 6,
+                update_debounce = 100,
+                status_formatter = nil,
+                max_file_length = 40000,
+                preview_config = { style = "minimal", relative = "cursor", row = 0, col = 1 },
+                attach_to_untracked = false,
+                linehl = false,
+                numhl = false,
+                signs_staged_enable = false,
+                word_diff = false,
+            })
+        end
+        keymap_30_auto =
+            mod_12_auto.keymap({ "gitsigns.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "git" })
+    end
+    local function _5_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.stage_hunk()
+    end
+    keymap_30_auto.set("n", "<leader>gs", _5_, { desc = "[G]it: [S]tage hunk", expr = false, noremap = true })
+    local function _6_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.reset_hunk()
+    end
+    keymap_30_auto.set("n", "<leader>gR", _6_, { desc = "[G]it: [R]eset hunk", expr = false, noremap = true })
+    local function _7_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.preview_hunk_inline()
+    end
+    keymap_30_auto.set("n", "<leader>gP", _7_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
+    local function _8_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.next_hunk()
+    end
+    keymap_30_auto.set("n", "<leader>gn", _8_, { desc = "[G]it: [N]ext hunk", expr = false, noremap = true })
+    local function _9_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.prev_hunk()
+    end
+    keymap_30_auto.set("n", "<leader>gp", _9_, { desc = "[G]it: [P]revious hunk", expr = false, noremap = true })
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _4_()
-        local p_13_auto = require("gitsigns")
-        return p_13_auto.setup({
-            signs = {
-                add = { text = "\226\148\130" },
-                change = { text = "\226\148\130" },
-                delete = { text = "_" },
-                topdelete = { text = "\226\128\190" },
-                changedelete = { text = "~" },
-                untracked = { text = "\226\148\134" },
-            },
-            signs_staged = {
-                add = { text = "\226\148\130" },
-                change = { text = "\226\148\130" },
-                delete = { text = "_" },
-                topdelete = { text = "\226\128\190" },
-                changedelete = { text = "~" },
-                untracked = { text = "\226\148\134" },
-            },
-            signcolumn = true,
-            watch_gitdir = { follow_files = true },
-            auto_attach = true,
-            current_line_blame = true,
-            current_line_blame_opts = {
-                virt_text = true,
-                virt_text_pos = "eol",
-                delay = 1000,
-                virt_text_priority = 100,
-                use_focus = true,
-                ignore_whitespace = false,
-            },
-            current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
-            sign_priority = 6,
-            update_debounce = 100,
-            status_formatter = nil,
-            max_file_length = 40000,
-            preview_config = { style = "minimal", relative = "cursor", row = 0, col = 1 },
-            attach_to_untracked = false,
-            linehl = false,
-            numhl = false,
-            signs_staged_enable = false,
-            word_diff = false,
-        })
+    local function _10_()
+        local p_13_auto = require("octo")
+        return p_13_auto.setup({ picker = "telescope", poll = { enabled = true } })
     end
-    keymap_30_auto = mod_12_auto.keymap({ "gitsigns.nvim", after = _4_, event = "DeferredUIEnter", for_cat = "git" })
+    keymap_30_auto = mod_12_auto.keymap({ "octo.nvim", after = _10_, cmd = "Octo", for_cat = "git" })
 end
-local function _5_()
-    local mod_12_auto = require("nfnl.module").autoload("gitsigns")
-    return mod_12_auto.stage_hunk()
-end
-keymap_30_auto.set("n", "<leader>gs", _5_, { desc = "[G]it: [S]tage hunk", expr = false, noremap = true })
-local function _6_()
-    local mod_12_auto = require("nfnl.module").autoload("gitsigns")
-    return mod_12_auto.reset_hunk()
-end
-keymap_30_auto.set("n", "<leader>gR", _6_, { desc = "[G]it: [R]eset hunk", expr = false, noremap = true })
-local function _7_()
-    local mod_12_auto = require("nfnl.module").autoload("gitsigns")
-    return mod_12_auto.preview_hunk_inline()
-end
-keymap_30_auto.set("n", "<leader>gP", _7_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
-local function _8_()
-    local mod_12_auto = require("nfnl.module").autoload("gitsigns")
-    return mod_12_auto.next_hunk()
-end
-keymap_30_auto.set("n", "<leader>gn", _8_, { desc = "[G]it: [N]ext hunk", expr = false, noremap = true })
-local function _9_()
-    local mod_12_auto = require("nfnl.module").autoload("gitsigns")
-    return mod_12_auto.prev_hunk()
-end
-return keymap_30_auto.set("n", "<leader>gp", _9_, { desc = "[G]it: [P]revious hunk", expr = false, noremap = true })

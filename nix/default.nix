@@ -158,6 +158,7 @@ in
         data = with pkgs.vimPlugins; [
           codediff-nvim
           gitsigns-nvim
+          octo-nvim
           neogit
         ];
       };
