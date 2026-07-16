@@ -17,7 +17,7 @@
                                   startuptime_exe_path _G.nixInfo.progpath}))}]
               [:which-key.nvim
                {:for_cat :general
-                :event :DeferredUIEnter
+                :event :CursorMoved
                 :after #(with-require {: which-key}
                           (which-key.setup {:preset :helix :delay 500})
                           (which-key.add [(tb :<leader><leader>

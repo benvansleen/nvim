@@ -37,12 +37,10 @@
                                                          (vim.cmd :LspStart))
                                   :type :buffer}))}]
               [:fidget.nvim
-               {:for_cat :general
-                :event :DeferredUIEnter
-                :after #(setup :fidget)}]
+               {:for_cat :general :event :LspAttach :after #(setup :fidget)}]
               [:foldtext-nvim
                {:for_cat :general
-                :event :DeferredUIEnter
+                :event [:BufReadPost :BufNewFile]
                 :after #(do
                           (setup :foldtext)
                           (cfg (opt {fillchars {:eob " " :fold " "}})))}]
@@ -93,7 +91,7 @@
                                                                                :jump)})]
               [:hbac-nvim
                {:for_cat :general
-                :event :DeferredUIEnter
+                :event :CursorMoved
                 :after #(setup :hbac {:autoclose true :autopin true})}]
               [:mini.ai
                {:for_cat :general

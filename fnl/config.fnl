@@ -4,6 +4,7 @@
          maplocalleader ","
          my_center_buffer true
          _debug_my_center_buffer false
+         loaded_matchit 1
          netrw_liststyle 0
          netrw_banner 0})
      (requires-plugins :appearance :completion :debug :editor :format :git
@@ -51,10 +52,7 @@
            [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
             ["[W]hat's [T]his [F]ile?" :<leader>wtf] #(print (vim.api.nvim_buf_get_name 0))
-            ["[Q]uit buffer" :<leader>q] #(with-require {diffview :diffview.lib}
-                                            (if (diffview.get_current_view)
-                                                (vim.cmd.DiffviewClose)
-                                                (vim.cmd.bdelete)))
+            ["[Q]uit buffer" :<leader>q] vim.cmd.bdelete
             ["Forcefully [Q]uit buffer" :<leader>Q] #(vim.cmd :bdelete!)
             ["[H]ighlight [U]nder [C]ursor" :<leader>huc] :<cmd>Inspect<CR>
             ["Comment line" :<M-/>] #(vim.cmd.normal :gcc)})

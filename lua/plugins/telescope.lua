@@ -148,23 +148,11 @@ do
                 else
                 end
             end
-            local _19_
-            do
-                local mod_12_auto0 = require("nfnl.module").autoload("theme")
-                _19_ = mod_12_auto0["set-telescope-highlights"]()
-            end
-            local _21_
-            do
-                local mod_12_auto0 = require("nfnl.module").autoload("theme")
-                _21_ = mod_12_auto0["set-telescope-highlights"]()
-            end
-            local function _23_()
-                local mod_12_auto0 = require("nfnl.module").autoload("theme")
-                return mod_12_auto0["set-telescope-highlights"]()
-            end
-            return telescope.load_extension("zoxide", _19_, _21_, telescope.load_extension("zoxide"), _23_())
+            telescope.load_extension("zoxide")
+            local mod_12_auto0 = require("nfnl.module").autoload("theme")
+            return mod_12_auto0["set-telescope-highlights"]()
         end
-        local function _24_(name)
+        local function _19_(name)
             vim.cmd.packadd(name)
             vim.cmd.packadd("telescope-cmdline-nvim")
             vim.cmd.packadd("telescope-egrepify-nvim")
@@ -185,7 +173,7 @@ do
             after = _11_,
             cmd = { "Telescope", "LiveGrepGitRoot" },
             for_cat = "telescope",
-            load = _24_,
+            load = _19_,
             on_require = { "telescope" },
         })
     end
@@ -201,61 +189,61 @@ do
         "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",
         { desc = "[F]ind [F]ile", expr = false, noremap = true }
     )
-    local function _26_()
+    local function _21_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.find_files()
     end
-    keymap_30_auto.set("n", "<leader>pf", _26_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
+    keymap_30_auto.set("n", "<leader>pf", _21_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
     keymap_30_auto.set(
         "n",
         "<leader>pw",
         "<cmd>Telescope egrepify<cr>",
         { desc = "Find [P]roject [W]ord", expr = false, noremap = true }
     )
-    local function _27_()
+    local function _22_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.oldfiles()
     end
-    keymap_30_auto.set("n", "<leader>fh", _27_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
-    local function _28_()
+    keymap_30_auto.set("n", "<leader>fh", _22_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
+    local function _23_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.buffers()
     end
-    keymap_30_auto.set("n", "<leader>fb", _28_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
-    local function _29_()
+    keymap_30_auto.set("n", "<leader>fb", _23_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
+    local function _24_()
         return pick_tab()
     end
-    keymap_30_auto.set("n", "<leader>ft", _29_, { desc = "[F]ind [T]ab", expr = false, noremap = true })
-    local function _30_()
+    keymap_30_auto.set("n", "<leader>ft", _24_, { desc = "[F]ind [T]ab", expr = false, noremap = true })
+    local function _25_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.current_buffer_fuzzy_find()
     end
-    keymap_30_auto.set("n", "<leader>fl", _30_, { desc = "[F]ind [L]ine", expr = false, noremap = true })
-    local function _31_()
+    keymap_30_auto.set("n", "<leader>fl", _25_, { desc = "[F]ind [L]ine", expr = false, noremap = true })
+    local function _26_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.diagnostics()
     end
-    keymap_30_auto.set("n", "<leader>fd", _31_, { desc = "[F]ind [D]iagnostic", expr = false, noremap = true })
-    local function _32_()
+    keymap_30_auto.set("n", "<leader>fd", _26_, { desc = "[F]ind [D]iagnostic", expr = false, noremap = true })
+    local function _27_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.resume()
     end
-    keymap_30_auto.set("n", "<leader>fr", _32_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
-    local function _33_()
+    keymap_30_auto.set("n", "<leader>fr", _27_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
+    local function _28_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.keymaps()
     end
-    keymap_30_auto.set("n", "<leader>fk", _33_, { desc = "[F]ind [K]eymap", expr = false, noremap = true })
-    local function _34_()
+    keymap_30_auto.set("n", "<leader>fk", _28_, { desc = "[F]ind [K]eymap", expr = false, noremap = true })
+    local function _29_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.help_tags()
     end
-    keymap_30_auto.set("n", "<leader>fH", _34_, { desc = "[F]ind [H]elp", expr = false, noremap = true })
-    local function _35_()
+    keymap_30_auto.set("n", "<leader>fH", _29_, { desc = "[F]ind [H]elp", expr = false, noremap = true })
+    local function _30_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.builtin()
     end
-    keymap_30_auto.set("n", "<leader>fT", _35_, { desc = "[F]ind [T]elescope", expr = false, noremap = true })
+    keymap_30_auto.set("n", "<leader>fT", _30_, { desc = "[F]ind [T]elescope", expr = false, noremap = true })
     keymap_30_auto.set(
         "n",
         "<leader>fM",
@@ -274,16 +262,16 @@ do
         "<cmd>Telescope zoxide list<cr>",
         { desc = "[C]hange [D]irectory", expr = false, noremap = true }
     )
-    local function _36_()
+    local function _31_()
         local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
         return mod_12_auto.lsp_references()
     end
-    keymap_30_auto.set("n", "<leader>gr", _36_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
+    keymap_30_auto.set("n", "<leader>gr", _31_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
 end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _37_()
+    local function _32_()
         do
             local p_13_auto = require("project")
             p_13_auto.setup({
@@ -301,7 +289,7 @@ do
     end
     keymap_30_auto = mod_12_auto.keymap({
         "project.nvim",
-        after = _37_,
+        after = _32_,
         cmd = {
             "Project",
             "ProjectAdd",

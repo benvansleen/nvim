@@ -4,20 +4,24 @@ do
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _1_()
-            local p_13_auto = require("neogit")
-            return p_13_auto.setup({
-                auto_refresh = true,
-                disable_hint = true,
-                graph_style = "kitty",
-                mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
-                integrations = { telescope = true, codediff = true },
-                signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
-                commit_editor = { staged_diff_split_kind = "auto" },
-                remember_settings = true,
-                sections = { recent = { folded = false } },
-                treesitter_diff_highlight = true,
-                word_diff_highlight = true,
-            })
+            do
+                local p_13_auto = require("neogit")
+                p_13_auto.setup({
+                    auto_refresh = true,
+                    disable_hint = true,
+                    graph_style = "kitty",
+                    mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
+                    integrations = { telescope = true, codediff = true },
+                    signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
+                    commit_editor = { staged_diff_split_kind = "auto" },
+                    remember_settings = true,
+                    sections = { recent = { folded = false } },
+                    treesitter_diff_highlight = true,
+                    word_diff_highlight = true,
+                })
+            end
+            vim.api.nvim_set_hl(0, "NeogitDiffAddInline", { link = "NeogitDiffAdd", bold = true })
+            return vim.api.nvim_set_hl(0, "NeogitDiffDeleteInline", { link = "NeogitDiffDelete", bold = true })
         end
         keymap_30_auto =
             mod_12_auto.keymap({ "neogit", after = _1_, cmd = "Neogit", for_cat = "git", on_require = "neogit" })

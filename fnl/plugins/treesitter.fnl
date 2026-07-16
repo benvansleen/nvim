@@ -11,7 +11,9 @@
                                           (tset (. vim.bo buf) :indentexpr
                                                 "v:lua.require'nvim-treesitter'.indentexpr()")))}})
      (plugins [:nvim-treesitter
-               {:for_cat :treesitter :after #(setup :nvim-treesitter)}]
+               {:for_cat :treesitter
+                :event [:BufReadPost :BufNewFile :StdinReadPost]
+                :after #(setup :nvim-treesitter)}]
               [:nvim-ts-autotag
                {:for_cat :treesitter
                 :event :InsertEnter

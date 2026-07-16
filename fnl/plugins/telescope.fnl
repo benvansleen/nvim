@@ -92,14 +92,8 @@
                           (telescope.load_extension :ui-select)
                           (when-nix (telescope.load_extension :undo)
                                     (telescope.load_extension :zf-native))
-                          (telescope.load_extension :zoxide
-                                                    (require-and-call :theme
-                                                                      :set-telescope-highlights)
-                                                    (require-and-call :theme
-                                                                      :set-telescope-highlights)
-                                                    (telescope.load_extension :zoxide)
-                                                    (require-and-call :theme
-                                                                      :set-telescope-highlights)))}
+                          (telescope.load_extension :zoxide)
+                          (require-and-call :theme :set-telescope-highlights))}
                (nmap {["Execute extended command" ";"] "<cmd>Telescope cmdline<cr>"
                       ["[F]ind [F]ile" :<leader>ff] "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>"
                       ["Find [P]roject [F]ile" :<leader>pf] #(require-and-call :telescope.builtin

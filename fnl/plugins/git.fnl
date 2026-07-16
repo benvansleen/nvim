@@ -4,21 +4,28 @@
                {:for_cat :git
                 :cmd :Neogit
                 :on_require :neogit
-                :after #(setup :neogit
-                               {:auto_refresh true
-                                :disable_hint true
-                                :graph_style :kitty
-                                :mappings {:status {:gr :RefreshBuffer}
-                                           :popup {:p :PushPopup :F :PullPopup}}
-                                :integrations {:telescope true :codediff true}
-                                :signs {:hunk ["" ""]
-                                        :item ["" ""]
-                                        :section ["" ""]}
-                                :commit_editor {:staged_diff_split_kind :auto}
-                                :remember_settings true
-                                :sections {:recent {:folded false}}
-                                :treesitter_diff_highlight true
-                                :word_diff_highlight true})}
+                :after (fn []
+                         (setup :neogit
+                                {:auto_refresh true
+                                 :disable_hint true
+                                 :graph_style :kitty
+                                 :mappings {:status {:gr :RefreshBuffer}
+                                            :popup {:p :PushPopup
+                                                    :F :PullPopup}}
+                                 :integrations {:telescope true :codediff true}
+                                 :signs {:hunk ["" ""]
+                                         :item ["" ""]
+                                         :section ["" ""]}
+                                 :commit_editor {:staged_diff_split_kind :auto}
+                                 :remember_settings true
+                                 :sections {:recent {:folded false}}
+                                 :treesitter_diff_highlight true
+                                 :word_diff_highlight true})
+                         (vim.api.nvim_set_hl 0 :NeogitDiffAddInline
+                                              {:link :NeogitDiffAdd :bold true})
+                         (vim.api.nvim_set_hl 0 :NeogitDiffDeleteInline
+                                              {:link :NeogitDiffDelete
+                                               :bold true}))}
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"

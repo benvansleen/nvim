@@ -7,7 +7,7 @@
 
 (cfg (plugins [:dashboard-nvim
                {:for_cat :general
-                :event :VimEnter
+                :cmd :Dashboard
                 :after #(do
                           (setup :dashboard
                                  {:theme :hyper
@@ -121,4 +121,11 @@
                                                  [deleted-name
                                                   deleted-ft
                                                   deleted-bt])
-                                        (vim.cmd :Dashboard))))}}))
+                                        (vim.cmd :Dashboard))))}
+               [:VimEnter] {:group (vim.api.nvim_create_augroup :open-dashboard
+                                                                {:clear true})
+                            :callback #(when (and (= (vim.fn.argc) 0)
+                                                  (= (vim.api.nvim_buf_get_name 0)
+                                                     "")
+                                                  (= vim.bo.buftype ""))
+                                         (vim.cmd :Dashboard))}}))

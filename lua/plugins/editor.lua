@@ -79,8 +79,7 @@ do
             local p_13_auto = require("fidget")
             return p_13_auto.setup()
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "fidget.nvim", after = _13_, event = "DeferredUIEnter", for_cat = "general" })
+        keymap_30_auto = mod_12_auto.keymap({ "fidget.nvim", after = _13_, event = "LspAttach", for_cat = "general" })
     end
 end
 do
@@ -95,8 +94,12 @@ do
             vim.opt["fillchars"] = { eob = " ", fold = " " }
             return nil
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "foldtext-nvim", after = _14_, event = "DeferredUIEnter", for_cat = "general" })
+        keymap_30_auto = mod_12_auto.keymap({
+            "foldtext-nvim",
+            after = _14_,
+            event = { "BufReadPost", "BufNewFile" },
+            for_cat = "general",
+        })
     end
 end
 do
@@ -188,8 +191,7 @@ do
             local p_13_auto = require("hbac")
             return p_13_auto.setup({ autoclose = true, autopin = true })
         end
-        keymap_30_auto =
-            mod_12_auto.keymap({ "hbac-nvim", after = _25_, event = "DeferredUIEnter", for_cat = "general" })
+        keymap_30_auto = mod_12_auto.keymap({ "hbac-nvim", after = _25_, event = "CursorMoved", for_cat = "general" })
     end
 end
 do
