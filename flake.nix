@@ -36,6 +36,10 @@
       url = "github:OXY2DEV/foldtext.nvim";
       flake = false;
     };
+    "plugins-hbac-nvim" = {
+      url = "github:axkirillov/hbac.nvim";
+      flake = false;
+    };
     "plugins-lisette-nvim" = {
       url = "github:ivov/lisette";
       flake = false;

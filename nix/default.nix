@@ -86,6 +86,7 @@ in
           opencode-nvim
           config.nvim-lib.neovimPlugins.direnv-nvim
           config.nvim-lib.neovimPlugins.foldtext-nvim
+          config.nvim-lib.neovimPlugins.hbac-nvim
           smear-cursor-nvim
           undotree
           vim-startuptime
