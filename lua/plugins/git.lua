@@ -7,11 +7,8 @@ do
             local p_13_auto = require("neogit")
             return p_13_auto.setup({
                 auto_refresh = true,
-                console_timeout = 750,
-                filewatcher = { enabled = true, interval = 1000 },
                 disable_hint = true,
                 graph_style = "kitty",
-                process_spinner = true,
                 mappings = { status = { gr = "RefreshBuffer" }, popup = { p = "PushPopup", F = "PullPopup" } },
                 integrations = { telescope = true, codediff = true },
                 signs = { hunk = { "", "" }, item = { "", "" }, section = { "", "" } },
