@@ -31,7 +31,7 @@
         :background {:transparent false}
         :customize (partial customize-colors M.palette)})
 
-(let [{: bg0} M.palette
+(let [{: bg0 : bg1 : orange : bg_yellow} M.palette
       italic-nontext (M.update-hl :NonText {:italic true})]
   (hl :WinBar (M.update-hl :NonText italic-nontext))
   (hl :WinBarNC (M.update-hl :NonText italic-nontext))
@@ -39,6 +39,10 @@
   (hl :StatusLineNC {:link :NonText})
   (hl :WinSeparator {:link :NonText})
   (hl :CursorLine {:bg bg0})
+  (hl :NormalFloat {:bg bg0})
+  (hl :FloatBorder {:fg orange :bg bg0})
+  (hl :FloatTitle {:fg bg1 :bg bg_yellow :bold true})
+  (hl :FloatFooter {:fg bg1 :bg blue :italic true})
   (cfg (autocmd {[:User] {:pattern :TelescopeFindPre
                           :group (vim.api.nvim_create_augroup :reset-cursorline-bg
                                                               {:clear true})

@@ -79,6 +79,9 @@ do
 end
 do
     local bg0 = M.palette.bg0
+    local bg1 = M.palette.bg1
+    local orange = M.palette.orange
+    local bg_yellow = M.palette.bg_yellow
     local italic_nontext = M["update-hl"]("NonText", { italic = true })
     hl("WinBar", M["update-hl"]("NonText", italic_nontext))
     hl("WinBarNC", M["update-hl"]("NonText", italic_nontext))
@@ -86,6 +89,10 @@ do
     hl("StatusLineNC", { link = "NonText" })
     hl("WinSeparator", { link = "NonText" })
     hl("CursorLine", { bg = bg0 })
+    hl("NormalFloat", { bg = bg0 })
+    hl("FloatBorder", { fg = orange, bg = bg0 })
+    hl("FloatTitle", { fg = bg1, bg = bg_yellow, bold = true })
+    hl("FloatFooter", { fg = bg1, bg = blue, italic = true })
     local function _15_()
         return hl("CursorLine", { bg = bg0 })
     end

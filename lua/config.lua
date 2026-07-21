@@ -104,7 +104,7 @@ do
         vim.opt["timeoutlen"] = 300
         vim.opt["updatetime"] = 250
         vim.opt["undofile"] = true
-        vim.opt["winborder"] = "shadow"
+        vim.opt["winborder"] = "rounded"
         vim.opt["number"] = false
         vim.opt["relativenumber"] = false
         vim.opt["ruler"] = false

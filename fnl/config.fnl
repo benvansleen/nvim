@@ -71,7 +71,7 @@
            timeoutlen 300
            updatetime 250
            undofile true
-           winborder :shadow})
+           winborder :rounded})
      (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>zz
            [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
