@@ -9,6 +9,7 @@
                                 {:auto_refresh true
                                  :disable_hint true
                                  :graph_style :kitty
+                                 :kind (if vim.g.neogit_host :replace :tab)
                                  :mappings {:status {:gr :RefreshBuffer}
                                             :popup {:p :PushPopup
                                                     :F :PullPopup}}

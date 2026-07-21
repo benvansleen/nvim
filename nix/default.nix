@@ -36,6 +36,18 @@ in
 
   config = {
     hosts.neovide.nvim-host.enable = true;
+    hosts.neogit.nvim-host = {
+      enable = true;
+      package = config.wrapperPaths.placeholder;
+      addFlag = [
+        "--cmd"
+        "let g:neogit_host = v:true"
+        "+Neogit"
+      ];
+    };
+    drv.postBuild = ''
+      ln -s nvim-neogit "$out/bin/neogit"
+    '';
 
     package = pkgs.neovim-unwrapped.overrideAttrs (old: {
       # Optimize across translation units without making the binary CPU-specific.
