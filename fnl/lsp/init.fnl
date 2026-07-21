@@ -14,9 +14,7 @@
                 :on_require [:lspconfig]
                 :lsp (fn [plugin]
                        (vim.lsp.config plugin.name (or plugin.lsp {}))
-                       (vim.lsp.enable plugin.name))
-                :before #(vim.lsp.config "*"
-                                         {: on_attach :root_markers [:.git]})}]
+                       (vim.lsp.enable plugin.name))}]
               [:lua_ls
                {:enabled (or (nix-enabled :lua) false)
                 :ft [:lua]
@@ -27,11 +25,12 @@
                                        :signatureHelp {:enabled true}
                                        :diagnostics {:globals [:vim]
                                                      :disable [:missing-fields]}
-                                       :telemetry {:enabled false}}}}}]
+                                       :telemetry {:enabled false}}}
+                      : on_attach}}]
               [:fennel_ls
                {:enabled (or (nix-enabled :fnl) false)
                 :ft [:fennel]
-                :lsp {:filetypes [:fennel] :settings {}}}]
+                :lsp {:filetypes [:fennel] :settings {} : on_attach}}]
               [:nixd
                {:enabled (and (is-nix) (or (nix-enabled :nix) false))
                 :ft [:nix]
@@ -45,7 +44,8 @@
                                            :home-manager {:expr (nix-config :settings
                                                                             :nixdHomeManagerPath)}}
                                  :formatting {:command [:nixfmt]}
-                                 :diagnostic {:suppress [:sema-escaping-with]}}}}]
+                                 :diagnostic {:suppress [:sema-escaping-with]}}
+                      : on_attach}}]
               [:basedpyright
                {:enabled false
                 :ft [:python]

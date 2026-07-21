@@ -5,20 +5,12 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _2_()
-            return vim.lsp.config("*", { on_attach = on_attach, root_markers = { ".git" } })
-        end
-        local function _3_(plugin)
+        local function _2_(plugin)
             vim.lsp.config(plugin.name, (plugin.lsp or {}))
             return vim.lsp.enable(plugin.name)
         end
-        keymap_30_auto = mod_12_auto.keymap({
-            "nvim-lspconfig",
-            before = _2_,
-            for_cat = "lsp",
-            lsp = _3_,
-            on_require = { "lspconfig" },
-        })
+        keymap_30_auto =
+            mod_12_auto.keymap({ "nvim-lspconfig", for_cat = "lsp", lsp = _2_, on_require = { "lspconfig" } })
     end
 end
 do
@@ -40,6 +32,7 @@ do
                         telemetry = { enabled = false },
                     },
                 },
+                on_attach = on_attach,
             },
         })
     end
@@ -52,7 +45,7 @@ do
             "fennel_ls",
             enabled = (_G.nixInfo.settings.cats.fnl or false),
             ft = { "fennel" },
-            lsp = { filetypes = { "fennel" }, settings = {} },
+            lsp = { filetypes = { "fennel" }, settings = {}, on_attach = on_attach },
         })
     end
 end
@@ -60,13 +53,13 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local and_4_ = _G.nixInfo.isNix
-        if and_4_ then
-            and_4_ = (_G.nixInfo.settings.cats.nix or false)
+        local and_3_ = _G.nixInfo.isNix
+        if and_3_ then
+            and_3_ = (_G.nixInfo.settings.cats.nix or false)
         end
         keymap_30_auto = mod_12_auto.keymap({
             "nixd",
-            enabled = and_4_,
+            enabled = and_3_,
             ft = { "nix" },
             lsp = {
                 filetypes = { "nix" },
@@ -89,6 +82,7 @@ do
                     formatting = { command = { "nixfmt" } },
                     diagnostic = { suppress = { "sema-escaping-with" } },
                 },
+                on_attach = on_attach,
             },
         })
     end
