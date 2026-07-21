@@ -185,16 +185,28 @@ do
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _25_()
+            local p_13_auto = require("hbac")
+            return p_13_auto.setup({ autoclose = true, autopin = true })
+        end
+        keymap_30_auto =
+            mod_12_auto.keymap({ "hbac-nvim", after = _25_, event = "DeferredUIEnter", for_cat = "general" })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _26_()
             local p_13_auto = require("mini.ai")
-            local _26_
-            do
-                local m = require("nfnl.module").autoload("mini.ai")
-                _26_ = m.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
-            end
             local _27_
             do
                 local m = require("nfnl.module").autoload("mini.ai")
-                _27_ = m.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
+                _27_ = m.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
+            end
+            local _28_
+            do
+                local m = require("nfnl.module").autoload("mini.ai")
+                _28_ = m.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
             end
             return p_13_auto.setup({
                 mappings = {
@@ -205,73 +217,73 @@ do
                     around_last = "al",
                     inside_last = "il",
                 },
-                custom_textobjects = { F = _26_, C = _27_ },
+                custom_textobjects = { F = _27_, C = _28_ },
                 search_method = "cover",
                 silent = false,
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "mini.ai", after = _25_, event = "CursorMoved", for_cat = "general" })
+        keymap_30_auto = mod_12_auto.keymap({ "mini.ai", after = _26_, event = "CursorMoved", for_cat = "general" })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _28_()
+        local function _29_()
             do
                 local p_13_auto = require("mini.indentscope")
-                local _29_
+                local _30_
                 do
                     local m = require("nfnl.module").autoload("mini.indentscope")
-                    _29_ = m.gen_animation.linear({ duration = 10 })
+                    _30_ = m.gen_animation.linear({ duration = 10 })
                 end
                 p_13_auto.setup({
                     symbol = "\226\148\130",
-                    draw = { animation = _29_ },
+                    draw = { animation = _30_ },
                     options = { indent_at_cursor = false, try_as_border = false },
                 })
             end
             vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText" })
-            local function _30_()
+            local function _31_()
                 vim.b.miniindentscope_disable = true
                 return nil
             end
             return vim.api.nvim_create_autocmd(
                 { "TermEnter" },
-                { group = vim.api.nvim_create_augroup("disable-indentscope", { clear = true }), callback = _30_ }
+                { group = vim.api.nvim_create_augroup("disable-indentscope", { clear = true }), callback = _31_ }
             )
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "mini.indentscope", after = _28_, event = "CursorMoved", for_cat = "general" })
+            mod_12_auto.keymap({ "mini.indentscope", after = _29_, event = "CursorMoved", for_cat = "general" })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _31_()
+        local function _32_()
             local p_13_auto = require("nvim-surround")
-            local function _32_()
+            local function _33_()
                 return { { "(" }, { ")" } }
             end
-            local function _33_()
+            local function _34_()
                 return { { "[" }, { "]" } }
             end
-            local function _34_()
+            local function _35_()
                 return { { "{" }, { "}" } }
             end
             return p_13_auto.setup({
                 surrounds = {
-                    ["("] = { add = _32_ },
-                    ["["] = { add = _33_ },
+                    ["("] = { add = _33_ },
+                    ["["] = { add = _34_ },
                     ["{"] = {
-                        add = _34_,
+                        add = _35_,
                     },
                 },
             })
         end
         keymap_30_auto =
-            mod_12_auto.keymap({ "nvim-surround", after = _31_, event = "CursorMoved", for_cat = "general" })
+            mod_12_auto.keymap({ "nvim-surround", after = _32_, event = "CursorMoved", for_cat = "general" })
     end
 end
 local keymap_30_auto

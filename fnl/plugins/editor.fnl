@@ -91,6 +91,10 @@
                                                                       :jump)
                      [[:n :x :o] "Flash up to previous" :T] #(require-and-call :flash.plugins.char
                                                                                :jump)})]
+              [:hbac-nvim
+               {:for_cat :general
+                :event :DeferredUIEnter
+                :after #(setup :hbac {:autoclose true :autopin true})}]
               [:mini.ai
                {:for_cat :general
                 :event :CursorMoved
