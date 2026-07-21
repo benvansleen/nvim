@@ -28,7 +28,12 @@ do
             local p_13_auto = require("nvim-treesitter")
             return p_13_auto.setup()
         end
-        keymap_30_auto = mod_12_auto.keymap({ "nvim-treesitter", after = _4_, for_cat = "treesitter" })
+        keymap_30_auto = mod_12_auto.keymap({
+            "nvim-treesitter",
+            after = _4_,
+            event = { "BufReadPost", "BufNewFile", "StdinReadPost" },
+            for_cat = "treesitter",
+        })
     end
 end
 do

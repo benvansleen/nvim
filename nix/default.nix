@@ -62,6 +62,7 @@ in
         data = with pkgs.vimPlugins; [
           gruvbox-material-nvim
           nfnl
+          oil-nvim
           vim-repeat
         ];
       };
@@ -80,7 +81,6 @@ in
           focus-nvim
           mini-ai
           mini-indentscope
-          oil-nvim
           nvim-highlight-colors
           nvim-surround
           opencode-nvim
@@ -96,7 +96,7 @@ in
 
       blink = {
         after = [ "always" ];
-        lazy = false;
+        lazy = true;
         data = with pkgs.vimPlugins; [
           cmp-cmdline
           blink-cmp
@@ -124,7 +124,7 @@ in
 
       treesitter = {
         after = [ "always" ];
-        lazy = false;
+        lazy = true;
         runtimePkgs = with pkgs; [
           tree-sitter
         ];

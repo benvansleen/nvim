@@ -150,7 +150,7 @@ do
                 return vim.api.nvim_set_hl(0, "DashboardShortCut", { link = "Green" })
             end
             keymap_30_auto =
-                mod_12_auto.keymap({ "dashboard-nvim", after = _28_, event = "VimEnter", for_cat = "general" })
+                mod_12_auto.keymap({ "dashboard-nvim", after = _28_, cmd = "Dashboard", for_cat = "general" })
         end
         keymap_30_auto.set(
             "n",
@@ -254,8 +254,19 @@ local function _39_(_38_)
         return nil
     end
 end
-return vim.api.nvim_create_autocmd({ "User" }, {
+vim.api.nvim_create_autocmd({ "User" }, {
     pattern = "BufDeletePost",
     group = vim.api.nvim_create_augroup("BufDeletePost", { clear = true }),
     callback = _39_,
 })
+local function _41_()
+    if (vim.fn.argc() == 0) and (vim.api.nvim_buf_get_name(0) == "") and (vim.bo.buftype == "") then
+        return vim.cmd("Dashboard")
+    else
+        return nil
+    end
+end
+return vim.api.nvim_create_autocmd(
+    { "VimEnter" },
+    { group = vim.api.nvim_create_augroup("open-dashboard", { clear = true }), callback = _41_ }
+)

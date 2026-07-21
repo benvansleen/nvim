@@ -58,6 +58,5 @@ do
             { "<leader>w_", hidden = true },
         })
     end
-    keymap_30_auto =
-        mod_12_auto.keymap({ "which-key.nvim", after = _3_, event = "DeferredUIEnter", for_cat = "general" })
+    keymap_30_auto = mod_12_auto.keymap({ "which-key.nvim", after = _3_, event = "CursorMoved", for_cat = "general" })
 end

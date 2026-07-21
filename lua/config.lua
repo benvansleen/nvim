@@ -4,6 +4,7 @@ do
         vim.g["mapleader"] = " "
         vim.g["maplocalleader"] = ","
         vim.g["my_center_buffer"] = true
+        vim.g["loaded_matchit"] = 1
         vim.g["netrw_liststyle"] = 0
         vim.g["netrw_banner"] = 0
         vim.g["_debug_my_center_buffer"] = false
@@ -84,29 +85,21 @@ do
             return print(vim.api.nvim_buf_get_name(0))
         end
         vim.keymap.set("n", "<leader>wtf", _1_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
+        vim.keymap.set("n", "<leader>q", vim.cmd.bdelete, { desc = "[Q]uit buffer", expr = false, noremap = true })
         local function _2_()
-            local diffview = require("nfnl.module").autoload("diffview.lib")
-            if diffview.get_current_view() then
-                return vim.cmd.DiffviewClose()
-            else
-                return vim.cmd.bdelete()
-            end
-        end
-        vim.keymap.set("n", "<leader>q", _2_, { desc = "[Q]uit buffer", expr = false, noremap = true })
-        local function _4_()
             return vim.cmd("bdelete!")
         end
-        vim.keymap.set("n", "<leader>Q", _4_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
+        vim.keymap.set("n", "<leader>Q", _2_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
         vim.keymap.set(
             "n",
             "<leader>huc",
             "<cmd>Inspect<CR>",
             { desc = "[H]ighlight [U]nder [C]ursor", expr = false, noremap = true }
         )
-        local function _5_()
+        local function _3_()
             return vim.cmd.normal("gcc")
         end
-        vim.keymap.set("n", "<M-/>", _5_, { desc = "Comment line", expr = false, noremap = true })
+        vim.keymap.set("n", "<M-/>", _3_, { desc = "Comment line", expr = false, noremap = true })
     end
     do
         vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", expr = false, noremap = true })
@@ -128,12 +121,12 @@ do
         pattern = "*",
         command = 'silent! normal! g`"zv',
     })
-    local function _6_()
+    local function _4_()
         return vim.highlight.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },
-        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _6_ }
+        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _4_ }
     )
 end
 do

@@ -13,7 +13,6 @@
 (cfg (g {loaded_netrwPlugin 1})
      (plugins [:oil.nvim
                {:for_cat :general
-                :cmd :Oil
                 :after #(setup :oil
                                {:default_file_explorer true
                                 :win_options {:winbar "%!v:lua.get_oil_winbar()"
