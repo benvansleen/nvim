@@ -1,4 +1,4 @@
-(import-macros {: cfg : setup : unless-nix : when-nix : with-require} :macros)
+(import-macros {: cfg} :macros)
 
 (vim.loader.enable)
 

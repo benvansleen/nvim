@@ -25,11 +25,11 @@
                                                      :go (tb :goimports :gofmt)}})
                           (vim.api.nvim_create_user_command :FormatDisable
                                                             #(set vim.g.disable_autoformat
-                                                                  false)
+                                                                  true)
                                                             {:desc "Disable autoformat-on-save"})
                           (vim.api.nvim_create_user_command :FormatEnable
                                                             #(set vim.g.disable_autoformat
-                                                                  true)
+                                                                  false)
                                                             {:desc "Enable autoformat-on-save"})
                           (vim.api.nvim_create_user_command :FormatToggle
                                                             #(set vim.g.disable_autoformat

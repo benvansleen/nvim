@@ -37,7 +37,10 @@ in
   config = {
     hosts.neovide.nvim-host.enable = true;
 
-    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+    package = pkgs.neovim-unwrapped.overrideAttrs (old: {
+      # Optimize across translation units without making the binary CPU-specific.
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON" ];
+    });
     settings = {
       ## can also use an impure path; this will not be provisioned by nix -- allowing for normal quick-reload behavior
       ## `config.settings.config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')"`
@@ -62,7 +65,6 @@ in
         data = with pkgs.vimPlugins; [
           gruvbox-material-nvim
           nfnl
-          oil-nvim
           vim-repeat
         ];
       };
@@ -83,6 +85,7 @@ in
           mini-indentscope
           nvim-highlight-colors
           nvim-surround
+          oil-nvim
           opencode-nvim
           config.nvim-lib.neovimPlugins.direnv-nvim
           config.nvim-lib.neovimPlugins.foldtext-nvim
@@ -266,6 +269,33 @@ in
         ];
         data = [ ];
       };
+      rust = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [ rust-analyzer ];
+        data = [ ];
+      };
+      nu = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [ nushell ];
+        data = [ ];
+      };
+      go = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          go
+          gopls
+        ];
+        data = [ ];
+      };
+      terraform = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [ terraform-ls ];
+        data = [ ];
+      };
       nix = {
         after = [ "always" ];
         lazy = true;
@@ -288,7 +318,10 @@ in
       typescript = {
         after = [ "always" ];
         lazy = true;
-        runtimePkgs = with pkgs; [ typescript-language-server ];
+        runtimePkgs = with pkgs; [
+          svelte-language-server
+          typescript-language-server
+        ];
         data = [ ];
       };
     };

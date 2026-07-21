@@ -10,9 +10,17 @@
             (table.concat " > "))
         (vim.api.nvim_buf_get_name 0))))
 
+(fn open-directory [{: buf}]
+  (let [path (vim.api.nvim_buf_get_name buf)]
+    (when (= 1 (vim.fn.isdirectory path))
+      (require-and-call :lze :trigger_load :oil.nvim)
+      (require-and-call :oil :open path))))
+
 (cfg (g {loaded_netrwPlugin 1})
      (plugins [:oil.nvim
                {:for_cat :general
+                :lazy true
+                :cmd :Oil
                 :after #(setup :oil
                                {:default_file_explorer true
                                 :win_options {:winbar "%!v:lua.get_oil_winbar()"
@@ -47,4 +55,8 @@
                             :group (vim.api.nvim_create_augroup :oil-last
                                                                 {:clear true})
                             :callback #(cfg (g {__oil_last (require-and-call :oil
-                                                                             :get_current_dir)}))}}))
+                                                                             :get_current_dir)}))}
+               [:BufEnter] {:group (vim.api.nvim_create_augroup :oil-directory
+                                                                {:clear true})
+                            :nested true
+                            :callback open-directory}}))

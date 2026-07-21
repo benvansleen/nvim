@@ -9,9 +9,15 @@
 
 (local {: on_attach} (require :lsp.on-attach))
 
+(vim.diagnostic.config {:signs {:text {vim.diagnostic.severity.ERROR ""
+                                       vim.diagnostic.severity.WARN ""
+                                       vim.diagnostic.severity.INFO ""
+                                       vim.diagnostic.severity.HINT ""}
+                                :numhl {vim.diagnostic.severity.ERROR :ErrorMsg
+                                        vim.diagnostic.severity.WARN :WarningMsg}}})
+
 (cfg (plugins [:nvim-lspconfig
                {:for_cat :lsp
-                :on_require [:lspconfig]
                 :lsp (fn [plugin]
                        (vim.lsp.config plugin.name (or plugin.lsp {}))
                        (vim.lsp.enable plugin.name))}]
@@ -28,9 +34,9 @@
                                        :telemetry {:enabled false}}}
                       : on_attach}}]
               [:fennel_ls
-               {:enabled (or (nix-enabled :fnl) false)
+               {:enabled (or (nix-enabled :fennel) false)
                 :ft [:fennel]
-                :lsp {:filetypes [:fennel] :settings {} : on_attach}}]
+                :lsp {:filetypes [:fennel] : on_attach}}]
               [:nixd
                {:enabled (and (is-nix) (or (nix-enabled :nix) false))
                 :ft [:nix]
@@ -71,34 +77,32 @@
                                   :typescriptreact]
                       :settings {}
                       : on_attach}}]
-              [:rust-analyzer
-               {:enabled true
+              [:rust_analyzer
+               {:enabled (or (nix-enabled :rust) false)
                 :ft [:rust]
                 :lsp {:filetypes [:rust]
-                      :cmd [:rust-analyzer]
-                      :settings {:diagnostic {:enable true}
-                                 :checkOnSave {:command :clippy}}
+                      :settings {:rust-analyzer {:diagnostics {:enable true}
+                                                 :check {:command :clippy}}}
                       : on_attach}}]
               [:nu_ls
-               {:enabled true
+               {:enabled (or (nix-enabled :nu) false)
                 :ft [:nu]
                 :lsp {:filetypes [:nu] :cmd [:nu :--lsp] : on_attach}}]
               [:svelte
-               {:enabled true
+               {:enabled (or (nix-enabled :typescript) false)
                 :ft [:svelte]
                 :lsp {:filetypes [:svelte] : on_attach}}]
               [:gopls
-               {:enabled true :ft [:go] :lsp {:filetypes [:go] : on_attach}}]
+               {:enabled (or (nix-enabled :go) false)
+                :ft [:go]
+                :lsp {:filetypes [:go :gomod :gowork :gotmpl] : on_attach}}]
               [:helm_ls
-               {:enabled true
-                :ft [:helm :helmfile]
-                :lsp {:cmd [:helm_ls :serve]
-                      :filetypes [:helm :helmfile]
-                      :rootPatterns [:Chart.yaml]}
-                : on_attach}]
-              [:terraform
-               {:enabled true
-                :ft [:terraform :tf]
-                :lsp {:cmd [:terraform-ls :serve]
-                      :filetypes [:terraform :tf]
-                      : on_attach}}]))
+               {:enabled (or (nix-enabled :helm) false)
+                :ft [:helm :yaml.helm-values]
+                :lsp {:filetypes [:helm :yaml.helm-values]
+                      :root_markers [:Chart.yaml]
+                      : on_attach}}]
+              [:terraformls
+               {:enabled (or (nix-enabled :terraform) false)
+                :ft [:terraform :terraform-vars]
+                :lsp {:filetypes [:terraform :terraform-vars] : on_attach}}]))

@@ -31,12 +31,12 @@ do
             })
         end
         local function _6_()
-            vim.g.disable_autoformat = false
+            vim.g.disable_autoformat = true
             return nil
         end
         vim.api.nvim_create_user_command("FormatDisable", _6_, { desc = "Disable autoformat-on-save" })
         local function _7_()
-            vim.g.disable_autoformat = true
+            vim.g.disable_autoformat = false
             return nil
         end
         vim.api.nvim_create_user_command("FormatEnable", _7_, { desc = "Enable autoformat-on-save" })

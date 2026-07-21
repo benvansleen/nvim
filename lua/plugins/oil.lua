@@ -43,6 +43,20 @@ _G.get_oil_winbar = function()
         return vim.api.nvim_buf_get_name(0)
     end
 end
+local function open_directory(_11_)
+    local buf = _11_.buf
+    local path = vim.api.nvim_buf_get_name(buf)
+    if 1 == vim.fn.isdirectory(path) then
+        do
+            local mod_12_auto = require("nfnl.module").autoload("lze")
+            mod_12_auto.trigger_load("oil.nvim")
+        end
+        local mod_12_auto = require("nfnl.module").autoload("oil")
+        return mod_12_auto.open(path)
+    else
+        return nil
+    end
+end
 do
     vim.g["loaded_netrwPlugin"] = 1
 end
@@ -50,7 +64,7 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _11_()
+        local function _13_()
             local p_13_auto = require("oil")
             return p_13_auto.setup({
                 default_file_explorer = true,
@@ -79,13 +93,13 @@ do
                 preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch" },
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _11_, for_cat = "general" })
+        keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _13_, cmd = "Oil", for_cat = "general", lazy = true })
     end
-    local function _12_()
+    local function _14_()
         local mod_12_auto = require("nfnl.module").autoload("oil")
         return mod_12_auto.open((vim.g.__oil_last or vim.fn.expand("%:p:h")))
     end
-    keymap_30_auto.set("n", "-", _12_, { desc = "Open Parent Directory", expr = false, noremap = true })
+    keymap_30_auto.set("n", "-", _14_, { desc = "Open Parent Directory", expr = false, noremap = true })
     keymap_30_auto.set(
         "n",
         "<leader>-",
@@ -93,16 +107,20 @@ do
         { desc = "Open nvim root directory", expr = false, noremap = true }
     )
 end
-local function _13_()
-    local _14_
+local function _15_()
+    local _16_
     do
         local mod_12_auto = require("nfnl.module").autoload("oil")
-        _14_ = mod_12_auto.get_current_dir()
+        _16_ = mod_12_auto.get_current_dir()
     end
-    vim.g["__oil_last"] = _14_
+    vim.g["__oil_last"] = _16_
     return nil
 end
+vim.api.nvim_create_autocmd(
+    { "BufEnter" },
+    { pattern = "oil://*", group = vim.api.nvim_create_augroup("oil-last", { clear = true }), callback = _15_ }
+)
 return vim.api.nvim_create_autocmd(
     { "BufEnter" },
-    { pattern = "oil://*", group = vim.api.nvim_create_augroup("oil-last", { clear = true }), callback = _13_ }
+    { group = vim.api.nvim_create_augroup("oil-directory", { clear = true }), nested = true, callback = open_directory }
 )
