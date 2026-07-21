@@ -198,7 +198,7 @@ do
                 "dap-repl",
                 "dap-view",
                 "dap-view-term",
-                "DiffviewFiles",
+                "codediff-explorer",
                 "NeogitDiffView",
             }
             local ignore_buftypes = { "prompt", "popup" }

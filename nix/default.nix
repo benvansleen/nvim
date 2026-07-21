@@ -155,7 +155,7 @@ in
         after = [ "always" ];
         lazy = true;
         data = with pkgs.vimPlugins; [
-          diffview-nvim
+          codediff-nvim
           gitsigns-nvim
           neogit
         ];
