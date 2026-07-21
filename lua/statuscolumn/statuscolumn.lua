@@ -182,7 +182,9 @@ M.init = function()
         end
         return table.concat(core.map(_41_, { M["center-buffer"], M.signs, M.folds, M.lines, M.spacing }))
     end
-    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = tonumber(vim.g.actual_curbuf) })
+    local win = (tonumber(vim.g.statusline_winid) or 0)
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
     if core["contains?"]({ "gitcommit", "TelescopePrompt", "NeogitDiffView" }, buf_ft) then
         return " "
     else

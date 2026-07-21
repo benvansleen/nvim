@@ -1,5 +1,29 @@
 (import-macros {: autoload : cfg : with-require : unless-nix} :macros)
 
+(local big-file-max-bytes (* 1024 1024))
+(local big-file-max-lines 10000)
+
+(fn disable-expensive-features [buf]
+  (when (vim.api.nvim_buf_is_valid buf)
+    (tset (. vim.b buf) :big_file true)
+    (vim.diagnostic.enable false {:bufnr buf})
+    (vim.lsp.inlay_hint.enable false {:bufnr buf})
+    (vim.lsp.semantic_tokens.enable false {:bufnr buf})
+    (pcall vim.treesitter.stop buf)))
+
+(let [big-file-group (vim.api.nvim_create_augroup :big-file-policy
+                                                  {:clear true})]
+  (cfg (autocmd {[:BufReadPre] {:group big-file-group
+                                :callback (fn [{: buf : file}]
+                                            (when (> (vim.fn.getfsize file)
+                                                     big-file-max-bytes)
+                                              (disable-expensive-features buf)))}
+                 [:BufReadPost] {:group big-file-group
+                                 :callback (fn [{: buf}]
+                                             (when (> (vim.api.nvim_buf_line_count buf)
+                                                      big-file-max-lines)
+                                               (disable-expensive-features buf)))}})))
+
 (cfg (g {mapleader " "
          maplocalleader ","
          my_center_buffer true
@@ -64,7 +88,7 @@
                                :pattern "*"
                                :command "silent! normal! g`\"zv"}
                [:TextYankPost] {:group (vim.api.nvim_create_augroup :highlight
-                                                                    {})
+                                                                    {:clear true})
                                 :pattern "*"
                                 :callback (fn [] (vim.highlight.on_yank))}}))
 

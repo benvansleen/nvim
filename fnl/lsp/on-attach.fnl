@@ -4,9 +4,15 @@
 (define M :lsp.on-attach)
 
 (fn M.on_attach [client bufnr]
-  (when (client:supports_method :textDocument/inlayHint)
+  (when (. vim.b bufnr :big_file)
+    (vim.diagnostic.enable false {: bufnr})
+    (vim.lsp.inlay_hint.enable false {: bufnr})
+    (vim.lsp.semantic_tokens.enable false {: bufnr}))
+  (when (and (not (. vim.b bufnr :big_file))
+             (client:supports_method :textDocument/inlayHint))
     (vim.lsp.inlay_hint.enable true {: bufnr}))
-  (when (client:supports_method :textDocument/documentSymbol)
+  (when (and (not (. vim.b bufnr :big_file))
+             (client:supports_method :textDocument/documentSymbol))
     (with-require {: nvim-navic}
       (nvim-navic.attach client bufnr)
       (cfg (wo {winbar "%{%v:lua.require'nvim-navic'.get_location()%}"}))))
@@ -22,9 +28,6 @@
                                                               vim.inspect
                                                               print)})
        (imap {["Signature Documentation" :<C-k>] vim.lsp.buf.signature_help}))
-  (vim.api.nvim_buf_create_user_command bufnr :Format #(vim.lsp.buf.format)
-                                        {:desc "Format current buffer with LSP"
-                                         :force true})
   (when (nix-enabled :telescope)
     (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
                                                                 :lsp_definitions)

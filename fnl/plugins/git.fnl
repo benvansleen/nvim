@@ -60,11 +60,11 @@
                                 :numhl false
                                 :linehl false
                                 :word_diff false
+                                :on_attach #(not (. vim.b $1 :big_file))
                                 :watch_gitdir {:follow_files true}
                                 :auto_attach true
                                 :attach_to_untracked false
                                 :current_line_blame true
-                                ;; :Gitsigns toggle_current_line_blame
                                 :current_line_blame_opts {:virt_text true
                                                           :virt_text_pos :eol
                                                           :delay 1000
@@ -89,7 +89,9 @@
                       ["[G]it: [N]ext hunk" :<leader>gn] #(require-and-call :gitsigns
                                                                             :next_hunk)
                       ["[G]it: [P]revious hunk" :<leader>gp] #(require-and-call :gitsigns
-                                                                                :prev_hunk)})]
+                                                                                :prev_hunk)
+                      ["[G]it: Toggle [B]lame" :<leader>gb] #(require-and-call :gitsigns
+                                                                               :toggle_current_line_blame)})]
               [:octo.nvim
                {:for_cat :git
                 :cmd :Octo

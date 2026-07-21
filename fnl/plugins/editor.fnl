@@ -3,8 +3,8 @@
 (cfg (plugins [:dial.nvim
                {:for_cat :general :on_require :dial}
                (nmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
-                                             (dial.manipuluate :increment
-                                                               :normal))
+                                             (dial.manipulate :increment
+                                                              :normal))
                       [:Decrement :<C-x>] #(with-require {dial :dial.map}
                                              (dial.manipulate :decrement
                                                               :normal))
@@ -15,8 +15,8 @@
                                               (dial.manipulate :decrement
                                                                :gnormal))})
                (vmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
-                                             (dial.manipuluate :increment
-                                                               :visual))
+                                             (dial.manipulate :increment
+                                                              :visual))
                       [:Decrement :<C-x>] #(with-require {dial :dial.map}
                                              (dial.manipulate :decrement
                                                               :visual))
@@ -30,12 +30,7 @@
                {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(when (= (vim.fn.executable :direnv) 1)
-                          (setup :direnv-nvim
-                                 {:async true
-                                  :on_direnv_finished #(when (> (vim.fn.exists ":LspStart")
-                                                                0)
-                                                         (vim.cmd :LspStart))
-                                  :type :buffer}))}]
+                          (setup :direnv-nvim {:async true :type :buffer}))}]
               [:fidget.nvim
                {:for_cat :general :event :LspAttach :after #(setup :fidget)}]
               [:foldtext-nvim
@@ -91,11 +86,11 @@
                                                                                :jump)})]
               [:hbac-nvim
                {:for_cat :general
-                :event :CursorMoved
+                :event :DeferredUIEnter
                 :after #(setup :hbac {:autoclose true :autopin true})}]
               [:mini.ai
                {:for_cat :general
-                :event :CursorMoved
+                :event :DeferredUIEnter
                 :after #(setup :mini.ai
                                {:mappings {:around :a
                                            :inside :i
@@ -113,7 +108,7 @@
                                 :silent false})}]
               [:mini.indentscope
                {:for_cat :general
-                :event :CursorMoved
+                :event :DeferredUIEnter
                 :after #(do
                           (setup :mini.indentscope
                                  {:symbol "│"
@@ -129,7 +124,7 @@
                                                                        true)}})))}]
               [:nvim-surround
                {:for_cat :general
-                :event :CursorMoved
+                :event :DeferredUIEnter
                 :after #(setup :nvim-surround
                                {:surrounds {"(" {:add #[["("] [")"]]}
                                             "[" {:add #[["["] ["]"]]}

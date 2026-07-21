@@ -1,11 +1,17 @@
 -- [nfnl] fnl/lsp/on-attach.fnl
 local M = require("nfnl.module").define("lsp.on-attach")
 M.on_attach = function(client, bufnr)
-    if client:supports_method("textDocument/inlayHint") then
+    if vim.b[bufnr].big_file then
+        vim.diagnostic.enable(false, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+    else
+    end
+    if not vim.b[bufnr].big_file and client:supports_method("textDocument/inlayHint") then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     else
     end
-    if client:supports_method("textDocument/documentSymbol") then
+    if not vim.b[bufnr].big_file and client:supports_method("textDocument/documentSymbol") then
         local nvim_navic = require("nfnl.module").autoload("nvim-navic")
         nvim_navic.attach(client, bufnr)
         vim.wo["winbar"] = "%{%v:lua.require'nvim-navic'.get_location()%}"
@@ -51,13 +57,13 @@ M.on_attach = function(client, bufnr)
                 vim.lsp.buf.remove_workspace_folder,
                 { desc = "[W]orkspace [R]emove Folder", expr = false, noremap = true }
             )
-            local function _3_()
+            local function _4_()
                 return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end
             vim.keymap.set(
                 "n",
                 "<leader>wl",
-                _3_,
+                _4_,
                 { desc = "[W]orkspace [L]ist Folders", expr = false, noremap = true }
             )
         end
@@ -68,15 +74,6 @@ M.on_attach = function(client, bufnr)
             { desc = "Signature Documentation", expr = false, noremap = true }
         )
     end
-    local function _4_()
-        return vim.lsp.buf.format()
-    end
-    vim.api.nvim_buf_create_user_command(
-        bufnr,
-        "Format",
-        _4_,
-        { desc = "Format current buffer with LSP", force = true }
-    )
     if _G.nixInfo.settings.cats.telescope then
         local function _5_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")

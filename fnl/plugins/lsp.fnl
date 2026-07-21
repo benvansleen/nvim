@@ -16,18 +16,34 @@
       (table.insert fragments (.. symbol.implementation :implementations)))
     (.. (table.concat fragments ", ") stacked-functions)))
 
+(fn clear-detached-winbar [{: buf}]
+  (vim.schedule (fn []
+                  (var has-symbol-client false)
+                  (each [_ client (ipairs (vim.lsp.get_clients {:bufnr buf}))]
+                    (when (client:supports_method :textDocument/documentSymbol)
+                      (set has-symbol-client true)))
+                  (when (not has-symbol-client)
+                    (each [_ win (ipairs (vim.api.nvim_list_wins))]
+                      (when (and (vim.api.nvim_win_is_valid win)
+                                 (= (vim.api.nvim_win_get_buf win) buf))
+                        (vim.api.nvim_set_option_value :winbar "" {: win})))))))
+
 (cfg (plugins [:symbol-usage.nvim
                {:for_cat :lsp
                 :event :LspAttach
                 :after #(setup :symbol-usage
-                               {: text_format :disable {:filetypes [:fennel]}})}]
+                               {: text_format
+                                :disable {:filetypes [:fennel]
+                                          :cond [#(. vim.b $1 :big_file)]}})}]
               [:nvim-navic
                {:for_cat :lsp
                 :on_require :nvim-navic
                 :after #(do
                           (setup :nvim-navic
                                  {:click true :lsp {:auto_attach false}})
-                          (cfg (autocmd {[:LspDetach] {:callback #(cfg (wo {winbar ""}))}})))}]
+                          (cfg (autocmd {[:LspDetach] {:group (vim.api.nvim_create_augroup :navic-detach
+                                                                                           {:clear true})
+                                                       :callback clear-detached-winbar}})))}]
               [:tiny-inline-diagnostic.nvim
                {:for_cat :lsp
                 :event :LspAttach

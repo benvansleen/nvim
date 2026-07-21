@@ -7,7 +7,9 @@
                             :group (vim.api.nvim_create_augroup :UserTreesitter
                                                                 {:clear true})
                             :callback (fn [{: buf}]
-                                        (when (pcall vim.treesitter.start buf)
+                                        (when (and (not (. vim.b buf :big_file))
+                                                   (pcall vim.treesitter.start
+                                                          buf))
                                           (tset (. vim.bo buf) :indentexpr
                                                 "v:lua.require'nvim-treesitter'.indentexpr()")))}})
      (plugins [:nvim-treesitter

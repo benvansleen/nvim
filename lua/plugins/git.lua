@@ -60,6 +60,9 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         local function _6_()
             local p_13_auto = require("gitsigns")
+            local function _7_(_2410)
+                return not vim.b[_2410].big_file
+            end
             return p_13_auto.setup({
                 signs = {
                     add = { text = "\226\148\130" },
@@ -78,6 +81,7 @@ do
                     untracked = { text = "\226\148\134" },
                 },
                 signcolumn = true,
+                on_attach = _7_,
                 watch_gitdir = { follow_files = true },
                 auto_attach = true,
                 current_line_blame = true,
@@ -105,38 +109,43 @@ do
         keymap_30_auto =
             mod_12_auto.keymap({ "gitsigns.nvim", after = _6_, event = "DeferredUIEnter", for_cat = "git" })
     end
-    local function _7_()
+    local function _8_()
         local mod_12_auto = require("nfnl.module").autoload("gitsigns")
         return mod_12_auto.stage_hunk()
     end
-    keymap_30_auto.set("n", "<leader>gs", _7_, { desc = "[G]it: [S]tage hunk", expr = false, noremap = true })
-    local function _8_()
+    keymap_30_auto.set("n", "<leader>gs", _8_, { desc = "[G]it: [S]tage hunk", expr = false, noremap = true })
+    local function _9_()
         local mod_12_auto = require("nfnl.module").autoload("gitsigns")
         return mod_12_auto.reset_hunk()
     end
-    keymap_30_auto.set("n", "<leader>gR", _8_, { desc = "[G]it: [R]eset hunk", expr = false, noremap = true })
-    local function _9_()
+    keymap_30_auto.set("n", "<leader>gR", _9_, { desc = "[G]it: [R]eset hunk", expr = false, noremap = true })
+    local function _10_()
         local mod_12_auto = require("nfnl.module").autoload("gitsigns")
         return mod_12_auto.preview_hunk_inline()
     end
-    keymap_30_auto.set("n", "<leader>gP", _9_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
-    local function _10_()
+    keymap_30_auto.set("n", "<leader>gP", _10_, { desc = "[G]it: [P]review hunk", expr = false, noremap = true })
+    local function _11_()
         local mod_12_auto = require("nfnl.module").autoload("gitsigns")
         return mod_12_auto.next_hunk()
     end
-    keymap_30_auto.set("n", "<leader>gn", _10_, { desc = "[G]it: [N]ext hunk", expr = false, noremap = true })
-    local function _11_()
+    keymap_30_auto.set("n", "<leader>gn", _11_, { desc = "[G]it: [N]ext hunk", expr = false, noremap = true })
+    local function _12_()
         local mod_12_auto = require("nfnl.module").autoload("gitsigns")
         return mod_12_auto.prev_hunk()
     end
-    keymap_30_auto.set("n", "<leader>gp", _11_, { desc = "[G]it: [P]revious hunk", expr = false, noremap = true })
+    keymap_30_auto.set("n", "<leader>gp", _12_, { desc = "[G]it: [P]revious hunk", expr = false, noremap = true })
+    local function _13_()
+        local mod_12_auto = require("nfnl.module").autoload("gitsigns")
+        return mod_12_auto.toggle_current_line_blame()
+    end
+    keymap_30_auto.set("n", "<leader>gb", _13_, { desc = "[G]it: Toggle [B]lame", expr = false, noremap = true })
 end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _12_()
+    local function _14_()
         local p_13_auto = require("octo")
         return p_13_auto.setup({ picker = "telescope", poll = { enabled = true } })
     end
-    keymap_30_auto = mod_12_auto.keymap({ "octo.nvim", after = _12_, cmd = "Octo", for_cat = "git" })
+    keymap_30_auto = mod_12_auto.keymap({ "octo.nvim", after = _14_, cmd = "Octo", for_cat = "git" })
 end

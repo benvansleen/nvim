@@ -7,7 +7,7 @@ end
 do
     local function _2_(_1_)
         local buf = _1_.buf
-        if pcall(vim.treesitter.start, buf) then
+        if not vim.b[buf].big_file and pcall(vim.treesitter.start, buf) then
             vim.bo[buf]["indentexpr"] = "v:lua.require'nvim-treesitter'.indentexpr()"
             return nil
         else
