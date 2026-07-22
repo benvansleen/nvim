@@ -1,6 +1,61 @@
 diff --git a/lua/refer/extras/find_file.lua b/lua/refer/extras/find_file.lua
 --- a/lua/refer/extras/find_file.lua
 +++ b/lua/refer/extras/find_file.lua
+@@ -1,5 +1,6 @@
+ local refer = require "refer"
+ local util = require "refer.util"
++local fuzzy = require "refer.fuzzy"
+
+ local M = {}
+
+@@ -108,8 +109,4 @@ local function list_dir(scan_dir, prefix)
+             break
+         end
+
+-        if prefix and prefix ~= "" and not vim.startswith(name, prefix) then
+-            goto continue
+-        end
+-
+         local absolute = path_join(scan_dir, name)
+@@ -137,3 +134,18 @@ local function list_dir(scan_dir, prefix)
+     end
+
++    if prefix and prefix ~= "" then
++        local names = {}
++        local entries_by_name = {}
++        for _, entry in ipairs(pending) do
++            table.insert(names, entry.name)
++            entries_by_name[entry.name] = entry
++        end
++
++        local filtered = {}
++        for _, name in ipairs(fuzzy.sorters.lua(names, prefix)) do
++            table.insert(filtered, entries_by_name[name])
++        end
++        pending = filtered
++    end
++
+     local name_width = 0
+@@ -152,11 +164,13 @@ local function list_dir(scan_dir, prefix)
+         })
+     end
+
+-    table.sort(items, function(left, right)
+-        if left.data.is_dir ~= right.data.is_dir then
+-            return left.data.is_dir
+-        end
+-        return left.data.filename < right.data.filename
+-    end)
++    if not prefix or prefix == "" then
++        table.sort(items, function(left, right)
++            if left.data.is_dir ~= right.data.is_dir then
++                return left.data.is_dir
++            end
++            return left.data.filename < right.data.filename
++        end)
++    end
+
+     return items
 @@ -164,6 +164,6 @@ local function build_items(query)
              name_width = math.max(name_width, vim.fn.strdisplaywidth(filename))
          end
@@ -9,7 +64,7 @@ diff --git a/lua/refer/extras/find_file.lua b/lua/refer/extras/find_file.lua
      end
 
      return items
-@@ -180,3 +180,44 @@ local function open_target(path)
+@@ -180,3 +180,43 @@ local function open_target(path)
  end
 
 +local function go_to_parent(_, builtin)
@@ -42,8 +97,7 @@ diff --git a/lua/refer/extras/find_file.lua b/lua/refer/extras/find_file.lua
 +        return
 +    end
 +
-+    local input = vim.api.nvim_get_current_line()
-+    local completed = util.complete_line(input, item.data.filename)
++    local completed = item.data.filename
 +    if item.data.is_dir and completed:sub(-1) ~= "/" then
 +        completed = completed .. "/"
 +    end
