@@ -23,19 +23,19 @@
                                            :packages {:enable false}
                                            :shortcut [{:desc :Files
                                                        :group :Label
-                                                       :action "Telescope find_files"
+                                                       :action "Refer Extras FindFile"
                                                        :key :f}
                                                       {:desc "Recent Files"
                                                        :group :Error
-                                                       :action "Telescope oldfiles"
+                                                       :action "Refer OldFiles"
                                                        :key :h}
                                                       {:desc "Find Word"
                                                        :group :Warning
-                                                       :action "Telescope egrepify"
+                                                       :action "Refer Grep"
                                                        :key :w}
                                                       {:desc "Find Project"
                                                        :group "@module"
-                                                       :action "Telescope projects theme=dropdown"
+                                                       :action "Refer Files"
                                                        :key :p}
                                                       {:desc :Git
                                                        :group "@property"
@@ -44,11 +44,7 @@
                                                       {:desc "Change Directory"
                                                        :group "@constant"
                                                        :action "Telescope zoxide list"
-                                                       :key :c}
-                                                      {:desc :Dotfiles
-                                                       :group :Number
-                                                       :action "Telescope find_files cwd=~/.config"
-                                                       :key :d}]
+                                                       :key :c}]
                                            :week_header {:enable false}}})
                           (vim.api.nvim_set_hl 0 :DashboardHeader {:link :Blue})
                           (vim.api.nvim_set_hl 0 :DashboardFiles

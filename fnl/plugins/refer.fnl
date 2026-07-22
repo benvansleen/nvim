@@ -90,6 +90,12 @@
                           (set refer.pick (without-focus-resize refer.pick))
                           (set refer.pick_async
                                (without-focus-resize refer.pick_async))
+                          (let [commands (. (refer.get_commands) :Commands)]
+                            (tset (refer.get_commands) :Commands
+                                  (fn [opts]
+                                    (commands (vim.tbl_deep_extend :force
+                                                                   (or opts {})
+                                                                   {:prompt "> "})))))
                           (refer.add_command :CommandHistory command-history)
                           (let [group (vim.api.nvim_create_augroup :ReferWindowSizing
                                                                    {:clear true})]
