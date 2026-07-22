@@ -234,12 +234,4 @@ keymap_30_auto.set("n", "<leader>fn", _47_, { desc = "[F]ind [N]ext", expr = fal
 local function _48_()
     return vim.cmd("Refer Symbols")
 end
-keymap_30_auto.set("n", "<leader>fs", _48_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })
-local function _49_()
-    return vim.cmd("Refer References")
-end
-keymap_30_auto.set("n", "<leader>gr", _49_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
-local function _50_()
-    return vim.cmd("Refer Implementations")
-end
-return keymap_30_auto.set("n", "<leader>gi", _50_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
+return keymap_30_auto.set("n", "<leader>fs", _48_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })

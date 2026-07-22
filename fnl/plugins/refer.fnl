@@ -129,6 +129,4 @@
                       ["[F]ind [B]uffer" :<leader>fb] #(vim.cmd "Refer Buffers")
                       ["[F]ind [R]esume" :<leader>fr] #(vim.cmd "Refer Resume")
                       ["[F]ind [N]ext" :<leader>fn] #(vim.cmd "Refer Selection")
-                      ["[F]ind [S]ymbol" :<leader>fs] #(vim.cmd "Refer Symbols")
-                      ["[G]o to [R]eferences" :<leader>gr] #(vim.cmd "Refer References")
-                      ["[G]o to [I]mplementations" :<leader>gi] #(vim.cmd "Refer Implementations")})]))
+                      ["[F]ind [S]ymbol" :<leader>fs] #(vim.cmd "Refer Symbols")})]))
