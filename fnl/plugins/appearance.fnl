@@ -81,7 +81,8 @@
                                                   :codediff-explorer
                                                   :NeogitDiffView
                                                   :refer_input
-                                                  :refer_results]
+                                                  :refer_results
+                                                  :trouble]
                                 ignore-buftypes [:prompt :popup]
                                 group (vim.api.nvim_create_augroup :FocusDisable
                                                                    {:clear true})

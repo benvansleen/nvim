@@ -26,7 +26,8 @@
                            :NeogitStatus
                            :NeogitPopup
                            :refer_input
-                           :refer_results]
+                           :refer_results
+                           :trouble]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]

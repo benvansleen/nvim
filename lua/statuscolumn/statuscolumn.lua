@@ -145,6 +145,7 @@ M["center-buffer"] = function(buf_ft)
             "NeogitPopup",
             "refer_input",
             "refer_results",
+            "trouble",
         }, buf_ft)
     then
         return " "

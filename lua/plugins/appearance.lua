@@ -195,6 +195,7 @@ do
                 "NeogitDiffView",
                 "refer_input",
                 "refer_results",
+                "trouble",
             }
             local ignore_buftypes = { "prompt", "popup" }
             local group = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
