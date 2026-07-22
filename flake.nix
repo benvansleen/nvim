@@ -52,6 +52,10 @@
       url = "github:fdschmidt93/telescope-egrepify.nvim";
       flake = false;
     };
+    "plugins-refer-nvim" = {
+      url = "github:juniorsundar/refer.nvim";
+      flake = false;
+    };
   };
 
   outputs =

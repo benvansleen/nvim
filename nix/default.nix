@@ -7,6 +7,12 @@ inputs:
 }:
 
 let
+  patchedRefer = config.nvim-lib.neovimPlugins.refer-nvim.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ./patches/refer-find-file.patch
+    ];
+  });
+
   lisetteTreesitterGrammar = pkgs.tree-sitter.buildGrammar {
     language = "lisette";
     version = "0.1.0";
@@ -214,6 +220,7 @@ in
         data = with pkgs.vimPlugins; [
           config.nvim-lib.neovimPlugins.telescope-cmdline-nvim
           config.nvim-lib.neovimPlugins.telescope-egrepify-nvim
+          patchedRefer
           project-nvim
           telescope-nvim
           telescope-file-browser-nvim
@@ -225,6 +232,9 @@ in
           telescope-zoxide
 
           legendary-nvim
+        ];
+        runtimePkgs = with pkgs; [
+          fd
         ];
       };
 

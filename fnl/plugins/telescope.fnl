@@ -6,19 +6,12 @@
                 : when-nix
                 : with-require} :macros)
 
-(autoload {: pick-tab} :lib.telescope)
-
-;; telescope-egrepify-nvim relies on vim.tbl_flatten, which will be
-;; deprecated in nvim 0.13. Silence this warning for now.
-(set vim.deprecate #nil)
-
 (cfg (plugins [:telescope.nvim
                {:for_cat :telescope
                 :cmd [:Telescope :LiveGrepGitRoot]
                 :on_require [:telescope]
                 :load (fn [name]
-                        (vim.cmd.packadd name)
-                        (vim.cmd.packadd :telescope-cmdline-nvim)
+                        (vim.cmd.packadd name) ; (vim.cmd.packadd :telescope-cmdline-nvim)
                         (vim.cmd.packadd :telescope-egrepify-nvim)
                         (vim.cmd.packadd :telescope-file-browser.nvim)
                         (vim.cmd.packadd :telescope-fzf-native.nvim)
@@ -85,7 +78,7 @@
                                                                      :generic {:enable false}}
                                                          :undo {:mappings {:i {:<cr> (when-nix (. (require :telescope-undo.actions)
                                                                                                   :restore))}}}}})
-                          (telescope.load_extension :cmdline)
+                          ; (telescope.load_extension :cmdline)
                           (telescope.load_extension :egrepify)
                           (telescope.load_extension :file_browser)
                           (telescope.load_extension :fzf)
@@ -94,22 +87,8 @@
                                     (telescope.load_extension :zf-native))
                           (telescope.load_extension :zoxide)
                           (require-and-call :theme :set-telescope-highlights))}
-               (nmap {["Execute extended command" ";"] "<cmd>Telescope cmdline<cr>"
-                      ["[F]ind [F]ile" :<leader>ff] "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>"
-                      ["Find [P]roject [F]ile" :<leader>pf] #(require-and-call :telescope.builtin
-                                                                               :find_files)
-                      ["Find [P]roject [W]ord" :<leader>pw] "<cmd>Telescope egrepify<cr>"
-                      ["[F]ind in file [H]istory" :<leader>fh] #(require-and-call :telescope.builtin
-                                                                                  :oldfiles)
-                      ["[F]ind [B]uffer" :<leader>fb] #(require-and-call :telescope.builtin
-                                                                         :buffers)
-                      ["[F]ind [T]ab" :<leader>ft] #(pick-tab)
-                      ["[F]ind [L]ine" :<leader>fl] #(require-and-call :telescope.builtin
-                                                                       :current_buffer_fuzzy_find)
-                      ["[F]ind [D]iagnostic" :<leader>fd] #(require-and-call :telescope.builtin
+               (nmap {["[F]ind [D]iagnostic" :<leader>fd] #(require-and-call :telescope.builtin
                                                                              :diagnostics)
-                      ["[F]ind [R]esume" :<leader>fr] #(require-and-call :telescope.builtin
-                                                                         :resume)
                       ["[F]ind [K]eymap" :<leader>fk] #(require-and-call :telescope.builtin
                                                                          :keymaps)
                       ["[F]ind [H]elp" :<leader>fH] #(require-and-call :telescope.builtin
@@ -118,9 +97,7 @@
                                                                             :builtin)
                       ["[F]ind [M]essage" :<leader>fM] "<cmd>Telescope notify<cr>"
                       ["[F]ind [U]ndo" :<leader>fu] "<cmd>Telescope undo<cr>"
-                      ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"
-                      ["[G]o to [R]eferences" :<leader>gr] #(require-and-call :telescope.builtin
-                                                                              :lsp_references)})]
+                      ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"})]
               [:project.nvim
                {:for_cat :telescope
                 :cmd [:Project

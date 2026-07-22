@@ -60,6 +60,7 @@ do
         require("plugins.opencode")
         require("plugins.pairs")
         require("plugins.oil")
+        require("plugins.refer")
         require("plugins.telescope")
         require("plugins.terminal")
         require("plugins.tmux")
@@ -93,6 +94,7 @@ do
         vim.opt["shiftwidth"] = 2
         vim.opt.shortmess:append("I")
         vim.opt["signcolumn"] = "yes"
+        vim.opt["splitkeep"] = "screen"
         vim.opt["smartcase"] = true
         vim.opt["showtabline"] = 0
         vim.opt["softtabstop"] = -1

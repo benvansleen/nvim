@@ -52,6 +52,7 @@
   (hl :BlinkCmpDocSeparator {:link :FloatBorder})
   (hl :BlinkCmpSignatureHelp {:link :NormalFloat})
   (hl :BlinkCmpSignatureHelpBorder {:link :FloatBorder})
+  (hl :Search {:bg bg1})
   (cfg (autocmd {[:User] {:pattern :TelescopeFindPre
                           :group (vim.api.nvim_create_augroup :reset-cursorline-bg
                                                               {:clear true})

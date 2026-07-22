@@ -24,7 +24,9 @@
                            :NeogitGitCommandHistory
                            :NeogitConsole
                            :NeogitStatus
-                           :NeogitPopup]
+                           :NeogitPopup
+                           :refer_input
+                           :refer_results]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]

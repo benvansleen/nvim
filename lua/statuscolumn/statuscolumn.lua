@@ -137,10 +137,15 @@ M.border = function(buf_ft)
 end
 M["center-buffer"] = function(buf_ft)
     if
-        core["contains?"](
-            { "NeogitCommitView", "NeogitGitCommandHistory", "NeogitConsole", "NeogitStatus", "NeogitPopup" },
-            buf_ft
-        )
+        core["contains?"]({
+            "NeogitCommitView",
+            "NeogitGitCommandHistory",
+            "NeogitConsole",
+            "NeogitStatus",
+            "NeogitPopup",
+            "refer_input",
+            "refer_results",
+        }, buf_ft)
     then
         return " "
     else

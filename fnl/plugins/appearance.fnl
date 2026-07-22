@@ -73,23 +73,25 @@
                {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(with-require {: focus}
-                          (focus.setup {:enable true
-                                        :commands true
-                                        :autoresize {:enable true}
-                                        :split {:tmux false :bufnew false}
-                                        :ui {:cursorline false
-                                             :signcolumn false
-                                             :winhighlight false}})
                           (let [ignore-filetypes [:TelescopePrompt
                                                   :TelescopeResults
                                                   :dap-repl
                                                   :dap-view
                                                   :dap-view-term
                                                   :codediff-explorer
-                                                  :NeogitDiffView]
+                                                  :NeogitDiffView
+                                                  :refer_input
+                                                  :refer_results]
                                 ignore-buftypes [:prompt :popup]
                                 group (vim.api.nvim_create_augroup :FocusDisable
-                                                                   {:clear true})]
+                                                                   {:clear true})
+                                disable-buffer (fn [buf]
+                                                 (let [filetype (vim.api.nvim_get_option_value :filetype
+                                                                                               {: buf})]
+                                                   (tset (. vim.b buf)
+                                                         :focus_disable
+                                                         (contains? ignore-filetypes
+                                                                    filetype))))]
                             (cfg (autocmd {:WinEnter {:desc "Disable focus autoresize for BufType"
                                                       : group
                                                       :callback #(set vim.w.focus_disable
@@ -97,9 +99,17 @@
                                                                                  vim.bo.buftype))}
                                            :FileType {:desc "Disable focus autoresize for FileType"
                                                       : group
-                                                      :callback #(set vim.b.focus_disable
-                                                                      (contains? ignore-filetypes
-                                                                                 vim.bo.filetype))}}))))}
+                                                      :callback (fn [{: buf}]
+                                                                  (disable-buffer buf))}}))
+                            (each [_ buf (ipairs (vim.api.nvim_list_bufs))]
+                              (disable-buffer buf))
+                            (focus.setup {:enable true
+                                          :commands true
+                                          :autoresize {:enable true}
+                                          :split {:tmux false :bufnew false}
+                                          :ui {:cursorline false
+                                               :signcolumn false
+                                               :winhighlight false}})))}
                (nmap {["Open [S]plit" :<leader>s] #(require-and-call :focus
                                                                      :split_nicely)
                       ["Close [S]plit" :<leader>S] #(vim.cmd.close)})])

@@ -156,6 +156,22 @@
         "type": "github"
       }
     },
+    "plugins-refer-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779382092,
+        "narHash": "sha256-m/3qoAd0Dsu4Aqs8zy1X5jejUBSLxbWFZOUYBVqEccM=",
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
+        "rev": "d12dd85202bcf7e275881b220cb40a81d7a4c2da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
+        "type": "github"
+      }
+    },
     "plugins-telescope-cmdline-nvim": {
       "flake": false,
       "locked": {
@@ -218,6 +234,7 @@
         "plugins-foldtext-nvim": "plugins-foldtext-nvim",
         "plugins-hbac-nvim": "plugins-hbac-nvim",
         "plugins-lisette-nvim": "plugins-lisette-nvim",
+        "plugins-refer-nvim": "plugins-refer-nvim",
         "plugins-telescope-cmdline-nvim": "plugins-telescope-cmdline-nvim",
         "plugins-telescope-egrepify-nvim": "plugins-telescope-egrepify-nvim",
         "pre-commit-hooks": "pre-commit-hooks",

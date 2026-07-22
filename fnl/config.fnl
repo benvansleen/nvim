@@ -33,7 +33,7 @@
          netrw_banner 0})
      (requires-plugins :appearance :completion :debug :editor :format :git
                        :helm :lint :lisp :lisette :lsp :misc :opencode :pairs
-                       :oil :telescope :terminal :tmux :treesitter)
+                       :oil :refer :telescope :terminal :tmux :treesitter)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            autoread true
@@ -60,6 +60,7 @@
            showcmd false
            showmode false
            signcolumn :yes
+           splitkeep :screen
            smartcase true
            showtabline 0
            softtabstop -1

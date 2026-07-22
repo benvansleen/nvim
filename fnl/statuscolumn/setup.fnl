@@ -48,14 +48,6 @@
      (autocmd {[:WinEnter :WinResized :VimResized] {: group
                                                     :callback update-screen-width}
                [:WinNew :WinClosed] {: group
-                                     :callback #(let [win (or (tonumber $1.match)
-                                                              0)]
-                                                  (case (pcall vim.api.nvim_win_get_config
-                                                               win)
-                                                    (where (true config)
-                                                           (and config
-                                                                (= config.relative
-                                                                   "")))
-                                                    (refresh-nonfloating-windows)))}}))
+                                     :callback #(vim.schedule refresh-nonfloating-windows)}}))
 
 statuscolumn
