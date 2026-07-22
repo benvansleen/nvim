@@ -35,7 +35,7 @@
                                         :extras {:find_file true}
                                         :max_height 16
                                         :min_height 16
-                                        :providers {:grep {:grep_command grep-command}}
+                                        :providers {:grep {:grep_command #(grep-command $1)}}
                                         :ui {:highlights {:prompt :Title
                                                           :selection :Visual
                                                           :header :WarningMsg}}})
