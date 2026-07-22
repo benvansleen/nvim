@@ -1,22 +1,6 @@
 (import-macros {: cfg : define : with-require} :macros)
 (define M :lib.refer)
 
-(fn M.command-history []
-  (with-require {: refer}
-    (let [history []
-          seen {}]
-      (for [index (vim.fn.histnr :cmd) 1 -1]
-        (let [command (vim.fn.histget :cmd index)]
-          (when (and (not= command "") (not (. seen command)))
-            (table.insert history command)
-            (tset seen command true))))
-      (refer.pick history
-                  (fn [command]
-                    (let [commands (. (refer.get_commands) :Commands)]
-                      (when (= (type commands) :function)
-                        (commands {:default_text command}))))
-                  {:prompt "Command history > "}))))
-
 (fn M.grep-command [query]
   (let [(pattern extensions) (string.match query "^(.-)%s+#([%w_,.%-]+)$")
         cmd [:rg :--vimgrep :--smart-case]]

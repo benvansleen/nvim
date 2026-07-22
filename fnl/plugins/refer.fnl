@@ -1,9 +1,24 @@
 (import-macros {: autoload : cfg : with-require} :macros)
-(autoload {: command-history
-           : enforce-refer-height
+(autoload {: enforce-refer-height
            : grep-command
            : refer-window?
            : without-focus-resize} :lib.refer)
+
+(fn command-history []
+  (with-require {: refer}
+    (let [history []
+          seen {}]
+      (for [index (vim.fn.histnr :cmd) 1 -1]
+        (let [command (vim.fn.histget :cmd index)]
+          (when (and (not= command "") (not (. seen command)))
+            (table.insert history command)
+            (tset seen command true))))
+      (refer.pick history
+                  (fn [command]
+                    (let [commands (. (refer.get_commands) :Commands)]
+                      (when (= (type commands) :function)
+                        (commands {:default_text command}))))
+                  {:prompt "Command history > "}))))
 
 (set vim.ui.select (fn [...]
                      (with-require {: refer}

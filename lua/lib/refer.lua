@@ -1,40 +1,18 @@
 -- [nfnl] fnl/lib/refer.fnl
 local M = require("nfnl.module").define("lib.refer")
-M["command-history"] = function()
-    local refer = require("nfnl.module").autoload("refer")
-    local history = {}
-    local seen = {}
-    for index = vim.fn.histnr("cmd"), 1, -1 do
-        local command = vim.fn.histget("cmd", index)
-        if (command ~= "") and not seen[command] then
-            table.insert(history, command)
-            seen[command] = true
-        else
-        end
-    end
-    local function _2_(command)
-        local commands = refer.get_commands().Commands
-        if type(commands) == "function" then
-            return commands({ default_text = command })
-        else
-            return nil
-        end
-    end
-    return refer.pick(history, _2_, { prompt = "Command history > " })
-end
 M["grep-command"] = function(query)
     local pattern, extensions = string.match(query, "^(.-)%s+#([%w_,.%-]+)$")
     local cmd = { "rg", "--vimgrep", "--smart-case" }
     if extensions then
         table.insert(cmd, "--glob")
-        local function _4_()
+        local function _1_()
             if string.find(extensions, ",", 1, true) then
                 return string.format("*.{%s}", extensions)
             else
                 return string.format("*.%s", extensions)
             end
         end
-        table.insert(cmd, _4_())
+        table.insert(cmd, _1_())
     else
     end
     table.insert(cmd, "--")
@@ -47,14 +25,14 @@ M["refer-window?"] = function(buf)
 end
 local function set_window_height(win, height)
     if win and vim.api.nvim_win_is_valid(win) then
-        local case_6_, case_7_ = pcall(vim.api.nvim_win_get_height, win)
-        local and_8_ = ((case_6_ == true) and (nil ~= case_7_))
-        if and_8_ then
-            local current_height = case_7_
-            and_8_ = (current_height ~= height)
+        local case_3_, case_4_ = pcall(vim.api.nvim_win_get_height, win)
+        local and_5_ = ((case_3_ == true) and (nil ~= case_4_))
+        if and_5_ then
+            local current_height = case_4_
+            and_5_ = (current_height ~= height)
         end
-        if and_8_ then
-            local current_height = case_7_
+        if and_5_ then
+            local current_height = case_4_
             return pcall(vim.api.nvim_win_set_height, win, height)
         else
             return nil
@@ -76,7 +54,7 @@ M["enforce-refer-height"] = function()
     end
 end
 M["without-focus-resize"] = function(pick)
-    local function _13_(items, on_select, opts)
+    local function _10_(items, on_select, opts)
         local opts0 = (opts or {})
         local launch_buf = vim.api.nvim_get_current_buf()
         local bufhidden = vim.api.nvim_get_option_value("bufhidden", { buf = launch_buf })
@@ -89,17 +67,17 @@ M["without-focus-resize"] = function(pick)
         else
         end
         vim.g.focus_disable = true
-        local function _15_()
+        local function _12_()
             vim.g.focus_disable = focus_disabled_3f
             if ephemeral_3f then
-                local function _16_()
+                local function _13_()
                     if vim.api.nvim_buf_is_valid(launch_buf) then
                         return vim.api.nvim_set_option_value("bufhidden", bufhidden, { buf = launch_buf })
                     else
                         return nil
                     end
                 end
-                vim.schedule(_16_)
+                vim.schedule(_13_)
             else
             end
             if on_close then
@@ -108,13 +86,13 @@ M["without-focus-resize"] = function(pick)
                 return nil
             end
         end
-        opts0.on_close = _15_
-        local case_20_, case_21_ = pcall(pick, items, on_select, opts0)
-        if (case_20_ == true) and (nil ~= case_21_) then
-            local picker = case_21_
+        opts0.on_close = _12_
+        local case_17_, case_18_ = pcall(pick, items, on_select, opts0)
+        if (case_17_ == true) and (nil ~= case_18_) then
+            local picker = case_18_
             return picker
-        elseif (case_20_ == false) and (nil ~= case_21_) then
-            local err = case_21_
+        elseif (case_17_ == false) and (nil ~= case_18_) then
+            local err = case_18_
             vim.g.focus_disable = focus_disabled_3f
             if vim.api.nvim_buf_is_valid(launch_buf) then
                 vim.api.nvim_set_option_value("bufhidden", bufhidden, { buf = launch_buf })
@@ -125,6 +103,6 @@ M["without-focus-resize"] = function(pick)
             return nil
         end
     end
-    return _13_
+    return _10_
 end
 return M
