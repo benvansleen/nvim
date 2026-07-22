@@ -58,25 +58,48 @@ end
 local function without_focus_resize(pick)
     local function _11_(items, on_select, opts)
         local opts0 = (opts or {})
+        local launch_buf = vim.api.nvim_get_current_buf()
+        local bufhidden = vim.api.nvim_get_option_value("bufhidden", { buf = launch_buf })
+        local ephemeral_3f = ((bufhidden == "wipe") or (bufhidden == "delete"))
         local focus_disabled_3f = vim.g.focus_disable
         local on_close = opts0.on_close
+        if ephemeral_3f then
+            opts0.preview = { enabled = false }
+            vim.api.nvim_set_option_value("bufhidden", "hide", { buf = launch_buf })
+        else
+        end
         vim.g.focus_disable = true
-        local function _12_()
+        local function _13_()
             vim.g.focus_disable = focus_disabled_3f
+            if ephemeral_3f then
+                local function _14_()
+                    if vim.api.nvim_buf_is_valid(launch_buf) then
+                        return vim.api.nvim_set_option_value("bufhidden", bufhidden, { buf = launch_buf })
+                    else
+                        return nil
+                    end
+                end
+                vim.schedule(_14_)
+            else
+            end
             if on_close then
                 return on_close()
             else
                 return nil
             end
         end
-        opts0.on_close = _12_
-        local case_14_, case_15_ = pcall(pick, items, on_select, opts0)
-        if (case_14_ == true) and (nil ~= case_15_) then
-            local picker = case_15_
+        opts0.on_close = _13_
+        local case_18_, case_19_ = pcall(pick, items, on_select, opts0)
+        if (case_18_ == true) and (nil ~= case_19_) then
+            local picker = case_19_
             return picker
-        elseif (case_14_ == false) and (nil ~= case_15_) then
-            local err = case_15_
+        elseif (case_18_ == false) and (nil ~= case_19_) then
+            local err = case_19_
             vim.g.focus_disable = focus_disabled_3f
+            if vim.api.nvim_buf_is_valid(launch_buf) then
+                vim.api.nvim_set_option_value("bufhidden", bufhidden, { buf = launch_buf })
+            else
+            end
             return error(err)
         else
             return nil
@@ -87,7 +110,7 @@ end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _17_()
+    local function _22_()
         local refer = require("nfnl.module").autoload("refer")
         refer.setup({
             default_sorter = "blink",
@@ -101,29 +124,29 @@ do
         refer.pick_async = without_focus_resize(refer.pick_async)
         refer.add_command("CommandHistory", command_history)
         local group = vim.api.nvim_create_augroup("ReferWindowSizing", { clear = true })
-        local function _19_(_18_)
-            local buf = _18_.buf
+        local function _24_(_23_)
+            local buf = _23_.buf
             if refer_window_3f(buf) then
                 vim.w.focus_disable = true
-                local function _20_()
+                local function _25_()
                     return pcall(enforce_refer_height)
                 end
-                return vim.schedule(_20_)
+                return vim.schedule(_25_)
             else
                 return nil
             end
         end
-        vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, { group = group, callback = _19_ })
-        local function _22_()
-            local function _23_()
+        vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, { group = group, callback = _24_ })
+        local function _27_()
+            local function _28_()
                 return pcall(enforce_refer_height)
             end
-            return vim.schedule(_23_)
+            return vim.schedule(_28_)
         end
-        vim.api.nvim_create_autocmd("WinResized", { group = group, callback = _22_ })
-        local function _25_(_24_)
-            local buf = _24_.buf
-            local function _26_()
+        vim.api.nvim_create_autocmd("WinResized", { group = group, callback = _27_ })
+        local function _30_(_29_)
+            local buf = _29_.buf
+            local function _31_()
                 local refer0 = require("nfnl.module").autoload("refer")
                 if refer0._active_picker then
                     return refer0._active_picker.actions.next_item()
@@ -131,8 +154,8 @@ do
                     return nil
                 end
             end
-            vim.keymap.set("n", "j", _26_, { buffer = buf, desc = "Next item" })
-            local function _28_()
+            vim.keymap.set("n", "j", _31_, { buffer = buf, desc = "Next item" })
+            local function _33_()
                 local refer0 = require("nfnl.module").autoload("refer")
                 if refer0._active_picker then
                     return refer0._active_picker.actions.prev_item()
@@ -140,69 +163,69 @@ do
                     return nil
                 end
             end
-            return vim.keymap.set("n", "k", _28_, { buffer = buf, desc = "Previous item" })
+            return vim.keymap.set("n", "k", _33_, { buffer = buf, desc = "Previous item" })
         end
-        return vim.api.nvim_create_autocmd("FileType", { group = group, pattern = "refer_input", callback = _25_ })
+        return vim.api.nvim_create_autocmd("FileType", { group = group, pattern = "refer_input", callback = _30_ })
     end
-    local function _30_()
+    local function _35_()
         return vim.cmd.packadd("blink.cmp")
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "refer-nvim", after = _17_, before = _30_, cmd = "Refer", for_cat = "telescope" })
+        mod_12_auto.keymap({ "refer-nvim", after = _22_, before = _35_, cmd = "Refer", for_cat = "telescope" })
 end
-local function _31_()
+local function _36_()
     return vim.cmd("Refer Commands")
 end
-keymap_30_auto.set("n", ";", _31_, { desc = "Execute extended command", expr = false, noremap = true })
-local function _32_()
+keymap_30_auto.set("n", ";", _36_, { desc = "Execute extended command", expr = false, noremap = true })
+local function _37_()
     return vim.cmd("Refer CommandHistory")
 end
-keymap_30_auto.set("n", "<leader>;", _32_, { desc = "Command history", expr = false, noremap = true })
-local function _33_()
+keymap_30_auto.set("n", "<leader>;", _37_, { desc = "Command history", expr = false, noremap = true })
+local function _38_()
     return vim.cmd("Refer Extras FindFile")
 end
-keymap_30_auto.set("n", "<leader>ff", _33_, { desc = "[F]ind [F]ile", expr = false, noremap = true })
-local function _34_()
+keymap_30_auto.set("n", "<leader>ff", _38_, { desc = "[F]ind [F]ile", expr = false, noremap = true })
+local function _39_()
     return vim.cmd("Refer Files")
 end
-keymap_30_auto.set("n", "<leader>pf", _34_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
-local function _35_()
+keymap_30_auto.set("n", "<leader>pf", _39_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
+local function _40_()
     return vim.cmd("Refer Grep")
 end
-keymap_30_auto.set("n", "<leader>fw", _35_, { desc = "Find [F]ind [W]ord", expr = false, noremap = true })
-local function _36_()
+keymap_30_auto.set("n", "<leader>fw", _40_, { desc = "Find [F]ind [W]ord", expr = false, noremap = true })
+local function _41_()
     return vim.cmd("Refer Lines")
 end
-keymap_30_auto.set("n", "<leader>fl", _36_, { desc = "Find [L]ine", expr = false, noremap = true })
-local function _37_()
+keymap_30_auto.set("n", "<leader>fl", _41_, { desc = "Find [L]ine", expr = false, noremap = true })
+local function _42_()
     return vim.cmd("Refer Grep")
 end
-keymap_30_auto.set("n", "<leader>pw", _37_, { desc = "Find [P]roject [W]ord", expr = false, noremap = true })
-local function _38_()
+keymap_30_auto.set("n", "<leader>pw", _42_, { desc = "Find [P]roject [W]ord", expr = false, noremap = true })
+local function _43_()
     return vim.cmd("Refer OldFiles")
 end
-keymap_30_auto.set("n", "<leader>fh", _38_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
-local function _39_()
+keymap_30_auto.set("n", "<leader>fh", _43_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
+local function _44_()
     return vim.cmd("Refer Buffers")
 end
-keymap_30_auto.set("n", "<leader>fb", _39_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
-local function _40_()
+keymap_30_auto.set("n", "<leader>fb", _44_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
+local function _45_()
     return vim.cmd("Refer Resume")
 end
-keymap_30_auto.set("n", "<leader>fr", _40_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
-local function _41_()
+keymap_30_auto.set("n", "<leader>fr", _45_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
+local function _46_()
     return vim.cmd("Refer Selection")
 end
-keymap_30_auto.set("n", "<leader>fn", _41_, { desc = "[F]ind [N]ext", expr = false, noremap = true })
-local function _42_()
+keymap_30_auto.set("n", "<leader>fn", _46_, { desc = "[F]ind [N]ext", expr = false, noremap = true })
+local function _47_()
     return vim.cmd("Refer Symbols")
 end
-keymap_30_auto.set("n", "<leader>fs", _42_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })
-local function _43_()
+keymap_30_auto.set("n", "<leader>fs", _47_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })
+local function _48_()
     return vim.cmd("Refer References")
 end
-keymap_30_auto.set("n", "<leader>gr", _43_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
-local function _44_()
+keymap_30_auto.set("n", "<leader>gr", _48_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
+local function _49_()
     return vim.cmd("Refer Implementations")
 end
-return keymap_30_auto.set("n", "<leader>gi", _44_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
+return keymap_30_auto.set("n", "<leader>gi", _49_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })

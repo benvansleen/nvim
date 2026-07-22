@@ -38,17 +38,32 @@
 (fn without-focus-resize [pick]
   (fn [items on-select opts]
     (let [opts (or opts {})
+          launch-buf (vim.api.nvim_get_current_buf)
+          bufhidden (vim.api.nvim_get_option_value :bufhidden {:buf launch-buf})
+          ephemeral? (or (= bufhidden :wipe) (= bufhidden :delete))
           focus-disabled? vim.g.focus_disable
           on-close opts.on_close]
+      (when ephemeral?
+        (set opts.preview {:enabled false})
+        (vim.api.nvim_set_option_value :bufhidden :hide {:buf launch-buf}))
       (set vim.g.focus_disable true)
       (set opts.on_close
            #(do
               (set vim.g.focus_disable focus-disabled?)
+              (when ephemeral?
+                (vim.schedule #(when (vim.api.nvim_buf_is_valid launch-buf)
+                                 (vim.api.nvim_set_option_value :bufhidden
+                                                                bufhidden
+                                                                {:buf launch-buf}))))
               (when on-close (on-close))))
       (case (pcall pick items on-select opts)
         (where (true picker)) picker
         (where (false err)) (do
                               (set vim.g.focus_disable focus-disabled?)
+                              (when (vim.api.nvim_buf_is_valid launch-buf)
+                                (vim.api.nvim_set_option_value :bufhidden
+                                                               bufhidden
+                                                               {:buf launch-buf}))
                               (error err))))))
 
 (cfg (plugins [:refer-nvim
