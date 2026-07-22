@@ -1,70 +1,9 @@
-(import-macros {: cfg : with-require} :macros)
-
-(fn command-history []
-  (with-require {: refer}
-    (let [history []
-          seen {}]
-      (for [index (vim.fn.histnr :cmd) 1 -1]
-        (let [command (vim.fn.histget :cmd index)]
-          (when (and (not= command "") (not (. seen command)))
-            (table.insert history command)
-            (tset seen command true))))
-      (refer.pick history
-                  (fn [command]
-                    (let [commands (. (refer.get_commands) :Commands)]
-                      (when (= (type commands) :function)
-                        (commands {:default_text command}))))
-                  {:prompt "Command history > "}))))
-
-(fn refer-window? [buf]
-  (let [filetype (vim.api.nvim_get_option_value :filetype {: buf})]
-    (or (= filetype :refer_input) (= filetype :refer_results))))
-
-(fn set-window-height [win height]
-  (when (and win (vim.api.nvim_win_is_valid win))
-    (case (pcall vim.api.nvim_win_get_height win)
-      (where (true current-height) (not= current-height height))
-      (pcall vim.api.nvim_win_set_height win height))))
-
-(fn enforce-refer-height []
-  (let [(ok? refer) (pcall require :refer)
-        picker (and ok? refer._active_picker)]
-    (when picker
-      (let [ui picker.ui
-            results-height (ui:get_height (length picker.current_matches))]
-        (set-window-height ui.results_win results-height)
-        (set-window-height ui.input_win 1)))))
-
-(fn without-focus-resize [pick]
-  (fn [items on-select opts]
-    (let [opts (or opts {})
-          launch-buf (vim.api.nvim_get_current_buf)
-          bufhidden (vim.api.nvim_get_option_value :bufhidden {:buf launch-buf})
-          ephemeral? (or (= bufhidden :wipe) (= bufhidden :delete))
-          focus-disabled? vim.g.focus_disable
-          on-close opts.on_close]
-      (when ephemeral?
-        (set opts.preview {:enabled false})
-        (vim.api.nvim_set_option_value :bufhidden :hide {:buf launch-buf}))
-      (set vim.g.focus_disable true)
-      (set opts.on_close
-           #(do
-              (set vim.g.focus_disable focus-disabled?)
-              (when ephemeral?
-                (vim.schedule #(when (vim.api.nvim_buf_is_valid launch-buf)
-                                 (vim.api.nvim_set_option_value :bufhidden
-                                                                bufhidden
-                                                                {:buf launch-buf}))))
-              (when on-close (on-close))))
-      (case (pcall pick items on-select opts)
-        (where (true picker)) picker
-        (where (false err)) (do
-                              (set vim.g.focus_disable focus-disabled?)
-                              (when (vim.api.nvim_buf_is_valid launch-buf)
-                                (vim.api.nvim_set_option_value :bufhidden
-                                                               bufhidden
-                                                               {:buf launch-buf}))
-                              (error err))))))
+(import-macros {: autoload : cfg : with-require} :macros)
+(autoload {: command-history
+           : enforce-refer-height
+           : grep-command
+           : refer-window?
+           : without-focus-resize} :lib.refer)
 
 (set vim.ui.select (fn [...]
                      (with-require {: refer}
@@ -81,9 +20,7 @@
                                         :extras {:find_file true}
                                         :max_height 16
                                         :min_height 16
-                                        :providers {:grep {:grep_command [:rg
-                                                                          :--vimgrep
-                                                                          :--smart-case]}}
+                                        :providers {:grep {:grep_command grep-command}}
                                         :ui {:highlights {:prompt :Title
                                                           :selection :Visual
                                                           :header :WarningMsg}}})

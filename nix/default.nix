@@ -10,6 +10,7 @@ let
   patchedRefer = config.nvim-lib.neovimPlugins.refer-nvim.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ./patches/refer-find-file.patch
+      ./patches/refer-hide-count.patch
     ];
   });
 

@@ -32,11 +32,11 @@ do
     local function _7_()
         return vim.cmd("Trouble lsp_references")
     end
-    keymap_30_auto.set("n", "<leader>gr", _7_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
+    keymap_30_auto.set("n", "gr", _7_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
     local function _8_()
         return vim.cmd("Trouble lsp_implementations")
     end
-    keymap_30_auto.set("n", "<leader>gi", _8_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
+    keymap_30_auto.set("n", "gi", _8_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
 end
 local function _9_()
     return vim.cmd("Trouble qflist open")

@@ -1,0 +1,11 @@
+diff --git a/lua/refer/ui.lua b/lua/refer/ui.lua
+--- a/lua/refer/ui.lua
++++ b/lua/refer/ui.lua
+@@ -133,6 +133,7 @@ end
+ ---Set a new prompt text
+ ---@param text string New prompt text
+ function UI:update_prompt_virtual_text(text)
++    text = text:gsub("^%d+/%d+%s+", "")
+     if self.input_buf and api.nvim_buf_is_valid(self.input_buf) then
+         local hl_group = "Title"
+         if self.opts.ui and self.opts.ui.highlights and self.opts.ui.highlights.prompt then
