@@ -66,9 +66,15 @@
                                                                {:buf launch-buf}))
                               (error err))))))
 
+(set vim.ui.select (fn [...]
+                     (with-require {: refer}
+                       (refer.setup_ui_select))
+                     (vim.ui.select ...)))
+
 (cfg (plugins [:refer-nvim
                {:for_cat :telescope
                 :cmd :Refer
+                :on_require :refer
                 :before #(vim.cmd.packadd :blink.cmp)
                 :after #(with-require {: refer}
                           (refer.setup {:default_sorter :blink

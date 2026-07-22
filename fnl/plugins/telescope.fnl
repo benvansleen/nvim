@@ -14,8 +14,7 @@
                         (vim.cmd.packadd name) ; (vim.cmd.packadd :telescope-cmdline-nvim)
                         (vim.cmd.packadd :telescope-egrepify-nvim)
                         (vim.cmd.packadd :telescope-file-browser.nvim)
-                        (vim.cmd.packadd :telescope-fzf-native.nvim)
-                        (vim.cmd.packadd :telescope-ui-select.nvim)
+                        (vim.cmd.packadd :telescope-fzf-native.nvim) ; (vim.cmd.packadd :telescope-ui-select.nvim)
                         (when-nix (vim.cmd.packadd :telescope-undo.nvim)
                                   (vim.cmd.packadd :telescope-zf-native.nvim))
                         (vim.cmd.packadd :telescope-zoxide))
@@ -40,8 +39,8 @@
                                                                                 :move_selection_next)
                                                                       :<C-k> (. (require :telescope.actions)
                                                                                 :move_selection_previous)}}}
-                                            :extensions {:ui-select [(with-require {themes :telescope.themes}
-                                                                       (themes.get_dropdown))]
+                                            :extensions {;:ui-select [(with-require {themes :telescope.themes}
+                                                         ;              (themes.get_dropdown)
                                                          :cmdline {:picker {:layout_strategy :vertical
                                                                             :layout_config {:prompt_position :top
                                                                                             :anchor :SW
@@ -81,8 +80,7 @@
                           ; (telescope.load_extension :cmdline)
                           (telescope.load_extension :egrepify)
                           (telescope.load_extension :file_browser)
-                          (telescope.load_extension :fzf)
-                          (telescope.load_extension :ui-select)
+                          (telescope.load_extension :fzf) ; (telescope.load_extension :ui-select)
                           (when-nix (telescope.load_extension :undo)
                                     (telescope.load_extension :zf-native))
                           (telescope.load_extension :zoxide)
