@@ -69,9 +69,19 @@ diff --git a/lua/refer/extras/find_file.lua b/lua/refer/extras/find_file.lua
          builtin.picker:refresh()
          return
      end
-@@ -214,4 +235,7 @@ end
+@@ -214,4 +235,16 @@ end
  function M.run(_opts)
-     local start_dir = vim.fs.normalize(uv.cwd() or vim.fn.getcwd())
+-    local start_dir = vim.fs.normalize(uv.cwd() or vim.fn.getcwd())
++    local current_file = vim.api.nvim_buf_get_name(0)
++    local start_dir
++
++    if vim.bo.buftype == "" and current_file ~= "" then
++        start_dir = vim.fs.dirname(current_file)
++    else
++        start_dir = uv.cwd() or vim.fn.getcwd()
++    end
++
++    start_dir = vim.fs.normalize(start_dir)
 +    if start_dir:sub(-1) ~= "/" then
 +        start_dir = start_dir .. "/"
 +    end
