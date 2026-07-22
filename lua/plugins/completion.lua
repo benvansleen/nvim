@@ -17,47 +17,73 @@ do
                     end
                 end
                 if _3_ then
-                    return (cmp.show() or cmp.insert_next())
+                    local or_6_ = cmp.show()
+                    if not or_6_ then
+                        cmp.hide_documentation()
+                        vim.schedule(cmp.insert_next)
+                        or_6_ = true
+                    end
+                    return or_6_
                 else
                     return nil
                 end
             end
-            local function _7_(cmp)
-                return cmp.accept({ index = 1 })
-            end
             local function _8_(cmp)
+                cmp.hide_documentation()
+                vim.schedule(cmp.insert_prev)
+                return true
+            end
+            local function _9_(cmp)
                 return cmp.accept({ index = 1 })
             end
-            local function _9_(_2410)
+            local function _10_(cmp)
+                return cmp.accept({ index = 1 })
+            end
+            local function _11_(_2410)
                 return _2410.show({ providers = { "ripgrep" } })
             end
-            local function _10_(ctx)
+            local function _12_(ctx)
                 local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
                 return mod_12_auto0.blink_components_text(ctx)
             end
-            local function _11_(ctx)
-                local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
-                return mod_12_auto0.blink_components_highlight(ctx)
+            local function _13_(ctx)
+                local highlights
+                do
+                    local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
+                    highlights = mod_12_auto0.blink_components_highlight(ctx)
+                end
+                local base = { 0, #ctx.label }
+                if ctx.source_id ~= "lsp" then
+                    base["group"] = "BlinkCmpLabel"
+                    table.insert(highlights, 1, base)
+                else
+                end
+                return highlights
             end
-            local _12_
+            local _15_
             if _G.nixInfo.isNix then
-                _12_ = "prefer_rust"
+                _15_ = "prefer_rust"
             else
-                _12_ = "lua"
+                _15_ = "lua"
             end
             return p_13_auto.setup({
                 keymap = {
                     preset = "none",
                     ["<Tab>"] = { _2_, "fallback" },
-                    ["<S-Tab>"] = { "insert_prev" },
-                    ["<M-;>"] = { _7_ },
-                    ["<D-;>"] = { _8_ },
-                    ["<C-n>"] = { _9_ },
+                    ["<S-Tab>"] = { _8_ },
+                    ["<M-;>"] = { _9_ },
+                    ["<D-;>"] = { _10_ },
+                    ["<C-n>"] = { _11_ },
+                    ["<C-d>"] = { "show_documentation", "hide_documentation" },
                 },
                 appearance = { nerd_font_variant = "normal" },
-                signature = { enabled = true, trigger = { enabled = true }, window = { show_documentation = false } },
+                signature = {
+                    enabled = true,
+                    trigger = { enabled = true },
+                    window = { border = vim.o.winborder, show_documentation = false },
+                },
                 completion = {
-                    documentation = { auto_show = true, auto_show_delay_ms = 1000 },
+                    documentation = { auto_show_delay_ms = 1000, auto_show = false },
                     ghost_text = {
                         enabled = true,
                         show_with_selection = true,
@@ -69,14 +95,16 @@ do
                     list = { selection = { preselect = false }, cycle = { from_top = false } },
                     menu = {
                         enabled = true,
+                        border = vim.o.winborder,
                         auto_show_delay_ms = 50,
                         max_height = 7,
                         draw = {
                             align_to = "label",
                             columns = { { "kind_icon" }, { "label", gap = 1 } },
-                            components = { label = { text = _10_, highlight = _11_ } },
+                            components = { label = { text = _12_, highlight = _13_ } },
                         },
                         auto_show = false,
+                        scrollbar = false,
                     },
                 },
                 sources = {
@@ -89,7 +117,7 @@ do
                         },
                     },
                 },
-                fuzzy = { implementation = _12_ },
+                fuzzy = { implementation = _15_ },
                 cmdline = {
                     completion = {
                         menu = { auto_show = true },
@@ -99,7 +127,12 @@ do
                 },
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "blink.cmp", after = _1_, event = "InsertEnter", for_cat = "blink" })
+        keymap_30_auto = mod_12_auto.keymap({
+            "blink.cmp",
+            after = _1_,
+            event = { "CmdlineEnter", "InsertEnter" },
+            for_cat = "blink",
+        })
     end
 end
 do
@@ -119,10 +152,10 @@ end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _14_()
+    local function _17_()
         local p_13_auto = require("colorful-menu")
         return p_13_auto.setup({})
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "colorful-menu.nvim", after = _14_, for_cat = "blink", on_plugin = { "blink.cmp" } })
+        mod_12_auto.keymap({ "colorful-menu.nvim", after = _17_, for_cat = "blink", on_plugin = { "blink.cmp" } })
 end

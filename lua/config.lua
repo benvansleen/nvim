@@ -1,13 +1,13 @@
 -- [nfnl] fnl/config.fnl
 local big_file_max_bytes = (1024 * 1024)
 local big_file_max_lines = 10000
-local function disable_expensive_features(buf)
-    if vim.api.nvim_buf_is_valid(buf) then
-        vim.b[buf]["big_file"] = true
-        vim.diagnostic.enable(false, { bufnr = buf })
-        vim.lsp.inlay_hint.enable(false, { bufnr = buf })
-        vim.lsp.semantic_tokens.enable(false, { bufnr = buf })
-        return pcall(vim.treesitter.stop, buf)
+local function disable_expensive_features(bufnr)
+    if vim.api.nvim_buf_is_valid(bufnr) then
+        vim.b[bufnr]["big_file"] = true
+        vim.diagnostic.enable(false, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+        return pcall(vim.treesitter.stop, bufnr)
     else
         return nil
     end
