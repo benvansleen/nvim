@@ -27,17 +27,18 @@
               ["[W]orkspace [L]ist Folders" :<leader>wl] #(-> (vim.lsp.buf.list_workspace_folders)
                                                               vim.inspect
                                                               print)})
-       (imap {["Signature Documentation" :<C-k>] vim.lsp.buf.signature_help}))
-  (when (nix-enabled :telescope)
-    (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
-                                                                :lsp_definitions)
-                ["[G]oto [R]eferences" :gr] #(require-and-call :telescope.builtin
-                                                               :lsp_references)
-                ["[G]oto [I]mplementation" :gI] #(require-and-call :telescope.builtin
-                                                                   :lsp_implementations)
-                ["[D]ocument [S]ymbols" :<leader>ds] #(require-and-call :telescope.builtin
-                                                                        :lsp_document_symbols)
-                ["[W]orkspace [S]ymbols" :<leader>ws] #(require-and-call :telescope.builtin
-                                                                         :lsp_dynamic_workspace_symbols)}))))
+       (imap {["Signature Documentation" :<C-k>] vim.lsp.buf.signature_help})))
+
+; (when (nix-enabled :telescope)
+;   (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
+;                                                               :lsp_definitions)
+;               ["[G]oto [R]eferences" :gr] #(require-and-call :telescope.builtin
+;                                                              :lsp_references)
+;               ["[G]oto [I]mplementation" :gI] #(require-and-call :telescope.builtin
+;                                                                  :lsp_implementations)
+;               ["[D]ocument [S]ymbols" :<leader>ds] #(require-and-call :telescope.builtin
+;                                                                       :lsp_document_symbols)
+;               ["[W]orkspace [S]ymbols" :<leader>ws] #(require-and-call :telescope.builtin
+;                                                                        :lsp_dynamic_workspace_symbols)}))))
 
 M

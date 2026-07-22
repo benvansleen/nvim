@@ -79,7 +79,24 @@
                                                                                      true)
                                                                                 (vim.schedule #(pcall enforce-refer-height))))}
                                            :WinResized {: group
-                                                        :callback #(vim.schedule #(pcall enforce-refer-height))}}))))}
+                                                        :callback #(vim.schedule #(pcall enforce-refer-height))}
+                                           :FileType {: group
+                                                      :pattern :refer_input
+                                                      :callback (fn [{: buf}]
+                                                                  (vim.keymap.set :n
+                                                                                  :j
+                                                                                  #(with-require {: refer}
+                                                                                     (when refer._active_picker
+                                                                                       (refer._active_picker.actions.next_item)))
+                                                                                  {:buffer buf
+                                                                                   :desc "Next item"})
+                                                                  (vim.keymap.set :n
+                                                                                  :k
+                                                                                  #(with-require {: refer}
+                                                                                     (when refer._active_picker
+                                                                                       (refer._active_picker.actions.prev_item)))
+                                                                                  {:buffer buf
+                                                                                   :desc "Previous item"}))}}))))}
                (nmap {["Execute extended command" ";"] #(vim.cmd "Refer Commands")
                       ["Command history" "<leader>;"] #(vim.cmd "Refer CommandHistory")
                       ["[F]ind [F]ile" :<leader>ff] #(vim.cmd "Refer Extras FindFile")

@@ -120,67 +120,89 @@ do
             end
             return vim.schedule(_23_)
         end
-        return vim.api.nvim_create_autocmd("WinResized", { group = group, callback = _22_ })
+        vim.api.nvim_create_autocmd("WinResized", { group = group, callback = _22_ })
+        local function _25_(_24_)
+            local buf = _24_.buf
+            local function _26_()
+                local refer0 = require("nfnl.module").autoload("refer")
+                if refer0._active_picker then
+                    return refer0._active_picker.actions.next_item()
+                else
+                    return nil
+                end
+            end
+            vim.keymap.set("n", "j", _26_, { buffer = buf, desc = "Next item" })
+            local function _28_()
+                local refer0 = require("nfnl.module").autoload("refer")
+                if refer0._active_picker then
+                    return refer0._active_picker.actions.prev_item()
+                else
+                    return nil
+                end
+            end
+            return vim.keymap.set("n", "k", _28_, { buffer = buf, desc = "Previous item" })
+        end
+        return vim.api.nvim_create_autocmd("FileType", { group = group, pattern = "refer_input", callback = _25_ })
     end
-    local function _24_()
+    local function _30_()
         return vim.cmd.packadd("blink.cmp")
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "refer-nvim", after = _17_, before = _24_, cmd = "Refer", for_cat = "telescope" })
+        mod_12_auto.keymap({ "refer-nvim", after = _17_, before = _30_, cmd = "Refer", for_cat = "telescope" })
 end
-local function _25_()
+local function _31_()
     return vim.cmd("Refer Commands")
 end
-keymap_30_auto.set("n", ";", _25_, { desc = "Execute extended command", expr = false, noremap = true })
-local function _26_()
+keymap_30_auto.set("n", ";", _31_, { desc = "Execute extended command", expr = false, noremap = true })
+local function _32_()
     return vim.cmd("Refer CommandHistory")
 end
-keymap_30_auto.set("n", "<leader>;", _26_, { desc = "Command history", expr = false, noremap = true })
-local function _27_()
+keymap_30_auto.set("n", "<leader>;", _32_, { desc = "Command history", expr = false, noremap = true })
+local function _33_()
     return vim.cmd("Refer Extras FindFile")
 end
-keymap_30_auto.set("n", "<leader>ff", _27_, { desc = "[F]ind [F]ile", expr = false, noremap = true })
-local function _28_()
+keymap_30_auto.set("n", "<leader>ff", _33_, { desc = "[F]ind [F]ile", expr = false, noremap = true })
+local function _34_()
     return vim.cmd("Refer Files")
 end
-keymap_30_auto.set("n", "<leader>pf", _28_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
-local function _29_()
+keymap_30_auto.set("n", "<leader>pf", _34_, { desc = "Find [P]roject [F]ile", expr = false, noremap = true })
+local function _35_()
     return vim.cmd("Refer Grep")
 end
-keymap_30_auto.set("n", "<leader>fw", _29_, { desc = "Find [F]ind [W]ord", expr = false, noremap = true })
-local function _30_()
+keymap_30_auto.set("n", "<leader>fw", _35_, { desc = "Find [F]ind [W]ord", expr = false, noremap = true })
+local function _36_()
     return vim.cmd("Refer Lines")
 end
-keymap_30_auto.set("n", "<leader>fl", _30_, { desc = "Find [L]ine", expr = false, noremap = true })
-local function _31_()
+keymap_30_auto.set("n", "<leader>fl", _36_, { desc = "Find [L]ine", expr = false, noremap = true })
+local function _37_()
     return vim.cmd("Refer Grep")
 end
-keymap_30_auto.set("n", "<leader>pw", _31_, { desc = "Find [P]roject [W]ord", expr = false, noremap = true })
-local function _32_()
+keymap_30_auto.set("n", "<leader>pw", _37_, { desc = "Find [P]roject [W]ord", expr = false, noremap = true })
+local function _38_()
     return vim.cmd("Refer OldFiles")
 end
-keymap_30_auto.set("n", "<leader>fh", _32_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
-local function _33_()
+keymap_30_auto.set("n", "<leader>fh", _38_, { desc = "[F]ind in file [H]istory", expr = false, noremap = true })
+local function _39_()
     return vim.cmd("Refer Buffers")
 end
-keymap_30_auto.set("n", "<leader>fb", _33_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
-local function _34_()
+keymap_30_auto.set("n", "<leader>fb", _39_, { desc = "[F]ind [B]uffer", expr = false, noremap = true })
+local function _40_()
     return vim.cmd("Refer Resume")
 end
-keymap_30_auto.set("n", "<leader>fr", _34_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
-local function _35_()
+keymap_30_auto.set("n", "<leader>fr", _40_, { desc = "[F]ind [R]esume", expr = false, noremap = true })
+local function _41_()
     return vim.cmd("Refer Selection")
 end
-keymap_30_auto.set("n", "<leader>fn", _35_, { desc = "[F]ind [N]ext", expr = false, noremap = true })
-local function _36_()
+keymap_30_auto.set("n", "<leader>fn", _41_, { desc = "[F]ind [N]ext", expr = false, noremap = true })
+local function _42_()
     return vim.cmd("Refer Symbols")
 end
-keymap_30_auto.set("n", "<leader>fs", _36_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })
-local function _37_()
+keymap_30_auto.set("n", "<leader>fs", _42_, { desc = "[F]ind [S]ymbol", expr = false, noremap = true })
+local function _43_()
     return vim.cmd("Refer References")
 end
-keymap_30_auto.set("n", "<leader>gr", _37_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
-local function _38_()
+keymap_30_auto.set("n", "<leader>gr", _43_, { desc = "[G]o to [R]eferences", expr = false, noremap = true })
+local function _44_()
     return vim.cmd("Refer Implementations")
 end
-return keymap_30_auto.set("n", "<leader>gi", _38_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
+return keymap_30_auto.set("n", "<leader>gi", _44_, { desc = "[G]o to [I]mplementations", expr = false, noremap = true })
