@@ -93,13 +93,23 @@ do
                 preview_win = { update_on_cursor_moved = true, preview_method = "fast_scratch" },
             })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "oil.nvim", after = _13_, cmd = "Oil", for_cat = "general", lazy = true })
+        local function _14_()
+            return vim.cmd.packadd("nvim-web-devicons")
+        end
+        keymap_30_auto = mod_12_auto.keymap({
+            "oil.nvim",
+            after = _13_,
+            before = _14_,
+            cmd = "Oil",
+            for_cat = "general",
+            lazy = true,
+        })
     end
-    local function _14_()
+    local function _15_()
         local mod_12_auto = require("nfnl.module").autoload("oil")
         return mod_12_auto.open((vim.g.__oil_last or vim.fn.expand("%:p:h")))
     end
-    keymap_30_auto.set("n", "-", _14_, { desc = "Open Parent Directory", expr = false, noremap = true })
+    keymap_30_auto.set("n", "-", _15_, { desc = "Open Parent Directory", expr = false, noremap = true })
     keymap_30_auto.set(
         "n",
         "<leader>-",
@@ -107,18 +117,18 @@ do
         { desc = "Open nvim root directory", expr = false, noremap = true }
     )
 end
-local function _15_()
-    local _16_
+local function _16_()
+    local _17_
     do
         local mod_12_auto = require("nfnl.module").autoload("oil")
-        _16_ = mod_12_auto.get_current_dir()
+        _17_ = mod_12_auto.get_current_dir()
     end
-    vim.g["__oil_last"] = _16_
+    vim.g["__oil_last"] = _17_
     return nil
 end
 vim.api.nvim_create_autocmd(
     { "BufEnter" },
-    { pattern = "oil://*", group = vim.api.nvim_create_augroup("oil-last", { clear = true }), callback = _15_ }
+    { pattern = "oil://*", group = vim.api.nvim_create_augroup("oil-last", { clear = true }), callback = _16_ }
 )
 return vim.api.nvim_create_autocmd(
     { "BufEnter" },
