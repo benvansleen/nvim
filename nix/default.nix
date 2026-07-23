@@ -97,6 +97,7 @@ in
           mini-indentscope
           nvim-highlight-colors
           nvim-surround
+          nvim-web-devicons
           oil-nvim
           opencode-nvim
           config.nvim-lib.neovimPlugins.direnv-nvim

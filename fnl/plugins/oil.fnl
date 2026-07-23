@@ -21,6 +21,7 @@
                {:for_cat :general
                 :lazy true
                 :cmd :Oil
+                :before #(vim.cmd.packadd :nvim-web-devicons)
                 :after #(setup :oil
                                {:default_file_explorer true
                                 :win_options {:winbar "%!v:lua.get_oil_winbar()"
