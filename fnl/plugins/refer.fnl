@@ -14,10 +14,9 @@
             (table.insert history command)
             (tset seen command true))))
       (refer.pick history
-                  (fn [command]
-                    (let [commands (. (refer.get_commands) :Commands)]
-                      (when (= (type commands) :function)
-                        (commands {:default_text command}))))
+                  #(let [commands (. (refer.get_commands) :Commands)]
+                     (when (= (type commands) :function)
+                       (commands {:default_text $1})))
                   {:prompt "Command history > "}))))
 
 (set vim.ui.select (fn [...]
@@ -33,6 +32,10 @@
                 :after #(with-require {: refer}
                           (refer.setup {:default_sorter :blink
                                         :extras {:find_file true}
+                                        :keymaps {:<C-j> {:action :next_item
+                                                          :description "Next item"}
+                                                  :<C-k> {:action :prev_item
+                                                          :description "Previous item"}}
                                         :max_height 16
                                         :min_height 16
                                         :providers {:grep {:grep_command #(grep-command $1)}}
@@ -75,7 +78,14 @@
                                                                                      (when refer._active_picker
                                                                                        (refer._active_picker.actions.prev_item)))
                                                                                   {:buffer buf
-                                                                                   :desc "Previous item"}))}}))))}
+                                                                                   :desc "Previous item"})
+                                                                  (vim.keymap.set :n
+                                                                                  :<cr>
+                                                                                  #(with-require {: refer}
+                                                                                     (when refer._active_picker
+                                                                                       (refer._active_picker.actions.select_entry)))
+                                                                                  {:buffer buf
+                                                                                   :desc "Select entry"}))}}))))}
                (nmap {["Execute extended command" ";"] #(vim.cmd "Refer Commands")
                       ["Command history" "<leader>;"] #(vim.cmd "Refer CommandHistory")
                       ["[F]ind [F]ile" :<leader>ff] #(vim.cmd "Refer Extras FindFile")
