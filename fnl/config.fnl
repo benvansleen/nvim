@@ -92,7 +92,7 @@
                [:TextYankPost] {:group (vim.api.nvim_create_augroup :highlight
                                                                     {:clear true})
                                 :pattern "*"
-                                :callback (fn [] (vim.highlight.on_yank))}}))
+                                :callback (fn [] (vim.hl.on_yank))}}))
 
 (with-require {number-toggle :lib.number-toggle}
   (cfg (nmap {["[T]oggle [n]umbertoggle" :<leader>tn] number-toggle.toggle})

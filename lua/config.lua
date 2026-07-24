@@ -161,7 +161,7 @@ do
         command = 'silent! normal! g`"zv',
     })
     local function _11_()
-        return vim.highlight.on_yank()
+        return vim.hl.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },

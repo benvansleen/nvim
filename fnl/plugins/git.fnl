@@ -33,12 +33,14 @@
                                                                              :kind :auto})})]
               [:codediff.nvim
                {:for_cat :git
+                :cmd :CodeDiff
                 :on_require :codediff
                 :after #(setup :codediff
                                {:diff {:layout :inline}
                                 :highlights {:char_brightness 1.15}
                                 :keymaps {:view {:next_file :<tab>
-                                                 :prev_file :<s-tab>}}})}]
+                                                 :prev_file :<s-tab>}}})}
+               (nmap {["Commit history of file" :<leader>gH] #(vim.cmd "CodeDiff history %")})]
               [:gitsigns.nvim
                {:for_cat :git
                 :event :DeferredUIEnter
