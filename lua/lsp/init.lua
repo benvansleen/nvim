@@ -219,13 +219,25 @@ do
         })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "terraformls",
+            enabled = (_G.nixInfo.settings.cats.terraform or false),
+            ft = { "terraform", "terraform-vars" },
+            lsp = { filetypes = { "terraform", "terraform-vars" }, on_attach = on_attach },
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     keymap_30_auto = mod_12_auto.keymap({
-        "terraformls",
-        enabled = (_G.nixInfo.settings.cats.terraform or false),
-        ft = { "terraform", "terraform-vars" },
-        lsp = { filetypes = { "terraform", "terraform-vars" }, on_attach = on_attach },
+        "postgres_lsp",
+        enabled = true,
+        ft = { "sql" },
+        lsp = { filetypes = { "sql" }, on_attach = on_attach },
     })
 end
