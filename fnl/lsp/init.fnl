@@ -105,4 +105,6 @@
               [:terraformls
                {:enabled (or (nix-enabled :terraform) false)
                 :ft [:terraform :terraform-vars]
-                :lsp {:filetypes [:terraform :terraform-vars] : on_attach}}]))
+                :lsp {:filetypes [:terraform :terraform-vars] : on_attach}}]
+              [:postgres_lsp
+               {:enabled true :ft [:sql] :lsp {:filetypes [:sql] : on_attach}}]))
