@@ -81,6 +81,7 @@ do
         vim.opt["breakindent"] = true
         vim.opt["cursorline"] = true
         vim.opt["expandtab"] = true
+        vim.opt["exrc"] = true
         vim.opt["fillchars"] = { eob = " " }
         vim.opt["hlsearch"] = true
         vim.opt["ignorecase"] = true

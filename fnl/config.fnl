@@ -42,6 +42,7 @@
            breakindent true
            cursorline true
            expandtab true
+           exrc true
            fillchars {:eob " "}
            hlsearch true
            ignorecase true
