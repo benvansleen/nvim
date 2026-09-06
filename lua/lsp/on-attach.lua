@@ -82,24 +82,14 @@ M.on_attach = function(client, bufnr)
         vim.keymap.set("n", "gd", _5_, { desc = "[G]oto [D]efinitions", expr = false, noremap = true })
         local function _6_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_12_auto.lsp_references()
-        end
-        vim.keymap.set("n", "gr", _6_, { desc = "[G]oto [R]eferences", expr = false, noremap = true })
-        local function _7_()
-            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
-            return mod_12_auto.lsp_implementations()
-        end
-        vim.keymap.set("n", "gI", _7_, { desc = "[G]oto [I]mplementation", expr = false, noremap = true })
-        local function _8_()
-            local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_document_symbols()
         end
-        vim.keymap.set("n", "<leader>ds", _8_, { desc = "[D]ocument [S]ymbols", expr = false, noremap = true })
-        local function _9_()
+        vim.keymap.set("n", "<leader>ds", _6_, { desc = "[D]ocument [S]ymbols", expr = false, noremap = true })
+        local function _7_()
             local mod_12_auto = require("nfnl.module").autoload("telescope.builtin")
             return mod_12_auto.lsp_dynamic_workspace_symbols()
         end
-        return vim.keymap.set("n", "<leader>ws", _9_, { desc = "[W]orkspace [S]ymbols", expr = false, noremap = true })
+        return vim.keymap.set("n", "<leader>ws", _7_, { desc = "[W]orkspace [S]ymbols", expr = false, noremap = true })
     else
         return nil
     end

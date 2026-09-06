@@ -9,7 +9,7 @@
   (vim.api.nvim_get_option_value :filetype
                                  {:buf (vim.api.nvim_win_get_buf win)}))
 
-(local disabled-ft [])
+(local disabled-ft [:trouble])
 
 (fn real-window? [win]
   (let [cfg (vim.api.nvim_win_get_config win)

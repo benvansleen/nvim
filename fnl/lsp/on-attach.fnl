@@ -31,10 +31,6 @@
   (when (nix-enabled :telescope)
     (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
                                                                 :lsp_definitions)
-                ["[G]oto [R]eferences" :gr] #(require-and-call :telescope.builtin
-                                                               :lsp_references)
-                ["[G]oto [I]mplementation" :gI] #(require-and-call :telescope.builtin
-                                                                   :lsp_implementations)
                 ["[D]ocument [S]ymbols" :<leader>ds] #(require-and-call :telescope.builtin
                                                                         :lsp_document_symbols)
                 ["[W]orkspace [S]ymbols" :<leader>ws] #(require-and-call :telescope.builtin

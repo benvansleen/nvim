@@ -104,6 +104,7 @@ in
           config.nvim-lib.neovimPlugins.foldtext-nvim
           config.nvim-lib.neovimPlugins.hbac-nvim
           smear-cursor-nvim
+          trouble-nvim
           undotree
           vim-startuptime
           which-key-nvim

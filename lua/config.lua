@@ -63,6 +63,7 @@ do
         require("plugins.terminal")
         require("plugins.tmux")
         require("plugins.treesitter")
+        require("plugins.trouble")
     end
     do
         require("clipboard")

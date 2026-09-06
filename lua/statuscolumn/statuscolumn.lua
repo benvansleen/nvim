@@ -138,7 +138,7 @@ end
 M["center-buffer"] = function(buf_ft)
     if
         core["contains?"](
-            { "NeogitCommitView", "NeogitGitCommandHistory", "NeogitConsole", "NeogitStatus", "NeogitPopup" },
+            { "NeogitCommitView", "NeogitGitCommandHistory", "NeogitConsole", "NeogitStatus", "NeogitPopup", "trouble" },
             buf_ft
         )
     then
