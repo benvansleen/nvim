@@ -7,7 +7,9 @@
          (let [line# (vim.api.nvim_get_current_line)]
            (= (string.match (string.sub line# col# col#) "%s") nil)))))
 
-(cfg (nmap {[:NES :<Tab>] #(require-and-call :sidekick :nes_jump_or_apply)})
+(cfg (nmap {[:NES :<Tab>] #(require-and-call :sidekick :nes_jump_or_apply)
+            [:NES :<S-Tab>] #(require-and-call :sidekick
+                                               :nes_jump_or_apply_backward)})
      (plugins [:blink.cmp
                {:for_cat :blink
                 :event [:CmdlineEnter :InsertEnter]
@@ -104,6 +106,7 @@
               [:copilot.lua
                {:for_cat :blink
                 :on_require :copilot
+                :on_plugin [:blink.cmp]
                 :event :InsertEnter
                 :after #(setup :copilot
                                {:panel {:enabled false}
@@ -120,6 +123,7 @@
                                 :nes {:enabled false}})}]
               [:sidekick.nvim
                {:for_cat :blink
+                :on_plugin [:blink.cmp]
                 :on_require :sidekick
                 :event :CursorMoved
                 :after #(setup :sidekick

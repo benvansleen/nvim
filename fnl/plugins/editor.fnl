@@ -30,12 +30,7 @@
                {:for_cat :general
                 :event :DeferredUIEnter
                 :after #(when (= (vim.fn.executable :direnv) 1)
-                          (setup :direnv-nvim
-                                 {:async true
-                                  :on_direnv_finished #(when (> (vim.fn.exists ":LspStart")
-                                                                0)
-                                                         (vim.cmd :LspStart))
-                                  :type :buffer}))}]
+                          (setup :direnv-nvim {:async true :type :buffer}))}]
               [:fidget.nvim
                {:for_cat :general :event :LspAttach :after #(setup :fidget)}]
               [:foldtext-nvim

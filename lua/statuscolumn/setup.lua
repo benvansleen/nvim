@@ -69,6 +69,7 @@ local group = vim.api.nvim_create_augroup("center-buffer", { clear = true })
 do
     do
         vim.g["my_center_buffer"] = true
+        vim.g["my_center_buffer_factor"] = 8
         vim.g["my_center_buffer_screen_width"] = vim.o.columns
         vim.g["_debug_my_center_buffer"] = false
     end

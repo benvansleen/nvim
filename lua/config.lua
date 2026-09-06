@@ -87,13 +87,14 @@ do
         vim.opt["laststatus"] = 0
         vim.opt["linebreak"] = true
         vim.opt["list"] = true
-        vim.opt["listchars"] = { tab = "\194\187 ", trail = "\194\183", nbsp = "\226\144\163" }
+        vim.opt["listchars"] = { tab = "  ", trail = "\194\183", nbsp = "\226\144\163" }
         vim.opt["mouse"] = "a"
         vim.opt["scrolloff"] = 10
         vim.opt["shiftround"] = true
         vim.opt["shiftwidth"] = 2
         vim.opt.shortmess:append("I")
         vim.opt["signcolumn"] = "yes"
+        vim.opt["splitkeep"] = "screen"
         vim.opt["smartcase"] = true
         vim.opt["showtabline"] = 0
         vim.opt["softtabstop"] = -1
@@ -105,7 +106,7 @@ do
         vim.opt["timeoutlen"] = 300
         vim.opt["updatetime"] = 250
         vim.opt["undofile"] = true
-        vim.opt["winborder"] = "shadow"
+        vim.opt["winborder"] = "rounded"
         vim.opt["number"] = false
         vim.opt["relativenumber"] = false
         vim.opt["ruler"] = false

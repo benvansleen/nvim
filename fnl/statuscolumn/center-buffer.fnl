@@ -33,11 +33,10 @@
     (length real-windows)))
 
 (fn M.center-buffer [_]
-  (let [factor 3
-        screen-width vim.g.my_center_buffer_screen_width]
-    (if (and vim.g.my_center_buffer (= (count-windows) 1)
-             (> vim.o.columns (/ screen-width factor)))
-        (string.rep " " (/ (- screen-width 88) factor))
-        " ")))
+  (if (and vim.g.my_center_buffer (= (count-windows) 1))
+      (string.rep " "
+                  (math.floor (/ vim.g.my_center_buffer_screen_width
+                                 vim.g.my_center_buffer_factor)))
+      " "))
 
 M

@@ -104,6 +104,7 @@ do
     hl("BlinkCmpDocSeparator", { link = "FloatBorder" })
     hl("BlinkCmpSignatureHelp", { link = "NormalFloat" })
     hl("BlinkCmpSignatureHelpBorder", { link = "FloatBorder" })
+    hl("Search", { bg = bg1 })
     local function _15_()
         return hl("CursorLine", { bg = bg0 })
     end

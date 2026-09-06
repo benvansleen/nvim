@@ -57,10 +57,8 @@ local function count_windows()
     return #real_windows
 end
 M["center-buffer"] = function(_)
-    local factor = 3
-    local screen_width = vim.g.my_center_buffer_screen_width
-    if vim.g.my_center_buffer and (count_windows() == 1) and (vim.o.columns > (screen_width / factor)) then
-        return string.rep(" ", ((screen_width - 88) / factor))
+    if vim.g.my_center_buffer and (count_windows() == 1) then
+        return string.rep(" ", math.floor((vim.g.my_center_buffer_screen_width / vim.g.my_center_buffer_factor)))
     else
         return " "
     end

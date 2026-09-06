@@ -48,7 +48,7 @@
            laststatus 0
            linebreak true
            list true
-           listchars {:tab "» " :trail "·" :nbsp "␣"}
+           listchars {:tab "  " :trail "·" :nbsp "␣"}
            mouse :a
            number false
            relativenumber false
@@ -60,6 +60,7 @@
            showcmd false
            showmode false
            signcolumn :yes
+           splitkeep :screen
            smartcase true
            showtabline 0
            softtabstop -1
@@ -71,7 +72,7 @@
            timeoutlen 300
            updatetime 250
            undofile true
-           winborder :shadow})
+           winborder :rounded})
      (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>zz
            [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
