@@ -93,20 +93,8 @@ do
         { "WinEnter", "WinResized", "VimResized" },
         { group = group, callback = update_screen_width }
     )
-    local function _18_(_241)
-        local win = (tonumber(_241.match) or 0)
-        local case_19_, case_20_ = pcall(vim.api.nvim_win_get_config, win)
-        local and_21_ = ((case_19_ == true) and (nil ~= case_20_))
-        if and_21_ then
-            local config = case_20_
-            and_21_ = (config and (config.relative == ""))
-        end
-        if and_21_ then
-            local config = case_20_
-            return refresh_nonfloating_windows()
-        else
-            return nil
-        end
+    local function _18_()
+        return vim.schedule(refresh_nonfloating_windows)
     end
     vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, { group = group, callback = _18_ })
 end

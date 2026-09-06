@@ -145,6 +145,7 @@ M["center-buffer"] = function(buf_ft)
             "NeogitPopup",
             "refer_input",
             "refer_results",
+            "sidekick_terminal",
             "trouble",
         }, buf_ft)
     then
@@ -154,7 +155,7 @@ M["center-buffer"] = function(buf_ft)
     end
 end
 M.folds = function(buf_ft)
-    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "startuptime" }, buf_ft) then
+    if core["contains?"]({ "dap-repl", "dap-view", "dap-view-term", "sidekick_terminal", "startuptime" }, buf_ft) then
         return " "
     else
         return folds(buf_ft)
@@ -188,7 +189,9 @@ M.init = function()
         end
         return table.concat(core.map(_41_, { M["center-buffer"], M.signs, M.folds, M.lines, M.spacing }))
     end
-    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = tonumber(vim.g.actual_curbuf) })
+    local win = (tonumber(vim.g.statusline_winid) or 0)
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
     if core["contains?"]({ "gitcommit", "TelescopePrompt", "NeogitDiffView" }, buf_ft) then
         return " "
     else

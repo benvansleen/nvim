@@ -27,11 +27,16 @@
                            :NeogitPopup
                            :refer_input
                            :refer_results
+                           :sidekick_terminal
                            :trouble]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
-  (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]
+  (disable-for-fts buf-ft [:dap-repl
+                           :dap-view
+                           :dap-view-term
+                           :sidekick_terminal
+                           :startuptime]
                    (folds buf-ft)))
 
 (fn M.signs [buf-ft]
@@ -49,8 +54,9 @@
          (core.map #($1 buf-ft))
          table.concat))
 
-  (let [buf-ft (vim.api.nvim_get_option_value :filetype
-                                              {:buf (tonumber vim.g.actual_curbuf)})]
+  (let [win (or (tonumber vim.g.statusline_winid) 0)
+        buf (vim.api.nvim_win_get_buf win)
+        buf-ft (vim.api.nvim_get_option_value :filetype {: buf})]
     (disable-for-fts buf-ft [:gitcommit :TelescopePrompt :NeogitDiffView]
                      (or (config buf-ft) ""))))
 

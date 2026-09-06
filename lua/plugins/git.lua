@@ -46,7 +46,6 @@ do
         local function _5_()
             local p_13_auto = require("codediff")
             return p_13_auto.setup({
-                diff = { layout = "inline" },
                 highlights = { char_brightness = 1.15 },
                 keymaps = { view = { next_file = "<tab>", prev_file = "<s-tab>" } },
             })
