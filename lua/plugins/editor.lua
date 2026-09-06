@@ -8,7 +8,7 @@ do
     do
         local function _1_()
             local dial = require("nfnl.module").autoload("dial.map")
-            return dial.manipuluate("increment", "normal")
+            return dial.manipulate("increment", "normal")
         end
         keymap_30_auto.set("n", "<C-a>", _1_, { desc = "Increment", expr = false, noremap = true })
         local function _2_()
@@ -29,7 +29,7 @@ do
     end
     local function _5_()
         local dial = require("nfnl.module").autoload("dial.map")
-        return dial.manipuluate("increment", "visual")
+        return dial.manipulate("increment", "visual")
     end
     keymap_30_auto.set("v", "<C-a>", _5_, { desc = "Increment", expr = false, noremap = true })
     local function _6_()

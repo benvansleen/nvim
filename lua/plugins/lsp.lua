@@ -18,39 +18,68 @@ local function text_format(symbol)
     end
     return (table.concat(fragments, ", ") .. stacked_functions)
 end
+local function clear_detached_winbar(_4_)
+    local buf = _4_.buf
+    local function _5_()
+        local has_symbol_client = false
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+            if client:supports_method("textDocument/documentSymbol") then
+                has_symbol_client = true
+            else
+            end
+        end
+        if not has_symbol_client then
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                if vim.api.nvim_win_is_valid(win) and (vim.api.nvim_win_get_buf(win) == buf) then
+                    vim.api.nvim_set_option_value("winbar", "", { win = win })
+                else
+                end
+            end
+            return nil
+        else
+            return nil
+        end
+    end
+    return vim.schedule(_5_)
+end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _4_()
+        local function _9_()
             local p_13_auto = require("symbol-usage")
-            return p_13_auto.setup({ text_format = text_format, disable = { filetypes = { "fennel" } } })
+            local function _10_(_2410)
+                return vim.b[_2410].big_file
+            end
+            return p_13_auto.setup({
+                text_format = text_format,
+                disable = { filetypes = { "fennel" }, cond = { _10_ } },
+            })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "symbol-usage.nvim", after = _4_, event = "LspAttach", for_cat = "lsp" })
+        keymap_30_auto = mod_12_auto.keymap({ "symbol-usage.nvim", after = _9_, event = "LspAttach", for_cat = "lsp" })
     end
 end
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _5_()
+        local function _11_()
             do
                 local p_13_auto = require("nvim-navic")
                 p_13_auto.setup({ click = true, lsp = { auto_attach = false } })
             end
-            local function _6_()
-                vim.wo["winbar"] = ""
-                return nil
-            end
-            return vim.api.nvim_create_autocmd({ "LspDetach" }, { callback = _6_ })
+            return vim.api.nvim_create_autocmd({ "LspDetach" }, {
+                group = vim.api.nvim_create_augroup("navic-detach", { clear = true }),
+                callback = clear_detached_winbar,
+            })
         end
-        keymap_30_auto = mod_12_auto.keymap({ "nvim-navic", after = _5_, for_cat = "lsp", on_require = "nvim-navic" })
+        keymap_30_auto = mod_12_auto.keymap({ "nvim-navic", after = _11_, for_cat = "lsp", on_require = "nvim-navic" })
     end
 end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _7_()
+    local function _12_()
         do
             local p_13_auto = require("tiny-inline-diagnostic")
             p_13_auto.setup({
@@ -69,10 +98,10 @@ do
         return vim.diagnostic.config({ virtual_text = false })
     end
     keymap_30_auto =
-        mod_12_auto.keymap({ "tiny-inline-diagnostic.nvim", after = _7_, event = "LspAttach", for_cat = "lsp" })
+        mod_12_auto.keymap({ "tiny-inline-diagnostic.nvim", after = _12_, event = "LspAttach", for_cat = "lsp" })
 end
-local function _8_()
+local function _13_()
     local mod_12_auto = require("nfnl.module").autoload("tiny-inline-diagnostic")
     return mod_12_auto.toggle()
 end
-return keymap_30_auto.set("n", "<leader>te", _8_, { desc = "Toggle diagnostics", expr = false, noremap = true })
+return keymap_30_auto.set("n", "<leader>te", _13_, { desc = "Toggle diagnostics", expr = false, noremap = true })

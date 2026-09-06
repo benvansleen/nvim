@@ -52,6 +52,7 @@
                                 :numhl false
                                 :linehl false
                                 :word_diff false
+                                :on_attach #(not (. vim.b $1 :big_file))
                                 :watch_gitdir {:follow_files true}
                                 :auto_attach true
                                 :attach_to_untracked false

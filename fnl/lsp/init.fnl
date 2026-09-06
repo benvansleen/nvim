@@ -1,22 +1,19 @@
-(import-macros {: autoload
-                : cfg
-                : is-nix
-                : nix-config
-                : nix-enabled
-                : setup
-                : tb
-                : with-require} :macros)
+(import-macros {: cfg : is-nix : nix-config : nix-enabled} :macros)
 
 (local {: on_attach} (require :lsp.on-attach))
 
+(vim.diagnostic.config {:signs {:text {vim.diagnostic.severity.ERROR ""
+                                       vim.diagnostic.severity.WARN ""
+                                       vim.diagnostic.severity.INFO ""
+                                       vim.diagnostic.severity.HINT ""}
+                                :numhl {vim.diagnostic.severity.ERROR :ErrorMsg
+                                        vim.diagnostic.severity.WARN :WarningMsg}}})
+
 (cfg (plugins [:nvim-lspconfig
                {:for_cat :lsp
-                :on_require [:lspconfig]
                 :lsp (fn [plugin]
                        (vim.lsp.config plugin.name (or plugin.lsp {}))
-                       (vim.lsp.enable plugin.name))
-                :before #(vim.lsp.config "*"
-                                         {: on_attach :root_markers [:.git]})}]
+                       (vim.lsp.enable plugin.name))}]
               [:lua_ls
                {:enabled (or (nix-enabled :lua) false)
                 :ft [:lua]
@@ -27,11 +24,12 @@
                                        :signatureHelp {:enabled true}
                                        :diagnostics {:globals [:vim]
                                                      :disable [:missing-fields]}
-                                       :telemetry {:enabled false}}}}}]
+                                       :telemetry {:enabled false}}}
+                      : on_attach}}]
               [:fennel_ls
-               {:enabled (or (nix-enabled :fnl) false)
+               {:enabled (or (nix-enabled :fennel) false)
                 :ft [:fennel]
-                :lsp {:filetypes [:fennel] :settings {}}}]
+                :lsp {:filetypes [:fennel] : on_attach}}]
               [:nixd
                {:enabled (and (is-nix) (or (nix-enabled :nix) false))
                 :ft [:nix]
@@ -45,7 +43,8 @@
                                            :home-manager {:expr (nix-config :settings
                                                                             :nixdHomeManagerPath)}}
                                  :formatting {:command [:nixfmt]}
-                                 :diagnostic {:suppress [:sema-escaping-with]}}}}]
+                                 :diagnostic {:suppress [:sema-escaping-with]}}
+                      : on_attach}}]
               [:basedpyright
                {:enabled false
                 :ft [:python]
@@ -71,13 +70,12 @@
                                   :typescriptreact]
                       :settings {}
                       : on_attach}}]
-              [:rust-analyzer
+              [:rust_analyzer
                {:enabled true
                 :ft [:rust]
                 :lsp {:filetypes [:rust]
-                      :cmd [:rust-analyzer]
-                      :settings {:diagnostic {:enable true}
-                                 :checkOnSave {:command :clippy}}
+                      :settings {:rust-analyzer {:diagnostics {:enable true}
+                                                 :check {:command :clippy}}}
                       : on_attach}}]
               [:nu_ls
                {:enabled true

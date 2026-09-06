@@ -7,7 +7,7 @@ do
             local p_13_auto = require("conform")
             local function _2_()
                 if not vim.g.disable_autoformat then
-                    return { timeout_ms = 1000, lsp_fallback = "fallback" }
+                    return { timeout_ms = 1000, lsp_format = "fallback" }
                 else
                     return nil
                 end
@@ -29,32 +29,37 @@ do
             })
         end
         local function _6_()
-            vim.g.disable_autoformat = false
-            return nil
+            local mod_12_auto0 = require("nfnl.module").autoload("conform")
+            return mod_12_auto0.format({ lsp_format = "fallback", timeout_ms = 1000, async = false })
         end
-        vim.api.nvim_create_user_command("FormatDisable", _6_, { desc = "Disable autoformat-on-save" })
+        vim.api.nvim_create_user_command("Format", _6_, { desc = "Format current buffer" })
         local function _7_()
             vim.g.disable_autoformat = true
             return nil
         end
-        vim.api.nvim_create_user_command("FormatEnable", _7_, { desc = "Enable autoformat-on-save" })
+        vim.api.nvim_create_user_command("FormatDisable", _7_, { desc = "Disable autoformat-on-save" })
         local function _8_()
+            vim.g.disable_autoformat = false
+            return nil
+        end
+        vim.api.nvim_create_user_command("FormatEnable", _8_, { desc = "Enable autoformat-on-save" })
+        local function _9_()
             vim.g.disable_autoformat = not vim.g.disable_autoformat
             return nil
         end
-        return vim.api.nvim_create_user_command("FormatToggle", _8_, { desc = "Toggle autoformat-on-save" })
+        return vim.api.nvim_create_user_command("FormatToggle", _9_, { desc = "Toggle autoformat-on-save" })
     end
     keymap_30_auto = mod_12_auto.keymap({
         "conform.nvim",
         after = _1_,
-        cmd = { "ConformInfo", "FormatToggle", "FormatEnable", "FormatDisable" },
+        cmd = { "ConformInfo", "Format", "FormatToggle", "FormatEnable", "FormatDisable" },
         event = "BufWritePre",
         for_cat = "format",
         on_require = "conform",
     })
 end
-local function _9_()
+local function _10_()
     local mod_12_auto = require("nfnl.module").autoload("conform")
-    return mod_12_auto.format({ lsp_fallback = true, timeout_ms = 1000, async = false })
+    return mod_12_auto.format({ lsp_format = "fallback", timeout_ms = 1000, async = false })
 end
-return keymap_30_auto.set("n", "<leader>FF", _9_, { desc = "[F]ormat [F]ile", expr = false, noremap = true })
+return keymap_30_auto.set("n", "<leader>FF", _10_, { desc = "[F]ormat [F]ile", expr = false, noremap = true })

@@ -3,8 +3,8 @@
 (cfg (plugins [:dial.nvim
                {:for_cat :general :on_require :dial}
                (nmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
-                                             (dial.manipuluate :increment
-                                                               :normal))
+                                             (dial.manipulate :increment
+                                                              :normal))
                       [:Decrement :<C-x>] #(with-require {dial :dial.map}
                                              (dial.manipulate :decrement
                                                               :normal))
@@ -15,8 +15,8 @@
                                               (dial.manipulate :decrement
                                                                :gnormal))})
                (vmap {[:Increment :<C-a>] #(with-require {dial :dial.map}
-                                             (dial.manipuluate :increment
-                                                               :visual))
+                                             (dial.manipulate :increment
+                                                              :visual))
                       [:Decrement :<C-x>] #(with-require {dial :dial.map}
                                              (dial.manipulate :decrement
                                                               :visual))

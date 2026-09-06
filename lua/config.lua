@@ -1,4 +1,39 @@
 -- [nfnl] fnl/config.fnl
+local big_file_max_bytes = (1024 * 1024)
+local big_file_max_lines = 10000
+local function disable_expensive_features(bufnr)
+    if vim.api.nvim_buf_is_valid(bufnr) then
+        vim.b[bufnr]["big_file"] = true
+        vim.diagnostic.enable(false, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+        return pcall(vim.treesitter.stop, bufnr)
+    else
+        return nil
+    end
+end
+do
+    local big_file_group = vim.api.nvim_create_augroup("big-file-policy", { clear = true })
+    local function _3_(_2_)
+        local buf = _2_.buf
+        local file = _2_.file
+        if vim.fn.getfsize(file) > big_file_max_bytes then
+            return disable_expensive_features(buf)
+        else
+            return nil
+        end
+    end
+    vim.api.nvim_create_autocmd({ "BufReadPre" }, { group = big_file_group, callback = _3_ })
+    local function _6_(_5_)
+        local buf = _5_.buf
+        if vim.api.nvim_buf_line_count(buf) > big_file_max_lines then
+            return disable_expensive_features(buf)
+        else
+            return nil
+        end
+    end
+    vim.api.nvim_create_autocmd({ "BufReadPost" }, { group = big_file_group, callback = _6_ })
+end
 do
     do
         vim.g["mapleader"] = " "
@@ -81,25 +116,25 @@ do
     end
     do
         vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights", expr = false, noremap = true })
-        local function _1_()
+        local function _8_()
             return print(vim.api.nvim_buf_get_name(0))
         end
-        vim.keymap.set("n", "<leader>wtf", _1_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
+        vim.keymap.set("n", "<leader>wtf", _8_, { desc = "[W]hat's [T]his [F]ile?", expr = false, noremap = true })
         vim.keymap.set("n", "<leader>q", vim.cmd.bdelete, { desc = "[Q]uit buffer", expr = false, noremap = true })
-        local function _2_()
+        local function _9_()
             return vim.cmd("bdelete!")
         end
-        vim.keymap.set("n", "<leader>Q", _2_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
+        vim.keymap.set("n", "<leader>Q", _9_, { desc = "Forcefully [Q]uit buffer", expr = false, noremap = true })
         vim.keymap.set(
             "n",
             "<leader>huc",
             "<cmd>Inspect<CR>",
             { desc = "[H]ighlight [U]nder [C]ursor", expr = false, noremap = true }
         )
-        local function _3_()
+        local function _10_()
             return vim.cmd.normal("gcc")
         end
-        vim.keymap.set("n", "<M-/>", _3_, { desc = "Comment line", expr = false, noremap = true })
+        vim.keymap.set("n", "<M-/>", _10_, { desc = "Comment line", expr = false, noremap = true })
     end
     do
         vim.keymap.set("i", "jj", "<Esc>", { desc = "Exit Insert Mode", expr = false, noremap = true })
@@ -121,12 +156,12 @@ do
         pattern = "*",
         command = 'silent! normal! g`"zv',
     })
-    local function _4_()
-        return vim.highlight.on_yank()
+    local function _11_()
+        return vim.hl.on_yank()
     end
     vim.api.nvim_create_autocmd(
         { "TextYankPost" },
-        { group = vim.api.nvim_create_augroup("highlight", {}), pattern = "*", callback = _4_ }
+        { group = vim.api.nvim_create_augroup("highlight", { clear = true }), pattern = "*", callback = _11_ }
     )
 end
 do

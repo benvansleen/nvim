@@ -1,24 +1,26 @@
 -- [nfnl] fnl/lsp/init.fnl
 local _local_1_ = require("lsp.on-attach")
 local on_attach = _local_1_.on_attach
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = "",
+        },
+        numhl = { [vim.diagnostic.severity.ERROR] = "ErrorMsg", [vim.diagnostic.severity.WARN] = "WarningMsg" },
+    },
+})
 do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _2_()
-            return vim.lsp.config("*", { on_attach = on_attach, root_markers = { ".git" } })
-        end
-        local function _3_(plugin)
+        local function _2_(plugin)
             vim.lsp.config(plugin.name, (plugin.lsp or {}))
             return vim.lsp.enable(plugin.name)
         end
-        keymap_30_auto = mod_12_auto.keymap({
-            "nvim-lspconfig",
-            before = _2_,
-            for_cat = "lsp",
-            lsp = _3_,
-            on_require = { "lspconfig" },
-        })
+        keymap_30_auto = mod_12_auto.keymap({ "nvim-lspconfig", for_cat = "lsp", lsp = _2_ })
     end
 end
 do
@@ -40,6 +42,7 @@ do
                         telemetry = { enabled = false },
                     },
                 },
+                on_attach = on_attach,
             },
         })
     end
@@ -50,9 +53,9 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         keymap_30_auto = mod_12_auto.keymap({
             "fennel_ls",
-            enabled = (_G.nixInfo.settings.cats.fnl or false),
+            enabled = (_G.nixInfo.settings.cats.fennel or false),
             ft = { "fennel" },
-            lsp = { filetypes = { "fennel" }, settings = {} },
+            lsp = { filetypes = { "fennel" }, on_attach = on_attach },
         })
     end
 end
@@ -60,13 +63,13 @@ do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local and_4_ = _G.nixInfo.isNix
-        if and_4_ then
-            and_4_ = (_G.nixInfo.settings.cats.nix or false)
+        local and_3_ = _G.nixInfo.isNix
+        if and_3_ then
+            and_3_ = (_G.nixInfo.settings.cats.nix or false)
         end
         keymap_30_auto = mod_12_auto.keymap({
             "nixd",
-            enabled = and_4_,
+            enabled = and_3_,
             ft = { "nix" },
             lsp = {
                 filetypes = { "nix" },
@@ -89,6 +92,7 @@ do
                     formatting = { command = { "nixfmt" } },
                     diagnostic = { suppress = { "sema-escaping-with" } },
                 },
+                on_attach = on_attach,
             },
         })
     end
@@ -156,13 +160,12 @@ do
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         keymap_30_auto = mod_12_auto.keymap({
-            "rust-analyzer",
+            "rust_analyzer",
             enabled = true,
             ft = { "rust" },
             lsp = {
                 filetypes = { "rust" },
-                cmd = { "rust-analyzer" },
-                settings = { diagnostic = { enable = true }, checkOnSave = { command = "clippy" } },
+                settings = { ["rust-analyzer"] = { diagnostics = { enable = true }, check = { command = "clippy" } } },
                 on_attach = on_attach,
             },
         })
