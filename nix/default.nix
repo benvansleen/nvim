@@ -185,7 +185,6 @@ in
         lazy = true;
         runtimePkgs = with pkgs; [
           gcc
-          lisette
         ];
         data = [
           config.nvim-lib.neovimPlugins.lisette-nvim
