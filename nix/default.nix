@@ -36,8 +36,23 @@ in
 
   config = {
     hosts.neovide.nvim-host.enable = true;
+    hosts.neogit.nvim-host = {
+      enable = true;
+      package = config.wrapperPaths.placeholder;
+      addFlag = [
+        "--cmd"
+        "let g:neogit_host = v:true"
+        "+Neogit"
+      ];
+    };
+    drv.postBuild = ''
+      ln -s nvim-neogit "$out/bin/neogit"
+    '';
 
-    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+    package = pkgs.neovim-unwrapped.overrideAttrs (old: {
+      # Optimize across translation units without making the binary CPU-specific.
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON" ];
+    });
     settings = {
       ## can also use an impure path; this will not be provisioned by nix -- allowing for normal quick-reload behavior
       ## `config.settings.config_directory = lib.generators.mkLuaInline "vim.fn.stdpath('config')"`

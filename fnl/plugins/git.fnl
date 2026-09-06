@@ -4,33 +4,43 @@
                {:for_cat :git
                 :cmd :Neogit
                 :on_require :neogit
-                :after #(setup :neogit
-                               {:auto_refresh true
-                                :disable_hint true
-                                :graph_style :kitty
-                                :mappings {:status {:gr :RefreshBuffer}
-                                           :popup {:p :PushPopup :F :PullPopup}}
-                                :integrations {:telescope true :codediff true}
-                                :signs {:hunk ["" ""]
-                                        :item ["" ""]
-                                        :section ["" ""]}
-                                :commit_editor {:staged_diff_split_kind :auto}
-                                :sections {:recent {:folded false}}
-                                :remember_settings true
-                                :treesitter_diff_highlight true
-                                :word_diff_highlight true})}
+                :after (fn []
+                         (setup :neogit
+                                {:auto_refresh true
+                                 :disable_hint true
+                                 :graph_style :kitty
+                                 :kind (if vim.g.neogit_host :replace :tab)
+                                 :mappings {:status {:gr :RefreshBuffer}
+                                            :popup {:p :PushPopup
+                                                    :F :PullPopup}}
+                                 :integrations {:telescope true :codediff true}
+                                 :signs {:hunk ["" ""]
+                                         :item ["" ""]
+                                         :section ["" ""]}
+                                 :commit_editor {:staged_diff_split_kind :auto}
+                                 :sections {:recent {:folded false}}
+                                 :remember_settings true
+                                 :treesitter_diff_highlight true
+                                 :word_diff_highlight true})
+                         (vim.api.nvim_set_hl 0 :NeogitDiffAddInline
+                                              {:link :NeogitDiffAdd :bold true})
+                         (vim.api.nvim_set_hl 0 :NeogitDiffDeleteInline
+                                              {:link :NeogitDiffDelete
+                                               :bold true}))}
                (nmap {["Open Neogit" :<leader><leader>g] #(require-and-call :neogit
                                                                             :open
                                                                             {:cwd "%:p:h"
                                                                              :kind :auto})})]
               [:codediff.nvim
                {:for_cat :git
+                :cmd :CodeDiff
                 :on_require :codediff
                 :after #(setup :codediff
                                {:diff {:layout :inline}
                                 :highlights {:char_brightness 1.15}
                                 :keymaps {:view {:next_file :<tab>
-                                                 :prev_file :<s-tab>}}})}]
+                                                 :prev_file :<s-tab>}}})}
+               (nmap {["Commit history of file" :<leader>gH] #(vim.cmd "CodeDiff history %")})]
               [:gitsigns.nvim
                {:for_cat :git
                 :event :DeferredUIEnter
@@ -57,14 +67,13 @@
                                 :auto_attach true
                                 :attach_to_untracked false
                                 :current_line_blame true
-                                ;; :Gitsigns toggle_current_line_blame
                                 :current_line_blame_opts {:virt_text true
                                                           :virt_text_pos :eol
                                                           :delay 1000
                                                           :ignore_whitespace false
                                                           :virt_text_priority 100
                                                           :use_focus true}
-                                :current_line_blame_formatter "<author>, <author_time:%R> - <summary>"
+                                :current_line_blame_formatter "\t<author>, <author_time:%R> - <summary>"
                                 :sign_priority 6
                                 :update_debounce 100
                                 :status_formatter nil
@@ -82,4 +91,6 @@
                       ["[G]it: [N]ext hunk" :<leader>gn] #(require-and-call :gitsigns
                                                                             :next_hunk)
                       ["[G]it: [P]revious hunk" :<leader>gp] #(require-and-call :gitsigns
-                                                                                :prev_hunk)})]))
+                                                                                :prev_hunk)
+                      ["[G]it: Toggle [B]lame" :<leader>gb] #(require-and-call :gitsigns
+                                                                               :toggle_current_line_blame)})]))
