@@ -79,6 +79,11 @@ do
 end
 do
     local bg0 = M.palette.bg0
+    local bg1 = M.palette.bg1
+    local fg1 = M.palette.fg1
+    local orange = M.palette.orange
+    local bg_yellow = M.palette.bg_yellow
+    local blue = M.palette.blue
     local italic_nontext = M["update-hl"]("NonText", { italic = true })
     hl("WinBar", M["update-hl"]("NonText", italic_nontext))
     hl("WinBarNC", M["update-hl"]("NonText", italic_nontext))
@@ -86,6 +91,19 @@ do
     hl("StatusLineNC", { link = "NonText" })
     hl("WinSeparator", { link = "NonText" })
     hl("CursorLine", { bg = bg0 })
+    hl("NormalFloat", { bg = bg0 })
+    hl("FloatBorder", { fg = bg1, bg = bg0 })
+    hl("FloatTitle", { fg = bg1, bg = bg_yellow, bold = true })
+    hl("FloatFooter", { fg = bg1, bg = blue, italic = true })
+    hl("BlinkCmpMenu", { fg = fg1, bg = bg0 })
+    hl("BlinkCmpMenuBorder", { link = "FloatBorder" })
+    hl("BlinkCmpMenuSelection", { fg = orange, bg = bg0, bold = true })
+    hl("BlinkCmpLabel", { fg = fg1, bg = bg0 })
+    hl("BlinkCmpDoc", { bg = bg0 })
+    hl("BlinkCmpDocBorder", { link = "FloatBorder" })
+    hl("BlinkCmpDocSeparator", { link = "FloatBorder" })
+    hl("BlinkCmpSignatureHelp", { link = "NormalFloat" })
+    hl("BlinkCmpSignatureHelpBorder", { link = "FloatBorder" })
     local function _15_()
         return hl("CursorLine", { bg = bg0 })
     end

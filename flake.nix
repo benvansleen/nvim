@@ -70,7 +70,12 @@
             # pkgs = nixpkgs.legacyPackages.${system};
             pkgs = import nixpkgs {
               inherit system;
-              config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "replace" ];
+              config.allowUnfreePredicate =
+                pkg:
+                builtins.elem (lib.getName pkg) [
+                  "copilot-language-server"
+                  "replace"
+                ];
             };
           }
         );

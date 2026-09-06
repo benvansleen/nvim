@@ -128,6 +128,8 @@ in
           blink-pairs
           blink-ripgrep-nvim
           colorful-menu-nvim
+          copilot-lua
+          sidekick-nvim
         ];
       };
 
