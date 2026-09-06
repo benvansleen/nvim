@@ -2,7 +2,7 @@
 
 {
   flake-file.inputs = {
-    commit-hooks = {
+    git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -14,7 +14,7 @@
 
   perSystem = { self', system, ... }: {
     checks = {
-      pre-commit-check = inputs.commit-hooks.lib.${system}.run {
+      pre-commit-check = inputs.git-hooks.lib.${system}.run {
         src = inputs.gitignore.lib.gitignoreSource ../.;
         hooks = {
           check-added-large-files.enable = true;
