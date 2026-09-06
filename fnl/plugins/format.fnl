@@ -24,7 +24,9 @@
                                                      :fennel (tb :fnlfmt)
                                                      :lua (tb :stylua)
                                                      :python (tb :ruff_format
-                                                                 :ruff_organize_imports)}})
+                                                                 :ruff_organize_imports)
+                                                     :terraform (tb :terraform_fmt)
+                                                     :go (tb :goimports :gofmt)}})
                           (vim.api.nvim_create_user_command :Format
                                                             #(require-and-call :conform
                                                                                :format

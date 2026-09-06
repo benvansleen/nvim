@@ -282,6 +282,59 @@ in
         ];
         data = [ ];
       };
+      helm = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          # helm-ls
+        ];
+        data = [ ];
+      };
+      rust = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          # cargo
+          # clippy
+          # rust-analyzer
+          # rustc
+          # rustfmt
+        ];
+        data = [ ];
+      };
+      nu = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [ nushell ];
+        data = [ ];
+      };
+      go = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          go
+          gopls
+          gotools
+        ];
+        data = [ ];
+      };
+      terraform = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          # terraform
+          # terraform-ls
+        ];
+        data = [ ];
+      };
+      postgres = {
+        after = [ "always" ];
+        lazy = true;
+        runtimePkgs = with pkgs; [
+          # postgres-language-server
+        ];
+        data = [ ];
+      };
       nix = {
         after = [ "always" ];
         lazy = true;
@@ -304,7 +357,10 @@ in
       typescript = {
         after = [ "always" ];
         lazy = true;
-        runtimePkgs = with pkgs; [ typescript-language-server ];
+        runtimePkgs = with pkgs; [
+          # svelte-language-server
+          # typescript-language-server
+        ];
         data = [ ];
       };
     };

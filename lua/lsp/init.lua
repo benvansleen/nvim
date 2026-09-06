@@ -161,7 +161,7 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         keymap_30_auto = mod_12_auto.keymap({
             "rust_analyzer",
-            enabled = true,
+            enabled = (_G.nixInfo.settings.cats.rust or false),
             ft = { "rust" },
             lsp = {
                 filetypes = { "rust" },
@@ -177,9 +177,57 @@ do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
         keymap_30_auto = mod_12_auto.keymap({
             "nu_ls",
-            enabled = true,
+            enabled = (_G.nixInfo.settings.cats.nu or false),
             ft = { "nu" },
             lsp = { filetypes = { "nu" }, cmd = { "nu", "--lsp" }, on_attach = on_attach },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "svelte",
+            enabled = (_G.nixInfo.settings.cats.typescript or false),
+            ft = { "svelte" },
+            lsp = { filetypes = { "svelte" }, on_attach = on_attach },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "gopls",
+            enabled = (_G.nixInfo.settings.cats.go or false),
+            ft = { "go" },
+            lsp = { filetypes = { "go", "gomod", "gowork", "gotmpl" }, on_attach = on_attach },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "helm_ls",
+            enabled = (_G.nixInfo.settings.cats.helm or false),
+            ft = { "helm", "yaml.helm-values" },
+            lsp = { filetypes = { "helm", "yaml.helm-values" }, root_markers = { "Chart.yaml" }, on_attach = on_attach },
+        })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        keymap_30_auto = mod_12_auto.keymap({
+            "terraformls",
+            enabled = (_G.nixInfo.settings.cats.terraform or false),
+            ft = { "terraform", "terraform-vars" },
+            lsp = { filetypes = { "terraform", "terraform-vars" }, on_attach = on_attach },
         })
     end
 end
@@ -187,9 +235,9 @@ local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
     keymap_30_auto = mod_12_auto.keymap({
-        "svelte",
-        enabled = true,
-        ft = { "svelte" },
-        lsp = { filetypes = { "svelte" }, on_attach = on_attach },
+        "postgres_lsp",
+        enabled = (_G.nixInfo.settings.cats.postgres or false),
+        ft = { "sql" },
+        lsp = { filetypes = { "sql" }, on_attach = on_attach },
     })
 end

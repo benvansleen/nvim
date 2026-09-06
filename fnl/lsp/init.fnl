@@ -71,17 +71,35 @@
                       :settings {}
                       : on_attach}}]
               [:rust_analyzer
-               {:enabled true
+               {:enabled (or (nix-enabled :rust) false)
                 :ft [:rust]
                 :lsp {:filetypes [:rust]
                       :settings {:rust-analyzer {:diagnostics {:enable true}
                                                  :check {:command :clippy}}}
                       : on_attach}}]
               [:nu_ls
-               {:enabled true
+               {:enabled (or (nix-enabled :nu) false)
                 :ft [:nu]
                 :lsp {:filetypes [:nu] :cmd [:nu :--lsp] : on_attach}}]
               [:svelte
-               {:enabled true
+               {:enabled (or (nix-enabled :typescript) false)
                 :ft [:svelte]
-                :lsp {:filetypes [:svelte] : on_attach}}]))
+                :lsp {:filetypes [:svelte] : on_attach}}]
+              [:gopls
+               {:enabled (or (nix-enabled :go) false)
+                :ft [:go]
+                :lsp {:filetypes [:go :gomod :gowork :gotmpl] : on_attach}}]
+              [:helm_ls
+               {:enabled (or (nix-enabled :helm) false)
+                :ft [:helm :yaml.helm-values]
+                :lsp {:filetypes [:helm :yaml.helm-values]
+                      :root_markers [:Chart.yaml]
+                      : on_attach}}]
+              [:terraformls
+               {:enabled (or (nix-enabled :terraform) false)
+                :ft [:terraform :terraform-vars]
+                :lsp {:filetypes [:terraform :terraform-vars] : on_attach}}]
+              [:postgres_lsp
+               {:enabled (or (nix-enabled :postgres) false)
+                :ft [:sql]
+                :lsp {:filetypes [:sql] : on_attach}}]))
