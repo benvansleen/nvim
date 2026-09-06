@@ -8,21 +8,13 @@
 
 (autoload {: pick-tab} :lib.telescope)
 
-;; telescope-egrepify-nvim relies on vim.tbl_flatten, which will be
-;; deprecated in nvim 0.13. Silence this warning for now.
-(set vim.deprecate #nil)
-
 (cfg (plugins [:telescope.nvim
                {:for_cat :telescope
-                :cmd [:Telescope :LiveGrepGitRoot]
+                :cmd :Telescope
                 :on_require [:telescope]
                 :load (fn [name]
                         (vim.cmd.packadd name)
-                        (vim.cmd.packadd :telescope-cmdline-nvim)
-                        (vim.cmd.packadd :telescope-egrepify-nvim)
-                        (vim.cmd.packadd :telescope-file-browser.nvim)
                         (vim.cmd.packadd :telescope-fzf-native.nvim)
-                        (vim.cmd.packadd :telescope-ui-select.nvim)
                         (when-nix (vim.cmd.packadd :telescope-undo.nvim)
                                   (vim.cmd.packadd :telescope-zf-native.nvim))
                         (vim.cmd.packadd :telescope-zoxide))
@@ -43,37 +35,7 @@
                                                        :dynamic_preview_title true
                                                        :selection_caret "  "
                                                        :sorting_strategy :ascending}
-                                            :extensions {:ui-select [(with-require {themes :telescope.themes}
-                                                                       (themes.get_dropdown))]
-                                                         :cmdline {:picker {:layout_strategy :vertical
-                                                                            :layout_config {:prompt_position :top
-                                                                                            :anchor :SW
-                                                                                            :width {:padding 0}}
-                                                                            :prompt_title false
-                                                                            :results_title false}
-                                                                   :mappings {:run_input :<M-CR>
-                                                                              :complete :<Tab>}
-                                                                   :output_pane {:enabled true}}
-                                                         :egrepify {:AND true
-                                                                    :permutations true
-                                                                    :lnum true
-                                                                    :lnum_hl :EgrepifyLnum
-                                                                    :col false
-                                                                    :filename_hl "@keyword"
-                                                                    :title false
-                                                                    :prefixes {:! {:flag :invert-match}
-                                                                               :^ {:flag :invert-match}
-                                                                               "#" {:flag :glob
-                                                                                    :cb #(string.format "*.{%s}"
-                                                                                                        $1)}
-                                                                               :& {:flag :glob
-                                                                                   :cb #(string.format "*{%s}*"
-                                                                                                       $1)}}}
-                                                         :file_browser (let [fb telescope.extensions.file_browser.actions]
-                                                                         {:mappings {:i {:<left> fb.backspace}}
-                                                                          :respect_gitignore false
-                                                                          :follow_symlinks true})
-                                                         :fzf {:fuzzy true
+                                            :extensions {:fzf {:fuzzy true
                                                                :override_generic_sorter true
                                                                :override_file_sorter (not (is-nix))
                                                                :case_mode :smart_case}
@@ -81,31 +43,14 @@
                                                                      :generic {:enable false}}
                                                          :undo {:mappings {:i {:<cr> (when-nix (. (require :telescope-undo.actions)
                                                                                                   :restore))}}}}})
-                          (telescope.load_extension :cmdline)
-                          (telescope.load_extension :egrepify)
-                          (telescope.load_extension :file_browser)
                           (telescope.load_extension :fzf)
-                          (telescope.load_extension :ui-select)
                           (when-nix (telescope.load_extension :undo)
                                     (telescope.load_extension :zf-native))
                           (telescope.load_extension :zoxide)
                           (require-and-call :theme :set-telescope-highlights))}
-               (nmap {["Execute extended command" ";"] "<cmd>Telescope cmdline<cr>"
-                      ["[F]ind [F]ile" :<leader>ff] "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>"
-                      ["Find [P]roject [F]ile" :<leader>pf] #(require-and-call :telescope.builtin
-                                                                               :find_files)
-                      ["Find [P]roject [W]ord" :<leader>pw] "<cmd>Telescope egrepify<cr>"
-                      ["[F]ind in file [H]istory" :<leader>fh] #(require-and-call :telescope.builtin
-                                                                                  :oldfiles)
-                      ["[F]ind [B]uffer" :<leader>fb] #(require-and-call :telescope.builtin
-                                                                         :buffers)
-                      ["[F]ind [T]ab" :<leader>ft] #(pick-tab)
-                      ["[F]ind [L]ine" :<leader>fl] #(require-and-call :telescope.builtin
-                                                                       :current_buffer_fuzzy_find)
+               (nmap {["[F]ind [T]ab" :<leader>ft] #(pick-tab)
                       ["[F]ind [D]iagnostic" :<leader>fd] #(require-and-call :telescope.builtin
                                                                              :diagnostics)
-                      ["[F]ind [R]esume" :<leader>fr] #(require-and-call :telescope.builtin
-                                                                         :resume)
                       ["[F]ind [K]eymap" :<leader>fk] #(require-and-call :telescope.builtin
                                                                          :keymaps)
                       ["[F]ind [H]elp" :<leader>fH] #(require-and-call :telescope.builtin
@@ -114,9 +59,7 @@
                                                                             :builtin)
                       ["[F]ind [M]essage" :<leader>fM] "<cmd>Telescope notify<cr>"
                       ["[F]ind [U]ndo" :<leader>fu] "<cmd>Telescope undo<cr>"
-                      ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"
-                      ["[G]o to [R]eferences" :<leader>gr] #(require-and-call :telescope.builtin
-                                                                              :lsp_references)})]
+                      ["[C]hange [D]irectory" :<leader>cd] "<cmd>Telescope zoxide list<cr>"})]
               [:project.nvim
                {:for_cat :telescope
                 :cmd [:Project

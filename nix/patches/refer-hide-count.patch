@@ -1,0 +1,7 @@
+diff --git a/lua/refer/ui.lua b/lua/refer/ui.lua
+--- a/lua/refer/ui.lua
++++ b/lua/refer/ui.lua
+@@ -144,2 +144,3 @@
+ function UI:update_prompt_virtual_text(text)
++    text = text:gsub("^%d+/%d+%s+", "")
+     if self.input_buf and api.nvim_buf_is_valid(self.input_buf) then

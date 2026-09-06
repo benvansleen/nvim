@@ -37,7 +37,7 @@ local M = require("nfnl.module").define("statuscolumn.center-buffer")
 local function get_buf_ft(win)
     return vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(win) })
 end
-local disabled_ft = { "trouble" }
+local disabled_ft = { "refer_input", "refer_results", "trouble" }
 local function real_window_3f(win)
     local cfg = vim.api.nvim_win_get_config(win)
     local buf_ft = get_buf_ft(win)

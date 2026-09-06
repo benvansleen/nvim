@@ -59,6 +59,7 @@ do
         require("plugins.opencode")
         require("plugins.pairs")
         require("plugins.oil")
+        require("plugins.refer")
         require("plugins.telescope")
         require("plugins.terminal")
         require("plugins.tmux")

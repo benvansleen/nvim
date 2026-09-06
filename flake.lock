@@ -156,35 +156,19 @@
         "type": "github"
       }
     },
-    "plugins-telescope-cmdline-nvim": {
+    "plugins-refer-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1757874925,
-        "narHash": "sha256-UkbQkOK3vKtmwBgZltj17vqdhDL8UvC27vTAyQ2EGH0=",
-        "owner": "jonarrien",
-        "repo": "telescope-cmdline.nvim",
-        "rev": "b1c330835563c9628ce7c095cf20772f22f93f07",
+        "lastModified": 1787166282,
+        "narHash": "sha256-nQfea2GXytkoKVez/oLy9vG46t8vzedT3GI6hIjZkzA=",
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
+        "rev": "7ab4781bc1343cfacc72cc46f6600b4d934d2485",
         "type": "github"
       },
       "original": {
-        "owner": "jonarrien",
-        "repo": "telescope-cmdline.nvim",
-        "type": "github"
-      }
-    },
-    "plugins-telescope-egrepify-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766305247,
-        "narHash": "sha256-jBKeAOKWlTaN11n8lfaxCdz5dXooy+bj//u6fPiTnKM=",
-        "owner": "fdschmidt93",
-        "repo": "telescope-egrepify.nvim",
-        "rev": "cd9342b95c1a8cff2e41ba5041ae3912f47595cc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fdschmidt93",
-        "repo": "telescope-egrepify.nvim",
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
         "type": "github"
       }
     },
@@ -218,8 +202,7 @@
         "plugins-foldtext-nvim": "plugins-foldtext-nvim",
         "plugins-hbac-nvim": "plugins-hbac-nvim",
         "plugins-lisette-nvim": "plugins-lisette-nvim",
-        "plugins-telescope-cmdline-nvim": "plugins-telescope-cmdline-nvim",
-        "plugins-telescope-egrepify-nvim": "plugins-telescope-egrepify-nvim",
+        "plugins-refer-nvim": "plugins-refer-nvim",
         "pre-commit-hooks": "pre-commit-hooks",
         "treefmt-nix": "treefmt-nix",
         "wrappers": "wrappers"

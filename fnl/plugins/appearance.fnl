@@ -23,19 +23,19 @@
                                            :packages {:enable false}
                                            :shortcut [{:desc :Files
                                                        :group :Label
-                                                       :action "Telescope find_files"
+                                                       :action "Refer Extras FindFile"
                                                        :key :f}
                                                       {:desc "Recent Files"
                                                        :group :Error
-                                                       :action "Telescope oldfiles"
+                                                       :action "Refer OldFiles"
                                                        :key :h}
                                                       {:desc "Find Word"
                                                        :group :Warning
-                                                       :action "Telescope egrepify"
+                                                       :action "Refer Grep"
                                                        :key :w}
                                                       {:desc "Find Project"
                                                        :group "@module"
-                                                       :action "Telescope projects theme=dropdown"
+                                                       :action "Refer Files"
                                                        :key :p}
                                                       {:desc :Git
                                                        :group "@property"
@@ -87,6 +87,8 @@
                                                   :dap-view-term
                                                   :codediff-explorer
                                                   :NeogitDiffView
+                                                  :refer_input
+                                                  :refer_results
                                                   :trouble]
                                 ignore-buftypes [:prompt :popup]
                                 group (vim.api.nvim_create_augroup :FocusDisable

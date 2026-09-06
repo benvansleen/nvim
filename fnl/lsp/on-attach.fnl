@@ -29,11 +29,7 @@
                                                               print)})
        (imap {["Signature Documentation" :<C-k>] vim.lsp.buf.signature_help}))
   (when (nix-enabled :telescope)
-    (cfg (nmap {["[G]oto [D]efinitions" :gd] #(require-and-call :telescope.builtin
-                                                                :lsp_definitions)
-                ["[D]ocument [S]ymbols" :<leader>ds] #(require-and-call :telescope.builtin
-                                                                        :lsp_document_symbols)
-                ["[W]orkspace [S]ymbols" :<leader>ws] #(require-and-call :telescope.builtin
+    (cfg (nmap {["[W]orkspace [S]ymbols" :<leader>ws] #(require-and-call :telescope.builtin
                                                                          :lsp_dynamic_workspace_symbols)}))))
 
 M

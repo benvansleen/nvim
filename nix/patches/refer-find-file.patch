@@ -1,0 +1,165 @@
+diff --git a/lua/refer/extras/find_file.lua b/lua/refer/extras/find_file.lua
+--- a/lua/refer/extras/find_file.lua
++++ b/lua/refer/extras/find_file.lua
+@@ -1,5 +1,6 @@
+ local refer = require "refer"
+ local util = require "refer.util"
++local fuzzy = require "refer.fuzzy"
+
+ local M = {}
+
+@@ -140,10 +141,6 @@ local function list_dir(scan_dir, prefix)
+             break
+         end
+
+-        if prefix and prefix ~= "" and not vim.startswith(name, prefix) then
+-            goto continue
+-        end
+-
+         local absolute = path_join(scan_dir, name)
+         local stat = get_stat(absolute)
+         if not stat then
+@@ -168,6 +165,21 @@ local function list_dir(scan_dir, prefix)
+         ::continue::
+     end
+
++    if prefix and prefix ~= "" then
++        local names = {}
++        local entries_by_name = {}
++        for _, entry in ipairs(pending) do
++            table.insert(names, entry.name)
++            entries_by_name[entry.name] = entry
++        end
++
++        local filtered = {}
++        for _, name in ipairs(fuzzy.sorters.lua(names, prefix)) do
++            table.insert(filtered, entries_by_name[name])
++        end
++        pending = filtered
++    end
++
+     local name_width = 0
+     for _, entry in ipairs(pending) do
+         name_width = math.max(name_width, vim.fn.strdisplaywidth(entry.name))
+@@ -181,12 +193,14 @@ local function list_dir(scan_dir, prefix)
+         })
+     end
+
+-    table.sort(items, function(left, right)
+-        if left.data.is_dir ~= right.data.is_dir then
+-            return left.data.is_dir
+-        end
+-        return left.data.filename < right.data.filename
+-    end)
++    if not prefix or prefix == "" then
++        table.sort(items, function(left, right)
++            if left.data.is_dir ~= right.data.is_dir then
++                return left.data.is_dir
++            end
++            return left.data.filename < right.data.filename
++        end)
++    end
+
+     return items
+ end
+@@ -220,7 +234,7 @@ local function build_items(query)
+             local filename = vim.fs.basename(item.data.filename)
+             name_width = math.max(name_width, vim.fn.strdisplaywidth(filename))
+         end
+-        table.insert(items, 1, make_create_item(resolved.create_target, name_width))
++        table.insert(items, make_create_item(resolved.create_target, name_width))
+     end
+
+     return items
+@@ -234,6 +248,46 @@ local function open_target(path)
+     vim.cmd("edit " .. vim.fn.fnameescape(path))
+ end
+
++local function go_to_parent(_, builtin)
++    local picker = builtin.picker
++    local input = vim.api.nvim_get_current_line()
++    local without_trailing_slashes = input:gsub("/+$", "")
++    local parent
++    if without_trailing_slashes == "" then
++        parent = "/"
++    else
++        parent = path_parent(without_trailing_slashes)
++    end
++
++    if not parent or parent == "" then
++        parent = "/"
++    elseif parent:sub(-1) ~= "/" then
++        parent = parent .. "/"
++    end
++
++    picker.ui:update_input { parent }
++    vim.api.nvim_win_set_cursor(picker.ui.input_win, { 1, #parent })
++    picker:refresh()
++end
++
++local function complete_item(_, builtin)
++    local picker = builtin.picker
++    local item = picker.current_matches[picker.selected_index]
++    if not item or not item.data or not item.data.filename then
++        builtin.actions.complete_selection()
++        return
++    end
++
++    local completed = item.data.filename
++    if item.data.is_dir and completed:sub(-1) ~= "/" then
++        completed = completed .. "/"
++    end
++
++    picker.ui:update_input { completed }
++    vim.api.nvim_win_set_cursor(picker.ui.input_win, { 1, #completed })
++    picker:refresh()
++end
++
+ local function confirm_item(selection, builtin)
+     local item = type(selection) == "table" and selection
+         or builtin.picker.current_matches[builtin.picker.selected_index]
+@@ -248,8 +302,12 @@ local function confirm_item(selection, builtin)
+
+     local data = item.data
+     if data.is_dir then
+-        builtin.picker.ui:update_input { data.filename }
+-        vim.api.nvim_win_set_cursor(builtin.picker.ui.input_win, { 1, #data.filename })
++        local input_path = data.filename
++        if input_path:sub(-1) ~= "/" then
++            input_path = input_path .. "/"
++        end
++        builtin.picker.ui:update_input { input_path }
++        vim.api.nvim_win_set_cursor(builtin.picker.ui.input_win, { 1, #input_path })
+         builtin.picker:refresh()
+         return
+     end
+@@ -264,7 +322,19 @@ local function confirm_item(selection, builtin)
+ end
+
+ function M.run(_opts)
+-    local start_dir = vim.fs.normalize(uv.cwd() or vim.fn.getcwd())
++    local current_file = vim.api.nvim_buf_get_name(0)
++    local start_dir
++
++    if vim.bo.buftype == "" and current_file ~= "" then
++        start_dir = vim.fs.dirname(current_file)
++    else
++        start_dir = uv.cwd() or vim.fn.getcwd()
++    end
++
++    start_dir = vim.fs.normalize(start_dir)
++    if start_dir:sub(-1) ~= "/" then
++        start_dir = start_dir .. "/"
++    end
+
+     local picker = refer.pick({}, nil, {
+         prompt = "FindFile > ",
+@@ -274,6 +344,8 @@ function M.run(_opts)
+         end,
+         keymaps = {
+             ["<CR>"] = confirm_item,
++            ["<Left>"] = go_to_parent,
++            ["<Tab>"] = complete_item,
+         },
+         on_select = function(selection, data)
+             if data and data.filename then

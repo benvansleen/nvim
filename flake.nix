@@ -44,12 +44,8 @@
       url = "github:ivov/lisette";
       flake = false;
     };
-    "plugins-telescope-cmdline-nvim" = {
-      url = "github:jonarrien/telescope-cmdline.nvim";
-      flake = false;
-    };
-    "plugins-telescope-egrepify-nvim" = {
-      url = "github:fdschmidt93/telescope-egrepify.nvim";
+    "plugins-refer-nvim" = {
+      url = "github:juniorsundar/refer.nvim";
       flake = false;
     };
   };

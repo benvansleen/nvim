@@ -116,15 +116,10 @@ do
                             footer = {},
                             packages = { enable = false },
                             shortcut = {
-                                { desc = "Files", group = "Label", action = "Telescope find_files", key = "f" },
-                                { desc = "Recent Files", group = "Error", action = "Telescope oldfiles", key = "h" },
-                                { desc = "Find Word", group = "Warning", action = "Telescope egrepify", key = "w" },
-                                {
-                                    desc = "Find Project",
-                                    group = "@module",
-                                    action = "Telescope projects theme=dropdown",
-                                    key = "p",
-                                },
+                                { desc = "Files", group = "Label", action = "Refer Extras FindFile", key = "f" },
+                                { desc = "Recent Files", group = "Error", action = "Refer OldFiles", key = "h" },
+                                { desc = "Find Word", group = "Warning", action = "Refer Grep", key = "w" },
+                                { desc = "Find Project", group = "@module", action = "Refer Files", key = "p" },
                                 { desc = "Git", group = "@property", action = "Neogit", key = "g" },
                                 {
                                     desc = "Change Directory",
@@ -200,6 +195,8 @@ do
                 "dap-view-term",
                 "codediff-explorer",
                 "NeogitDiffView",
+                "refer_input",
+                "refer_results",
                 "trouble",
             }
             local ignore_buftypes = { "prompt", "popup" }

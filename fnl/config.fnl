@@ -33,7 +33,7 @@
          netrw_banner 0})
      (requires-plugins :appearance :completion :debug :editor :format :git
                        :lint :lisp :lisette :lsp :misc :opencode :pairs :oil
-                       :telescope :terminal :tmux :treesitter :trouble)
+                       :refer :telescope :terminal :tmux :treesitter :trouble)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            autoread true

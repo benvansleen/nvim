@@ -25,6 +25,8 @@
                            :NeogitConsole
                            :NeogitStatus
                            :NeogitPopup
+                           :refer_input
+                           :refer_results
                            :trouble]
                    (center-buffer buf-ft)))
 
