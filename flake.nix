@@ -116,22 +116,15 @@
 
       nixosModules = {
         default = self.nixosModules.neovim;
-        neovim = wrappers.lib.mkInstallModule {
+        neovim = wrappers.lib.getInstallModule {
           name = "neovim";
           value = module;
         };
       };
 
-      homeManagerModules = {
-        default = self.homeManagerModules.neovim;
-        neovim = wrappers.lib.mkInstallModule {
-          name = "neovim";
-          value = module;
-          loc = [
-            "home"
-            "packages"
-          ];
-        };
+      homeModules = {
+        default = self.homeModules.neovim;
+        neovim = self.nixosModules.neovim;
       };
 
       devShells = eachSystem (

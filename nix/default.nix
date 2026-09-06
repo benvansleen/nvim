@@ -2,12 +2,16 @@ inputs:
 {
   config,
   lib,
+  options,
   pkgs,
+  wlib,
   ...
 }:
 
 let
-  patchedRefer = config.nvim-lib.neovimPlugins.refer-nvim.overrideAttrs (old: {
+  plugin = name: config.nvim-lib.mkPlugin name inputs.${"plugins-${name}"};
+
+  patchedRefer = (plugin "refer-nvim").overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ./patches/refer-find-file.patch
       ./patches/refer-hide-count.patch
@@ -23,10 +27,15 @@ let
 in
 {
   imports = [
-    (lib.modules.importApply ./nix-wrapper-modules-setup.nix inputs)
+    wlib.wrapperModules.neovim
   ];
 
   options.settings = {
+    cats = lib.mkOption {
+      readOnly = true;
+      type = lib.types.attrsOf lib.types.bool;
+      default = builtins.mapAttrs (_: spec: spec.enable) config.specs;
+    };
     nixdNixpkgsPath = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
@@ -42,6 +51,15 @@ in
   };
 
   config = {
+    specMods = _: {
+      options.runtimePkgs = options.runtimePkgs // {
+        description = ''
+          Runtime packages to add to PATH when this spec is enabled.
+        '';
+      };
+    };
+    runtimePkgs = config.specCollect (packages: spec: packages ++ (spec.runtimePkgs or [ ])) [ ];
+
     hosts.neovide.nvim-host.enable = true;
     hosts.neogit.nvim-host = {
       enable = true;
@@ -107,9 +125,9 @@ in
           nvim-web-devicons
           oil-nvim
           opencode-nvim
-          config.nvim-lib.neovimPlugins.direnv-nvim
-          config.nvim-lib.neovimPlugins.foldtext-nvim
-          config.nvim-lib.neovimPlugins.hbac-nvim
+          (plugin "direnv-nvim")
+          (plugin "foldtext-nvim")
+          (plugin "hbac-nvim")
           smear-cursor-nvim
           trouble-nvim
           undotree
@@ -213,7 +231,7 @@ in
           gcc
         ];
         data = [
-          config.nvim-lib.neovimPlugins.lisette-nvim
+          (plugin "lisette-nvim")
         ];
       };
 
