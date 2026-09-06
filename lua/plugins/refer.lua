@@ -150,7 +150,7 @@ do
         return vim.cmd.packadd("blink.cmp")
     end
     keymap_30_auto = mod_12_auto.keymap({
-        "refer-nvim",
+        "refer.nvim",
         after = _14_,
         before = _31_,
         cmd = "Refer",

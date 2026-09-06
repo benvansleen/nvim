@@ -24,7 +24,7 @@
                        (refer.setup_ui_select))
                      (vim.ui.select ...)))
 
-(cfg (plugins [:refer-nvim
+(cfg (plugins [:refer.nvim
                {:for_cat :telescope
                 :cmd :Refer
                 :on_require :refer
