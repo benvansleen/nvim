@@ -171,6 +171,38 @@
         "type": "github"
       }
     },
+    "plugins-lisette-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788706978,
+        "narHash": "sha256-l5md6x/J7K0qXTvdiAeNvfvLor2lDtZoyVzb3thGcVQ=",
+        "owner": "ivov",
+        "repo": "lisette",
+        "rev": "95a48ce2ccbc6b376275427a885ee8a058d173b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivov",
+        "repo": "lisette",
+        "type": "github"
+      }
+    },
+    "plugins-refer-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787166282,
+        "narHash": "sha256-nQfea2GXytkoKVez/oLy9vG46t8vzedT3GI6hIjZkzA=",
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
+        "rev": "7ab4781bc1343cfacc72cc46f6600b4d934d2485",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juniorsundar",
+        "repo": "refer.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-file": "flake-file",
@@ -182,6 +214,8 @@
         "plugins-direnv-nvim": "plugins-direnv-nvim",
         "plugins-foldtext-nvim": "plugins-foldtext-nvim",
         "plugins-hbac-nvim": "plugins-hbac-nvim",
+        "plugins-lisette-nvim": "plugins-lisette-nvim",
+        "plugins-refer-nvim": "plugins-refer-nvim",
         "treefmt-nix": "treefmt-nix",
         "wrappers": "wrappers"
       }

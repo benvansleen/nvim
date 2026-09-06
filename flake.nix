@@ -31,6 +31,14 @@
       url = "github:axkirillov/hbac.nvim";
       flake = false;
     };
+    plugins-lisette-nvim = {
+      url = "github:ivov/lisette";
+      flake = false;
+    };
+    plugins-refer-nvim = {
+      url = "github:juniorsundar/refer.nvim";
+      flake = false;
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -19,6 +19,14 @@
       url = "github:axkirillov/hbac.nvim";
       flake = false;
     };
+    "plugins-lisette-nvim" = {
+      url = "github:ivov/lisette";
+      flake = false;
+    };
+    "plugins-refer-nvim" = {
+      url = "github:juniorsundar/refer.nvim";
+      flake = false;
+    };
   };
 
   flake =
@@ -68,6 +76,20 @@
         }:
         let
           plugin = name: config.nvim-lib.mkPlugin name inputs.${"plugins-${name}"};
+
+          patchedRefer = (plugin "refer-nvim").overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              ./patches/refer-find-file.patch
+              ./patches/refer-hide-count.patch
+            ];
+          });
+
+          lisetteTreesitterGrammar = pkgs.tree-sitter.buildGrammar {
+            language = "lisette";
+            version = "0.1.0";
+            src = inputs."plugins-lisette-nvim" + "/editors/tree-sitter-lisette";
+            generate = false;
+          };
         in
         {
           imports = [
@@ -221,7 +243,7 @@
                 data = with pkgs.vimPlugins; [
                   hlargs-nvim
                   nvim-ts-autotag
-                  (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [ pkgs.lisetteTreesitterGrammar ]))
+                  (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [ lisetteTreesitterGrammar ]))
                 ];
               };
 
@@ -276,8 +298,8 @@
                 runtimePkgs = with pkgs; [
                   gcc
                 ];
-                data = with pkgs.vimPlugins; [
-                  lisette-nvim
+                data = [
+                  (plugin "lisette-nvim")
                 ];
               };
 
@@ -285,7 +307,7 @@
                 after = [ "always" ];
                 lazy = true;
                 data = with pkgs.vimPlugins; [
-                  refer-nvim
+                  patchedRefer
                   project-nvim
                   telescope-nvim
                   telescope-fzf-native-nvim
