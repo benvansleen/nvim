@@ -27,11 +27,16 @@
                            :NeogitPopup
                            :refer_input
                            :refer_results
+                           :sidekick_terminal
                            :trouble]
                    (center-buffer buf-ft)))
 
 (fn M.folds [buf-ft]
-  (disable-for-fts buf-ft [:dap-repl :dap-view :dap-view-term :startuptime]
+  (disable-for-fts buf-ft [:dap-repl
+                           :dap-view
+                           :dap-view-term
+                           :startuptime
+                           :sidekick_terminal]
                    (folds buf-ft)))
 
 (fn M.signs [buf-ft]

@@ -1,4 +1,4 @@
-(import-macros {: cfg : is-nix : setup} :macros)
+(import-macros {: cfg : is-nix : require-and-call : setup} :macros)
 
 (macro has-words-before []
   `(let [col# (. (vim.api.nvim_win_get_cursor 0) 2)]
@@ -7,12 +7,16 @@
          (let [line# (vim.api.nvim_get_current_line)]
            (= (string.match (string.sub line# col# col#) "%s") nil)))))
 
-(cfg (plugins [:blink.cmp
+(cfg (nmap {[:NES :<tab>] #(require-and-call :sidekick :nes_jump_or_apply)
+            [:NES :<S-tab>] #(require-and-call :sidekick :nes_jump_back)})
+     (plugins [:blink.cmp
                {:for_cat :blink
+                :on_plugin [:codecompanion.nvim]
                 :event [:CmdlineEnter :InsertEnter]
                 :after #(setup :blink.cmp
                                {:keymap {:preset :none
-                                         :<Tab> [(fn [cmp]
+                                         :<Tab> [:snippet_forward
+                                                 (fn [cmp]
                                                    (when (has-words-before)
                                                      (or (cmp.show)
                                                          (do
@@ -24,10 +28,15 @@
                                                      (cmp.hide_documentation)
                                                      (vim.schedule cmp.insert_prev)
                                                      true)]
-                                         "<M-;>" [(fn [cmp]
-                                                    (cmp.accept {:index 1}))]
-                                         "<D-;>" [(fn [cmp]
-                                                    (cmp.accept {:index 1}))]
+                                         :<CR> [:accept :fallback]
+                                         "<M-:>" [#(require-and-call :copilot.suggestion
+                                                                     :accept_word)]
+                                         "<M-;>" [#(require-and-call :copilot.suggestion
+                                                                     :accept)]
+                                         "<D-:>" [#(require-and-call :copilot.suggestion
+                                                                     :accept_word)]
+                                         "<D-;>" [#(require-and-call :copilot.suggestion
+                                                                     :accept)]
                                          :<C-n> [#($1.show {:providers [:ripgrep]})]
                                          :<C-d> [:show_documentation
                                                  :hide_documentation]}
@@ -38,7 +47,7 @@
                                                      :show_documentation false}}
                                 :completion {:documentation {:auto_show false
                                                              :auto_show_delay_ms 1000}
-                                             :ghost_text {:enabled true
+                                             :ghost_text {:enabled false
                                                           :show_with_selection true
                                                           :show_without_selection true
                                                           :show_with_menu true
@@ -49,7 +58,8 @@
                                              :menu {:enabled true
                                                     :border vim.o.winborder
                                                     :scrollbar false
-                                                    :auto_show false
+                                                    :auto_show #(vim.tbl_contains []
+                                                                                  vim.bo.filetype)
                                                     :auto_show_delay_ms 50
                                                     :max_height 7
                                                     :draw {:align_to :label
@@ -68,9 +78,8 @@
                                                                                                          (length ctx.label)]]
                                                                                                (when (not= ctx.source_id
                                                                                                            :lsp)
-                                                                                                 (tset base
-                                                                                                       :group
-                                                                                                       :BlinkCmpLabel)
+                                                                                                 (set base.group
+                                                                                                      :BlinkCmpLabel)
                                                                                                  (table.insert highlights
                                                                                                                1
                                                                                                                base))
@@ -92,4 +101,53 @@
               [:colorful-menu.nvim
                {:for_cat :blink
                 :on_plugin [:blink.cmp]
-                :after #(setup :colorful-menu {})}]))
+                :after #(setup :colorful-menu {})}]
+              [:copilot.lua
+               {:for_cat :blink
+                :on_plugin [:blink.cmp]
+                :event :InsertEnter
+                :after #(setup :copilot
+                               {:panel {:enabled false}
+                                :suggestion {:enabled true
+                                             :auto_trigger true
+                                             :hide_during_completion true
+                                             :keymap {:accept false
+                                                      :accept_word false
+                                                      :accept_line false
+                                                      :next false
+                                                      :prev false
+                                                      :dismiss false}}
+                                ;; managed via sidekick
+                                :nes {:enabled false}})}]
+              [:sidekick.nvim
+               {:for_cat :blink
+                :on_plugin [:blink.cmp]
+                :event :CursorMoved
+                :after #(setup :sidekick
+                               {:nes {:enabled true}
+                                :cli {:mux {:enabled true :create :split}
+                                      :win {:split {:width 0 :height 0}}}})}
+               (nmap {["Toggle Sidekick" :<leader>aa] #(require-and-call :sidekick.cli
+                                                                         :toggle)
+                      ["Select Sidekick" :<leader>as] #(require-and-call :sidekick.cli
+                                                                         :select)
+                      ["Custom Sidekick prompt" :<leader>ai] #(vim.ui.input {:prompt "Sidekick: "}
+                                                                            (fn [input]
+                                                                              (when (and input
+                                                                                         (not= input
+                                                                                               ""))
+                                                                                (require-and-call :sidekick.cli
+                                                                                                  :send
+                                                                                                  {:msg (.. "{line}: "
+                                                                                                            input)}))))
+                      ["Select Sidekick prompt" :<leader>ap] #(require-and-call :sidekick.cli
+                                                                                :prompt)
+                      ["Send file" :<leader>af] #(require-and-call :sidekick.cli
+                                                                   :send
+                                                                   {:msg "{file}"})
+                      ["Send line" :<leader>al] #(require-and-call :sidekick.cli
+                                                                   :send
+                                                                   {:msg "{line}"})})
+               (vmap {["Send selection" :<leader>av] #(require-and-call :sidekick.cli
+                                                                        :send
+                                                                        {:msg "{selection}"})})]))

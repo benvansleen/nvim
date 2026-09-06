@@ -1,52 +1,77 @@
 -- [nfnl] fnl/plugins/completion.fnl
 do
+    local function _1_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick")
+        return mod_12_auto.nes_jump_or_apply()
+    end
+    vim.keymap.set("n", "<tab>", _1_, { desc = "NES", expr = false, noremap = true })
+    local function _2_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick")
+        return mod_12_auto.nes_jump_back()
+    end
+    vim.keymap.set("n", "<S-tab>", _2_, { desc = "NES", expr = false, noremap = true })
+end
+do
     local keymap_30_auto
     do
         local mod_12_auto = require("nfnl.module").autoload("lzextras")
-        local function _1_()
+        local function _3_()
             local p_13_auto = require("blink.cmp")
-            local function _2_(cmp)
-                local _3_
+            local function _4_(cmp)
+                local _5_
                 do
                     local col_2_auto = vim.api.nvim_win_get_cursor(0)[2]
                     if col_2_auto == 0 then
-                        _3_ = false
+                        _5_ = false
                     else
                         local line_3_auto = vim.api.nvim_get_current_line()
-                        _3_ = (string.match(string.sub(line_3_auto, col_2_auto, col_2_auto), "%s") == nil)
+                        _5_ = (string.match(string.sub(line_3_auto, col_2_auto, col_2_auto), "%s") == nil)
                     end
                 end
-                if _3_ then
-                    local or_6_ = cmp.show()
-                    if not or_6_ then
+                if _5_ then
+                    local or_8_ = cmp.show()
+                    if not or_8_ then
                         cmp.hide_documentation()
                         vim.schedule(cmp.insert_next)
-                        or_6_ = true
+                        or_8_ = true
                     end
-                    return or_6_
+                    return or_8_
                 else
                     return nil
                 end
             end
-            local function _8_(cmp)
+            local function _10_(cmp)
                 cmp.hide_documentation()
                 vim.schedule(cmp.insert_prev)
                 return true
             end
-            local function _9_(cmp)
-                return cmp.accept({ index = 1 })
+            local function _11_()
+                local mod_12_auto0 = require("nfnl.module").autoload("copilot.suggestion")
+                return mod_12_auto0.accept_word()
             end
-            local function _10_(cmp)
-                return cmp.accept({ index = 1 })
+            local function _12_()
+                local mod_12_auto0 = require("nfnl.module").autoload("copilot.suggestion")
+                return mod_12_auto0.accept()
             end
-            local function _11_(_2410)
+            local function _13_()
+                local mod_12_auto0 = require("nfnl.module").autoload("copilot.suggestion")
+                return mod_12_auto0.accept_word()
+            end
+            local function _14_()
+                local mod_12_auto0 = require("nfnl.module").autoload("copilot.suggestion")
+                return mod_12_auto0.accept()
+            end
+            local function _15_(_2410)
                 return _2410.show({ providers = { "ripgrep" } })
             end
-            local function _12_(ctx)
+            local function _16_()
+                return vim.tbl_contains({}, vim.bo.filetype)
+            end
+            local function _17_(ctx)
                 local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
                 return mod_12_auto0.blink_components_text(ctx)
             end
-            local function _13_(ctx)
+            local function _18_(ctx)
                 local highlights
                 do
                     local mod_12_auto0 = require("nfnl.module").autoload("colorful-menu")
@@ -54,26 +79,29 @@ do
                 end
                 local base = { 0, #ctx.label }
                 if ctx.source_id ~= "lsp" then
-                    base["group"] = "BlinkCmpLabel"
+                    base.group = "BlinkCmpLabel"
                     table.insert(highlights, 1, base)
                 else
                 end
                 return highlights
             end
-            local _15_
+            local _20_
             if _G.nixInfo.isNix then
-                _15_ = "prefer_rust"
+                _20_ = "prefer_rust"
             else
-                _15_ = "lua"
+                _20_ = "lua"
             end
             return p_13_auto.setup({
                 keymap = {
                     preset = "none",
-                    ["<Tab>"] = { _2_, "fallback" },
-                    ["<S-Tab>"] = { _8_ },
-                    ["<M-;>"] = { _9_ },
-                    ["<D-;>"] = { _10_ },
-                    ["<C-n>"] = { _11_ },
+                    ["<Tab>"] = { "snippet_forward", _4_, "fallback" },
+                    ["<S-Tab>"] = { _10_ },
+                    ["<CR>"] = { "accept", "fallback" },
+                    ["<M-:>"] = { _11_ },
+                    ["<M-;>"] = { _12_ },
+                    ["<D-:>"] = { _13_ },
+                    ["<D-;>"] = { _14_ },
+                    ["<C-n>"] = { _15_ },
                     ["<C-d>"] = { "show_documentation", "hide_documentation" },
                 },
                 appearance = { nerd_font_variant = "normal" },
@@ -85,25 +113,25 @@ do
                 completion = {
                     documentation = { auto_show_delay_ms = 1000, auto_show = false },
                     ghost_text = {
-                        enabled = true,
                         show_with_selection = true,
                         show_without_selection = true,
                         show_with_menu = true,
                         show_without_menu = true,
+                        enabled = false,
                     },
                     keyword = { range = "prefix" },
                     list = { selection = { preselect = false }, cycle = { from_top = false } },
                     menu = {
                         enabled = true,
                         border = vim.o.winborder,
+                        auto_show = _16_,
                         auto_show_delay_ms = 50,
                         max_height = 7,
                         draw = {
                             align_to = "label",
                             columns = { { "kind_icon" }, { "label", gap = 1 } },
-                            components = { label = { text = _12_, highlight = _13_ } },
+                            components = { label = { text = _17_, highlight = _18_ } },
                         },
-                        auto_show = false,
                         scrollbar = false,
                     },
                 },
@@ -117,7 +145,7 @@ do
                         },
                     },
                 },
-                fuzzy = { implementation = _15_ },
+                fuzzy = { implementation = _20_ },
                 cmdline = {
                     completion = {
                         menu = { auto_show = true },
@@ -129,9 +157,10 @@ do
         end
         keymap_30_auto = mod_12_auto.keymap({
             "blink.cmp",
-            after = _1_,
+            after = _3_,
             event = { "CmdlineEnter", "InsertEnter" },
             for_cat = "blink",
+            on_plugin = { "codecompanion.nvim" },
         })
     end
 end
@@ -149,13 +178,110 @@ do
         keymap_30_auto = mod_12_auto.keymap({ "blink-ripgrep.nvim", for_cat = "blink", on_plugin = { "blink.cmp" } })
     end
 end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _22_()
+            local p_13_auto = require("colorful-menu")
+            return p_13_auto.setup({})
+        end
+        keymap_30_auto =
+            mod_12_auto.keymap({ "colorful-menu.nvim", after = _22_, for_cat = "blink", on_plugin = { "blink.cmp" } })
+    end
+end
+do
+    local keymap_30_auto
+    do
+        local mod_12_auto = require("nfnl.module").autoload("lzextras")
+        local function _23_()
+            local p_13_auto = require("copilot")
+            return p_13_auto.setup({
+                panel = { enabled = false },
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    hide_during_completion = true,
+                    keymap = {
+                        accept = false,
+                        accept_line = false,
+                        accept_word = false,
+                        dismiss = false,
+                        next = false,
+                        prev = false,
+                    },
+                },
+                nes = { enabled = false },
+            })
+        end
+        keymap_30_auto = mod_12_auto.keymap({
+            "copilot.lua",
+            after = _23_,
+            event = "InsertEnter",
+            for_cat = "blink",
+            on_plugin = { "blink.cmp" },
+        })
+    end
+end
 local keymap_30_auto
 do
     local mod_12_auto = require("nfnl.module").autoload("lzextras")
-    local function _17_()
-        local p_13_auto = require("colorful-menu")
-        return p_13_auto.setup({})
+    local function _24_()
+        local p_13_auto = require("sidekick")
+        return p_13_auto.setup({
+            nes = { enabled = true },
+            cli = { mux = { enabled = true, create = "split" }, win = { split = { width = 0, height = 0 } } },
+        })
     end
-    keymap_30_auto =
-        mod_12_auto.keymap({ "colorful-menu.nvim", after = _17_, for_cat = "blink", on_plugin = { "blink.cmp" } })
+    keymap_30_auto = mod_12_auto.keymap({
+        "sidekick.nvim",
+        after = _24_,
+        event = "CursorMoved",
+        for_cat = "blink",
+        on_plugin = { "blink.cmp" },
+    })
 end
+do
+    local function _25_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+        return mod_12_auto.toggle()
+    end
+    keymap_30_auto.set("n", "<leader>aa", _25_, { desc = "Toggle Sidekick", expr = false, noremap = true })
+    local function _26_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+        return mod_12_auto.select()
+    end
+    keymap_30_auto.set("n", "<leader>as", _26_, { desc = "Select Sidekick", expr = false, noremap = true })
+    local function _27_()
+        local function _28_(input)
+            if input and (input ~= "") then
+                local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+                return mod_12_auto.send({ msg = ("{line}: " .. input) })
+            else
+                return nil
+            end
+        end
+        return vim.ui.input({ prompt = "Sidekick: " }, _28_)
+    end
+    keymap_30_auto.set("n", "<leader>ai", _27_, { desc = "Custom Sidekick prompt", expr = false, noremap = true })
+    local function _30_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+        return mod_12_auto.prompt()
+    end
+    keymap_30_auto.set("n", "<leader>ap", _30_, { desc = "Select Sidekick prompt", expr = false, noremap = true })
+    local function _31_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+        return mod_12_auto.send({ msg = "{file}" })
+    end
+    keymap_30_auto.set("n", "<leader>af", _31_, { desc = "Send file", expr = false, noremap = true })
+    local function _32_()
+        local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+        return mod_12_auto.send({ msg = "{line}" })
+    end
+    keymap_30_auto.set("n", "<leader>al", _32_, { desc = "Send line", expr = false, noremap = true })
+end
+local function _33_()
+    local mod_12_auto = require("nfnl.module").autoload("sidekick.cli")
+    return mod_12_auto.send({ msg = "{selection}" })
+end
+return keymap_30_auto.set("v", "<leader>av", _33_, { desc = "Send selection", expr = false, noremap = true })

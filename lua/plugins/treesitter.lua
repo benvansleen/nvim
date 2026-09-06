@@ -9,7 +9,7 @@ local function setup_folds(_1_)
         and not vim.b[buf].big_file
         and pcall(vim.treesitter.get_parser, buf)
     then
-        vim.api.nvim_set_option_value("foldlevel", 4, { scope = "local", win = win })
+        vim.api.nvim_set_option_value("foldlevel", 7, { scope = "local", win = win })
         vim.api.nvim_set_option_value("foldmethod", "expr", { scope = "local", win = win })
         vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { scope = "local", win = win })
         vim.w[win]["__fdID"] = nil
@@ -19,7 +19,7 @@ local function setup_folds(_1_)
     end
 end
 do
-    vim.wo["foldlevel"] = 4
+    vim.wo["foldlevel"] = 7
     vim.wo["foldmethod"] = "expr"
     vim.wo["foldexpr"] = "v:lua.vim.treesitter.foldexpr()"
 end

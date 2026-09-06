@@ -32,9 +32,8 @@
          netrw_liststyle 0
          netrw_banner 0})
      (requires-plugins :appearance :completion :debug :editor :format :git
-                       :helm :lint :lisp :lisette :lsp :misc :opencode :pairs
-                       :oil :refer :telescope :terminal :tmux :treesitter
-                       :trouble)
+                       :helm :lint :lisp :lisette :lsp :misc :pairs :oil :refer
+                       :telescope :terminal :tmux :treesitter :trouble)
      (requires :clipboard :gui :lsp :statuscolumn :theme)
      (opt {autoindent true
            autoread true
@@ -75,8 +74,8 @@
            updatetime 250
            undofile true
            winborder :rounded})
-     (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>zz
-           [[:n :v] "Scroll down" :<C-k>] :<C-u>zz})
+     (map {[[:n :v] "Scroll up" :<C-j>] :<C-d>
+           [[:n :v] "Scroll down" :<C-k>] :<C-u>})
      (nmap {["Clear highlights" :<Esc>] :<cmd>nohlsearch<CR>
             ["[W]hat's [T]his [F]ile?" :<leader>wtf] #(print (vim.api.nvim_buf_get_name 0))
             ["[Q]uit buffer" :<leader>q] vim.cmd.bdelete

@@ -7,14 +7,14 @@
                (not= (vim.api.nvim_get_option_value :filetype {: buf}) :oil)
                (not (. vim.b buf :big_file))
                (pcall vim.treesitter.get_parser buf))
-      (vim.api.nvim_set_option_value :foldlevel 4 {:scope :local : win})
+      (vim.api.nvim_set_option_value :foldlevel 7 {:scope :local : win})
       (vim.api.nvim_set_option_value :foldmethod :expr {:scope :local : win})
       (vim.api.nvim_set_option_value :foldexpr
                                      "v:lua.vim.treesitter.foldexpr()"
                                      {:scope :local : win})
       (tset (. vim.w win) :__fdID nil))))
 
-(cfg (wo {foldlevel 4
+(cfg (wo {foldlevel 7
           foldmethod :expr
           foldexpr "v:lua.vim.treesitter.foldexpr()"})
      (autocmd {[:FileType] {:desc "activate treesitter"
